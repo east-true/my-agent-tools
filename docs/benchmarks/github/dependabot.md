@@ -30,3 +30,12 @@ python3 scripts/benchmarks/run_dependabot_benchmark.py --root /tmp/dependabot-me
 ```
 
 프롬프트·합성 입력·소스 SHA·실행별 토큰·명령·API 요청·검증 결과는 [원본 JSON](dependabot.json)에 있습니다. 다른 6개 작업은 [공통 실험](command-suite.md)에 별도로 기록했습니다.
+
+## Astra·Luna 추가 측정
+
+| 작업 | 모델 | 직접 총 토큰 | `tools` 총 토큰 | 차이 | JSON·상태 일치 직접 / `tools` |
+|---|---|---:|---:|---:|---|
+| `github dependabot list / view` | `gpt-6-astra` | 31,009 | 30,525 | −1.6% | 3/3 / 3/3 |
+| `github dependabot list / view` | `gpt-6-luna` | 45,494 | 39,143 | −14.0% | 3/3 / 3/3 |
+
+high 추론, 방식별 새 세션 3회의 평균이며 실패한 실행도 포함합니다. `*`는 실패가 포함된 작업입니다. 기존 Sol은 별도 시점의 결과입니다. [모델별 조건·범위·캐시 제외 입력·검증](models.md), [공유 원본](models.json)을 확인하세요.

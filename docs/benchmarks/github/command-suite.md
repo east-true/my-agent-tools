@@ -2,6 +2,8 @@
 
 README에서 비어 있던 `context`, `setup`, `issue create`, `issue branch`, `pr create`, `branch cleanup` 미리보기를 직접 실행한 실험입니다. 실행별 입력·캐시 입력·출력 토큰, 프롬프트, 명령, 실험 API 요청과 검증 결과는 공유 원본 `commands.json`에 보관합니다.
 
+이 문서는 기존 `gpt-6.1-sol` 실험의 기록입니다. 이후 README의 9개 작업을 측정한 [Astra·Luna 비교](models.md)에 모델별 토큰·성공률·실패 진단과 재현 방법을 기록했습니다.
+
 ## 실행 조건
 
 2026-10-07 Linux에서 실제 설치된 `gh`와 Git, 프로덕션 `tools` CLI를 사용합니다. `gpt-6.1-sol`, high 추론, 명령·방식마다 새 세션 3회입니다. 최초 36회의 방식 순서는 각 명령마다 `gh → tools → tools → gh → gh → tools`이며, 매번 실험 저장소와 API 상태를 초기화합니다. 양쪽에 사용 안내를 주며 명령 묶음·`gh --jq`·로컬 Python/쉘 스크립트를 허용합니다. 직접 방식에 미리 구현한 자동화 도우미는 제공하지 않습니다.

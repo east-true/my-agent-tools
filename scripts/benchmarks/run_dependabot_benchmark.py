@@ -120,6 +120,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--run-models', action='store_true')
+    parser.add_argument('--model', default='gpt-6.1-sol')
+    parser.add_argument('--reasoning-effort', choices=('low', 'medium', 'high', 'xhigh', 'max'), default='high')
     args = parser.parse_args()
     root = args.root.resolve()
     if root.exists() or root == Path('/tmp') or not root.is_relative_to(Path('/tmp')):
@@ -151,7 +153,7 @@ def main():
         assert [json.loads(line) for line in gh.stdout.splitlines()] == ALERTS
         preflight = {'correct': True, 'native_model_calls': 0, 'actual': actual, 'checks': verification['checks'], 'real_gh_cursor_pages': 2}
         core.save(root / 'preflight.json', preflight)
-        protocol = {'measured_at_utc': datetime.now(timezone.utc).isoformat(), 'model': 'gpt-6.1-sol', 'reasoning_effort': 'high',
+        protocol = {'measured_at_utc': datetime.now(timezone.utc).isoformat(), 'model': args.model, 'reasoning_effort': args.reasoning_effort,
                     'repetitions_per_method': 3, 'order': core.ORDER, 'max_model_calls': 6, 'fresh_sessions': True, 'cache_controlled': False,
                     'usage_source': 'codex exec --json turn.completed.usage; input + output, including cached input',
                     'expected': REFERENCE, 'synthetic_resources': ALERTS, 'forced_cursor_pages': 2,
@@ -167,7 +169,7 @@ def main():
         if args.run_models:
             for index, method in enumerate(core.ORDER, 1):
                 print(json.dumps({'event': 'trial_started', 'task': TASK, 'index': index, 'method': method}), flush=True)
-                row = core.run_trial(root, [server], TASK, index, method, prompt(method))
+                row = core.run_trial(root, [server], TASK, index, method, prompt(method), args.model, args.reasoning_effort)
                 records.append(row)
                 core.save(root / 'results.json', records)
                 print(json.dumps({'event': 'trial_completed', 'index': index, 'method': method, 'correct': row['correct'], 'usage': row['usage']}), flush=True)

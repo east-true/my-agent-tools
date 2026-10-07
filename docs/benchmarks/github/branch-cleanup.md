@@ -48,3 +48,16 @@ python3 scripts/benchmarks/run_branch_cleanup_benchmark.py --root /tmp/branch-cl
 최초 직접 처리 3회는 원본에 보존하고, `python3` 안내를 명확히 한 3회와 기존 `tools` 결과를 비교했습니다. 기존 삭제 실험과는 프롬프트·시점·캐시 조건이 다릅니다.
 
 [공통 조건·제외 기록·재현](command-suite.md), [공유 원본](commands.json)의 `cleanup-preview` 항목을 확인하세요. 캐시는 통제하지 않았으며 금액 절감을 입증하지 않습니다.
+
+## Astra·Luna 추가 측정
+
+| 작업 | 모델 | 직접 총 토큰 | `tools` 총 토큰 | 차이 | JSON·상태 일치 직접 / `tools` |
+|---|---|---:|---:|---:|---|
+| `github branch cleanup` | `gpt-6-astra` | 52,739 | 30,842 | −41.5% | 3/3 / 3/3 |
+| `github branch cleanup` | `gpt-6-luna` | 52,438 | 29,758 | −43.3%* | 1/3 / 3/3 |
+| `github branch cleanup --apply` | `gpt-6-astra` | 63,238 | 30,898 | −51.1% | 3/3 / 3/3 |
+| `github branch cleanup --apply` | `gpt-6-luna` | 96,557 | 29,913 | −69.0%* | 0/3 / 3/3 |
+
+Luna의 직접 실제 정리 3회 중 1회는 삭제 상태가 맞았지만 보존 개수 보고가 달랐고, 2회는 삭제 대상 일부를 누락했습니다. 실제 상태 검증은 1/3입니다.
+
+high 추론, 방식별 새 세션 3회의 평균이며 실패한 실행도 포함합니다. `*`는 실패가 포함된 작업입니다. 기존 Sol은 별도 시점의 결과입니다. [모델별 조건·범위·캐시 제외 입력·검증](models.md), [공유 원본](models.json)을 확인하세요.

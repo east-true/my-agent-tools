@@ -6,6 +6,7 @@
 
 | 명령 또는 실험 | 문서 | 원본 자료 |
 |---|---|---|
+| Astra·Luna 모델 비교 (9개 작업) | [models](github/models.md) | [공유 실측](github/models.json), [고정 소스](github/model-source.tar.gz) |
 | `github context` | [context](github/context.md) | [명령별 공유 실측](github/commands.json) |
 | `github setup` | [setup](github/setup.md) | [명령별 공유 실측](github/commands.json) |
 | `github dependabot list / view` | [dependabot](github/dependabot.md) | [목록·상세 실측](github/dependabot.json) |
@@ -21,3 +22,5 @@
 수치는 CLI 자체의 비용이 아니라 지시문·도구 상호작용·캐시 입력·출력을 포함한 에이전트 작업 전체의 토큰입니다. CLI와 내부 파서는 모델을 호출하지 않습니다. 실험별 측정 범위와 한계를 확인해야 하며, 총 토큰 감소만으로 금액 절감을 판단하지 않습니다.
 
 추가 6개 작업은 [공통 조건·제외 기록·재현](github/command-suite.md)에 설명했습니다. 총 54회 중 최종 비교 36회가 정답·상태 검증을 통과했으며 제외한 18회도 공유 원본에 보존했습니다. 이후 README에 추가된 Dependabot 목록·상세 6회도 별도 보고서에 기록했습니다. 이번 추가 측정은 총 60회, 최종 비교는 모두 통과한 42회입니다.
+
+Astra·Luna 추가 실험은 9개 작업을 모델별 54회씩 실행했습니다. 두 모델은 같은 고정 CLI·프롬프트를 사용했고 실패한 실행도 원본과 평균에 포함했습니다. 성공률은 [모델 비교 문서](github/models.md)를 확인하세요.

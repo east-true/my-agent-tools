@@ -214,6 +214,17 @@ def schema(value):
     return {'type': 'boolean' if isinstance(value, bool) else 'integer' if isinstance(value, int) else 'string'}
 
 
+def resume_evidence(api_access, interface_access):
+    """Verify the repeated operation without prescribing redundant REST reads."""
+    successful_git = [a['args'] for a in interface_access if a['kind'] == 'git' and a['exit_code'] == 0]
+    fetches = [a for a in interface_access if a['kind'] == 'git' and 'fetch' in a['args']
+               and f'refs/heads/{BRANCH}:refs/remotes/origin/{BRANCH}' in a['args']]
+    checkouts = sum('switch' in args and BRANCH in args for args in successful_git)
+    return {'resume_link_checked': any('linkedBranches' in a.get('payload', {}).get('query', '') for a in api_access),
+            'resume_fetch_verified': bool(fetches) and fetches[-1]['exit_code'] == 0,
+            'resume_checkout_performed': checkouts >= 2}
+
+
 def verify(root, server, task, before):
     after = snapshot(root, server)
     checks = {'working_file_preserved': after['file'] == before['file'], 'authored_body_preserved': after['body'] == before['body']}
@@ -237,9 +248,9 @@ def verify(root, server, task, before):
         checks['issue_state'] = server.created_issues == ([issue()] if task == 'issue-create' else [])
         checks['single_mutation'] = sum('createLinkedBranch' in a['payload'].get('query', '') for a in server.accesses) == 1
         if task == 'issue-branch':
-            checks['resume_link_checked'] = any('linkedBranches' in a['payload'].get('query', '') for a in server.accesses)
-            checks['resume_ref_checked'] = sum(unquote(urlsplit(a['endpoint']).path) == '/repos/' + REPO + '/git/ref/heads/' + BRANCH
-                                                for a in server.accesses) >= 2
+            access_path = server.interface_access_path
+            interface = [json.loads(line) for line in access_path.read_text().splitlines()] if access_path.exists() else []
+            checks.update(resume_evidence(server.accesses, interface))
     elif task == 'pr-create':
         checks['pr_state'] = len(server.created_prs) == 1 and all(server.created_prs[0].get(k) == v for k, v in (
             ('title', TITLE), ('body', BODY + '\n\nCloses #41'), ('base', 'main'), ('head', BRANCH), ('draft', False), ('labels', [{'name': 'bug'}])))
@@ -312,6 +323,7 @@ def native_preflight(root, servers):
         before, _ = setup(root, server, task)
         directory = root / 'preflight' / task
         directory.mkdir(parents=True)
+        server.interface_access_path = directory / 'interface-access.jsonl'
         env = environment(root, server, directory, task)
         read = subprocess.run(['gh', 'api', 'repos/' + env['GH_REPO']], cwd=root / 'workspace', env=env, capture_output=True, text=True, check=True)
         assert json.loads(read.stdout)['full_name'] == env['GH_REPO']
@@ -350,17 +362,18 @@ def native_preflight(root, servers):
     save(root / 'preflight.json', records)
 
 
-def run_trial(root, servers, task, index, method, prompt=None):
-    server = servers[task == 'cleanup-preview']
+def run_trial(root, servers, task, index, method, prompt=None, model='gpt-6.1-sol', reasoning_effort='high'):
+    server = servers[task in ('cleanup-preview', 'cleanup-apply')]
     before, _ = setup(root, server, task)
     directory = root / 'runs' / task / f'{index:02d}-{method}'
     directory.mkdir(parents=True)
+    server.interface_access_path = directory / 'interface-access.jsonl'
     prompt = prompt if prompt is not None else prompt_for(task, method)
     (directory / 'prompt.txt').write_text(prompt)
     save(directory / 'schema.json', schema(expected(task)))
     answer = directory / 'answer.json'
-    args = ['codex', 'exec', '--json', '--ephemeral', '--ignore-user-config', '--model', 'gpt-6.1-sol',
-            '-c', 'model_reasoning_effort="high"', '-c', 'approval_policy="never"',
+    args = ['codex', 'exec', '--json', '--ephemeral', '--ignore-user-config', '--model', model,
+            '-c', f'model_reasoning_effort="{reasoning_effort}"', '-c', 'approval_policy="never"',
             '-c', 'default_permissions="command_benchmark"', *permission_args(root), '-c', 'features.multi_agent=false',
             '--color', 'never', '--cd', str(root / 'workspace'), '--output-schema', str(directory / 'schema.json'),
             '--output-last-message', str(answer), '-']
@@ -386,7 +399,8 @@ def run_trial(root, servers, task, index, method, prompt=None):
     verification = verify(root, server, task, before)
     save(directory / 'state-verification.json', verification)
     save(directory / 'api-access.json', server.accesses)
-    record = {'task': task, 'index': index, 'method': method, 'exit_code': proc.returncode, 'timed_out': timed_out,
+    record = {'task': task, 'index': index, 'method': method, 'model': model, 'reasoning_effort': reasoning_effort,
+              'exit_code': proc.returncode, 'timed_out': timed_out,
               'correct': proc.returncode == 0 and usage is not None and actual == expected(task) and verification['correct'],
               'answer_correct': actual == expected(task), 'state_correct': verification['correct'], 'actual': actual,
               'state_checks': verification['checks'], 'usage': usage, 'seconds': round(time.monotonic() - start, 3),
@@ -412,6 +426,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--run-models', action='store_true')
+    parser.add_argument('--model', default='gpt-6.1-sol')
+    parser.add_argument('--reasoning-effort', choices=('low', 'medium', 'high', 'xhigh', 'max'), default='high')
     parser.add_argument('--methods', choices=('both', 'gh', 'tools'), default='both')
     parser.add_argument('--tasks', choices=TASKS, nargs='+', default=TASKS)
     parser.add_argument('--resume', action='store_true', help='resume recorded trials using the saved protocol and prompts')
@@ -441,7 +457,7 @@ def main():
     try:
         if not options.resume:
             native_preflight(root, servers)
-        protocol = {'measured_at_utc': datetime.now(timezone.utc).isoformat(), 'model': 'gpt-6.1-sol', 'reasoning_effort': 'high',
+        protocol = {'measured_at_utc': datetime.now(timezone.utc).isoformat(), 'model': options.model, 'reasoning_effort': options.reasoning_effort,
                     'usage_source': 'codex exec --json turn.completed.usage (input + output; cached input included)',
                     'repetitions_per_method': 3, 'order_per_task': order, 'max_model_calls': len(order) * len(options.tasks),
                     'fresh_sessions': True, 'cache_controlled': False, 'tasks': options.tasks,
@@ -477,7 +493,8 @@ def main():
                     if (task, index, method) in existing:
                         continue
                     print(json.dumps({'event': 'trial_started', 'task': task, 'index': index, 'method': method}), flush=True)
-                    record = run_trial(root, servers, task, index, method, protocol['prompts'][task][method])
+                    record = run_trial(root, servers, task, index, method, protocol['prompts'][task][method],
+                                       protocol['model'], protocol['reasoning_effort'])
                     records.append(record)
                     save(root / 'results.json', records)
                     save(root / 'summary.json', summary(records))

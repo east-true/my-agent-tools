@@ -189,7 +189,7 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(data)
 
 
-def build_interface(root, repo_root):
+def build_interface(root, repo_root, build_vcs=True):
     cli_path = repo_root / 'internal/cli/cli.go'
     original = cli_path.read_text()
     bridge = '''\n// Benchmark-only API injection; production command implementation is unchanged.
@@ -211,7 +211,7 @@ func main(){base:=os.Getenv("BRANCH_BENCHMARK_URL")+"/"
     save(root / 'overlay.json', {'Replace': {str(cli_path): str(root / 'cli-overlay.go'),
                                             str(repo_root / 'cmd/tools/main.go'): str(root / 'main-overlay.go')}})
     (root / 'bin').mkdir(exist_ok=True)
-    subprocess.run(['go', 'build', '-overlay', str(root / 'overlay.json'), '-o', str(root / 'bin/tools'), './cmd/tools'],
+    subprocess.run(['go', 'build', *([] if build_vcs else ['-buildvcs=false']), '-overlay', str(root / 'overlay.json'), '-o', str(root / 'bin/tools'), './cmd/tools'],
                    cwd=repo_root, env=dict(os.environ, GOCACHE=os.environ.get('GOCACHE', str(root / 'go-cache'))), check=True)
     wrapper = '''#!/usr/bin/env python3
 import json,os,subprocess,sys,time

@@ -16,6 +16,8 @@ Workflows follow `tools <group> <command>`. GitHub is the first available group;
 
 ## Token usage measurements
 
+The table below retains the historical `gpt-6.1-sol` measurements. See the [Astra and Luna comparison](docs/benchmarks/github/models.md) for nine tasks, 54 fresh sessions per model, and token means alongside correctness rates.
+
 Current measurements cover the GitHub group. Branch cleanup used 56.1% fewer total agent tokens than direct `gh + git` in a controlled 14-branch experiment. Issue planning showed little difference.
 
 | Command | Direct `gh` / `gh + git` | `tools` | Total token change |
