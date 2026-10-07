@@ -1,24 +1,22 @@
 # my-agent-tools
 
-**GitHub workflows in one command, for coding agents and developers.**
+**Repeatable workflows in one command, for coding agents and developers.**
 
-[한국어](docs/README.ko.md) · [Commands](docs/github/README.md) · [Benchmarks](docs/benchmarks/README.md) · [Contributing](CONTRIBUTING.md)
+[한국어](docs/README.ko.md) · [Workflows](#available-workflows) · [Benchmarks](docs/benchmarks/README.md) · [Contributing](CONTRIBUTING.md)
 
-`tools` handles repeatable GitHub work inside a cross-platform CLI:
+`tools` is a cross-platform CLI for automating repeatable workflows. It combines routine steps into commands that agents and developers can reuse across projects, with project-specific preferences kept in configuration.
 
-- **Issues → branches:** match existing labels and issue types, assign `@me`, and create a linked development branch.
-- **Pull requests:** infer the linked issue from your branch and apply repository policy.
-- **Branch cleanup:** inspect finished work and remove eligible local and remote branches after a preview.
+Workflows follow `tools <group> <command>`. GitHub is the first available group; additional workflows will be added as separate command groups.
 
-```sh
-tools github issue create --prefix fix --title "handle duplicate requests" --body-file issue.md --json
-```
+## Available workflows
 
-For issue #123, this creates `fix: handle duplicate requests` and checks out `123-fix-handle-duplicate-requests` when the current origin matches the repository. Each repository can configure its own mappings in `.tools.json`.
+| Group | What it automates | Documentation |
+|---|---|---|
+| `github` | Repository setup, issues, linked branches, PRs, and finished-branch cleanup | [GitHub commands](docs/github/README.md) |
 
 ## Token usage measurements
 
-Branch cleanup used 56.1% fewer total agent tokens than direct `gh + git` in a controlled 14-branch experiment. Issue planning showed little difference.
+Current measurements cover the GitHub group. Branch cleanup used 56.1% fewer total agent tokens than direct `gh + git` in a controlled 14-branch experiment. Issue planning showed little difference.
 
 | Command | Direct `gh` / `gh + git` | `tools` | Total token change |
 |---|---:|---:|---:|
@@ -41,11 +39,19 @@ From a source checkout, build with **Go 1.26+**:
 go build -o tools ./cmd/tools
 ```
 
-On Windows, use `go build -o tools.exe ./cmd/tools`. Add the binary directory to your PATH. The binary runs on Linux, macOS, and Windows without a Go runtime; Git is needed for local branch operations.
-
-For GitHub authentication, use `GH_TOKEN` or `GITHUB_TOKEN`, or reuse an existing `gh auth login`. With an environment token, `gh` is optional. Currently supports `github.com`.
+On Windows, use `go build -o tools.exe ./cmd/tools`. Add the binary directory to your PATH. The binary runs on Linux, macOS, and Windows without a Go runtime.
 
 ## Quick start
+
+List available workflows and commands:
+
+```sh
+tools --help
+```
+
+### GitHub
+
+Authenticate with `GH_TOKEN` or `GITHUB_TOKEN`, or reuse an existing `gh auth login`. With an environment token, `gh` is optional. This group currently supports `github.com`; local branch operations require Git.
 
 Run inside your target repository. Save your issue and PR descriptions as UTF-8 Markdown files, `issue.md` and `pr.md`.
 
@@ -74,16 +80,16 @@ Cleanup preserves protected branches, branches checked out in worktrees, open PR
 
 ## Documentation
 
-- [Command reference (Korean)](docs/github/README.md) — all six commands, options, configuration, and recovery.
-- [Agent usage (Korean)](docs/agent-usage.md) — a short workflow for coding agents.
+- [GitHub command reference (Korean)](docs/github/README.md) — all six commands, options, configuration, and recovery.
+- [GitHub agent usage (Korean)](docs/agent-usage.md) — a short workflow for coding agents.
 - [Input and policy examples](examples/github) — issue/PR JSON, Markdown, and `.tools.json`.
 - [Benchmarks](docs/benchmarks/README.md) — command measurements, raw data, and experimental workflows.
 - [Development and leak checks](docs/development.md) · [CI report experiment](docs/ci-reports.md).
 
-Use `tools github --help` or a command's `--help` for supported prefixes and options.
+Use `tools --help` to discover commands and a command's `--help` for its options.
 
 ## Contributing
 
-Bug reports, feature proposals, and contributions from other projects are welcome. See [Contributing](CONTRIBUTING.md), [Security](SECURITY.md), and [repository policies](docs/repository.md).
+New workflow groups, bug reports, and contributions from other projects are welcome. See [Contributing](CONTRIBUTING.md), [Security](SECURITY.md), and [repository policies](docs/repository.md).
 
 Licensed under the [MIT License](LICENSE).

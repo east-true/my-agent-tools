@@ -1,24 +1,22 @@
 # my-agent-tools
 
-**코딩 에이전트와 개발자를 위한, 한 명령으로 처리하는 GitHub 워크플로.**
+**코딩 에이전트와 개발자를 위한, 반복 작업을 한 명령으로 처리하는 자동화 도구.**
 
-[English](../README.md) · [명령어](github/README.md) · [벤치마크](benchmarks/README.md) · [기여 안내](../CONTRIBUTING.md)
+[English](../README.md) · [작업 그룹](#사용-가능한-작업-그룹) · [벤치마크](benchmarks/README.md) · [기여 안내](../CONTRIBUTING.md)
 
-`tools`는 반복되는 GitHub 작업을 처리하는 크로스 플랫폼 CLI입니다.
+`tools`는 반복 작업을 자동화하는 크로스 플랫폼 CLI입니다. 여러 단계를 명령으로 묶어 에이전트와 개발자가 프로젝트마다 재사용하고, 프로젝트별 선호는 설정으로 관리합니다.
 
-- **이슈 → 브랜치:** 기존 라벨·유형을 선택하고, 담당자 `@me` 지정과 Development 브랜치 연결을 처리합니다.
-- **PR 생성:** 현재 브랜치에서 연결 이슈를 찾고 저장소 정책을 적용합니다.
-- **브랜치 정리:** 종료된 작업을 판별하고, 미리보기 후 대상 로컬·원격 브랜치를 삭제합니다.
+작업은 `tools <group> <command>` 형태로 구분합니다. GitHub는 현재 제공하는 첫 작업 그룹이며, 앞으로 다른 자동화도 별도 명령 그룹으로 추가합니다.
 
-```sh
-tools github issue create --prefix fix --title "handle duplicate requests" --body-file issue.md --json
-```
+## 사용 가능한 작업 그룹
 
-이슈 번호가 123이면 `fix: handle duplicate requests`와 `123-fix-handle-duplicate-requests` 브랜치를 생성합니다. 현재 origin이 대상 저장소와 일치하면 로컬 브랜치도 전환합니다. 프로젝트별 라벨·유형 매핑은 `.tools.json`에서 설정합니다.
+| 그룹 | 자동화하는 작업 | 문서 |
+|---|---|---|
+| `github` | 저장소 설정, 이슈, 연결 브랜치, PR, 종료된 브랜치 정리 | [GitHub 명령어](github/README.md) |
 
 ## 토큰 사용량 실측
 
-브랜치 정리는 직접 `gh + git` 처리보다 총 토큰을 56.1% 줄였습니다. 14개 브랜치 상황을 고정한 실험 결과이며, 이슈 계획의 차이는 작았습니다.
+현재 측정 대상은 GitHub 그룹입니다. 브랜치 정리는 직접 `gh + git` 처리보다 총 토큰을 56.1% 줄였습니다. 14개 브랜치 상황을 고정한 실험 결과이며, 이슈 계획의 차이는 작았습니다.
 
 | 명령 | 직접 `gh` / `gh + git` | `tools` | 총 토큰 차이 |
 |---|---:|---:|---:|
@@ -41,11 +39,19 @@ tools github issue create --prefix fix --title "handle duplicate requests" --bod
 go build -o tools ./cmd/tools
 ```
 
-Windows는 `go build -o tools.exe ./cmd/tools`를 사용합니다. 바이너리 디렉터리를 PATH에 추가하세요. Linux·macOS·Windows에서 실행하며 Go 런타임은 필요하지 않습니다. 로컬 브랜치 작업에는 Git이 필요합니다.
-
-GitHub 인증은 `GH_TOKEN` → `GITHUB_TOKEN` → 기존 `gh auth login` 순으로 사용합니다. 환경변수로 토큰을 제공하면 `gh` 설치는 선택 사항입니다. 현재 지원 호스트는 `github.com`입니다.
+Windows는 `go build -o tools.exe ./cmd/tools`를 사용합니다. 바이너리 디렉터리를 PATH에 추가하세요. Linux·macOS·Windows에서 실행하며 Go 런타임은 필요하지 않습니다.
 
 ## 빠른 시작
+
+사용 가능한 작업과 명령을 확인합니다.
+
+```sh
+tools --help
+```
+
+### GitHub
+
+인증은 `GH_TOKEN` → `GITHUB_TOKEN` → 기존 `gh auth login` 순으로 사용합니다. 환경변수로 토큰을 제공하면 `gh` 설치는 선택 사항입니다. 이 그룹은 현재 `github.com`을 지원하며 로컬 브랜치 작업에는 Git이 필요합니다.
 
 대상 프로젝트의 Git 작업 디렉터리에서 실행합니다. 이슈·PR 설명을 UTF-8 Markdown 파일 `issue.md`, `pr.md`로 준비하세요. 본문 언어의 기본값은 한국어입니다.
 
@@ -74,16 +80,16 @@ tools github branch cleanup --apply --json
 
 ## 문서
 
-- [명령어 안내](github/README.md) — 명령 6개, 옵션, 설정, 실패 복구.
-- [에이전트용 빠른 사용법](agent-usage.md) — 코딩 에이전트에 전달할 짧은 작업 흐름.
+- [GitHub 명령어 안내](github/README.md) — 명령 6개, 옵션, 설정, 실패 복구.
+- [GitHub 에이전트용 빠른 사용법](agent-usage.md) — 코딩 에이전트에 전달할 짧은 작업 흐름.
 - [입력·설정 예제](../examples/github) — 이슈·PR JSON, Markdown, `.tools.json`.
 - [벤치마크](benchmarks/README.md) — 명령별 측정, 원본 자료, 실험 워크플로.
 - [개발·개인정보 검사](development.md) · [CI 보고서 실험](ci-reports.md).
 
-지원 prefix와 옵션은 `tools github --help` 또는 각 명령의 `--help`에서 확인합니다.
+명령 목록은 `tools --help`, 세부 옵션은 각 명령의 `--help`에서 확인합니다.
 
 ## 기여
 
-다른 프로젝트의 사용 사례, 버그 제보, 기능 제안, 코드 기여를 환영합니다. [기여 안내](../CONTRIBUTING.md), [보안 정책](../SECURITY.md), [저장소 정책](repository.md)을 참고하세요.
+새 작업 그룹, 다른 프로젝트의 사용 사례, 버그 제보, 코드 기여를 환영합니다. [기여 안내](../CONTRIBUTING.md), [보안 정책](../SECURITY.md), [저장소 정책](repository.md)을 참고하세요.
 
 [MIT 라이선스](../LICENSE)로 배포합니다.
