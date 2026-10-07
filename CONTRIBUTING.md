@@ -4,6 +4,8 @@ Contributions from different users, projects, and agent environments are welcome
 
 Use Issues for reproducible bugs and concrete feature proposals, Discussions for questions, and [private vulnerability reporting](SECURITY.md) for security concerns. English and Korean reports are welcome. Be respectful, focus feedback on the work, and avoid sharing other people's personal information.
 
+Participation is covered by the [code of conduct](CODE_OF_CONDUCT.md).
+
 ## Development
 
 Install Go 1.26 or newer and Git, clone the repository or your fork, and build:
@@ -27,5 +29,7 @@ For local policy choices, use `.tools.json` or `--config`. Example configuration
 - Run the [Gitleaks checks](docs/development.md#leak-checks) before submitting. Use reserved example domains for fixtures and redact logs.
 
 Changes to the default branch go through a PR with passing CI and resolved review conversations. PRs use squash merging. Additional reviewer approval is welcome; the initial policy does not require a second maintainer.
+
+Fork PR workflows from external contributors require maintainer approval before running. This also applies to returning contributors; waiting for workflow approval does not require changing your PR. Use the Update branch button when the base branch has moved ahead.
 
 By contributing, you agree that your contributions are provided under this project's MIT License.
