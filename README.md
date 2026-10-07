@@ -129,20 +129,22 @@ Use `--remote upstream` for another configured Git remote, `--scope local` or `-
 
 ## Token usage measurements
 
+Browse the [benchmark index](docs/benchmarks/README.md) for command-specific reports and raw evidence.
+
 These are mean tokens for the entire measured agent task, including instructions, tool interactions, cached input, and output. The CLI itself does not call a model. Both methods used `gpt-6.1-sol` with high reasoning effort and three fresh sessions per measured method; direct `gh` could batch commands and filter locally.
 
 | Command | Compared task | Direct `gh` / `gh + git` | `tools` | Total token change | Evidence |
 |---|---|---:|---:|---:|---|
-| `github context` | Independent catalog lookup | — | — | Not measured separately | — |
+| `github context` | Independent catalog lookup | — | — | Not measured separately | [Scope](docs/benchmarks/github/context.md) |
 | `github setup` | Fetch metadata and save project mappings | — | — | Not measured | — |
-| `github issue create --dry-run` | Read-only issue + linked-branch plan | 46,630 | 46,279 | −0.75% | [3 trials per method](docs/benchmarks/github-token-usage-guided.json) |
+| `github issue create --dry-run` | Read-only issue + linked-branch plan | 46,630 | 46,279 | −0.75% | [3 trials per method](docs/benchmarks/github/issue-create.md) |
 | `github issue create` | Actual issue + linked-branch creation | — | — | Not measured | — |
 | `github issue branch` | Create/resume an existing issue's branch | — | — | Not measured separately | — |
 | `github pr create` | Actual PR creation | — | — | Not measured | — |
 | `github branch cleanup` | Preview only | — | — | Not measured separately | — |
-| `github branch cleanup --apply` | Classify and actually delete fixture refs | 70,552 | 31,006 | **−56.1%** | [3 trials per method](docs/benchmarks/github-branch-cleanup-validation.json) |
+| `github branch cleanup --apply` | Classify and actually delete fixture refs | 70,552 | 31,006 | **−56.1%** | [3 trials per method](docs/benchmarks/github/branch-cleanup.md) |
 
-For issue planning, uncached input was effectively equal: 16,035 for `gh` versus 16,063 for `tools`. Both used two shell calls. This does not establish meaningful savings for issue creation; [the earlier comparison without usage guides](docs/benchmarks/github-token-usage.json) also records discovery overhead.
+For issue planning, uncached input was effectively equal: 16,035 for `gh` versus 16,063 for `tools`. Both used two shell calls. This does not establish meaningful savings for issue creation; [the earlier comparison without usage guides](docs/benchmarks/github/issue-create.md#사용-안내-없는-초기-측정) also records discovery overhead.
 
 For branch cleanup, uncached input averaged 28,414 versus 16,102 (43.3% lower), and shell command items averaged 5.33 versus 1. Each valid trial removed six local branches, five remote branches, and two stale tracking refs while retaining 15 targets. Final refs, SHA deletion guards, branch configuration, worktree and working-file preservation matched in all six compared runs. The tool completed classification and guarded deletion internally instead of having the agent write and execute that policy.
 
@@ -155,11 +157,11 @@ python3 scripts/benchmarks/run_branch_cleanup_benchmark.py --root /tmp/branch-cl
 python3 scripts/benchmarks/run_branch_cleanup_benchmark.py --root /tmp/branch-cleanup-experiment --run-models
 ```
 
-An additional [candidate validation](docs/benchmarks/github-candidate-validation.json) used 18 model trials over fixed public GitHub snapshots. CI diagnostic extraction reduced total tokens by 13.7% relative to reading the failed-step log; review extraction reduced 1.2%, and incremental PR retrieval increased 3.0%. Filtered review/compare outputs are already available with `gh --jq`. These are offline prototypes under `scripts/benchmarks` and are not `tools github` commands.
+An additional [candidate validation](docs/benchmarks/github/ci.md#초기-후보-측정) used 18 model trials over fixed public GitHub snapshots. CI diagnostic extraction reduced total tokens by 13.7% relative to reading the failed-step log; review extraction reduced 1.2%, and incremental PR retrieval increased 3.0%. Filtered review/compare outputs are already available with `gh --jq`. These are offline prototypes under `scripts/benchmarks` and are not `tools github` commands.
 
-Six [follow-up CI trials](docs/benchmarks/github-ci-internal-validation.json) measured a stronger `gh + rg` baseline and deterministic internal parsing. Mean total usage was 31,658 tokens for `gh + rg` and 30,244 for internal facts returned to the agent (4.5% lower). The internal code also returned the bounded CI/review/delta reference answers without model calls; that component uses zero model tokens, excluding an outer agent invocation. The prototypes have 21 boundary checks. `python3 scripts/benchmarks/github_candidates.py ci-facts LOG_FILE` extracts supported Go compiler facts and retains original evidence for unsupported formats.
+Six [follow-up CI trials](docs/benchmarks/github/ci.md#내부-파서-후속-측정) measured a stronger `gh + rg` baseline and deterministic internal parsing. Mean total usage was 31,658 tokens for `gh + rg` and 30,244 for internal facts returned to the agent (4.5% lower). The internal code also returned the bounded CI/review/delta reference answers without model calls; that component uses zero model tokens, excluding an outer agent invocation. The prototypes have 21 boundary checks. `python3 scripts/benchmarks/github_candidates.py ci-facts LOG_FILE` extracts supported Go compiler facts and retains original evidence for unsupported formats.
 
-A [repeated code-repair experiment](docs/benchmarks/github-workflow-validation.json) tested two actual Go fixes across three workflows per method, with independent tests. Mean total tokens were 96,631 for a log-reading agent, 94,441 for an agent given reports/code, and 30,362 for a model that returned code while the caller applied and tested it. The last mode processed 68.6% fewer total tokens, but had zero cached input and more uncached input (30,018 versus 9,658); monetary savings are not established. All 18 fixes passed. Every method shared the same native gate, which handled six duplicate/passed events per eight observations without calling a model.
+A [repeated code-repair experiment](docs/benchmarks/github/workflow.md) tested two actual Go fixes across three workflows per method, with independent tests. Mean total tokens were 96,631 for a log-reading agent, 94,441 for an agent given reports/code, and 30,362 for a model that returned code while the caller applied and tested it. The last mode processed 68.6% fewer total tokens, but had zero cached input and more uncached input (30,018 versus 9,658); monetary savings are not established. All 18 fixes passed. Every method shared the same native gate, which handled six duplicate/passed events per eight observations without calling a model.
 
 ## Structured CI report experiment
 

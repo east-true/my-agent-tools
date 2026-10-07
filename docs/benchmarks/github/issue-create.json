@@ -461,7 +461,7 @@
     "timing": "Observed mean completion time was 16.661 seconds for gh and 13.705 seconds for tools. This small sample does not establish a stable latency improvement."
   },
   "comparison_with_previous": {
-    "report": "github-token-usage.json",
+    "report": "issue-create-unguided.json",
     "previous_mean_input_plus_output": {
       "gh": 81348,
       "tools": 146012.66666666666

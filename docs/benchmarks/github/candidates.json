@@ -746,7 +746,7 @@
     ],
     "model_trials_completed": 3,
     "actual_token_usage_measured": true,
-    "approval_status": "The user subsequently explicitly approved the additional three executions. They completed successfully and are recorded in github-ci-internal-validation.json.",
+    "approval_status": "The user subsequently explicitly approved the additional three executions. They completed successfully and are recorded in ci-internal.json.",
     "interpretation": "The stronger gh+rg baseline preserved every requested fact. The earlier window prototype used 1.88% fewer total tokens than this baseline; internal fact parsing used 4.47% fewer. See the follow-up report for raw usage, sample size and limitations.",
     "mean_total_tokens": 31658
   },
@@ -1020,5 +1020,5 @@
     "https://docs.github.com/en/rest/commits/commits#compare-two-commits",
     "https://learn.chatgpt.com/docs/non-interactive-mode"
   ],
-  "followup_report": "github-ci-internal-validation.json"
+  "followup_report": "ci-internal.json"
 }
