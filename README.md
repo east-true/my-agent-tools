@@ -6,6 +6,8 @@ An open-source, cross-platform CLI for automating repeatable agent workflows. It
 
 The binary is named `tools`. The first command group, `tools github`, automates GitHub issues, linked development branches, pull requests, and cleanup of finished branches. Additional workflows can be added as separate command groups.
 
+Branch cleanup used **56.1% fewer total agent tokens** than direct `gh + git` in a controlled 14-branch fixture: classify finished work, preserve active/unpublished work, and delete matching refs. See the [per-command measurements and evidence](#token-usage-measurements).
+
 ## Build and authentication
 
 Building requires Go 1.26 or newer. The resulting binary does not require a Go runtime.
@@ -109,7 +111,30 @@ Use `--remote upstream` for another configured Git remote, `--scope local` or `-
 
 ## Token usage measurements
 
-In a read-only issue/branch planning comparison with usage guides and Git checkouts, three trials per method averaged 46,630 input-plus-output tokens for direct `gh` and 46,279 for `tools` (0.75% lower). Uncached input was effectively equal: 16,035 versus 16,063 tokens. Both methods used two shell calls, with `gh` batching its API commands. This small experiment does not establish meaningful token savings or measure actual issue/branch/PR creation. See the [guided benchmark results and prompts](docs/benchmarks/github-token-usage-guided.json) and the [earlier comparison without usage guides](docs/benchmarks/github-token-usage.json).
+These are mean tokens for the entire measured agent task, including instructions, tool interactions, cached input, and output. The CLI itself does not call a model. Both methods used `gpt-6.1-sol` with high reasoning effort and three fresh sessions per measured method; direct `gh` could batch commands and filter locally.
+
+| Command | Compared task | Direct `gh` / `gh + git` | `tools` | Total token change | Evidence |
+|---|---|---:|---:|---:|---|
+| `github context` | Independent catalog lookup | — | — | Not measured separately | — |
+| `github issue create --dry-run` | Read-only issue + linked-branch plan | 46,630 | 46,279 | −0.75% | [3 trials per method](docs/benchmarks/github-token-usage-guided.json) |
+| `github issue create` | Actual issue + linked-branch creation | — | — | Not measured | — |
+| `github issue branch` | Create/resume an existing issue's branch | — | — | Not measured separately | — |
+| `github pr create` | Actual PR creation | — | — | Not measured | — |
+| `github branch cleanup` | Preview only | — | — | Not measured separately | — |
+| `github branch cleanup --apply` | Classify and actually delete fixture refs | 70,552 | 31,006 | **−56.1%** | [3 trials per method](docs/benchmarks/github-branch-cleanup-validation.json) |
+
+For issue planning, uncached input was effectively equal: 16,035 for `gh` versus 16,063 for `tools`. Both used two shell calls. This does not establish meaningful savings for issue creation; [the earlier comparison without usage guides](docs/benchmarks/github-token-usage.json) also records discovery overhead.
+
+For branch cleanup, uncached input averaged 28,414 versus 16,102 (43.3% lower), and shell command items averaged 5.33 versus 1. Each valid trial removed six local branches, five remote branches, and two stale tracking refs while retaining 15 targets. Final refs, SHA deletion guards, branch configuration, worktree and working-file preservation matched in all six compared runs. The tool completed classification and guarded deletion internally instead of having the agent write and execute that policy.
+
+The cleanup experiment used real `gh`, the production CLI runner/cleanup source with API dependency injection, a local GitHub fixture API, and real disposable Git repositories. Its initial direct-method guide ambiguously scoped one protection; all three initial direct runs are retained in the report and excluded from the equal-workload comparison. The clarified direct guide was measured three more times against the unchanged valid `tools` trials. Cache was uncontrolled and the corrected baseline ran later; this is a small fixture experiment, not proof of monetary savings or a guarantee for other commands. Implementation/setup/analysis costs are excluded. A reusable equivalent skill/script could provide the same native automation.
+
+To reproduce on Linux/WSL, install Go, Git, `gh`, and Codex. The first command runs a model-free fixture/sandbox preflight; the second starts up to six model executions. Use fresh output directories:
+
+```sh
+python3 scripts/benchmarks/run_branch_cleanup_benchmark.py --root /tmp/branch-cleanup-preflight
+python3 scripts/benchmarks/run_branch_cleanup_benchmark.py --root /tmp/branch-cleanup-experiment --run-models
+```
 
 An additional [candidate validation](docs/benchmarks/github-candidate-validation.json) used 18 model trials over fixed public GitHub snapshots. CI diagnostic extraction reduced total tokens by 13.7% relative to reading the failed-step log; review extraction reduced 1.2%, and incremental PR retrieval increased 3.0%. Filtered review/compare outputs are already available with `gh --jq`. These are offline prototypes under `scripts/benchmarks` and are not `tools github` commands.
 
