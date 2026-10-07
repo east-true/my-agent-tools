@@ -12,7 +12,7 @@ Workflows follow `tools <group> <command>`. GitHub is the first available group;
 
 | Group | What it automates | Documentation |
 |---|---|---|
-| `github` | Repository setup, issues, linked branches, PRs, and finished-branch cleanup | [GitHub commands](docs/github/README.md) |
+| `github` | Repository setup, issues, linked branches, PRs, Dependabot alerts, and finished-branch cleanup | [GitHub commands](docs/github/README.md) |
 
 ## Token usage measurements
 
@@ -71,6 +71,15 @@ tools github pr merge --number 123 --json
 ```
 
 Issue creation retrieves the metadata it needs; `context` is optional. Add `--dry-run --json` to preview a creation plan. Outside a Git checkout, pass `--repo OWNER/REPO`. Bodies default to Korean unless configured otherwise; [setup](docs/github/setup.md) saves your language and label preferences.
+
+Read dependency security alerts and inspect an alert's advisory and patch:
+
+```sh
+tools github dependabot list --severity high,critical --json
+tools github dependabot view --number 7 --json
+```
+
+Listing defaults to open alerts and retrieves every page. Fine-grained tokens need Dependabot alerts read permission. [Options and output](docs/github/dependabot.md).
 
 After the PR or issue closes, switch away from the finished branch and preview cleanup:
 

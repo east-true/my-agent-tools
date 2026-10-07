@@ -4,6 +4,10 @@ GitHub 조회·등록은 `tools github`를 사용한다. 아래 명령으로 바
 
 세부 옵션·입력·복구 방법은 [명령어별 문서](github/README.md)를 참고한다.
 
+CI 실패 자료는 `tools github ci failures --run RUN_ID --json`으로 조회한다. 실행 ID는 PR 번호와 다르다. 실패한 job·step·annotation을 수집하고 지원하는 Go 컴파일 오류를 구조화하며, 미지원 오류는 원문 로그를 보존한다. `partial`과 종료 코드 1이면 job별 `notes`에서 누락·권한·상한 사유를 확인한다. 이 명령은 merge·재실행·대기를 수행하지 않는다.
+
+의존성 보안 경고를 확인할 때는 `tools github dependabot list --json`을 사용한다. 기본은 열린 경고 전체이며 `--severity high,critical`, `--ecosystem go`, `--package NAME`으로 필터링한다. 경고 설명과 참고 링크는 `tools github dependabot view --number NUMBER --json`으로 조회한다. `first_patched_version: null`은 패치 정보가 없다는 뜻이다. `403`·`404`는 권한·활성화 여부를 확인하고 빈 목록으로 해석하지 않는다. 조회 결과로 수정 작업을 준비하며 경고 번호를 이슈 번호로 사용하지 않는다.
+
 프로젝트 설정을 처음 저장할 때 `tools github setup`으로 GitHub의 기존 라벨·유형을 가져온다. 기존 설정은 보존하며, 고유 이름은 `--set-label feat=라벨명`·`--set-issue-type fix=유형명`으로 지정한다. 저장 전 확인은 `--dry-run --json`, 현재 목록으로 재계산은 `--refresh`를 사용한다. 생성마다 setup을 반복할 필요는 없다.
 
 1. prefix(`feat`, `fix`, `docs` 등), 영어 제목, Markdown 본문 파일을 준비한다. 본문은 기본적으로 한국어이며, 다른 언어는 `.tools.json`의 `github.body_language: "any"`로 설정한다.

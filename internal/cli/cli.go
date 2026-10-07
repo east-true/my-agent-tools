@@ -24,6 +24,9 @@ Usage:
   tools github issue branch  Create or resume the branch for an existing issue
   tools github pr create     Create a pull request
   tools github pr merge      Wait for checks, merge, or return failure details
+  tools github ci failures   Collect failed CI jobs, annotations and compiler facts
+  tools github dependabot list List dependency security alerts
+  tools github dependabot view View a dependency security alert
   tools github branch cleanup Preview or delete branches for finished work
 
 Use '<command> --help' for command-specific options.
@@ -36,6 +39,9 @@ const githubHelp = `Usage:
   tools github issue branch --number NUMBER [options]
   tools github pr create --prefix PREFIX --title TITLE --body-file FILE [options]
   tools github pr merge --number NUMBER [--timeout 10m] [--json]
+  tools github ci failures --run RUN_ID [--repo OWNER/REPO] [--json]
+  tools github dependabot list [--state open|all] [--severity high,critical] [--json]
+  tools github dependabot view --number NUMBER [--json]
   tools github branch cleanup [--apply] [--scope both|local|remote] [--json]
 
 Use --file FILE instead of --title/--body-file for JSON input.
@@ -89,8 +95,14 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 		return 0
 	}
 	kind := args[0]
+	if kind == "ci" {
+		return runCIFailures(ctx, args[1:], out, stderr, runner, newAPI)
+	}
 	if kind == "pr" && len(args) > 1 && args[1] == "merge" {
 		return runPRMerge(ctx, args[2:], out, stderr, runner, newAPI)
+	}
+	if kind == "dependabot" {
+		return runDependabot(ctx, args[1:], out, stderr, runner, newAPI)
 	}
 	if kind == "setup" {
 		return runSetup(ctx, args[1:], out, stderr, runner, newAPI)

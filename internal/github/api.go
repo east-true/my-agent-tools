@@ -18,6 +18,12 @@ type API interface {
 	Do(context.Context, string, string, any, any) (int, error)
 }
 
+// CursorAPI supports GET endpoints that paginate with an after cursor.
+type CursorAPI interface {
+	API
+	GetCursorPage(context.Context, string, any) (string, error)
+}
+
 type SDK struct {
 	Client *sdk.Client
 }
@@ -70,6 +76,18 @@ func (api SDK) Do(ctx context.Context, method, endpoint string, payload, target 
 		return 0, err
 	}
 	return response.NextPage, nil
+}
+
+func (api SDK) GetCursorPage(ctx context.Context, endpoint string, target any) (string, error) {
+	req, err := api.Client.NewRequest(ctx, http.MethodGet, endpoint, nil)
+	if err != nil {
+		return "", err
+	}
+	response, err := api.Client.Do(req, target)
+	if err != nil {
+		return "", err
+	}
+	return response.After, nil
 }
 
 func isNotFound(err error) bool {

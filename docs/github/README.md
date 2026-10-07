@@ -8,6 +8,8 @@
 |---|---|---|
 | [setup](setup.md) | 기존 라벨·유형을 가져와 프로젝트 설정 저장 | 로컬 설정 파일 |
 | [context](context.md) | 저장소 라벨·유형·적용 정책 조회 | 읽기 전용 |
+| [ci failures](ci-failures.md) | 실패한 CI job·step·annotation·오류 자료 수집 | 읽기 전용 |
+| [dependabot list / view](dependabot.md) | 의존성 보안 경고 목록·상세·패치 버전 조회 | 읽기 전용 |
 | [issue create](issue/create.md) | 이슈 생성·담당자 지정·Development 브랜치 연결 | GitHub 및 선택적 로컬 checkout |
 | [issue branch](issue/branch.md) | 기존 이슈의 연결 브랜치 생성·재개 | GitHub 및 선택적 로컬 checkout |
 | [pr create](pr/create.md) | 원격 변경을 확인하고 PR 생성·라벨 적용 | GitHub |
@@ -56,7 +58,7 @@ Git 밖에서는 명시적인 `--repo`를 사용합니다.
 ## 프로젝트 정책
 
 기본 설정 경로는 Git 루트의 `.tools.json`이며, Git 밖에서는 현재 폴더입니다.
-`--config FILE`로 다른 파일을 선택합니다. `branch cleanup`과 `pr merge`는 자체 옵션을 사용하며 `--config`를 받지 않습니다.
+`--config FILE`로 다른 파일을 선택합니다. `branch cleanup`, `ci failures`, `dependabot list / view`, `pr merge`는 자체 옵션을 사용하며 `--config`를 받지 않습니다.
 
 ```json
 {

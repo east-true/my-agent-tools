@@ -12,7 +12,7 @@
 
 | 그룹 | 자동화하는 작업 | 문서 |
 |---|---|---|
-| `github` | 저장소 설정, 이슈, 연결 브랜치, PR, 종료된 브랜치 정리 | [GitHub 명령어](github/README.md) |
+| `github` | 저장소 설정, 이슈, 연결 브랜치, PR, Dependabot 경고, 종료된 브랜치 정리 | [GitHub 명령어](github/README.md) |
 
 ## 토큰 사용량 실측
 
@@ -71,6 +71,15 @@ tools github pr merge --number 123 --json
 ```
 
 생성 명령이 필요한 목록을 조회하므로 `context`는 선택 사항입니다. 생성 계획만 확인하려면 `--dry-run --json`, Git 밖에서는 `--repo OWNER/REPO`를 추가합니다. 다른 언어는 `tools github setup --body-language any`로 허용하고, 라벨 지정 등은 [setup 문서](github/setup.md)를 참고하세요.
+
+의존성 보안 경고와 패치 정보를 조회합니다.
+
+```sh
+tools github dependabot list --severity high,critical --json
+tools github dependabot view --number 7 --json
+```
+
+목록은 기본적으로 열린 경고를 모든 페이지에서 가져옵니다. Fine-grained 토큰에는 Dependabot alerts 읽기 권한이 필요합니다. [옵션과 결과 필드](github/dependabot.md).
 
 PR이나 이슈 종료 후 다른 브랜치로 이동해 정리 대상을 확인합니다.
 
