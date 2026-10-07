@@ -24,7 +24,7 @@ For local policy choices, use `.tools.json` or `--config`. Example configuration
 - Name issue branches `<issue-number>-<type>-<slug>` and other branches `<type>/<slug>` using lowercase kebab-case.
 - Explain the problem, resulting behavior, and actual verification. Include `Closes #123` when appropriate.
 - Update usage documentation and examples when public behavior changes.
-- Run the Gitleaks commands in the README before submitting. Use reserved example domains for fixtures and redact logs.
+- Run the [Gitleaks checks](docs/development.md#leak-checks) before submitting. Use reserved example domains for fixtures and redact logs.
 
 Changes to the default branch go through a PR with passing CI and resolved review conversations. PRs use squash merging. Additional reviewer approval is welcome; the initial policy does not require a second maintainer.
 
