@@ -12,7 +12,7 @@
 
 | 그룹 | 자동화하는 작업 | 문서 |
 |---|---|---|
-| `github` | 저장소 설정, 이슈, 연결 브랜치, PR, Dependabot 경고, 종료된 브랜치 정리 | [GitHub 명령어](github/README.md) |
+| `github` | 저장소 설정, 이슈, 연결 브랜치, PR·리뷰, CI 진단·재실행, Dependabot 경고, 종료된 브랜치 정리 | [GitHub 명령어](github/README.md) |
 
 ## 토큰 사용량 실측
 
@@ -68,11 +68,22 @@ tools github issue create --prefix fix --title "handle duplicate requests" --bod
 # 구현·검증 후 Git으로 커밋·푸시하고 PR 생성
 tools github pr create --prefix fix --title "handle duplicate requests" --body-file pr.md --json
 
+# 제출된 리뷰 본문·미해결 대화·코드 위치 수집
+tools github pr reviews --number 123 --json
+
 # 한 번 호출해 검사 완료 대기·조건 충족 시 머지·실패 원인 반환
 tools github pr merge --number 123 --json
 ```
 
 생성 명령이 필요한 목록을 조회하므로 `context`는 선택 사항입니다. 생성 계획만 확인하려면 `--dry-run --json`, Git 밖에서는 `--repo OWNER/REPO`를 추가합니다. 다른 언어는 `tools github setup --body-language any`로 허용하고, 라벨 지정 등은 [setup 문서](github/setup.md)를 참고하세요.
+
+실패한 CI job을 재실행하고 새 회차의 완료까지 기다립니다. 다시 실패하면 실패 자료를 함께 반환합니다.
+
+```sh
+tools github ci rerun --run 123456789 --json
+```
+
+전체 workflow는 `--all`, 요청 수락 후 반환은 `--wait=false`, 미리보기는 `--dry-run`을 사용합니다. 재실행은 원래 커밋을 사용하므로 수정 커밋을 푸시했다면 새 실행을 확인하세요. [옵션과 복구](github/ci-rerun.md).
 
 의존성 보안 경고와 패치 정보를 조회합니다.
 

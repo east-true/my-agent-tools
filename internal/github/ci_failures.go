@@ -105,6 +105,13 @@ func (client Client) CIFailures(ctx context.Context, repo string, options CIFail
 	if result.Run.ID != options.RunID || result.Run.Attempt <= 0 || result.Run.HeadSHA == "" || result.Run.Status == "" {
 		return result, errors.New("GitHub returned incomplete CI run metadata")
 	}
+	return client.ciFailuresForRun(ctx, repo, options, result.Run)
+}
+
+// ciFailuresForRun pins diagnostics to the observed attempt, even when another
+// rerun starts while failure evidence is being downloaded.
+func (client Client) ciFailuresForRun(ctx context.Context, repo string, options CIFailureOptions, run CIRun) (CIFailureResult, error) {
+	result := CIFailureResult{Status: "ok", Repo: repo, Run: run, Complete: true, Jobs: []CIJob{}, Evidence: []CIEvidence{}}
 	seenPages := map[int]bool{}
 	for page := 1; ; {
 		seenPages[page] = true

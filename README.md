@@ -12,7 +12,7 @@ Workflows follow `tools <group> <command>`. GitHub is the first available group;
 
 | Group | What it automates | Documentation |
 |---|---|---|
-| `github` | Repository setup, issues, linked branches, PRs, Dependabot alerts, and finished-branch cleanup | [GitHub commands](docs/github/README.md) |
+| `github` | Repository setup, issues, linked branches, PRs and reviews, CI diagnostics and reruns, Dependabot alerts, and finished-branch cleanup | [GitHub commands](docs/github/README.md) |
 
 ## Token usage measurements
 
@@ -68,11 +68,22 @@ tools github issue create --prefix fix --title "handle duplicate requests" --bod
 # Implement and verify your changes, then commit and push with Git.
 tools github pr create --prefix fix --title "handle duplicate requests" --body-file pr.md --json
 
+# Collect submitted reviews and unresolved conversations with code locations.
+tools github pr reviews --number 123 --json
+
 # Wait for checks, merge when ready, or return failure evidence in one call.
 tools github pr merge --number 123 --json
 ```
 
 Issue creation retrieves the metadata it needs; `context` is optional. Add `--dry-run --json` to preview a creation plan. Outside a Git checkout, pass `--repo OWNER/REPO`. Bodies default to Korean unless configured otherwise; [setup](docs/github/setup.md) saves your language and label preferences.
+
+Retry failed CI jobs and wait for the new attempt, with failure evidence if it fails again:
+
+```sh
+tools github ci rerun --run 123456789 --json
+```
+
+Use `--all` for the entire workflow, `--wait=false` to return after request acceptance, or `--dry-run` to preview. Reruns use the original commit; after pushing a fix, inspect the new commit's workflow run. [CI rerun options and recovery](docs/github/ci-rerun.md).
 
 Read dependency security alerts and inspect an alert's advisory and patch:
 

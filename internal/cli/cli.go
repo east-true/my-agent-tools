@@ -23,8 +23,10 @@ Usage:
   tools github issue create  Create an issue, assign @me, create and link its branch
   tools github issue branch  Create or resume the branch for an existing issue
   tools github pr create     Create a pull request
+  tools github pr reviews    Collect submitted reviews and unresolved review threads
   tools github pr merge      Wait for checks, merge, or return failure details
   tools github ci failures   Collect failed CI jobs, annotations and compiler facts
+  tools github ci rerun      Rerun failed jobs, wait, and return failure evidence
   tools github dependabot list List dependency security alerts
   tools github dependabot view View a dependency security alert
   tools github branch cleanup Preview or delete branches for finished work
@@ -38,8 +40,10 @@ const githubHelp = `Usage:
   tools github issue create --prefix PREFIX --title TITLE --body-file FILE [options]
   tools github issue branch --number NUMBER [options]
   tools github pr create --prefix PREFIX --title TITLE --body-file FILE [options]
+  tools github pr reviews --number NUMBER [--all] [--json]
   tools github pr merge --number NUMBER [--timeout 10m] [--json]
   tools github ci failures --run RUN_ID [--repo OWNER/REPO] [--json]
+  tools github ci rerun --run RUN_ID [--all] [--wait=false] [--json]
   tools github dependabot list [--state open|all] [--severity high,critical] [--json]
   tools github dependabot view --number NUMBER [--json]
   tools github branch cleanup [--apply] [--scope both|local|remote] [--json]
@@ -69,6 +73,7 @@ func printKindHelp(out io.Writer, kind string) {
 	if kind == "issue" {
 		fmt.Fprintln(&usage, "  tools github issue branch --number NUMBER [options]")
 	} else if kind == "pr" {
+		fmt.Fprintln(&usage, "  tools github pr reviews --number NUMBER [options]")
 		fmt.Fprintln(&usage, "  tools github pr merge --number NUMBER [options]")
 	}
 	fmt.Fprintf(&usage, "\nUse 'tools github %s <command> --help' for command-specific options.\n", kind)
@@ -100,6 +105,9 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 	}
 	if kind == "pr" && len(args) > 1 && args[1] == "merge" {
 		return runPRMerge(ctx, args[2:], out, stderr, runner, newAPI)
+	}
+	if kind == "pr" && len(args) > 1 && args[1] == "reviews" {
+		return runPRReviews(ctx, args[2:], out, stderr, runner, newAPI)
 	}
 	if kind == "dependabot" {
 		return runDependabot(ctx, args[1:], out, stderr, runner, newAPI)

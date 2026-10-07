@@ -12,8 +12,11 @@ import (
 )
 
 func runCIFailures(ctx context.Context, args []string, out, stderr io.Writer, runner command.Runner, newAPI func(context.Context, command.Runner) (github.API, error)) int {
+	if len(args) > 0 && args[0] == "rerun" {
+		return runCIRerun(ctx, args[1:], out, stderr, runner, newAPI)
+	}
 	if len(args) == 0 || args[0] == "--help" || args[0] == "-h" {
-		fmt.Fprintln(out, "Usage: tools github ci failures --run RUN_ID [--repo OWNER/REPO] [--json]\n\nCollect failed jobs, steps, annotations and compiler facts.\nUnknown failures retain their available logs. This command is read-only.\nUse 'tools github ci failures --help' for options.")
+		fmt.Fprintln(out, "Usage:\n  tools github ci failures --run RUN_ID [--repo OWNER/REPO] [--json]\n  tools github ci rerun --run RUN_ID [--all] [--wait=false] [--json]\n\nfailures collects jobs, steps, annotations and compiler facts (read-only).\nrerun retries failed jobs by default and waits for a new attempt's result.\nUse '<command> --help' for options.")
 		return 0
 	}
 	if args[0] != "failures" {
