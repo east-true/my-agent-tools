@@ -24,6 +24,13 @@ Git is used to discover the current repository and branch and to check out linke
 
 ## Quick start
 
+Optionally initialize project policy from the repository's current labels and issue types:
+
+```sh
+tools github setup
+tools github setup --dry-run --json   # inspect available names and proposed config
+```
+
 Create a UTF-8 Markdown body file, then run:
 
 ```sh
@@ -62,7 +69,18 @@ Use `--title` and `--body-file` for authored Markdown, or `--file` for structure
 
 Structured issue bodies use `summary`, `changes`, and `acceptance`. PR bodies use `summary`, `changes`, and `verification`. Verification results are `passed`, `failed`, or `not-run`; the latter two require `details`. Omitted verification is recorded as not run. Direct `body` input cannot be combined with structured body fields.
 
-The policy file defaults to `.tools.json` at the current Git root, or the current directory outside Git. Use `--config FILE` to override it. Policies can customize label and issue-type candidates:
+The policy file defaults to `.tools.json` at the current Git root, or the current directory outside Git. Use `--config FILE` to override it. `tools github setup` fetches existing names and saves concrete prefix mappings there. Existing preferences, including body language and explicitly empty mappings, are preserved; missing prefixes are filled. `--refresh` recalculates supported mappings, while explicit `--set-label`/`--set-issue-type` choices take precedence:
+
+```sh
+tools github setup --set-label feat=enhancement --set-label fix=bug
+tools github setup --set-issue-type fix=Bug --body-language any
+tools github setup --refresh --dry-run --json
+tools github setup --repo OWNER/REPO --config project.tools.json
+```
+
+Names supplied with `--set` must already exist; issue types must be enabled. Repeat the same prefix to save ordered candidates, or use `--set-label ci=` to disable that mapping. Auto-matching uses the same existing-name rules as creation, including common `type:`/`kind/` namespaces. Unmatched prefixes get empty candidate arrays and notes; project-specific labels can be chosen explicitly. No GitHub labels or types are created or updated. Setup refuses malformed configs and checks for edits made while fetching before saving. Repeating setup with unchanged preferences produces the same settings.
+
+Policies can also be edited directly:
 
 ```json
 {
@@ -116,6 +134,7 @@ These are mean tokens for the entire measured agent task, including instructions
 | Command | Compared task | Direct `gh` / `gh + git` | `tools` | Total token change | Evidence |
 |---|---|---:|---:|---:|---|
 | `github context` | Independent catalog lookup | — | — | Not measured separately | — |
+| `github setup` | Fetch metadata and save project mappings | — | — | Not measured | — |
 | `github issue create --dry-run` | Read-only issue + linked-branch plan | 46,630 | 46,279 | −0.75% | [3 trials per method](docs/benchmarks/github-token-usage-guided.json) |
 | `github issue create` | Actual issue + linked-branch creation | — | — | Not measured | — |
 | `github issue branch` | Create/resume an existing issue's branch | — | — | Not measured separately | — |

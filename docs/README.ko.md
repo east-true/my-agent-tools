@@ -36,6 +36,7 @@ tools github issue create --prefix fix --title "handle duplicate requests" --bod
 tools github issue create --file issue.json --dry-run --json
 tools github issue branch --number 123
 tools github pr create --prefix fix --title "handle duplicate requests" --body-file pr.md --json
+tools github setup --dry-run --json
 tools github branch cleanup --json
 ```
 
@@ -57,6 +58,22 @@ tools github branch cleanup --json
 `context`는 필요할 때 목록을 확인하는 보조 명령입니다. 생성 명령이 기존 라벨·유형·본문 형식을 직접 조회하므로 사전에 실행할 필요가 없습니다. 기본 본문은 한국어입니다. 제목·본문 정보만 입력하면 됩니다.
 
 저장소의 Markdown 이슈·PR 템플릿을 조회해 prefix와 맞는 파일이나 기본 템플릿을 선택합니다. 기존 섹션 제목을 사용하면서 작성한 내용을 채우며, 템플릿에 대응하지 않는 내용도 보존합니다. `{{body}}`가 있으면 그 위치에 본문을 넣습니다. 템플릿이 없으면 기본 형식으로 작성합니다. 현재 GitHub GraphQL이 제공하는 Markdown 템플릿을 사용하며 YAML issue form은 해석하지 않습니다.
+
+## GitHub 설정 가져오기
+
+```sh
+tools github setup                      # 기존 라벨·유형을 읽어 .tools.json 저장
+tools github setup --dry-run --json       # 저장 없이 후보와 사용 가능한 이름 확인
+tools github setup --set-label feat=enhancement --set-label fix=bug
+tools github setup --set-issue-type fix=Bug --body-language any
+tools github setup --refresh --dry-run --json
+```
+
+GitHub의 기존 라벨·활성화된 이슈 유형을 읽어 prefix별 실제 이름을 설정에 저장합니다. 기본 경로는 현재 Git 루트의 `.tools.json`이며, Git 밖에서는 현재 디렉터리입니다. `--repo OWNER/REPO`와 `--config FILE`로 대상을 지정할 수 있습니다. GitHub 라벨·유형 자체를 생성하거나 수정하지 않습니다.
+
+기존 매핑·본문 언어·명시적으로 비운 매핑은 보존하고 누락된 prefix만 채웁니다. `--refresh`를 주면 지원하는 prefix 매핑을 다시 계산하며 `--set-label`·`--set-issue-type`이 최종 우선합니다. 기본 매칭은 생성 명령과 같은 이름·별칭·namespace 규칙을 사용합니다. 매칭되지 않은 prefix는 빈 후보 배열과 안내를 반환하므로 프로젝트 고유 라벨은 `--set-label`로 지정하세요.
+
+같은 prefix의 옵션을 반복하면 우선순위 후보 목록으로 저장합니다. `--set-label ci=`처럼 빈 값을 지정하면 해당 매핑을 끕니다. 지정한 라벨이 없거나 유형이 비활성화되어 있으면 저장 전에 오류를 반환합니다. 잘못된 기존 JSON을 덮어쓰지 않고, 조회 중 파일이 바뀌면 재실행하도록 알립니다. 같은 상태에서 다시 실행하면 설정이 유지됩니다.
 
 ## 종료된 브랜치 정리
 
@@ -157,6 +174,7 @@ PR 등록과 라벨 지정은 별도 요청입니다. 생성 후 라벨 적용�
 | 명령 | 비교한 작업 | `gh` / `gh + git` 직접 처리 | `tools` | 총 토큰 차이 | 근거 |
 |---|---|---:|---:|---:|---|
 | `github context` | 독립적인 목록 조회 | — | — | 개별 미측정 | — |
+| `github setup` | 목록을 가져와 프로젝트 매핑 저장 | — | — | 미측정 | — |
 | `github issue create --dry-run` | 이슈·연결 브랜치의 읽기 전용 계획 | 46,630 | 46,279 | −0.75% | [방식별 3회](benchmarks/github-token-usage-guided.json) |
 | `github issue create` | 실제 이슈·연결 브랜치 생성 | — | — | 미측정 | — |
 | `github issue branch` | 기존 이슈의 브랜치 생성·재개 | — | — | 개별 미측정 | — |

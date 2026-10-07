@@ -19,6 +19,7 @@ const help = `tools: repeatable agent workflows
 
 Usage:
   tools github context       Inspect existing labels and issue types
+  tools github setup         Fetch labels/types and save project config
   tools github issue create  Create an issue, assign @me, create and link its branch
   tools github issue branch  Create or resume the branch for an existing issue
   tools github pr create     Create a pull request
@@ -29,6 +30,7 @@ Use '<command> --help' for command-specific options.
 
 const githubHelp = `Usage:
   tools github context [--repo OWNER/REPO] [--json]
+  tools github setup [--dry-run] [--set-label PREFIX=NAME] [--config FILE]
   tools github issue create --prefix PREFIX --title TITLE --body-file FILE [options]
   tools github issue branch --number NUMBER [options]
   tools github pr create --prefix PREFIX --title TITLE --body-file FILE [options]
@@ -83,6 +85,9 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 		return 0
 	}
 	kind := args[0]
+	if kind == "setup" {
+		return runSetup(ctx, args[1:], out, stderr, runner, newAPI)
+	}
 	if kind == "branch" {
 		return runCleanup(ctx, args[1:], out, stderr, runner, newAPI)
 	}
@@ -342,14 +347,7 @@ func encode(out, stderr io.Writer, value any) int {
 func loadPolicy(ctx context.Context, runner command.Runner, path string) (github.Policy, error) {
 	policy := github.DefaultPolicy()
 	explicit := path != ""
-	if !explicit {
-		root, err := runner.Run(ctx, nil, "git", "rev-parse", "--show-toplevel")
-		if err == nil {
-			path = filepath.Join(strings.TrimSpace(string(root)), ".tools.json")
-		} else {
-			path = ".tools.json"
-		}
-	}
+	path = resolvePolicyPath(ctx, runner, path)
 	file, err := os.Open(path)
 	if err != nil {
 		if !explicit && errors.Is(err, os.ErrNotExist) {
@@ -363,4 +361,16 @@ func loadPolicy(ctx context.Context, runner command.Runner, path string) (github
 		return policy, fmt.Errorf("config %s: %w", path, err)
 	}
 	return policy, policy.Merge(config.GitHub)
+}
+
+func resolvePolicyPath(ctx context.Context, runner command.Runner, path string) string {
+	if path == "" {
+		root, err := runner.Run(ctx, nil, "git", "rev-parse", "--show-toplevel")
+		if err == nil {
+			path = filepath.Join(strings.TrimSpace(string(root)), ".tools.json")
+		} else {
+			path = ".tools.json"
+		}
+	}
+	return path
 }

@@ -79,6 +79,7 @@ func TestHelpNeedsNoAuthentication(t *testing.T) {
 	for _, args := range [][]string{
 		{}, {"--help"}, {"-h"},
 		{"github"}, {"github", "--help"}, {"github", "-h"},
+		{"github", "setup", "--help"}, {"github", "setup", "-h"},
 		{"github", "issue"}, {"github", "issue", "--help"}, {"github", "issue", "-h"},
 		{"github", "pr"}, {"github", "pr", "--help"}, {"github", "pr", "-h"},
 		{"github", "issue", "create", "--help"}, {"github", "issue", "create", "-h"},
