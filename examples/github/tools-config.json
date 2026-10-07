@@ -1,0 +1,7 @@
+{
+  "github": {
+    "body_language": "ko",
+    "label_map": {"feat": ["type: feature", "enhancement"], "fix": ["type: bug", "bug"]},
+    "issue_type_map": {"feat": ["Feature", "Task"], "fix": ["Bug", "Task"]}
+  }
+}

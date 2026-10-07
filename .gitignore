@@ -28,6 +28,31 @@ go.work.sum
 # env file
 .env
 
+# CLI build artifacts
+/tools
+/tools.exe
+/dist/
+/artifacts/
+.tools/state/
+
+# Python benchmark artifacts
+__pycache__/
+*.pyc
+
+# Local agent instructions and configuration
+[Aa][Gg][Ee][Nn][Tt][Ss].md
+[Aa][Gg][Ee][Nn][Tt][Ss].local.md
+[Aa][Gg][Ee][Nn][Tt][Ss].override.md
+[Cc][Ll][Aa][Uu][Dd][Ee].md
+[Cc][Ll][Aa][Uu][Dd][Ee].local.md
+[Cc][Oo][Dd][Ee][Xx].md
+[Cc][Oo][Dd][Ee][Xx].local.md
+.agents/
+.claude/
+.codex/
+.claude.json
+.claude.local.json
+
 # Editor/IDE
 # .idea/
 # .vscode/

@@ -1,0 +1,488 @@
+{
+  "measured_at_utc": "2026-10-07T04:13:17.739344+00:00",
+  "condition": {
+    "name": "guided Git checkout usage",
+    "repo": "east-true/my-agent-tools",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "repetitions_per_method": 3,
+    "sequence": [
+      "gh",
+      "tools",
+      "tools",
+      "gh",
+      "gh",
+      "tools"
+    ],
+    "remote_mutations": false
+  },
+  "protocol": {
+    "condition": {
+      "name": "guided Git checkout usage",
+      "repo": "east-true/my-agent-tools",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "repetitions_per_method": 3,
+      "sequence": [
+        "gh",
+        "tools",
+        "tools",
+        "gh",
+        "gh",
+        "tools"
+      ],
+      "remote_mutations": false
+    },
+    "cli_version": "codex-cli 0.160.1",
+    "usage_source": "codex exec --json turn.completed.usage",
+    "correctness": "All 10 fields match a reference independently queried with gh and cross-checked with tools",
+    "prompt_bytes": {
+      "gh": 2350,
+      "tools": 2094
+    },
+    "files": [
+      {
+        "path": "run.py",
+        "sha256": "84aa94f78fd9bc6befd40211551a9551229c5f90a60a01c374ac074785e2b05f"
+      },
+      {
+        "path": "condition.json",
+        "sha256": "c13915c00d5fe0a4cc85b30b11ceeb3caf1d7dfedc92b0aa56c599183f4e3918"
+      },
+      {
+        "path": "result-schema.json",
+        "sha256": "086e5431833ee74d1b7d47cdc461612a9ff02c319e4fedc585245b5f01fd7df5"
+      },
+      {
+        "path": "gh-prompt.txt",
+        "sha256": "baf25dd75f794fa61b75ad0e25f18a188ef1a6654c210a56c86ff99127bfd06b"
+      },
+      {
+        "path": "tools-prompt.txt",
+        "sha256": "c773fb4e309d51f563247b7b4e45c1de6366371f1fdabe69e7ec2606e1c5a1e1"
+      },
+      {
+        "path": "gh-guide.txt",
+        "sha256": "ac5c63f260e92b8b04cf20a34a5a8f00ea9830c9553bf50d3d013b7168d6cba7"
+      },
+      {
+        "path": "tools-guide.txt",
+        "sha256": "5c08865291b243549559271053a8785761c74e771f63250880a2c70a3d0c2603"
+      },
+      {
+        "path": "base/POLICY.md",
+        "sha256": "c9b7c78b8820120895f5bdb348bc5b3f57dba442ffd86f0132fa21f1d2c0df81"
+      },
+      {
+        "path": "base/issue.md",
+        "sha256": "6bb4ccc81b97a7e938c603a8beb1822000d825913aa172df9aebcc0986cf0079"
+      },
+      {
+        "path": "bin/gh",
+        "sha256": "ff73c8744874405591181008e3b40b665da4b3793c974f5e226fa97d4ebab229"
+      },
+      {
+        "path": "bin/tools",
+        "sha256": "4786c9bebbd1a9259024c0ce18646c26a510382012ceb6f7000b54886f346517"
+      },
+      {
+        "path": "bin/tools-real",
+        "sha256": "4ebdd0cad6bdb14c2028973765ae227eebb7c516ac1b2fcb15d7038bc820ee0d"
+      }
+    ]
+  },
+  "summary": {
+    "gh": {
+      "n": 3,
+      "mean_input_tokens": 46243,
+      "mean_cached_input_tokens": 30208,
+      "mean_uncached_input_tokens": 16035,
+      "mean_output_tokens": 387.3333333333333,
+      "mean_input_plus_output": 46630.333333333336,
+      "mean_command_calls": 2,
+      "mean_seconds": 16.660999999999998,
+      "mean_shell_output_bytes": 1132,
+      "min_input_plus_output": 46563,
+      "max_input_plus_output": 46673,
+      "median_input_plus_output": 46655
+    },
+    "tools": {
+      "n": 3,
+      "mean_input_tokens": 46014.666666666664,
+      "mean_cached_input_tokens": 29952,
+      "mean_uncached_input_tokens": 16062.666666666666,
+      "mean_output_tokens": 264.6666666666667,
+      "mean_input_plus_output": 46279.333333333336,
+      "mean_command_calls": 2,
+      "mean_seconds": 13.704666666666666,
+      "mean_shell_output_bytes": 1367,
+      "min_input_plus_output": 46211,
+      "max_input_plus_output": 46318,
+      "median_input_plus_output": 46309
+    },
+    "tools_reduction_percent": {
+      "mean_input_tokens": 0.4937684262122608,
+      "mean_cached_input_tokens": 0.847457627118644,
+      "mean_uncached_input_tokens": -0.17253923708553826,
+      "mean_output_tokens": 31.669535283993106,
+      "mean_input_plus_output": 0.7527289103659277,
+      "mean_command_calls": 0.0,
+      "mean_seconds": 17.744032971210203,
+      "mean_shell_output_bytes": -20.75971731448763
+    }
+  },
+  "trials": [
+    {
+      "index": 1,
+      "method": "gh",
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "mismatched_fields": [],
+      "usage": {
+        "input_tokens": 46167,
+        "cached_input_tokens": 30208,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 396,
+        "reasoning_output_tokens": 42
+      },
+      "command_calls": 2,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 1132,
+      "seconds": 19.016,
+      "input_plus_output": 46563,
+      "uncached_input": 15959,
+      "transcript_stats": {
+        "help_calls": 0,
+        "context_calls": 0,
+        "dry_run_calls": 0
+      },
+      "commands": [
+        "/bin/bash -lc 'cat POLICY.md issue.md'",
+        "/bin/bash -lc \"gh api repos/east-true/my-agent-tools/labels --paginate --jq '.[].name'\ngh api repos/east-true/my-agent-tools/issue-types --jq '[.[] | {name,is_enabled}]'\ngh api graphql -F owner=east-true -F name=my-agent-tools -f query='query(\"'$owner:String!,$name:String!){viewer{login} repository(owner:$owner,name:$name){nameWithOwner defaultBranchRef{name target{oid}} issueTemplates{filename body}}}'\"'\""
+      ]
+    },
+    {
+      "index": 2,
+      "method": "tools",
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "mismatched_fields": [],
+      "usage": {
+        "input_tokens": 46049,
+        "cached_input_tokens": 29952,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 260,
+        "reasoning_output_tokens": 0
+      },
+      "command_calls": 2,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 1367,
+      "seconds": 12.6,
+      "input_plus_output": 46309,
+      "uncached_input": 16097,
+      "transcript_stats": {
+        "help_calls": 0,
+        "context_calls": 0,
+        "dry_run_calls": 1
+      },
+      "commands": [
+        "/bin/bash -lc 'cat POLICY.md issue.md'",
+        "/bin/bash -lc 'tools github issue create --prefix fix --title \"measure github automation\" --body-file issue.md --no-checkout --dry-run --json'"
+      ]
+    },
+    {
+      "index": 3,
+      "method": "tools",
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "mismatched_fields": [],
+      "usage": {
+        "input_tokens": 46058,
+        "cached_input_tokens": 29952,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 260,
+        "reasoning_output_tokens": 0
+      },
+      "command_calls": 2,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 1367,
+      "seconds": 14.157,
+      "input_plus_output": 46318,
+      "uncached_input": 16106,
+      "transcript_stats": {
+        "help_calls": 0,
+        "context_calls": 0,
+        "dry_run_calls": 1
+      },
+      "commands": [
+        "/bin/bash -lc 'cat POLICY.md issue.md'",
+        "/bin/bash -lc 'tools github issue create --prefix fix --title \"measure github automation\" --body-file issue.md --no-checkout --dry-run --json'"
+      ]
+    },
+    {
+      "index": 4,
+      "method": "gh",
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "mismatched_fields": [],
+      "usage": {
+        "input_tokens": 46290,
+        "cached_input_tokens": 30208,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 383,
+        "reasoning_output_tokens": 35
+      },
+      "command_calls": 2,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 1132,
+      "seconds": 14.657,
+      "input_plus_output": 46673,
+      "uncached_input": 16082,
+      "transcript_stats": {
+        "help_calls": 0,
+        "context_calls": 0,
+        "dry_run_calls": 0
+      },
+      "commands": [
+        "/bin/bash -lc 'cat POLICY.md issue.md'",
+        "/bin/bash -lc \"gh api repos/east-true/my-agent-tools/labels --paginate --jq '.[].name'\ngh api repos/east-true/my-agent-tools/issue-types --jq '[.[] | {name,is_enabled}]'\ngh api graphql -F owner=east-true -F name=my-agent-tools -f query='query(\"'$owner:String!,$name:String!){viewer{login} repository(owner:$owner,name:$name){nameWithOwner defaultBranchRef{name target{oid}} issueTemplates{filename body}}}'\"'\""
+      ]
+    },
+    {
+      "index": 5,
+      "method": "gh",
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "mismatched_fields": [],
+      "usage": {
+        "input_tokens": 46272,
+        "cached_input_tokens": 30208,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 383,
+        "reasoning_output_tokens": 44
+      },
+      "command_calls": 2,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 1132,
+      "seconds": 16.31,
+      "input_plus_output": 46655,
+      "uncached_input": 16064,
+      "transcript_stats": {
+        "help_calls": 0,
+        "context_calls": 0,
+        "dry_run_calls": 0
+      },
+      "commands": [
+        "/bin/bash -lc 'cat POLICY.md issue.md'",
+        "/bin/bash -lc \"gh api repos/east-true/my-agent-tools/labels --paginate --jq '.[].name'\ngh api repos/east-true/my-agent-tools/issue-types --jq '[.[] | {name,is_enabled}]'\ngh api graphql -F owner=east-true -F name=my-agent-tools -f query='query(\"'$owner:String!,$name:String!){viewer{login} repository(owner:$owner,name:$name){nameWithOwner defaultBranchRef{name target{oid}} issueTemplates{filename body}}}'\"'\""
+      ]
+    },
+    {
+      "index": 6,
+      "method": "tools",
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "mismatched_fields": [],
+      "usage": {
+        "input_tokens": 45937,
+        "cached_input_tokens": 29952,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 274,
+        "reasoning_output_tokens": 0
+      },
+      "command_calls": 2,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 1367,
+      "seconds": 14.357,
+      "input_plus_output": 46211,
+      "uncached_input": 15985,
+      "transcript_stats": {
+        "help_calls": 0,
+        "context_calls": 0,
+        "dry_run_calls": 1
+      },
+      "commands": [
+        "/bin/bash -lc 'cat POLICY.md issue.md'",
+        "/bin/bash -lc 'tools github issue create --prefix fix --title \"measure github automation\" --body-file issue.md --no-checkout --dry-run --json'"
+      ]
+    }
+  ],
+  "correctness": {
+    "passed": 6,
+    "total": 6,
+    "fields_per_plan": 10,
+    "reference_source": "Independent live gh API/GraphQL queries, cross-checked against tools dry-run",
+    "reference_unchanged_after_trials": true,
+    "remote_default_commit": "56fd99c537ec2ee6ecd4d3e48d939912ed5bdd87"
+  },
+  "native_cli_timing": {
+    "seconds": 2.472,
+    "output_bytes": 663,
+    "model_calls": 0
+  },
+  "prompts": {
+    "gh": "Prepare a GitHub issue and linked development-branch creation plan according to POLICY.md and issue.md. Verify the repository metadata and authenticated user against GitHub. This is a read-only planning task: never create or update remote items, commit, push, or check out a branch. Do not read credentials or print tokens. Use shell commands, without MCP, web search, delegation, or other agents. Return only the complete normalized plan matching the supplied schema. Use null for unsupported issue types and absent templates, and <issue-number> for the not-yet-known issue number.\n\nYou are in a Git checkout with the correct origin. The command interfaces in PATH are trusted, prevalidated read-only wrappers forwarding to the real installed binaries. Their implementation is outside this task. Do not bypass them. Use documented command outputs as evidence; investigate further only on errors or missing required information. Optimize your workflow naturally, batching independent reads if useful; no minimum number of calls is required.\n\nMethod usage guide:\nUse gh directly for GitHub operations; do not invoke tools.\n\nRead POLICY.md and issue.md. The following read commands provide the required facts; batch them in one shell call if useful. Replace OWNER/REPO using POLICY.md or gh repo view --json nameWithOwner --jq .nameWithOwner.\n  gh api repos/OWNER/REPO/labels --paginate --jq '.[].name'\n  gh api repos/OWNER/REPO/issue-types --jq '[.[] | {name,is_enabled}]'\n  gh api graphql -F owner=OWNER -F name=REPO -f query='query($owner:String!,$name:String!){viewer{login} repository(owner:$owner,name:$name){nameWithOwner defaultBranchRef{name target{oid}} issueTemplates{filename body}}}'\n\nAn issue-types HTTP 404 means unsupported; other errors require investigation. Select existing label/type according to POLICY.md. Prefix the title, trim the body outer whitespace, and form the branch pattern from POLICY.md. GraphQL returns the authenticated login, canonical repo, default branch/SHA and available Markdown templates. Match template filename words against fix then bug, otherwise use issue_template.md or default.md; if absent use null. Preserve authored sections if a template applies. Use these outputs without repeating lookups unless an error or required field is missing. Read only command-specific --help when an option is unclear.\n",
+    "tools": "Prepare a GitHub issue and linked development-branch creation plan according to POLICY.md and issue.md. Verify the repository metadata and authenticated user against GitHub. This is a read-only planning task: never create or update remote items, commit, push, or check out a branch. Do not read credentials or print tokens. Use shell commands, without MCP, web search, delegation, or other agents. Return only the complete normalized plan matching the supplied schema. Use null for unsupported issue types and absent templates, and <issue-number> for the not-yet-known issue number.\n\nYou are in a Git checkout with the correct origin. The command interfaces in PATH are trusted, prevalidated read-only wrappers forwarding to the real installed binaries. Their implementation is outside this task. Do not bypass them. Use documented command outputs as evidence; investigate further only on errors or missing required information. Optimize your workflow naturally, batching independent reads if useful; no minimum number of calls is required.\n\nMethod usage guide:\nUse tools github for GitHub operations; do not invoke gh directly.\n\nRead POLICY.md and issue.md, then run:\n  tools github issue create --prefix fix --title \"measure github automation\" --body-file issue.md --no-checkout --dry-run --json\n\nCreation reads current GitHub metadata, labels, issue types, Markdown templates, the authenticated login and branch base SHA, validates the input, and returns the complete plan. A prior context call is unnecessary. --dry-run performs no writes. Use --repo OWNER/REPO outside a checkout. Read only the command-specific --help when an option is unclear.\n\nNormalize the JSON plan: repo=plan.repo; title/body/assignees/labels=plan.payload fields; issue_type=plan.selection.issue_type or null; default_branch=plan.branch.base; base_commit=plan.branch.base_sha; branch_pattern=plan.branch.name; template=plan.template or null. Absence of template means no matching Markdown template was selected. Use this returned plan without repeating metadata lookups unless an error or required field is missing.\n"
+  },
+  "shared_policy": "Target: east-true/my-agent-tools\nPrefix: fix\nTitle: measure github automation\nBody: issue.md (preserve authored Markdown; trim outer whitespace)\nAssignee: authenticated user\nLabels: choose the first existing match from fix, bug (case-insensitive)\nIssue type: choose the first enabled existing match from Bug, Task; omit if unsupported\nBranch: <issue-number>-fix-measure-github-automation from the remote default branch\nUse existing matching/default Markdown issue template when available.\nNo remote writes, local checkout, commits, or pushes.\n",
+  "shared_body": "## 요약\n\n반복되는 GitHub 업무의 토큰 사용량을 비교합니다.\n\n## 완료 기준\n\n- 동일한 이슈·브랜치 생성 계획을 반환합니다.\n",
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "repo": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "body": {
+        "type": "string"
+      },
+      "assignees": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "labels": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "issue_type": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "default_branch": {
+        "type": "string"
+      },
+      "base_commit": {
+        "type": "string"
+      },
+      "branch_pattern": {
+        "type": "string"
+      },
+      "template": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "repo",
+      "title",
+      "body",
+      "assignees",
+      "labels",
+      "issue_type",
+      "default_branch",
+      "base_commit",
+      "branch_pattern",
+      "template"
+    ]
+  },
+  "codex_arguments": [
+    "exec",
+    "--json",
+    "--ephemeral",
+    "--ignore-user-config",
+    "--sandbox",
+    "workspace-write",
+    "--model",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"high\"",
+    "-c",
+    "approval_policy=\"never\"",
+    "-c",
+    "sandbox_workspace_write.network_access=true",
+    "-c",
+    "features.multi_agent=false",
+    "--color",
+    "never",
+    "--cd",
+    "<isolated Git checkout>",
+    "--output-schema",
+    "<result-schema.json>",
+    "--output-last-message",
+    "<answer.json>",
+    "-"
+  ],
+  "source_worktree_sha256": [
+    {
+      "path": "internal/cli/cli.go",
+      "sha256": "c6b3ef5fbb22bff844fef826824fe42980cd104f1dfa0501b510e25f74b57843"
+    },
+    {
+      "path": "internal/command/runner.go",
+      "sha256": "97ce6656fb463543187167358cd7cc1ff6b96132406adde3b41c5f74744cbf40"
+    },
+    {
+      "path": "internal/github/api.go",
+      "sha256": "125e448787b3023f9cf0e4689a4c7d5d3e6625a051996ef8e016f3138e356b66"
+    },
+    {
+      "path": "internal/github/branch.go",
+      "sha256": "40a248a105c59e10beade0e15ef9ee66eaff7be457ffaf7a272dde38cbd9e13a"
+    },
+    {
+      "path": "internal/github/client.go",
+      "sha256": "25aca17f1c05f99f28dcab709db2c52c5c259da17a94e2bc0fb2d0b86dba61f9"
+    },
+    {
+      "path": "internal/github/policy.go",
+      "sha256": "e67f470c18292eb10dea17bf10a61b232985f2a9a63341a449768a7580f26317"
+    },
+    {
+      "path": "internal/github/spec.go",
+      "sha256": "6844f3223f55edb6fed239ac5bac024ae5837e899491f5651a4f941cc04edae3"
+    },
+    {
+      "path": "internal/github/template.go",
+      "sha256": "3942ac9b36dfe628b4830a48177d36e933beff5ac9d648ed7574d82ffc664522"
+    }
+  ],
+  "findings": {
+    "total_tokens": "tools used 0.75% fewer input-plus-output tokens than guided gh in this three-trial sample.",
+    "uncached_input": "tools used 0.17% more uncached input tokens; this experiment does not establish meaningful input savings.",
+    "observed_workflow": "Every trial used two shell calls: read the task files, then execute the documented workflow. gh batched three API commands into its second shell call; tools ran one dry-run. No help, context, wrapper inspection, or failed command calls were observed.",
+    "inference": "Removing discovery overhead brought both methods to the same shell-call count and similar input usage. One tools command instead of three batched gh commands did not yield substantial token savings in this planning task. Internal API request counts and per-model-request attribution were not measured.",
+    "timing": "Observed mean completion time was 16.661 seconds for gh and 13.705 seconds for tools. This small sample does not establish a stable latency improvement."
+  },
+  "comparison_with_previous": {
+    "report": "github-token-usage.json",
+    "previous_mean_input_plus_output": {
+      "gh": 81348,
+      "tools": 146012.66666666666
+    },
+    "interpretation": "The previous condition omitted usage guides and local Git metadata and exposed wrappers in the working directory. This condition changes several factors together, so the difference cannot be attributed to the help edit alone."
+  },
+  "limitations": [
+    "Three fresh sessions per method, one model, one repository and one read-only issue/branch planning task. This is guided usage, not measured long-running or repeated warm-session usage.",
+    "Both prompts include tailored executable method guides and their tokens are included. Prompt lengths differ naturally; no artificial length padding was used.",
+    "Tools behavior is unchanged except help text. Agent guide and README changes are not separately evaluated; the exact benchmark prompts are included.",
+    "Input-plus-output includes cached input. Output already includes reasoning output tokens. No monetary cost or billing savings are calculated.",
+    "Shell command counts are not model request counts or GitHub request counts. Multiple gh API commands ran in one shell call.",
+    "The base is an isolated clone of the local Git HEAD with the real GitHub origin, plus identical policy/body files. The evaluated CLI is built from the uncommitted source worktree and identified by hashes.",
+    "Prevalidated read-only wrappers were placed outside the checkout in PATH. They forward to real binaries; their verification was not part of the task.",
+    "Issue creation, metadata writes, branch association, checkout, commit, push, PR creation and failure recovery are unmeasured.",
+    "Setup, reference queries, analysis and collaborating-agent tokens are excluded from the six measured Codex trials.",
+    "All six trials are reported; there were no discarded trials or automatic retries.",
+    "Help guidance, explicit command examples, wrapper presentation and Git context changed together versus the earlier condition; individual causal effects are not isolated."
+  ],
+  "references": [
+    "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "https://developers.openai.com/api/docs/guides/token-counting"
+  ]
+}

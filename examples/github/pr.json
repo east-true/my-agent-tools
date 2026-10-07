@@ -1,0 +1,11 @@
+{
+  "prefix": "feat",
+  "title": "add github workflow commands",
+  "summary": "GitHub 이슈와 PR 생성을 tools github 명령으로 처리합니다.",
+  "changes": ["프로젝트별 라벨·유형 매핑", "생성 후 실패 시 기존 PR 주소 보존"],
+  "verification": [
+    {"command": "go test ./...", "result": "not-run", "details": "예시 파일입니다. 실제 실행 결과로 교체하세요."}
+  ],
+  "head": "feat/github-cli",
+  "draft": true
+}

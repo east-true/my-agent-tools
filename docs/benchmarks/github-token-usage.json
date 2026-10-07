@@ -1,0 +1,315 @@
+{
+  "date": "2026-10-07",
+  "conclusion": "No token reduction was observed in this cold-start, read-only planning experiment.",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "codex_cli_version": "0.160.1",
+  "measurement": "Server-reported codex exec --json turn.completed.usage; not a character-count estimate.",
+  "task": "Return an equivalent GitHub issue and linked-branch creation plan with ten normalized fields.",
+  "setup": {
+    "trials_per_method": 3,
+    "order": [
+      "gh",
+      "tools",
+      "tools",
+      "gh",
+      "gh",
+      "tools"
+    ],
+    "fresh_context_per_trial": true,
+    "fresh_non_git_workspace_per_trial": true,
+    "explicit_target_repository": true,
+    "remote_writes": false,
+    "read_only_wrappers": true,
+    "tools_usage_guide_provided": false,
+    "method_discovery_and_wrapper_inspection_included": true
+  },
+  "success": {
+    "matched_plans": 6,
+    "total_trials": 6,
+    "normalized_fields": [
+      "repo",
+      "title",
+      "body",
+      "assignees",
+      "labels",
+      "issue_type",
+      "default_branch",
+      "base_commit",
+      "branch_pattern",
+      "template"
+    ]
+  },
+  "averages": {
+    "gh": {
+      "n": 3,
+      "mean_input_tokens": 80662,
+      "mean_cached_input_tokens": 61610.666666666664,
+      "mean_uncached_input_tokens": 19051.333333333332,
+      "mean_output_tokens": 686,
+      "mean_input_plus_output": 81348,
+      "mean_command_calls": 6,
+      "mean_seconds": 25.508333333333333,
+      "min_input_plus_output": 79716,
+      "max_input_plus_output": 83362,
+      "median_input_plus_output": 80966,
+      "mean_shell_output_bytes": 8549.333333333334
+    },
+    "tools": {
+      "n": 3,
+      "mean_input_tokens": 144976,
+      "mean_cached_input_tokens": 119680,
+      "mean_uncached_input_tokens": 25296,
+      "mean_output_tokens": 1036.6666666666667,
+      "mean_input_plus_output": 146012.66666666666,
+      "mean_command_calls": 11.666666666666666,
+      "mean_seconds": 44.49966666666667,
+      "min_input_plus_output": 131871,
+      "max_input_plus_output": 172468,
+      "median_input_plus_output": 133699,
+      "mean_shell_output_bytes": 6904.666666666667
+    }
+  },
+  "tools_increase_percent": {
+    "mean_input_tokens": 79.73271180977412,
+    "mean_cached_input_tokens": 94.25207756232689,
+    "mean_uncached_input_tokens": 32.77810826888757,
+    "mean_output_tokens": 51.1175898931001,
+    "mean_input_plus_output": 79.49140318958875,
+    "mean_command_calls": 94.44444444444444,
+    "mean_seconds": 74.45148644233912
+  },
+  "trials": [
+    {
+      "index": 1,
+      "method": "gh",
+      "correct": true,
+      "usage": {
+        "input_tokens": 79035,
+        "cached_input_tokens": 61184,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 681,
+        "reasoning_output_tokens": 127
+      },
+      "input_plus_output": 79716,
+      "uncached_input": 17851,
+      "command_calls": 5,
+      "seconds": 27.647,
+      "transcript_stats": {
+        "shell_calls": 5,
+        "failed_calls": 3,
+        "help_calls": 0,
+        "context_calls": 0,
+        "dry_run_calls": 0,
+        "wrapper_or_audit_reads": 0,
+        "read_only_wrapper_denials": 0
+      },
+      "shell_output_bytes": 4775
+    },
+    {
+      "index": 2,
+      "method": "tools",
+      "correct": true,
+      "usage": {
+        "input_tokens": 131073,
+        "cached_input_tokens": 112256,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 798,
+        "reasoning_output_tokens": 190
+      },
+      "input_plus_output": 131871,
+      "uncached_input": 18817,
+      "command_calls": 9,
+      "seconds": 36.378,
+      "transcript_stats": {
+        "shell_calls": 9,
+        "failed_calls": 0,
+        "help_calls": 2,
+        "context_calls": 1,
+        "dry_run_calls": 1,
+        "wrapper_or_audit_reads": 2,
+        "read_only_wrapper_denials": 0
+      },
+      "shell_output_bytes": 6153
+    },
+    {
+      "index": 3,
+      "method": "tools",
+      "correct": true,
+      "usage": {
+        "input_tokens": 132536,
+        "cached_input_tokens": 113152,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1163,
+        "reasoning_output_tokens": 401
+      },
+      "input_plus_output": 133699,
+      "uncached_input": 19384,
+      "command_calls": 11,
+      "seconds": 48.308,
+      "transcript_stats": {
+        "shell_calls": 11,
+        "failed_calls": 1,
+        "help_calls": 3,
+        "context_calls": 1,
+        "dry_run_calls": 1,
+        "wrapper_or_audit_reads": 1,
+        "read_only_wrapper_denials": 0
+      },
+      "shell_output_bytes": 6161
+    },
+    {
+      "index": 4,
+      "method": "gh",
+      "correct": true,
+      "usage": {
+        "input_tokens": 80289,
+        "cached_input_tokens": 60672,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 677,
+        "reasoning_output_tokens": 175
+      },
+      "input_plus_output": 80966,
+      "uncached_input": 19617,
+      "command_calls": 4,
+      "seconds": 25.442,
+      "transcript_stats": {
+        "shell_calls": 4,
+        "failed_calls": 1,
+        "help_calls": 0,
+        "context_calls": 0,
+        "dry_run_calls": 0,
+        "wrapper_or_audit_reads": 0,
+        "read_only_wrapper_denials": 0
+      },
+      "shell_output_bytes": 10030
+    },
+    {
+      "index": 5,
+      "method": "gh",
+      "correct": true,
+      "usage": {
+        "input_tokens": 82662,
+        "cached_input_tokens": 62976,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 700,
+        "reasoning_output_tokens": 112
+      },
+      "input_plus_output": 83362,
+      "uncached_input": 19686,
+      "command_calls": 9,
+      "seconds": 23.436,
+      "transcript_stats": {
+        "shell_calls": 9,
+        "failed_calls": 2,
+        "help_calls": 0,
+        "context_calls": 0,
+        "dry_run_calls": 0,
+        "wrapper_or_audit_reads": 0,
+        "read_only_wrapper_denials": 0
+      },
+      "shell_output_bytes": 10843
+    },
+    {
+      "index": 6,
+      "method": "tools",
+      "correct": true,
+      "usage": {
+        "input_tokens": 171319,
+        "cached_input_tokens": 133632,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1149,
+        "reasoning_output_tokens": 340
+      },
+      "input_plus_output": 172468,
+      "uncached_input": 37687,
+      "command_calls": 15,
+      "seconds": 48.813,
+      "transcript_stats": {
+        "shell_calls": 15,
+        "failed_calls": 1,
+        "help_calls": 4,
+        "context_calls": 3,
+        "dry_run_calls": 1,
+        "wrapper_or_audit_reads": 1,
+        "read_only_wrapper_denials": 0
+      },
+      "shell_output_bytes": 8400
+    }
+  ],
+  "limitations": [
+    "Three trials per method, one model and one repository.",
+    "Read-only planning only; actual issue creation, branch linking, checkout, and PR creation are not measured.",
+    "Total reported input tokens include cached tokens; monetary cost is not computed.",
+    "Fresh non-Git temporary workspaces with an explicit target repository were used for both methods.",
+    "Both methods used read-only command wrappers that forwarded to the real gh CLI or compiled tools binary.",
+    "No prior tools usage guide was provided: help discovery and wrapper verification were included in usage.",
+    "These results measure cold-start read-only issue and branch planning, not remote issue/PR creation, checkout, commit, or push.",
+    "All six final plans matched the same ten-field reference plan.",
+    "Output tokens already include reasoning output tokens; do not add reasoning_output_tokens again.",
+    "Primary-agent experiment setup and analysis tokens are not included.",
+    "This does not establish token use for documented warm usage, real issue/branch creation, PR creation, or other repositories.",
+    "Read-only wrappers and missing local Git metadata affected discovery; the numbers must not be generalized to normal CLI usage."
+  ],
+  "source_worktree_sha256": [
+    {
+      "path": "internal/cli/cli.go",
+      "sha256": "38e64b258c73b539237c92bc583d96a1269f4988e66d25033e0df92cfca25ca6"
+    },
+    {
+      "path": "internal/command/runner.go",
+      "sha256": "97ce6656fb463543187167358cd7cc1ff6b96132406adde3b41c5f74744cbf40"
+    },
+    {
+      "path": "internal/github/api.go",
+      "sha256": "125e448787b3023f9cf0e4689a4c7d5d3e6625a051996ef8e016f3138e356b66"
+    },
+    {
+      "path": "internal/github/branch.go",
+      "sha256": "40a248a105c59e10beade0e15ef9ee66eaff7be457ffaf7a272dde38cbd9e13a"
+    },
+    {
+      "path": "internal/github/client.go",
+      "sha256": "25aca17f1c05f99f28dcab709db2c52c5c259da17a94e2bc0fb2d0b86dba61f9"
+    },
+    {
+      "path": "internal/github/policy.go",
+      "sha256": "e67f470c18292eb10dea17bf10a61b232985f2a9a63341a449768a7580f26317"
+    },
+    {
+      "path": "internal/github/spec.go",
+      "sha256": "6844f3223f55edb6fed239ac5bac024ae5837e899491f5651a4f941cc04edae3"
+    },
+    {
+      "path": "internal/github/template.go",
+      "sha256": "3942ac9b36dfe628b4830a48177d36e933beff5ac9d648ed7574d82ffc664522"
+    }
+  ],
+  "references": [
+    "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "https://developers.openai.com/api/docs/guides/token-counting"
+  ],
+  "native_cli_timing": {
+    "seconds": 1.987,
+    "output_bytes": 663,
+    "model_calls": 0,
+    "scope": "One actual CLI dry-run with real GitHub reads and no agent execution"
+  },
+  "diagnosis": {
+    "observation": "Most measured tokens were input tokens; all tools trials performed one successful dry-run plus additional discovery, help, context, and wrapper inspection commands.",
+    "tools_help_calls_per_trial": [
+      2,
+      3,
+      4
+    ],
+    "tools_successful_dry_run_calls_per_trial": [
+      1,
+      1,
+      1
+    ],
+    "guide_gap": "The project agent usage guide says context is unnecessary before create, but that guide was not supplied to the experimental agents.",
+    "experiment_confound": "Read-only wrapper verification and missing local Git metadata caused extra discovery. This is a cold-start usability experiment, not a clean documented-usage comparison.",
+    "inference": "The likely bottleneck is repeated agent interaction and context processing during discovery. Per-request input attribution was not captured, so exact causal token shares are unknown.",
+    "unmeasured_next_condition": "A comparison using a real Git worktree and concise method-specific usage instructions for both methods."
+  }
+}
