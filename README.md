@@ -61,6 +61,8 @@ Issue bodies are checked for Korean text by default. For English or other langua
 
 When an option is unclear, read that command's `--help`, such as `tools github issue create --help`. Top-level, GitHub, issue/PR, and creation help list the supported prefixes. [Agent usage](docs/agent-usage.md) provides a short workflow reference.
 
+The [command reference (Korean)](docs/github/README.md) covers [setup](docs/github/setup.md), [context](docs/github/context.md), [issue create](docs/github/issue/create.md), [issue branch](docs/github/issue/branch.md), [PR create](docs/github/pr/create.md), and [branch cleanup](docs/github/branch/cleanup.md).
+
 ## Inputs and repository policy
 
 Supported prefixes are `feat`, `fix`, `refactor`, `docs`, `ci`, `test`, `chore`, `build`, `perf`, `style`, and `revert`. Titles accept English letters, digits, ASCII punctuation, and spaces, with at least one letter or digit. The authored title's case is preserved; the prefix is added when missing. Branch slugs are converted to lowercase kebab-case and limited to 180 characters.

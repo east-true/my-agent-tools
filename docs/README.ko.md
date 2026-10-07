@@ -31,6 +31,8 @@ GitHub API는 [go-github](https://github.com/google/go-github) 라이브러리�
 
 ## 명령
 
+[명령어별 문서](github/README.md): [setup](github/setup.md) · [context](github/context.md) · [issue create](github/issue/create.md) · [issue branch](github/issue/branch.md) · [pr create](github/pr/create.md) · [branch cleanup](github/branch/cleanup.md).
+
 ```text
 tools github issue create --prefix fix --title "handle duplicate requests" --body-file issue.md --json
 tools github issue create --file issue.json --dry-run --json
