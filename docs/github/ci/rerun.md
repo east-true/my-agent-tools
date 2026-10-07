@@ -18,7 +18,7 @@ tools github ci rerun --run 123456789 --dry-run --json
 - 재실행 요청은 한 번만 보냅니다. 요청이 수락된 뒤에도 이전 회차가 잠시 반환될 수 있으므로 `run_attempt`가 이전 회차보다 증가할 때까지 기다립니다. 이전 완료·성공 결과로 대기를 끝내지 않습니다.
 - 예상 회차보다 더 새 회차가 관찰되면 `superseded`를 반환합니다. 다른 재실행의 결과를 이번 결과로 사용하지 않습니다. GitHub API는 요청별 회차 식별자를 제공하지 않아 동시에 시작된 같은 다음 회차의 요청자를 구분할 수는 없습니다.
 - `--wait=false`는 수락 직후 `requested`로 끝납니다. 이는 CI 성공을 뜻하지 않습니다.
-- 실패 시 관찰한 회차의 job·step·annotation·로그를 [ci failures](ci-failures.md) 방식으로 수집합니다. 이후 다른 재실행이 시작되어도 실패 자료는 관찰한 회차를 사용합니다. 자료 일부를 얻지 못하면 `failure.complete: false`와 `failure.notes` 또는 job별 `notes`를 확인합니다.
+- 실패 시 관찰한 회차의 job·step·annotation·로그를 [ci failures](failures.md) 방식으로 수집합니다. 이후 다른 재실행이 시작되어도 실패 자료는 관찰한 회차를 사용합니다. 자료 일부를 얻지 못하면 `failure.complete: false`와 `failure.notes` 또는 job별 `notes`를 확인합니다.
 
 ## 옵션
 
@@ -59,4 +59,4 @@ tools github ci rerun --run 123456789 --dry-run --json
 
 Fine-grained 토큰에는 **Actions: write**, 실패 annotation 조회에는 **Checks: read**가 필요합니다. 인증은 공통 `GH_TOKEN` → `GITHUB_TOKEN` → 선택적 `gh auth token` 순서입니다. [재실행 API](https://docs.github.com/en/rest/actions/workflow-runs#re-run-failed-jobs-from-a-workflow-run), [재실행 커밋과 제한](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs).
 
-[공통 안내](README.md) · [CI 실패 자료](ci-failures.md) · [PR 머지](pr/merge.md)
+[공통 안내](../README.md) · [CI 실패 자료](failures.md) · [PR 머지](../pr/merge.md)

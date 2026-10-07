@@ -8,9 +8,10 @@
 |---|---|---|
 | [setup](setup.md) | 기존 라벨·유형을 가져와 프로젝트 설정 저장 | 로컬 설정 파일 |
 | [context](context.md) | 저장소 라벨·유형·적용 정책 조회 | 읽기 전용 |
-| [ci failures](ci-failures.md) | 실패한 CI job·step·annotation·오류 자료 수집 | 읽기 전용 |
-| [ci rerun](ci-rerun.md) | 실패 job 재실행·새 회차 완료 대기·재실패 자료 수집 | GitHub Actions 재실행 |
-| [dependabot list / view](dependabot.md) | 의존성 보안 경고 목록·상세·패치 버전 조회 | 읽기 전용 |
+| [ci failures](ci/failures.md) | 실패한 CI job·step·annotation·오류 자료 수집 | 읽기 전용 |
+| [ci rerun](ci/rerun.md) | 실패 job 재실행·새 회차 완료 대기·재실패 자료 수집 | GitHub Actions 재실행 |
+| [dependabot list](dependabot/list.md) | 의존성 보안 경고 목록·패치 버전 조회 | 읽기 전용 |
+| [dependabot view](dependabot/view.md) | 특정 보안 경고의 설명·참고 링크·무시 사유 조회 | 읽기 전용 |
 | [issue create](issue/create.md) | 이슈 생성·담당자 지정·Development 브랜치 연결 | GitHub 및 선택적 로컬 checkout |
 | [issue branch](issue/branch.md) | 기존 이슈의 연결 브랜치 생성·재개 | GitHub 및 선택적 로컬 checkout |
 | [pr create](pr/create.md) | 원격 변경을 확인하고 PR 생성·라벨 적용 | GitHub |

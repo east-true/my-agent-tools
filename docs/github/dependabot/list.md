@@ -1,6 +1,6 @@
-# dependabot list / view
+# `tools github dependabot list`
 
-저장소의 Dependabot 보안 경고를 읽습니다. 에이전트가 영향받는 패키지·manifest·버전 범위·패치 버전을 확인하고 수정 작업을 준비할 때 사용합니다.
+저장소의 Dependabot 보안 경고 목록을 읽습니다. 에이전트가 영향받는 패키지·manifest·버전 범위·패치 버전을 확인하고 수정 작업을 준비할 때 사용합니다. 특정 경고의 설명과 참고 링크는 [dependabot view](view.md)로 조회합니다.
 
 ```sh
 # 현재 저장소의 열린 경고 전체
@@ -15,21 +15,18 @@ tools github dependabot list --repo OWNER/REPO --ecosystem npm --package '@examp
 # 해결·무시된 경고까지 조회
 tools github dependabot list --state all --json
 
-# 특정 경고의 설명과 참고 링크
-tools github dependabot view --number 7 --json
 ```
 
 ## 옵션
 
-| 옵션 | 명령 | 의미 |
-|---|---|---|
-| `--repo OWNER/REPO` | 공통 | 생략하면 Git `origin`에서 저장소 추론 |
-| `--json` | 공통 | 구조화된 JSON 출력 |
-| `--state STATES` | list | 기본 `open`. `open`, `fixed`, `dismissed`, `auto_dismissed`를 쉼표로 구분하거나 `all` 단독 사용 |
-| `--severity LEVELS` | list | `low`, `medium`, `high`, `critical`을 쉼표로 구분 |
-| `--ecosystem NAMES` | list | `go`, `npm`, `pip` 등 생태계를 쉼표로 구분 |
-| `--package NAMES` | list | 패키지 이름을 쉼표로 구분 |
-| `--number NUMBER` | view | 양의 경고 번호. 이슈·PR 번호와 별개 |
+| 옵션 | 의미 |
+|---|---|
+| `--repo OWNER/REPO` | 생략하면 Git `origin`에서 저장소 추론 |
+| `--json` | 구조화된 JSON 출력 |
+| `--state STATES` | 기본 `open`. `open`, `fixed`, `dismissed`, `auto_dismissed`를 쉼표로 구분하거나 `all` 단독 사용 |
+| `--severity LEVELS` | `low`, `medium`, `high`, `critical`을 쉼표로 구분 |
+| `--ecosystem NAMES` | `go`, `npm`, `pip` 등 생태계를 쉼표로 구분 |
+| `--package NAMES` | 패키지 이름을 쉼표로 구분 |
 
 목록은 생성 시각 내림차순으로 모든 페이지를 조회합니다. 일부 페이지만 조회한 뒤 실패하면 성공 결과를 반환하지 않습니다. 조회한 경고 수는 `count`이며 지정한 필터에 해당하는 수입니다.
 
@@ -37,7 +34,7 @@ tools github dependabot view --number 7 --json
 
 ## JSON 결과
 
-`list`는 `status`, `repo`, `filters`, `count`, `alerts`를 반환합니다. 경고가 없으면 `status: "ok"`, `count: 0`, `alerts: []`입니다.
+`status`, `repo`, `filters`, `count`, `alerts`를 반환합니다. 경고가 없으면 `status: "ok"`, `count: 0`, `alerts: []`입니다.
 
 각 경고에는 다음 필드가 포함됩니다.
 
@@ -46,7 +43,7 @@ tools github dependabot view --number 7 --json
 - `severity`, `summary`, `ghsa_id`, `cve_id`: 심각도·요약·취약점 식별자. CVE가 없으면 `cve_id` 생략
 - `vulnerable_version_range`, `first_patched_version`: 해당 경고의 영향 버전 범위와 최초 패치 버전. 패치 정보가 없으면 `first_patched_version: null`
 
-`view`는 `status`, `repo`, `alert`를 반환합니다. `alert`에는 위 필드와 함께 `description`, `references`, `dismissed_reason`, `dismissed_comment`가 값이 있을 때 포함됩니다. 목록에는 긴 설명·참고 링크·무시 사유를 포함하지 않습니다.
+목록에는 긴 설명·참고 링크·무시 사유를 포함하지 않습니다. 해당 자료는 [dependabot view](view.md)로 확인합니다.
 
 패치 버전은 경고의 `security_vulnerability`에서 가져옵니다. 같은 advisory에 나열된 다른 릴리스 계열의 패치 버전과 구분하며, 프로젝트에서 바로 적용할 수 있는 업데이트 버전을 계산하지는 않습니다.
 
@@ -56,4 +53,6 @@ tools github dependabot view --number 7 --json
 
 `403`·`404`를 경고 없음으로 처리하지 않습니다. 저장소·경고 접근 권한, Dependabot alerts 활성화 여부, 토큰 권한을 확인하라는 안내와 실제 API 오류를 반환합니다. `404`만으로 저장소 부재·권한 부족·경고 부재를 단정하지 않습니다.
 
-종료 코드는 성공 `0`, 인증·API·저장소 조회 오류 `1`, 잘못된 옵션·필터·경고 번호 `2`입니다. `--json` 실행 오류는 `status: "error"`와 `error`를 반환합니다.
+종료 코드는 성공 `0`, 인증·API·저장소 조회 오류 `1`, 잘못된 옵션·필터 `2`입니다. `--json` 실행 오류는 `status: "error"`와 `error`를 반환합니다.
+
+[공통 안내](../README.md) · [경고 상세](view.md)

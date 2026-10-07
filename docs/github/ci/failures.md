@@ -1,4 +1,4 @@
-# ci failures
+# `tools github ci failures`
 
 명시한 GitHub Actions 실행의 실패 자료를 한 번에 수집합니다. merge 명령과 별개인 읽기 전용 명령입니다.
 
@@ -57,4 +57,6 @@ JSON 결과에는 `status`, `repo`, `run`, `complete`, `failed_jobs`, `evidence`
 
 Fine-grained 토큰에는 **Actions: read**, annotation 조회에는 **Checks: read**가 필요합니다. 비공개 저장소의 classic 토큰은 `repo` scope가 필요합니다. 서명된 로그 다운로드 URL에는 GitHub 인증 토큰을 전달하지 않습니다. [Actions 공식 문서](https://docs.github.com/en/rest/actions/workflow-jobs#download-job-logs-for-a-workflow-run), [Checks 공식 문서](https://docs.github.com/en/rest/checks/runs#list-check-run-annotations).
 
-이 명령은 CI 대기·재실행·PR merge·코드 수정을 수행하지 않으며 모델을 호출하지 않습니다. 재실행부터 새 회차의 결과 확인까지 처리하려면 [ci rerun](ci-rerun.md)을 사용합니다. [프로토타입 비교 실험](../benchmarks/github/ci.md)의 4.5% 감소는 고정 Go 로그 조건의 결과입니다. 현재 CLI의 일반적인 절감률로 적용하지 않습니다.
+이 명령은 CI 대기·재실행·PR merge·코드 수정을 수행하지 않으며 모델을 호출하지 않습니다. 재실행부터 새 회차의 결과 확인까지 처리하려면 [ci rerun](rerun.md)을 사용합니다. [프로토타입 비교 실험](../../benchmarks/github/ci.md)의 4.5% 감소는 고정 Go 로그 조건의 결과입니다. 현재 CLI의 일반적인 절감률로 적용하지 않습니다.
+
+[공통 안내](../README.md) · [CI 재실행](rerun.md) · [PR 머지](../pr/merge.md)

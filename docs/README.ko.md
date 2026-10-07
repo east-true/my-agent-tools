@@ -83,7 +83,7 @@ tools github pr merge --number 123 --json
 tools github ci rerun --run 123456789 --json
 ```
 
-전체 workflow는 `--all`, 요청 수락 후 반환은 `--wait=false`, 미리보기는 `--dry-run`을 사용합니다. 재실행은 원래 커밋을 사용하므로 수정 커밋을 푸시했다면 새 실행을 확인하세요. [옵션과 복구](github/ci-rerun.md).
+전체 workflow는 `--all`, 요청 수락 후 반환은 `--wait=false`, 미리보기는 `--dry-run`을 사용합니다. 재실행은 원래 커밋을 사용하므로 수정 커밋을 푸시했다면 새 실행을 확인하세요. [옵션과 복구](github/ci/rerun.md).
 
 의존성 보안 경고와 패치 정보를 조회합니다.
 
@@ -92,7 +92,7 @@ tools github dependabot list --severity high,critical --json
 tools github dependabot view --number 7 --json
 ```
 
-목록은 기본적으로 열린 경고를 모든 페이지에서 가져옵니다. Fine-grained 토큰에는 Dependabot alerts 읽기 권한이 필요합니다. [옵션과 결과 필드](github/dependabot.md).
+목록은 기본적으로 열린 경고를 모든 페이지에서 가져옵니다. Fine-grained 토큰에는 Dependabot alerts 읽기 권한이 필요합니다. [목록 옵션과 결과 필드](github/dependabot/list.md) · [경고 상세](github/dependabot/view.md).
 
 PR이나 이슈 종료 후 다른 브랜치로 이동해 정리 대상을 확인합니다.
 

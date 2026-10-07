@@ -83,7 +83,7 @@ Retry failed CI jobs and wait for the new attempt, with failure evidence if it f
 tools github ci rerun --run 123456789 --json
 ```
 
-Use `--all` for the entire workflow, `--wait=false` to return after request acceptance, or `--dry-run` to preview. Reruns use the original commit; after pushing a fix, inspect the new commit's workflow run. [CI rerun options and recovery](docs/github/ci-rerun.md).
+Use `--all` for the entire workflow, `--wait=false` to return after request acceptance, or `--dry-run` to preview. Reruns use the original commit; after pushing a fix, inspect the new commit's workflow run. [CI rerun options and recovery](docs/github/ci/rerun.md).
 
 Read dependency security alerts and inspect an alert's advisory and patch:
 
@@ -92,7 +92,7 @@ tools github dependabot list --severity high,critical --json
 tools github dependabot view --number 7 --json
 ```
 
-Listing defaults to open alerts and retrieves every page. Fine-grained tokens need Dependabot alerts read permission. [Options and output](docs/github/dependabot.md).
+Listing defaults to open alerts and retrieves every page. Fine-grained tokens need Dependabot alerts read permission. [List options and output](docs/github/dependabot/list.md) · [Alert details](docs/github/dependabot/view.md).
 
 After the PR or issue closes, switch away from the finished branch and preview cleanup:
 
