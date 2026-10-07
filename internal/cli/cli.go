@@ -23,6 +23,7 @@ Usage:
   tools github issue create  Create an issue, assign @me, create and link its branch
   tools github issue branch  Create or resume the branch for an existing issue
   tools github pr create     Create a pull request
+  tools github pr merge      Wait for checks, merge, or return failure details
   tools github branch cleanup Preview or delete branches for finished work
 
 Use '<command> --help' for command-specific options.
@@ -34,6 +35,7 @@ const githubHelp = `Usage:
   tools github issue create --prefix PREFIX --title TITLE --body-file FILE [options]
   tools github issue branch --number NUMBER [options]
   tools github pr create --prefix PREFIX --title TITLE --body-file FILE [options]
+  tools github pr merge --number NUMBER [--timeout 10m] [--json]
   tools github branch cleanup [--apply] [--scope both|local|remote] [--json]
 
 Use --file FILE instead of --title/--body-file for JSON input.
@@ -60,6 +62,8 @@ func printKindHelp(out io.Writer, kind string) {
 	fmt.Fprintf(&usage, "  tools github %s create --file FILE [options]\n", kind)
 	if kind == "issue" {
 		fmt.Fprintln(&usage, "  tools github issue branch --number NUMBER [options]")
+	} else if kind == "pr" {
+		fmt.Fprintln(&usage, "  tools github pr merge --number NUMBER [options]")
 	}
 	fmt.Fprintf(&usage, "\nUse 'tools github %s <command> --help' for command-specific options.\n", kind)
 	printHelp(out, usage.String())
@@ -85,6 +89,9 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 		return 0
 	}
 	kind := args[0]
+	if kind == "pr" && len(args) > 1 && args[1] == "merge" {
+		return runPRMerge(ctx, args[2:], out, stderr, runner, newAPI)
+	}
 	if kind == "setup" {
 		return runSetup(ctx, args[1:], out, stderr, runner, newAPI)
 	}

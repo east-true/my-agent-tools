@@ -11,6 +11,7 @@
 | [issue create](issue/create.md) | 이슈 생성·담당자 지정·Development 브랜치 연결 | GitHub 및 선택적 로컬 checkout |
 | [issue branch](issue/branch.md) | 기존 이슈의 연결 브랜치 생성·재개 | GitHub 및 선택적 로컬 checkout |
 | [pr create](pr/create.md) | 원격 변경을 확인하고 PR 생성·라벨 적용 | GitHub |
+| [pr merge](pr/merge.md) | 검사 완료 대기·조건 충족 시 머지·실패 원인 반환 | GitHub |
 | [branch cleanup](branch/cleanup.md) | 종료된 작업의 브랜치 판별·정리 | 미리보기 또는 로컬·원격 참조 삭제 |
 
 ## 기본 흐름
@@ -20,6 +21,7 @@ tools github setup
 tools github issue create --prefix feat --title "add login" --body-file issue.md --json
 # 구현·검증 후 Git으로 커밋·푸시
 tools github pr create --prefix feat --title "add login" --body-file pr.md --json
+tools github pr merge --number 123 --json
 # PR/이슈 종료 후 다른 브랜치로 이동해 정리 대상 확인
 tools github branch cleanup --json
 ```
@@ -54,7 +56,7 @@ Git 밖에서는 명시적인 `--repo`를 사용합니다.
 ## 프로젝트 정책
 
 기본 설정 경로는 Git 루트의 `.tools.json`이며, Git 밖에서는 현재 폴더입니다.
-`--config FILE`로 다른 파일을 선택합니다. `branch cleanup`은 자체 옵션을 사용하며 `--config`를 받지 않습니다.
+`--config FILE`로 다른 파일을 선택합니다. `branch cleanup`과 `pr merge`는 자체 옵션을 사용하며 `--config`를 받지 않습니다.
 
 ```json
 {

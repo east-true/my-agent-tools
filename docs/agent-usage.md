@@ -10,7 +10,8 @@ GitHub 조회·등록은 `tools github`를 사용한다. 아래 명령으로 바
 2. `tools github issue create --prefix feat --title "add login" --body-file issue.md --json`을 실행한다. 기존 라벨·유형·템플릿 조회와 검증, 선택한 prefix 추가, 담당자 me 지정, 이슈 생성, 번호 기반 브랜치 생성·Development 연결·로컬 전환까지 자동 처리된다. **계획만 필요하면 같은 명령에 `--dry-run`을 추가하고 반환된 `plan`을 사용한다.** Git 작업 디렉터리 밖에서는 `--repo OWNER/REPO`를 지정한다. 원격 브랜치만 필요하면 `--no-checkout`을 추가한다.
 3. 구현·검증 후 커밋·푸시는 Git 명령으로 처리한다.
 4. `tools github pr create --prefix feat --title "add login" --body-file pr.md --json`을 실행한다. 현재 브랜치에서 이슈 번호를 읽어 PR에 연결한다. 본문에는 변경 내용과 실제 검증 결과를 포함한다.
-5. 종료 브랜치를 정리할 때 `tools github branch cleanup --json`으로 후보를 확인한 뒤 `tools github branch cleanup --apply --json`을 실행한다. 최신 PR 머지·클로즈 또는 이슈 종료가 대상이며, 열린 PR·보호/사용 중인 브랜치·로컬 미게시 커밋은 보존한다. 기본은 로컬·원격 모두이며 `--scope local|remote`, `--remote upstream`, `--protect 'develop,release/*'`로 범위를 제한한다. 제외 사유가 필요할 때만 `--include-skipped`를 추가한다. 머지 없이 닫힌 원격 작업도 삭제하므로 실제 정리 요청이 있을 때 `--apply`를 사용한다.
+5. 머지가 요청된 작업은 `tools github pr merge --number NUMBER --json`을 한 번 실행한다. 검사 대기·머지·실패 원인 조회를 내부에서 처리하므로 별도 검사 호출이 필요 없다. 성공은 `merged`, 실패는 `reasons`의 원인·근거·다음 조치를 확인한다. `timeout`·`unknown`에서 `merge_requested`나 `queued`가 있으면 원격 상태를 확인한 뒤 재실행한다. [옵션과 결과](github/pr/merge.md)를 참고한다.
+6. 종료 브랜치를 정리할 때 `tools github branch cleanup --json`으로 후보를 확인한 뒤 `tools github branch cleanup --apply --json`을 실행한다. 최신 PR 머지·클로즈 또는 이슈 종료가 대상이며, 열린 PR·보호/사용 중인 브랜치·로컬 미게시 커밋은 보존한다. 기본은 로컬·원격 모두이며 `--scope local|remote`, `--remote upstream`, `--protect 'develop,release/*'`로 범위를 제한한다. 제외 사유가 필요할 때만 `--include-skipped`를 추가한다. 머지 없이 닫힌 원격 작업도 삭제하므로 실제 정리 요청이 있을 때 `--apply`를 사용한다.
 
 `create`가 필요한 GitHub 조회를 처리하므로 사전에 `context`를 실행할 필요가 없다. 오류나 필요한 정보의 누락이 없으면 반환된 계획·결과를 사용하고 라벨·유형·템플릿을 다시 조회하지 않는다. 목록 자체를 보고 싶을 때만 `context`를 사용한다. 검토가 필요할 때 `--dry-run --json`을 추가하며, 생성 전에 항상 별도로 실행할 필요는 없다.
 

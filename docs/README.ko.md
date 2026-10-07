@@ -65,6 +65,9 @@ tools github issue create --prefix fix --title "handle duplicate requests" --bod
 
 # 구현·검증 후 Git으로 커밋·푸시하고 PR 생성
 tools github pr create --prefix fix --title "handle duplicate requests" --body-file pr.md --json
+
+# 한 번 호출해 검사 완료 대기·조건 충족 시 머지·실패 원인 반환
+tools github pr merge --number 123 --json
 ```
 
 생성 명령이 필요한 목록을 조회하므로 `context`는 선택 사항입니다. 생성 계획만 확인하려면 `--dry-run --json`, Git 밖에서는 `--repo OWNER/REPO`를 추가합니다. 다른 언어는 `tools github setup --body-language any`로 허용하고, 라벨 지정 등은 [setup 문서](github/setup.md)를 참고하세요.
@@ -81,7 +84,7 @@ tools github branch cleanup --apply --json
 
 ## 문서
 
-- [GitHub 명령어 안내](github/README.md) — 명령 6개, 옵션, 설정, 실패 복구.
+- [GitHub 명령어 안내](github/README.md) — 명령, 옵션, 설정, 실패 복구.
 - [GitHub 에이전트용 빠른 사용법](agent-usage.md) — 코딩 에이전트에 전달할 짧은 작업 흐름.
 - [입력·설정 예제](../examples/github) — 이슈·PR JSON, Markdown, `.tools.json`.
 - [벤치마크](benchmarks/README.md) — 명령별 측정, 원본 자료, 실험 워크플로.

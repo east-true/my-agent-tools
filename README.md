@@ -65,6 +65,9 @@ tools github issue create --prefix fix --title "handle duplicate requests" --bod
 
 # Implement and verify your changes, then commit and push with Git.
 tools github pr create --prefix fix --title "handle duplicate requests" --body-file pr.md --json
+
+# Wait for checks, merge when ready, or return failure evidence in one call.
+tools github pr merge --number 123 --json
 ```
 
 Issue creation retrieves the metadata it needs; `context` is optional. Add `--dry-run --json` to preview a creation plan. Outside a Git checkout, pass `--repo OWNER/REPO`. Bodies default to Korean unless configured otherwise; [setup](docs/github/setup.md) saves your language and label preferences.
@@ -81,7 +84,7 @@ Cleanup preserves protected branches, branches checked out in worktrees, open PR
 
 ## Documentation
 
-- [GitHub command reference (Korean)](docs/github/README.md) — all six commands, options, configuration, and recovery.
+- [GitHub command reference (Korean)](docs/github/README.md) — commands, options, configuration, and recovery.
 - [GitHub agent usage (Korean)](docs/agent-usage.md) — a short workflow for coding agents.
 - [Input and policy examples](examples/github) — issue/PR JSON, Markdown, and `.tools.json`.
 - [Benchmarks](docs/benchmarks/README.md) — command measurements, raw data, and experimental workflows.
