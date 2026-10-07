@@ -20,16 +20,17 @@ Current measurements cover the GitHub group. Branch cleanup used 56.1% fewer tot
 
 | Command | Direct `gh` / `gh + git` | `tools` | Total token change |
 |---|---:|---:|---:|
-| [`github context`](docs/github/context.md) | — | — | Not measured separately |
-| [`github setup`](docs/github/setup.md) | — | — | Not measured |
+| [`github context`](docs/benchmarks/github/context.md) | 30,221 | 29,894 | −1.1% |
+| [`github setup`](docs/benchmarks/github/setup.md) | 53,970 | 30,473 | −43.5% |
+| [`github dependabot list / view`](docs/benchmarks/github/dependabot.md) | 31,209 | 30,715 | −1.6% |
 | [`github issue create --dry-run`](docs/benchmarks/github/issue-create.md) | 46,630 | 46,279 | −0.75% |
-| [`github issue create`](docs/github/issue/create.md) | — | — | Not measured |
-| [`github issue branch`](docs/github/issue/branch.md) | — | — | Not measured separately |
-| [`github pr create`](docs/github/pr/create.md) | — | — | Not measured |
-| [`github branch cleanup`](docs/github/branch/cleanup.md) | — | — | Preview not measured separately |
+| [`github issue create`](docs/benchmarks/github/issue-create.md#실제-실험-이슈브랜치-생성) | 116,141 | 34,768 | −70.1% |
+| [`github issue branch`](docs/benchmarks/github/issue-branch.md) | 113,659 | 29,904 | −73.7% |
+| [`github pr create`](docs/benchmarks/github/pr-create.md) | 102,598 | 45,076 | −56.1% |
+| [`github branch cleanup`](docs/benchmarks/github/branch-cleanup.md#미리보기) | 53,351 | 30,987 | −41.9% |
 | [`github branch cleanup --apply`](docs/benchmarks/github/branch-cleanup.md) | 70,552 | 31,006 | −56.1% |
 
-Means for the whole agent task, including cached input and output: `gpt-6.1-sol`, high reasoning, three fresh sessions per method. The CLI itself makes no model calls. Cleanup trials used a local fixture API and real disposable Git repositories; uncached input fell 43.3%, and all six compared runs matched the expected deletion and preservation results. Cache was uncontrolled; these results do not establish monetary savings or savings for other commands. [Raw evidence, limitations, and reproduction](docs/benchmarks/README.md).
+Means for the whole agent task, including cached input and output: `gpt-6.1-sol`, high reasoning, three fresh sessions per method. The CLI itself makes no model calls. The seven newly measured tasks used a local fixture API and real disposable Git repositories; all 42 compared runs passed answer and state checks. Issue creation includes linked-branch checkout; issue branching includes a repeated resume, and Dependabot combines list and view. Earlier dry-run and cleanup-apply results retain their own conditions. Cache was uncontrolled and corrected direct baselines ran later, so total token changes do not establish monetary savings. [Raw evidence, exclusions, and reproduction](docs/benchmarks/README.md).
 
 ## Install
 

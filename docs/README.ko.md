@@ -20,16 +20,17 @@
 
 | 명령 | 직접 `gh` / `gh + git` | `tools` | 총 토큰 차이 |
 |---|---:|---:|---:|
-| [`github context`](github/context.md) | — | — | 개별 미측정 |
-| [`github setup`](github/setup.md) | — | — | 미측정 |
+| [`github context`](benchmarks/github/context.md) | 30,221 | 29,894 | −1.1% |
+| [`github setup`](benchmarks/github/setup.md) | 53,970 | 30,473 | −43.5% |
+| [`github dependabot list / view`](benchmarks/github/dependabot.md) | 31,209 | 30,715 | −1.6% |
 | [`github issue create --dry-run`](benchmarks/github/issue-create.md) | 46,630 | 46,279 | −0.75% |
-| [`github issue create`](github/issue/create.md) | — | — | 미측정 |
-| [`github issue branch`](github/issue/branch.md) | — | — | 개별 미측정 |
-| [`github pr create`](github/pr/create.md) | — | — | 미측정 |
-| [`github branch cleanup`](github/branch/cleanup.md) | — | — | 미리보기 개별 미측정 |
+| [`github issue create`](benchmarks/github/issue-create.md#실제-실험-이슈브랜치-생성) | 116,141 | 34,768 | −70.1% |
+| [`github issue branch`](benchmarks/github/issue-branch.md) | 113,659 | 29,904 | −73.7% |
+| [`github pr create`](benchmarks/github/pr-create.md) | 102,598 | 45,076 | −56.1% |
+| [`github branch cleanup`](benchmarks/github/branch-cleanup.md#미리보기) | 53,351 | 30,987 | −41.9% |
 | [`github branch cleanup --apply`](benchmarks/github/branch-cleanup.md) | 70,552 | 31,006 | −56.1% |
 
-`gpt-6.1-sol`, high 추론, 방식별 새 세션 3회의 평균입니다. 지시문·캐시 입력·출력을 포함한 에이전트 작업 전체를 측정했고, CLI 자체는 모델을 호출하지 않습니다. 브랜치 정리는 로컬 실험 API와 실제 임시 Git 저장소를 사용했으며, 캐시 제외 입력은 43.3% 감소하고 비교한 6회 모두 삭제·보존 결과가 기준과 일치했습니다. 캐시를 통제하지 않아 금액 절감이나 다른 명령의 효과를 입증한 수치는 아닙니다. [원본·한계·재현 방법](benchmarks/README.md).
+`gpt-6.1-sol`, high 추론, 방식별 새 세션 3회의 평균입니다. 지시문·캐시 입력·출력을 포함한 에이전트 작업 전체를 측정했고, CLI 자체는 모델을 호출하지 않습니다. 새로 측정한 7개 작업은 로컬 실험 API와 실제 임시 Git 저장소를 사용했으며 최종 비교 42회 모두 정답·상태 검증을 통과했습니다. 이슈 생성은 연결 브랜치 체크아웃, 이슈 브랜치는 반복 재개까지 포함하며 Dependabot은 목록·상세를 합친 작업입니다. 기존 dry-run·실제 정리는 별도 조건의 결과입니다. 캐시를 통제하지 않았고 보정한 직접 처리 기준은 나중에 실행했으므로 총 토큰 차이가 금액 절감을 입증하지 않습니다. [원본·제외 기록·재현 방법](benchmarks/README.md).
 
 ## 설치
 
