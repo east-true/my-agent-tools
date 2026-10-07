@@ -104,7 +104,7 @@ A [repeated code-repair experiment](docs/benchmarks/github-workflow-validation.j
 
 ## Structured CI report experiment
 
-CI captures `go test -json` into a versioned `ci-report.json`, retaining failed-test evidence and package/build failures. Each OS report is uploaded as `go-ci-<os>-<attempt>` only after Gitleaks passes. A missing or incomplete result is kept visible. This workflow configuration has been checked locally; artifact upload has not yet been exercised on GitHub.
+CI captures `go test -json` into a versioned `ci-report.json`, retaining failed-test evidence and package/build failures. Each OS report is uploaded as `go-ci-<os>-<attempt>` only after Gitleaks passes. A missing or incomplete result is kept visible. Linux, macOS, and Windows jobs and all three uploaded reports were verified in a [real GitHub CI run](https://github.com/east-true/my-agent-tools/actions/runs/37579126000). Downloaded reports matched the run, job, repository, and PR merge revision. The native gate handled each passing report and its acknowledged replay without model calls; failure-to-repair model trials remain local experiments.
 
 The report helper requires Python 3.9 or newer and is an experimental script, separate from the Go binary. It tracks added, changed, and resolved failures by repository/job/revision/run. Preparing a report does not acknowledge it:
 

@@ -1324,7 +1324,7 @@
     "producer": "scripts/benchmarks/workflow_reports.py capture-go",
     "artifact": "go-ci-<os>-<attempt>/ci-report.json",
     "report_upload_requires_gitleaks_success": true,
-    "live_github_execution_verified": false,
+    "live_github_execution_verified": true,
     "actual_project_local_go_tests": {
       "schema_version": 1,
       "repo": "east-true/my-agent-tools",
@@ -1336,6 +1336,123 @@
       "exit_code": 0,
       "failures": [],
       "collection_errors": []
+    },
+    "live_github_execution": {
+      "verified_at": "2026-10-07T06:01:57Z",
+      "url": "https://github.com/east-true/my-agent-tools/actions/runs/37579126000",
+      "pull_request": "https://github.com/east-true/my-agent-tools/pull/1",
+      "event": "pull_request",
+      "head_sha": "aa36b3379f9bbf6f896384638d37b172a80b7495",
+      "report_revision_kind": "GitHub pull-request merge commit; differs from head_sha",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "gitleaks",
+          "conclusion": "success",
+          "url": "https://github.com/east-true/my-agent-tools/actions/runs/37579126000/job/112654575072"
+        },
+        {
+          "name": "test (windows-latest)",
+          "conclusion": "success",
+          "url": "https://github.com/east-true/my-agent-tools/actions/runs/37579126000/job/112654575233"
+        },
+        {
+          "name": "test (macos-latest)",
+          "conclusion": "success",
+          "url": "https://github.com/east-true/my-agent-tools/actions/runs/37579126000/job/112654575253"
+        },
+        {
+          "name": "test (ubuntu-latest)",
+          "conclusion": "success",
+          "url": "https://github.com/east-true/my-agent-tools/actions/runs/37579126000/job/112654575270"
+        },
+        {
+          "name": "cross-build",
+          "conclusion": "success",
+          "url": "https://github.com/east-true/my-agent-tools/actions/runs/37579126000/job/112654575304"
+        }
+      ],
+      "artifact_metadata": [
+        {
+          "name": "go-ci-macos-latest-1",
+          "id": 11464365527,
+          "size_in_bytes": 337,
+          "expires_at": "2026-10-14T06:01:10Z"
+        },
+        {
+          "name": "go-ci-ubuntu-latest-1",
+          "id": 11464215728,
+          "size_in_bytes": 338,
+          "expires_at": "2026-10-14T06:00:56Z"
+        },
+        {
+          "name": "go-ci-windows-latest-1",
+          "id": 11463434041,
+          "size_in_bytes": 345,
+          "expires_at": "2026-10-14T06:01:38Z"
+        }
+      ],
+      "run_id": "37579126000",
+      "revision": "6f796c3b124426a8073b6e66a7398bbbbaf72f67",
+      "artifacts_verified": [
+        {
+          "artifact": "go-ci-ubuntu-latest-1",
+          "report": {
+            "schema_version": 1,
+            "repo": "east-true/my-agent-tools",
+            "revision": "6f796c3b124426a8073b6e66a7398bbbbaf72f67",
+            "job": "ci/test/ubuntu-latest",
+            "run_id": "37579126000:1",
+            "status": "passed",
+            "complete": true,
+            "exit_code": 0,
+            "failures": [],
+            "collection_errors": []
+          },
+          "report_sha256": "df0b63b44814ef917822f11ccebbc617d027adcea46c24186c44d8c6f327d618",
+          "initial_gate": "checks_passed",
+          "repeat_gate": "acknowledged_event"
+        },
+        {
+          "artifact": "go-ci-macos-latest-1",
+          "report": {
+            "schema_version": 1,
+            "repo": "east-true/my-agent-tools",
+            "revision": "6f796c3b124426a8073b6e66a7398bbbbaf72f67",
+            "job": "ci/test/macos-latest",
+            "run_id": "37579126000:1",
+            "status": "passed",
+            "complete": true,
+            "exit_code": 0,
+            "failures": [],
+            "collection_errors": []
+          },
+          "report_sha256": "e9bf4b69b3d483d53bc428bd25db6b533c75f5a3c7c2375a582696df69d78fb5",
+          "initial_gate": "checks_passed",
+          "repeat_gate": "acknowledged_event"
+        },
+        {
+          "artifact": "go-ci-windows-latest-1",
+          "report": {
+            "schema_version": 1,
+            "repo": "east-true/my-agent-tools",
+            "revision": "6f796c3b124426a8073b6e66a7398bbbbaf72f67",
+            "job": "ci/test/windows-latest",
+            "run_id": "37579126000:1",
+            "status": "passed",
+            "complete": true,
+            "exit_code": 0,
+            "failures": [],
+            "collection_errors": []
+          },
+          "report_sha256": "a580ff0a4107b2f2a8f7284c17d2d4adf96230fce498b9beb8dc1d61434ad301",
+          "initial_gate": "checks_passed",
+          "repeat_gate": "acknowledged_event"
+        }
+      ],
+      "native_gate_observations": 6,
+      "native_gate_model_invocations": 0,
+      "scope": "Real hosted CI and downloaded reports. Passing/acknowledged reports exercised the native gate without model calls; remote failure-to-repair model execution was not tested."
     }
   },
   "limitations": [
@@ -1350,7 +1467,7 @@
     "Source replacement is limited to a bounded, explicitly allowed file and matching preimage. Large changes, retries after failed proposals, conflicts and multi-file repairs remain unmeasured.",
     "The native state protocol was tested for incomplete reports, modified revisions/new runs, evidence tampering, failed verification, panic evidence, source scope and preimage mismatch. It is a single-consumer prototype; concurrent state writers are unmeasured.",
     "No model trials were discarded or retried; all nine workflows and eighteen proposals/repairs are reported.",
-    "CI config and producer were verified locally; Linux/macOS/Windows Actions jobs and artifact upload have not run remotely.",
+    "Hosted Linux/macOS/Windows Actions jobs and report uploads were verified for a passing PR. Remote failure-to-repair model execution remains untested.",
     "The current helper adds UTF-8 handling, panic evidence preservation and revision validation after the model experiment. The experiment protocol records the earlier source hashes; these changes do not alter the known fixture cases."
   ],
   "references": [
