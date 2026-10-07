@@ -4,7 +4,7 @@
 
 An open-source, cross-platform CLI for automating repeatable agent workflows. It is designed for use across projects and by different users, with repository-specific policies configured separately.
 
-The binary is named `tools`. The first command group, `tools github`, automates GitHub issues, linked development branches, and pull requests. Additional workflows can be added as separate command groups.
+The binary is named `tools`. The first command group, `tools github`, automates GitHub issues, linked development branches, pull requests, and cleanup of finished branches. Additional workflows can be added as separate command groups.
 
 ## Build and authentication
 
@@ -38,7 +38,7 @@ After making changes, commit and push with Git, then create a PR:
 tools github pr create --prefix fix --title "handle duplicate requests" --body-file pr.md --json
 ```
 
-Include the changes and actual verification results in the PR body. The tool does not run verification commands or commit or push changes.
+Include the changes and actual verification results in the PR body. Creation commands do not run verification commands or commit or push changes.
 
 Issue bodies are checked for Korean text by default. For English or other languages, put this policy in the target repository's `.tools.json`:
 
@@ -91,6 +91,21 @@ tools github issue branch --number 123
 Existing linked branches are reused. Unlinked branches with the same name are not overwritten. If metadata application fails after creating an issue or PR, the result preserves its URL and reports `partial`. Fix that existing item instead of creating a duplicate. Creation requests are not automatically retried; verify remote state if a response was lost.
 
 Use `--json` for structured output. Result statuses include `ok`, `planned`, `created`, `partial`, and `error`. Exit codes are `0` for success, `1` for authentication/API/remote-state or post-creation errors, and `2` for argument, JSON, or policy errors. `--dry-run` performs reads and preflight checks without remote writes. `tools github context` is an optional catalog command; creation commands retrieve the required catalog themselves.
+
+## Clean up finished branches
+
+```sh
+tools github branch cleanup --json           # read-only preview
+tools github branch cleanup --apply --json   # delete eligible branches
+```
+
+The command inspects both local branches and branches currently on the selected GitHub remote. A branch qualifies when its latest PR is merged or closed, or an associated issue is closed. Issues are associated through Development links or the `<issue-number>-<type>-<slug>` name. Open PRs take precedence over closed issues. Fork PRs with the same branch name are ignored, and a remote branch with commits newer than its closed PR is retained.
+
+Default, `main`, `master`, GitHub-protected, and checked-out worktree branches are excluded. Local aliases protect the branches they track. Local branches with commits not verified as published are kept; squash merges are supported through the PR head commit. Stale remote-tracking refs for qualifying branches that no longer exist remotely are cleaned too. Missing local commit objects cause the local branch to be kept rather than fetched implicitly.
+
+Use `--remote upstream` for another configured Git remote, `--scope local` or `--scope remote` to restrict cleanup, and `--protect 'develop,release/*'` to exclude additional names or globs. The default scope is `both`. Output includes candidates/actions and counts; add `--include-skipped` to inspect kept branches and reasons. The selected remote's fetch and single push URL must match the target repository, including when `--repo` is supplied. Remote deletion uses Git's configured transport credentials.
+
+`--apply` also deletes closed but unmerged remote work, so inspect the preview. Applying refreshes GitHub states and protections, rechecks worktrees, and deletes refs only at the expected commit SHA. Failures preserve per-branch results; failed remote deletion retains its local branch. Cleanup does not switch branches, alter working files, or commit changes. Avoid concurrent Git writers: GitHub issue/PR states and worktree changes cannot be locked atomically with a ref deletion. After a remote Development ref disappears, a local branch needs a PR association or issue-number name to recover its issue association.
 
 ## Token usage measurements
 

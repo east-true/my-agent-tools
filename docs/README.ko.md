@@ -2,7 +2,7 @@
 
 [English](../README.md)
 
-에이전트의 반복 작업을 자동화하는 범용 CLI입니다. 바이너리는 `tools`, 작업은 서브커맨드로 구분합니다. 현재 구현은 **prefix 기반 GitHub 이슈·브랜치·PR 자동화**입니다. 커밋·푸시는 기존 Git 명령으로 처리합니다.
+에이전트의 반복 작업을 자동화하는 범용 CLI입니다. 바이너리는 `tools`, 작업은 서브커맨드로 구분합니다. 현재 구현은 **prefix 기반 GitHub 이슈·브랜치·PR 자동화와 종료된 브랜치 정리**입니다. 변경 내용의 커밋·푸시는 기존 Git 명령으로 처리합니다.
 
 ```text
 tools github issue create --prefix feat --title "Add login / OAuth!" --body-file issue.md
@@ -34,6 +34,7 @@ tools github issue create --prefix fix --title "handle duplicate requests" --bod
 tools github issue create --file issue.json --dry-run --json
 tools github issue branch --number 123
 tools github pr create --prefix fix --title "handle duplicate requests" --body-file pr.md --json
+tools github branch cleanup --json
 ```
 
 옵션이 필요할 때만 `tools github issue create --help`처럼 해당 명령의 도움말을 확인합니다. 각 단계의 도움말에는 사용 가능한 prefix 목록이 표시됩니다.
@@ -54,6 +55,21 @@ tools github pr create --prefix fix --title "handle duplicate requests" --body-f
 `context`는 필요할 때 목록을 확인하는 보조 명령입니다. 생성 명령이 기존 라벨·유형·본문 형식을 직접 조회하므로 사전에 실행할 필요가 없습니다. 기본 본문은 한국어입니다. 제목·본문 정보만 입력하면 됩니다.
 
 저장소의 Markdown 이슈·PR 템플릿을 조회해 prefix와 맞는 파일이나 기본 템플릿을 선택합니다. 기존 섹션 제목을 사용하면서 작성한 내용을 채우며, 템플릿에 대응하지 않는 내용도 보존합니다. `{{body}}`가 있으면 그 위치에 본문을 넣습니다. 템플릿이 없으면 기본 형식으로 작성합니다. 현재 GitHub GraphQL이 제공하는 Markdown 템플릿을 사용하며 YAML issue form은 해석하지 않습니다.
+
+## 종료된 브랜치 정리
+
+```sh
+tools github branch cleanup --json           # 삭제 대상 미리보기, 쓰기 없음
+tools github branch cleanup --apply --json   # 실제 정리
+```
+
+로컬 브랜치와 선택한 Git 원격에 존재하는 브랜치를 조사합니다. 최신 PR이 머지·클로즈되었거나 연결된 이슈가 닫힌 브랜치가 대상입니다. 이슈는 Development 연결 또는 `<issue-number>-<type>-<slug>` 이름으로 찾습니다. 열린 PR이 있으면 보존하고, 다른 fork의 동명 브랜치 PR은 무시합니다. 닫힌 PR 이후 원격 브랜치에 새 커밋이 올라온 경우도 보존합니다.
+
+기본 브랜치·`main`·`master`·GitHub 보호 브랜치·어느 worktree에서든 사용 중인 브랜치는 제외합니다. 로컬 별칭이 사용 중이면 연결된 원격 브랜치도 보호합니다. 로컬에만 남은 커밋이나 게시 여부를 확인할 수 없는 커밋은 보존하고, squash 머지는 PR의 head 커밋으로 판별합니다. 원격에서 이미 삭제된 종료 브랜치의 로컬 remote-tracking 참조도 정리합니다. 커밋 객체가 로컬에 없으면 fetch 없이 해당 로컬 브랜치를 보존합니다.
+
+기본 범위는 `both`입니다. `--scope local`·`--scope remote`로 범위를 제한하고, `--remote upstream`으로 다른 Git 원격을 선택합니다. `--protect 'develop,release/*'`로 추가 제외 이름·glob을 지정합니다. 기본 출력은 후보·실행 결과와 건수이며, `--include-skipped`를 추가하면 제외 사유도 나옵니다. 선택한 원격의 fetch URL과 단일 push URL은 대상 저장소와 일치해야 합니다. 원격 삭제는 Git에 설정된 인증을 사용합니다.
+
+`--apply`는 머지 없이 닫힌 원격 브랜치도 삭제하므로 미리보기를 확인하세요. 실행 전에 GitHub 상태·보호 설정·worktree를 재조회하고, 예상 커밋 SHA가 바뀌었으면 삭제를 거부합니다. 원격 삭제가 실패하면 연결된 로컬 브랜치도 보존하며, 항목별 성공·실패를 반환합니다. 브랜치 전환·작업 파일 변경·자동 커밋은 하지 않습니다. GitHub 상태와 worktree 변경을 삭제와 원자적으로 잠글 수 없으므로 다른 Git 쓰기 작업과 동시에 실행하지 마세요. Development의 원격 참조가 이미 사라졌다면 로컬 브랜치의 이슈 연결 복원에는 PR 연결이나 번호 기반 이름이 필요합니다.
 
 ## 이슈 입력
 

@@ -76,8 +76,12 @@ type resource struct {
 var repoPattern = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9-]*/[a-zA-Z0-9_.-]+$`)
 
 func (client Client) ResolveRepo(ctx context.Context, repo string) (string, error) {
+	return client.ResolveRemoteRepo(ctx, repo, "origin")
+}
+
+func (client Client) ResolveRemoteRepo(ctx context.Context, repo, remote string) (string, error) {
 	if repo == "" {
-		out, err := client.Runner.Run(ctx, nil, "git", "remote", "get-url", "origin")
+		out, err := client.Runner.Run(ctx, nil, "git", "remote", "get-url", remote)
 		if err != nil {
 			return "", fmt.Errorf("resolve repository (or supply --repo OWNER/REPO): %w", err)
 		}

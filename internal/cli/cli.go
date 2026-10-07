@@ -22,6 +22,7 @@ Usage:
   tools github issue create  Create an issue, assign @me, create and link its branch
   tools github issue branch  Create or resume the branch for an existing issue
   tools github pr create     Create a pull request
+  tools github branch cleanup Preview or delete branches for finished work
 
 Use '<command> --help' for command-specific options.
 `
@@ -31,6 +32,7 @@ const githubHelp = `Usage:
   tools github issue create --prefix PREFIX --title TITLE --body-file FILE [options]
   tools github issue branch --number NUMBER [options]
   tools github pr create --prefix PREFIX --title TITLE --body-file FILE [options]
+  tools github branch cleanup [--apply] [--scope both|local|remote] [--json]
 
 Use --file FILE instead of --title/--body-file for JSON input.
 --file - reads JSON from stdin. --dry-run previews without writes.
@@ -81,6 +83,9 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 		return 0
 	}
 	kind := args[0]
+	if kind == "branch" {
+		return runCleanup(ctx, args[1:], out, stderr, runner, newAPI)
+	}
 	if kind != "context" && kind != "issue" && kind != "pr" {
 		fmt.Fprintf(stderr, "unknown github command %q; use tools github --help\n", kind)
 		return 2
