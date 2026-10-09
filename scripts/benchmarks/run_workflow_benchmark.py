@@ -57,7 +57,7 @@ PHASES = [
 def write_fixture(work):
     work.mkdir(parents=True)
     for name, text in INITIAL.items():
-        (work / name).write_text(text)
+        (work / name).write_text(text, encoding='utf-8')
     subprocess.run(['gofmt', '-w', *[str(work / name) for name in INITIAL if name.endswith('.go')]], check=True)
     subprocess.run(['git', 'init', '-q', '-b', 'test/workflow-benchmark'], cwd=work, check=True)
     subprocess.run(['git', 'add', '.'], cwd=work, check=True)
@@ -67,7 +67,7 @@ def write_fixture(work):
 
 
 def revision(work):
-    return digest({p.name: p.read_text() for p in sorted(work.glob('*.go'))} | {'go.mod': (work / 'go.mod').read_text()})
+    return digest({p.name: p.read_text(encoding='utf-8') for p in sorted(work.glob('*.go'))} | {'go.mod': (work / 'go.mod').read_text(encoding='utf-8')})
 
 
 def run_ci(work, cache, run_id):
@@ -83,7 +83,7 @@ def verify_independently(work, destination, phase, cache):
     destination.mkdir()
     for name in ('go.mod', 'normalize.go', 'branch.go'):
         shutil.copy2(work / name, destination / name)
-    (destination / 'independent_test.go').write_text(HOLDOUT + (BRANCH_HOLDOUT if phase == 2 else ''))
+    (destination / 'independent_test.go').write_text(HOLDOUT + (BRANCH_HOLDOUT if phase == 2 else ''), encoding='utf-8')
     result = subprocess.run(['go', 'test', '-count=1', './...'], cwd=destination,
                             env=dict(os.environ, GOCACHE=str(cache), GOPROXY='off'),
                             capture_output=True, text=True, timeout=90)
@@ -104,7 +104,7 @@ cat .ci/failure.log {target['file']} {target['test']}
 '''
     else:
         prompt = shared + '\nPrepared structured failure changes and current code:\n' + json.dumps(prepared, ensure_ascii=False, separators=(',', ':'))
-    (directory / 'prompt.txt').write_text(prompt)
+    (directory / 'prompt.txt').write_text(prompt, encoding='utf-8')
     answer = directory / 'answer.txt'
     args = ['codex', 'exec', '--json', '--ephemeral', '--ignore-user-config', '--sandbox', 'workspace-write',
             '--model', 'gpt-6.1-sol', '-c', 'model_reasoning_effort="high"', '-c', 'approval_policy="never"',
@@ -122,7 +122,7 @@ cat .ci/failure.log {target['file']} {target['test']}
             timed_out = True
             os.killpg(process.pid, signal.SIGKILL)
             process.wait()
-    events = [json.loads(line) for line in (directory / 'events.jsonl').read_text().splitlines() if line.strip()]
+    events = [json.loads(line) for line in (directory / 'events.jsonl').read_text(encoding='utf-8').splitlines() if line.strip()]
     completed = [e for e in events if e.get('type') == 'turn.completed']
     usage = completed[0]['usage'] if len(completed) == 1 else None
     commands = [e['item'] for e in events if e.get('type') == 'item.completed'
@@ -150,7 +150,7 @@ def experiment(root):
         print(json.dumps({'event': 'workflow_started', 'index': index, 'method': method}), flush=True)
         for phase, target in enumerate(PHASES, 1):
             if phase == 2:
-                (work / 'branch_test.go').write_text(BRANCH_TEST)
+                (work / 'branch_test.go').write_text(BRANCH_TEST, encoding='utf-8')
                 subprocess.run(['gofmt', '-w', str(work / 'branch_test.go')], check=True)
             report, result = run_ci(work, root / 'cache', f'phase-{phase}-failure')
             atomic_json(trial / f'phase-{phase}-report.json', report)
@@ -162,7 +162,7 @@ def experiment(root):
             prepared = {'revision': report['revision'], 'job': report['job'], 'failures': report['failures'],
                         'delta': decision['delta'], 'source_files': code_context(work, [target['file'], target['test']])}
             (work / '.ci').mkdir(exist_ok=True)
-            (work / '.ci' / 'failure.log').write_text('\n'.join(f['output'] for f in report['failures']) + '\n')
+            (work / '.ci' / 'failure.log').write_text('\n'.join(f['output'] for f in report['failures']) + '\n', encoding='utf-8')
             record = model_repair(work, trial / f'phase-{phase}-model', phase, method, prepared)
             passed_report, check = run_ci(work, root / 'cache', f'phase-{phase}-verified')
             heldout = verify_independently(work, trial / f'phase-{phase}-independent', phase, root / 'cache')
@@ -179,14 +179,14 @@ def experiment(root):
                 break
             state = acknowledge(report, state, verification_passed=True)
             atomic_json(trial / 'state.json', state)
-            state = json.loads((trial / 'state.json').read_text())
+            state = json.loads((trial / 'state.json').read_text(encoding='utf-8'))
             duplicate = prepare(report, state)
             observations.append({'phase': phase, 'event': 'duplicate_failure', 'model_needed': duplicate['model_needed'], 'reason': duplicate['reason']})
             resolved = prepare(passed_report, state)
             observations.append({'phase': phase, 'event': 'verified_pass', 'model_needed': resolved['model_needed'], 'reason': resolved['reason'], 'resolved': resolved['delta']['resolved']})
             state = acknowledge(passed_report, state)
             atomic_json(trial / 'state.json', state)
-            state = json.loads((trial / 'state.json').read_text())
+            state = json.loads((trial / 'state.json').read_text(encoding='utf-8'))
             duplicate = prepare(passed_report, state)
             observations.append({'phase': phase, 'event': 'duplicate_pass', 'model_needed': duplicate['model_needed'], 'reason': duplicate['reason']})
         record = {'index': index, 'method': method, 'correct': valid and len(calls) == 2,

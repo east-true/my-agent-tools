@@ -23,7 +23,7 @@ class CompleteCoverage(unittest.TestCase):
 
     def test_every_advertised_command_has_an_independent_task(self):
         source = Path(__file__).resolve().parents[2] / 'internal/cli/cli.go'
-        help_text = source.read_text().split('const help = `', 1)[1].split('`', 1)[0]
+        help_text = source.read_text(encoding='utf-8').split('const help = `', 1)[1].split('`', 1)[0]
         advertised = {tuple(part for part in match if part) for match in
                       re.findall(r'^  tools github ([a-z]+)(?: ([a-z]+))?', help_text, re.M)}
         measured = {('branch', 'cleanup') if task == 'cleanup-apply' else tuple(task.split('-'))

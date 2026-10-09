@@ -133,7 +133,7 @@ func TestCheckoutFailureRetainsCreatedBranch(t *testing.T) {
 		fmt.Fprint(w, `{"data":{"createLinkedBranch":{"linkedBranch":{"ref":{"name":"17-fix-login"}}}}}`)
 	})
 	f.client.Runner = failingCheckout{}
-	path := filepath.Join(t.TempDir(), "17-fix-login")
+	path := filepath.Join(canonicalTempDir(t), "17-fix-login")
 	plan := Plan{Repo: "owner/repo", WorkType: "fix", Slug: "login", BranchPlan: &BranchPlan{OID: "base", Checkout: true, WorktreePath: path}}
 	result := Result{Number: 17, IssueNodeID: "I_17", URL: "https://github.com/owner/repo/issues/17"}
 	err := f.client.CompleteBranch(context.Background(), plan, &result)
@@ -159,7 +159,7 @@ func TestWorktreeTracksRemoteBranchAndPreservesUserFiles(t *testing.T) {
 	if _, err := exec.LookPath("git"); err != nil {
 		t.Skip("git not installed")
 	}
-	root := t.TempDir()
+	root := canonicalTempDir(t)
 	remote, local := filepath.Join(root, "remote.git"), filepath.Join(root, "local")
 	runner := directoryRunner{dir: root}
 	git := func(args ...string) string {
@@ -195,4 +195,14 @@ func TestWorktreeTracksRemoteBranchAndPreservesUserFiles(t *testing.T) {
 	if actual, reused, err := client.worktreeBranch(context.Background(), "17-fix-login", path); err != nil || actual != path || !reused {
 		t.Fatalf("repeat worktree failed: path=%s reused=%t error=%v", actual, reused, err)
 	}
+}
+
+// Git resolves temporary-directory symlinks, including /var on macOS.
+func canonicalTempDir(t *testing.T) string {
+	t.Helper()
+	root, err := filepath.EvalSymlinks(t.TempDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	return root
 }

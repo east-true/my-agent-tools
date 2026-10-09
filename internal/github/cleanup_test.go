@@ -51,7 +51,7 @@ func newCleanupWorld(t *testing.T) *cleanupWorld {
 	if _, err := exec.LookPath("git"); err != nil {
 		t.Skip("git not installed")
 	}
-	root := t.TempDir()
+	root := canonicalTempDir(t)
 	setup := directoryRunner{dir: root}
 	call := func(args ...string) {
 		t.Helper()
@@ -203,7 +203,7 @@ func TestCleanupPreviewTerminalStatesAndProtections(t *testing.T) {
 	w.issues[9] = "closed"
 	w.links[9] = []string{"feat/linked"}
 	w.protected["feat/protected"] = true
-	worktree := filepath.Join(t.TempDir(), "worktree")
+	worktree := filepath.Join(canonicalTempDir(t), "worktree")
 	w.git("worktree", "add", worktree, "feat/worktree")
 	w.git("worktree", "lock", worktree)
 	plan := w.plan("both")
@@ -381,7 +381,7 @@ func TestCleanupWorktreeCreatedAfterRefreshProtectsRemoteAlias(t *testing.T) {
 		if args[0] == "worktree" {
 			calls++
 			if calls == 2 {
-				w.git("worktree", "add", filepath.Join(t.TempDir(), "new-worktree"), "alias")
+				w.git("worktree", "add", filepath.Join(canonicalTempDir(t), "new-worktree"), "alias")
 			}
 		}
 		return nil
@@ -538,7 +538,7 @@ func TestCleanupRejectsMismatchedPushURLAndProtectsAliases(t *testing.T) {
 	w.git("branch", "alias", name)
 	w.git("config", "branch.alias.remote", "origin")
 	w.git("config", "branch.alias.merge", "refs/heads/"+name)
-	worktree := filepath.Join(t.TempDir(), "alias-worktree")
+	worktree := filepath.Join(canonicalTempDir(t), "alias-worktree")
 	w.git("worktree", "add", worktree, "alias")
 	w.git("worktree", "lock", worktree)
 	if cleanupTarget(t, w.plan("both"), "remote", name).Eligible {

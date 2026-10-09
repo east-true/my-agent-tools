@@ -29,7 +29,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root',type=Path,required=True)
     args=parser.parse_args();root=args.root.resolve();repo=Path(__file__).resolve().parents[2]
-    report=json.loads((root/'report.json').read_text());all_trials=report['trials']
+    report=json.loads((root/'report.json').read_text(encoding='utf-8'));all_trials=report['trials']
     trials=[r for r in all_trials if r.get('included',True)]
     assert report['protocol']['tasks']==TASKS
     assert len(trials)==30 and len({(r['task'],r['method']) for r in trials})==30
@@ -66,7 +66,7 @@ def main():
         'compared_calls':len(trials),'correct_calls':sum(r['correct'] for r in trials),
         'total_input_plus_output':sum(r.get('input_plus_output',0) for r in all_trials),
         'cached_input':sum(r.get('cached_input',0) for r in all_trials)}
-    (out/'all-defaults.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    (out/'all-defaults.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
     defaults=report['protocol']['configured_defaults'];correct=sum(r['correct'] for r in trials)
     lines=['# GitHub 전체 명령: 사용자 기본 모델·추론 설정 실측','',
         f"현재 GitHub 명령 **15개 전체**를 직접 `gh`/Git과 현재 `tools`로 각각 새 세션 1회씩 비교했습니다. 최종 비교 30회 중 정답 JSON·실제 상태 검증은 {correct}/30입니다. 전체 호출은 {len(all_trials)}회이며 제외 기록도 아래에 보존합니다. 측정 시각(UTC)은 `{report['protocol']['measured_at_utc']}`입니다.",'',
@@ -121,7 +121,7 @@ def main():
         '```sh','python3 scripts/benchmarks/run_all_github_benchmark.py --root /tmp/github-all-preflight','```','',
         '사전 검증 뒤 같은 경로로 `--resume --run-models`를 추가하면 사용자 기본 모델·추론 설정으로 30회 호출합니다. 중단 시 완료한 실행은 재호출하지 않고 남은 실행부터 진행합니다. 프롬프트·소스·설정·시스템 지시문·캐시는 재실행 시 달라질 수 있습니다.','',
         '고정 소스는 새 디렉터리에 압축을 풀고, `source`를 작업 저장소로 두어 그 아래에 동봉된 `scripts` 디렉터리를 복사한 뒤 동봉 실행기를 실행합니다. 고정 소스는 CLI 동작 재현용이며 모델 응답·캐시·전체 토큰의 동일성을 보장하지 않습니다.','']
-    (out/'all-defaults.md').write_text('\n'.join(lines))
+    (out/'all-defaults.md').write_text('\n'.join(lines), encoding='utf-8')
     print(json.dumps({'tasks':len(TASKS),'calls':len(all_trials),'compared':len(trials),'correct':correct,'report':str(out/'all-defaults.md')},ensure_ascii=False))
 
 

@@ -1,7 +1,6 @@
 import json
 import tempfile
 import copy
-import json
 import unittest
 from importlib.util import find_spec
 from pathlib import Path
@@ -74,7 +73,7 @@ class PartialStudyDocuments(unittest.TestCase):
     def test_new_partial_results_replace_only_selected_commands(self):
         from github_benchmark_docs import latest_results,render
         repo=Path(__file__).resolve().parents[2]
-        base=json.loads((repo/'docs/benchmarks/github/data/study.json').read_text())
+        base=json.loads((repo/'docs/benchmarks/github/data/study.json').read_text(encoding='utf-8'))
         update=copy.deepcopy(base)
         update['protocol']['tasks']=['pr-reviews','pr-inspect']
         update['protocol']['measured_at_utc']='2026-10-09T17:30:00+00:00'
@@ -88,22 +87,22 @@ class PartialStudyDocuments(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             target=Path(directory)
             render(target,reports)
-            reviews=(target/'docs/benchmarks/github/pr/reviews.md').read_text()
-            create=(target/'docs/benchmarks/github/pr/create.md').read_text()
+            reviews=(target/'docs/benchmarks/github/pr/reviews.md').read_text(encoding='utf-8')
+            create=(target/'docs/benchmarks/github/pr/create.md').read_text(encoding='utf-8')
             self.assertIn('2026-10-10',reviews)
             self.assertIn('`low`',reviews)
             self.assertIn('data/study-partial.json',reviews)
             self.assertIn('2026-10-08',create)
             self.assertIn('`high`',create)
             self.assertIn('data/study.json',create)
-            common=(target/'docs/benchmarks/github/README.md').read_text()
+            common=(target/'docs/benchmarks/github/README.md').read_text(encoding='utf-8')
             self.assertIn('12회',common)
             self.assertIn('90회',common)
 
     def test_earlier_partial_batch_cannot_replace_newer_full_batch(self):
         from github_benchmark_docs import latest_results
         repo=Path(__file__).resolve().parents[2]
-        base=json.loads((repo/'docs/benchmarks/github/data/study.json').read_text())
+        base=json.loads((repo/'docs/benchmarks/github/data/study.json').read_text(encoding='utf-8'))
         old=copy.deepcopy(base)
         old['protocol']['tasks']=['pr-reviews']
         old['protocol']['measured_at_utc']='2026-10-01T00:00:00+00:00'

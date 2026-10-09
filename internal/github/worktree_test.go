@@ -33,7 +33,7 @@ func newWorktreeFixture(t *testing.T) worktreeFixture {
 	if _, err := exec.LookPath("git"); err != nil {
 		t.Skip("git not installed")
 	}
-	root := t.TempDir()
+	root := canonicalTempDir(t)
 	local := filepath.Join(root, "local with spaces")
 	f := worktreeFixture{client: Client{Runner: directoryRunner{dir: root}}, local: local, branch: "17-fix-login", t: t}
 	f.path = filepath.Join(local+".worktrees", f.branch)
@@ -132,7 +132,7 @@ func TestWorktreePreservesExistingTrackingBranchCommits(t *testing.T) {
 
 func TestWorktreeReusesCustomPathAndPreservesChanges(t *testing.T) {
 	f := newWorktreeFixture(t)
-	custom := filepath.Join(t.TempDir(), "custom worktree")
+	custom := filepath.Join(canonicalTempDir(t), "custom worktree")
 	if _, _, err := f.client.worktreeBranch(context.Background(), f.branch, custom); err != nil {
 		t.Fatal(err)
 	}

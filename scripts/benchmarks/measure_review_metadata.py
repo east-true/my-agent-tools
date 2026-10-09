@@ -19,7 +19,7 @@ def main():
     args=parser.parse_args();root=args.root.resolve()
     if root.exists() or root==Path('/tmp') or not root.is_relative_to('/tmp'):parser.error('fresh dedicated /tmp root required')
     repo=Path(__file__).resolve().parents[2];root.mkdir()
-    reference=json.loads((repo/'docs/benchmarks/github/data/study.json').read_text())
+    reference=json.loads((repo/'docs/benchmarks/github/data/study.json').read_text(encoding='utf-8'))
     before=root/'before';after=root/'after'
     for stage in (before,after):(stage/'source').mkdir(parents=True)
     with tarfile.open(repo/'docs/benchmarks/github/data/study-source.tar.gz') as archive:
@@ -43,7 +43,7 @@ def main():
                 command=[str(stage/'bin/tools'),'github','pr','reviews','--number','7','--json','--compact',
                          '--token-encoding',encoding,'--artifact-dir',str(root/'evidence')]
                 result=subprocess.run(command,cwd=root/'workspace',env=env,capture_output=True,text=True,check=True)
-                (root/f'{encoding}-{label}.json').write_text(result.stdout)
+                (root/f'{encoding}-{label}.json').write_text(result.stdout, encoding='utf-8')
                 value=json.loads(result.stdout)
                 assert study.suite.normalize('pr-reviews',[value],server)==study.suite.expected('pr-reviews')
                 responses[encoding+'-'+label]=value
@@ -54,7 +54,7 @@ def main():
             assert old['evidence_file']==new['evidence_file']
         subprocess.run(['go','test','./internal/cli','-run','^TestReviewMetadataOutputComparison$','-count=1','-v'],
                        cwd=repo,env=dict(env,TOOLS_REVIEW_METADATA_MEASUREMENT_DIR=str(root)),check=True)
-        result=json.loads((root/'measurement.json').read_text())
+        result=json.loads((root/'measurement.json').read_text(encoding='utf-8'))
         for row in result['measurements']:
             row['token_reduction_percent']=100*(1-row['after_tokens']/row['before_tokens'])
             row['byte_reduction_percent']=100*(1-row['after_bytes']/row['before_bytes'])
@@ -65,7 +65,7 @@ def main():
                       before_source_hashes=reference['protocol']['source_hashes'],
                       after_source_hashes=study.source_hashes(after/'source'),
                       response_sha256={name:hashlib.sha256((root/(name+'.json')).read_bytes()).hexdigest() for name in responses})
-        (root/'measurement.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+        (root/'measurement.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
         print(json.dumps({'model_calls':0,'checks':'passed','measurements':result['measurements']}),flush=True)
     finally:server.shutdown();server.server_close()
 

@@ -175,7 +175,7 @@ def setup(root, server, task):
         fixture = {}
     work = root / 'workspace'
     (work / 'body.md').write_text(BODY + '\n', encoding='utf-8')
-    (work / 'user-work.txt').write_text('preserve this uncommitted user file\n')
+    (work / 'user-work.txt').write_text('preserve this uncommitted user file\n', encoding='utf-8')
     return snapshot(root, server), fixture
 
 
@@ -187,8 +187,8 @@ def snapshot(root, server):
             'config': cleanup.git(work, 'config', '--local', '--list'),
             'worktrees': cleanup.git(work, 'worktree', 'list', '--porcelain'),
             'head': cleanup.git(work, 'symbolic-ref', '--short', 'HEAD'),
-            'file': (work / 'user-work.txt').read_text(),
-            'body': (work / 'body.md').read_text(),
+            'file': (work / 'user-work.txt').read_text(encoding='utf-8'),
+            'body': (work / 'body.md').read_text(encoding='utf-8'),
             'issues': list(server.created_issues), 'prs': list(server.created_prs), 'links': list(server.linked)}
 
 
@@ -232,7 +232,7 @@ def verify(root, server, task, before):
         checks['git_preserved'] = all(after[k] == before[k] for k in ('local', 'remote', 'tracking', 'config', 'worktrees', 'head'))
     if task == 'setup':
         try:
-            checks['saved_config'] = json.loads((root / 'workspace/.tools.json').read_text()) == CONFIG
+            checks['saved_config'] = json.loads((root / 'workspace/.tools.json').read_text(encoding='utf-8')) == CONFIG
         except (OSError, ValueError):
             checks['saved_config'] = False
     elif task in ('context', 'cleanup-preview'):
@@ -249,7 +249,7 @@ def verify(root, server, task, before):
         checks['single_mutation'] = sum('createLinkedBranch' in a['payload'].get('query', '') for a in server.accesses) == 1
         if task == 'issue-branch':
             access_path = server.interface_access_path
-            interface = [json.loads(line) for line in access_path.read_text().splitlines()] if access_path.exists() else []
+            interface = [json.loads(line) for line in access_path.read_text(encoding='utf-8').splitlines()] if access_path.exists() else []
             checks.update(resume_evidence(server.accesses, interface))
     elif task == 'pr-create':
         checks['pr_state'] = len(server.created_prs) == 1 and all(server.created_prs[0].get(k) == v for k, v in (
@@ -369,7 +369,7 @@ def run_trial(root, servers, task, index, method, prompt=None, model='gpt-6.1-so
     directory.mkdir(parents=True)
     server.interface_access_path = directory / 'interface-access.jsonl'
     prompt = prompt if prompt is not None else prompt_for(task, method)
-    (directory / 'prompt.txt').write_text(prompt)
+    (directory / 'prompt.txt').write_text(prompt, encoding='utf-8')
     save(directory / 'schema.json', schema(expected(task)))
     answer = directory / 'answer.json'
     args = ['codex', 'exec', '--json', '--ephemeral']
@@ -394,12 +394,12 @@ def run_trial(root, servers, task, index, method, prompt=None, model='gpt-6.1-so
             timed_out = True
             os.killpg(proc.pid, signal.SIGKILL)
             proc.wait()
-    events = [json.loads(line) for line in (directory / 'events.jsonl').read_text().splitlines() if line.strip()]
+    events = [json.loads(line) for line in (directory / 'events.jsonl').read_text(encoding='utf-8').splitlines() if line.strip()]
     completed = [e for e in events if e.get('type') == 'turn.completed']
     usage = completed[0]['usage'] if len(completed) == 1 else None
     commands = [e['item'] for e in events if e.get('type') == 'item.completed' and e.get('item', {}).get('type') == 'command_execution']
     try:
-        actual = json.loads(answer.read_text())
+        actual = json.loads(answer.read_text(encoding='utf-8'))
     except (OSError, ValueError):
         actual = None
     verification = verify(root, server, task, before)
@@ -455,8 +455,8 @@ def main():
     # Extend the existing Git wrapper's transport redirection to fetch as well.
     wrapper = root / 'bin/git'
     if not options.resume:
-        wrapper.write_text(wrapper.read_text().replace("if 'push' in args:",
-            "if 'fetch' in args:\n  args=[os.environ['BRANCH_BENCHMARK_REMOTE'] if a=='origin' else a for a in args]\n if 'push' in args:"))
+        wrapper.write_text(wrapper.read_text(encoding='utf-8').replace("if 'push' in args:",
+            "if 'fetch' in args:\n  args=[os.environ['BRANCH_BENCHMARK_REMOTE'] if a=='origin' else a for a in args]\n if 'push' in args:"), encoding='utf-8')
     servers = [Backend(root), cleanup.Backend(root)]
     threads = [threading.Thread(target=s.serve_forever, daemon=True) for s in servers]
     for thread in threads:
@@ -481,7 +481,7 @@ def main():
                                     'Direct method receives API usage guides but no prebuilt automation helper; implementation/setup/analysis costs excluded.',
                                     'Earlier dry-run and cleanup-apply measurements retain their own different fixture/session conditions.']}
         if options.resume:
-            protocol = json.loads((root / 'protocol.json').read_text())
+            protocol = json.loads((root / 'protocol.json').read_text(encoding='utf-8'))
             order = protocol['order_per_task']
             options.tasks = protocol['tasks']
             for path, source_hash in protocol['source_sha256'].items():
@@ -492,7 +492,7 @@ def main():
                 'runner_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                 'prompts': 'unchanged saved protocol prompts'})
         save(root / 'protocol.json', protocol)
-        records = json.loads((root / 'results.json').read_text()) if options.resume else []
+        records = json.loads((root / 'results.json').read_text(encoding='utf-8')) if options.resume else []
         existing = {(r['task'], r['index'], r['method']) for r in records}
         if options.run_models:
             for task in options.tasks:
@@ -506,7 +506,7 @@ def main():
                     save(root / 'results.json', records)
                     save(root / 'summary.json', summary(records))
                     print(json.dumps({'event': 'trial_completed', **{k: record[k] for k in ('task', 'index', 'method', 'correct', 'usage', 'seconds', 'state_checks')}}), flush=True)
-            save(root / 'report.json', {'protocol': protocol, 'preflight': json.loads((root / 'preflight.json').read_text()),
+            save(root / 'report.json', {'protocol': protocol, 'preflight': json.loads((root / 'preflight.json').read_text(encoding='utf-8')),
                                        'summary': summary(records), 'trials': records,
                                        'correctness': {'passed': sum(r['correct'] for r in records), 'total': len(records)}})
             print(json.dumps({'event': 'experiment_completed', 'correct': sum(r['correct'] for r in records), 'total': len(records)}), flush=True)

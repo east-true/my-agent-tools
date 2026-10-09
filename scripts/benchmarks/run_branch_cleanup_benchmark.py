@@ -66,7 +66,7 @@ def setup_fixture(root):
     work, remote = root / 'workspace', root / 'remote.git'
     git(root, 'init', '-q', '--bare', str(remote))
     git(root, 'init', '-q', '-b', 'main', str(work))
-    (work / 'user-work.txt').write_text('preserve this uncommitted user file\n')
+    (work / 'user-work.txt').write_text('preserve this uncommitted user file\n', encoding='utf-8')
     git(work, 'commit', '--allow-empty', '-qm', 'initial')
     base = git(work, 'rev-parse', 'HEAD')
     tree = git(work, 'rev-parse', 'HEAD^{tree}')
@@ -122,7 +122,7 @@ def verify_state(root, fixture):
                 for kind, before in fixture['before'].items()}
     checks = {kind: after[kind] == expected[kind] for kind in after}
     checks['worktree_preserved'] = git(root / 'worktree', 'symbolic-ref', '--short', 'HEAD') == 'feat/worktree'
-    checks['working_file_preserved'] = (root / 'workspace' / 'user-work.txt').read_text() == 'preserve this uncommitted user file\n'
+    checks['working_file_preserved'] = (root / 'workspace' / 'user-work.txt').read_text(encoding='utf-8') == 'preserve this uncommitted user file\n'
     checks['current_branch_preserved'] = git(root / 'workspace', 'symbolic-ref', '--short', 'HEAD') == 'main'
     config = git(root / 'workspace', 'config', '--local', '--list')
     checks['deleted_branch_config_removed'] = all('branch.' + name + '.' not in config for name in DELETED_LOCAL)
@@ -191,13 +191,13 @@ class Handler(BaseHTTPRequestHandler):
 
 def build_interface(root, repo_root, build_vcs=True):
     cli_path = repo_root / 'internal/cli/cli.go'
-    original = cli_path.read_text()
+    original = cli_path.read_text(encoding='utf-8')
     bridge = '''\n// Benchmark-only API injection; production command implementation is unchanged.
 func RunBranchBenchmark(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer, api github.API) int {
  return run(ctx,args,in,out,stderr,command.Exec{},func(context.Context,command.Runner)(github.API,error){return api,nil})
 }
 '''
-    (root / 'cli-overlay.go').write_text(original + bridge)
+    (root / 'cli-overlay.go').write_text(original + bridge, encoding='utf-8')
     (root / 'main-overlay.go').write_text('''package main
 import("context";"net/http";"os";"time";"fmt"
  "github.com/east-true/my-agent-tools/internal/cli"
@@ -207,7 +207,7 @@ func main(){base:=os.Getenv("BRANCH_BENCHMARK_URL")+"/"
  client,err:=sdk.NewClient(sdk.WithHTTPClient(&http.Client{Timeout:30*time.Second}),sdk.WithURLs(&base,nil))
  if err!=nil{fmt.Fprintln(os.Stderr,err);os.Exit(1)}
  os.Exit(cli.RunBranchBenchmark(context.Background(),os.Args[1:],os.Stdin,os.Stdout,os.Stderr,github.SDK{Client:client}))}
-''')
+''', encoding='utf-8')
     save(root / 'overlay.json', {'Replace': {str(cli_path): str(root / 'cli-overlay.go'),
                                             str(repo_root / 'cmd/tools/main.go'): str(root / 'main-overlay.go')}})
     (root / 'bin').mkdir(exist_ok=True)
@@ -235,7 +235,7 @@ sys.stdout.buffer.write(result.stdout);sys.stderr.buffer.write(result.stderr);sy
     wrapper = wrapper.replace('REAL_GH', repr(REAL_GH)).replace('REAL_GIT', repr(REAL_GIT))
     for name in ('gh', 'git'):
         path = root / 'bin' / name
-        path.write_text(wrapper)
+        path.write_text(wrapper, encoding='utf-8')
         path.chmod(0o755)
 
 
@@ -294,7 +294,7 @@ def run_trial(root, server, index, method):
     server.fixture, server.accesses = fixture, []
     save(directory / 'fixture.json', fixture)
     prompt = COMMON + '\n' + GUIDES[method]
-    (directory / 'prompt.txt').write_text(prompt)
+    (directory / 'prompt.txt').write_text(prompt, encoding='utf-8')
     answer = directory / 'answer.json'
     args = ['codex', 'exec', '--json', '--ephemeral', '--ignore-user-config', '--model', 'gpt-6.1-sol',
             '-c', 'model_reasoning_effort="high"', '-c', 'approval_policy="never"',
@@ -314,19 +314,19 @@ def run_trial(root, server, index, method):
             timed_out = True
             os.killpg(proc.pid, signal.SIGKILL)
             proc.wait()
-    events = [json.loads(line) for line in (directory / 'events.jsonl').read_text().splitlines() if line.strip()]
+    events = [json.loads(line) for line in (directory / 'events.jsonl').read_text(encoding='utf-8').splitlines() if line.strip()]
     completed = [e for e in events if e.get('type') == 'turn.completed']
     usage = completed[0]['usage'] if len(completed) == 1 else None
     commands = [e['item'] for e in events if e.get('type') == 'item.completed' and e.get('item', {}).get('type') == 'command_execution']
     try:
-        actual = json.loads(answer.read_text()) if answer.exists() else None
+        actual = json.loads(answer.read_text(encoding='utf-8')) if answer.exists() else None
     except json.JSONDecodeError:
         actual = None
     verification = verify_state(root, fixture)
     save(directory / 'state-verification.json', verification)
     save(directory / 'api-access.json', server.accesses)
     access_path = directory / 'interface-access.jsonl'
-    interface = [json.loads(line) for line in access_path.read_text().splitlines()] if access_path.exists() else []
+    interface = [json.loads(line) for line in access_path.read_text(encoding='utf-8').splitlines()] if access_path.exists() else []
     record = {'index': index, 'method': method, 'exit_code': proc.returncode, 'timed_out': timed_out,
               'correct': proc.returncode == 0 and usage is not None and actual == EXPECTED and verification['correct'],
               'answer_correct': actual == EXPECTED, 'state_correct': verification['correct'], 'actual': actual,

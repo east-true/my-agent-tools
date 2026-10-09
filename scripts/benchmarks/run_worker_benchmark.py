@@ -28,7 +28,7 @@ Do not use any tools, shell commands, file edits, external lookup, network, cred
     schema = {'type': 'object', 'additionalProperties': False,
               'properties': {'content': {'type': 'string'}}, 'required': ['content']}
     atomic_json(directory / 'schema.json', schema)
-    (directory / 'prompt.txt').write_text(prompt)
+    (directory / 'prompt.txt').write_text(prompt, encoding='utf-8')
     answer = directory / 'answer.json'
     args = ['codex', 'exec', '--json', '--ephemeral', '--ignore-user-config', '--sandbox', 'workspace-write',
             '--model', 'gpt-6.1-sol', '-c', 'model_reasoning_effort="high"', '-c', 'approval_policy="never"',
@@ -47,7 +47,7 @@ Do not use any tools, shell commands, file edits, external lookup, network, cred
             timed_out = True
             os.killpg(process.pid, signal.SIGKILL)
             process.wait()
-    events = [json.loads(line) for line in (directory / 'events.jsonl').read_text().splitlines() if line.strip()]
+    events = [json.loads(line) for line in (directory / 'events.jsonl').read_text(encoding='utf-8').splitlines() if line.strip()]
     completed = [e for e in events if e.get('type') == 'turn.completed']
     usage = completed[0]['usage'] if len(completed) == 1 else None
     tool_items = [e['item']['type'] for e in events if e.get('type') == 'item.completed'
@@ -57,7 +57,7 @@ Do not use any tools, shell commands, file edits, external lookup, network, cred
     error = None
     if process.returncode == 0 and usage and not tool_items and not unrequested_edit:
         try:
-            value = json.loads(answer.read_text())
+            value = json.loads(answer.read_text(encoding='utf-8'))
             apply_replacement(work, target['file'], value['content'], files[0]['sha256'], [target['file']])
             subprocess.run(['gofmt', '-w', str(work / target['file'])], check=True)
             applied = True
@@ -82,7 +82,7 @@ def experiment(root, cache):
         print(json.dumps({'event': 'worker_workflow_started', 'index': index}), flush=True)
         for phase, target in enumerate(PHASES, 1):
             if phase == 2:
-                (work / 'branch_test.go').write_text(BRANCH_TEST)
+                (work / 'branch_test.go').write_text(BRANCH_TEST, encoding='utf-8')
                 subprocess.run(['gofmt', '-w', str(work / 'branch_test.go')], check=True)
             report, _ = run_ci(work, cache, f'phase-{phase}-failure')
             decision = prepare(report, state)
@@ -103,12 +103,12 @@ def experiment(root, cache):
                 break
             state = acknowledge(report, state, verification_passed=True)
             atomic_json(trial / 'state.json', state)
-            state = json.loads((trial / 'state.json').read_text())
+            state = json.loads((trial / 'state.json').read_text(encoding='utf-8'))
             observations.append({'phase': phase, 'event': 'duplicate_failure', 'model_needed': prepare(report, state)['model_needed']})
             observations.append({'phase': phase, 'event': 'verified_pass', 'model_needed': prepare(passed_report, state)['model_needed']})
             state = acknowledge(passed_report, state)
             atomic_json(trial / 'state.json', state)
-            state = json.loads((trial / 'state.json').read_text())
+            state = json.loads((trial / 'state.json').read_text(encoding='utf-8'))
             observations.append({'phase': phase, 'event': 'duplicate_pass', 'model_needed': prepare(passed_report, state)['model_needed']})
         record = {'index': index, 'method': 'worker', 'correct': valid and len(calls) == 2,
                   'model_calls': len(calls), 'observations': observations, 'repairs': calls,

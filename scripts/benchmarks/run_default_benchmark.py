@@ -159,7 +159,7 @@ def report(protocol, records):
 
 def configured_defaults():
     path = Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))) / 'config.toml'
-    value = tomllib.loads(path.read_text()) if path.exists() else {}
+    value = tomllib.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
     selected = value.get('profiles', {}).get(value.get('profile'), {})
     return {key: selected.get(key, value.get(key)) for key in ('model', 'model_reasoning_effort', 'profile')}
 
@@ -171,9 +171,9 @@ def build(root, source):
     (root / 'main-overlay.go').write_text('''package main
 import("context";"os";"fmt";"github.com/east-true/my-agent-tools/internal/cli";"github.com/east-true/my-agent-tools/internal/github";"github.com/east-true/my-agent-tools/internal/command";sdk "github.com/google/go-github/v92/github")
 func main(){ctx:=context.Background(); api,err:=github.NewAPI(ctx,command.Exec{});if err!=nil{fmt.Fprintln(os.Stderr,err);os.Exit(1)}; concrete:=api.(github.SDK);base:=os.Getenv("BRANCH_BENCHMARK_URL")+"/";concrete.Client,err=concrete.Client.Clone(sdk.WithURLs(&base,nil));if err!=nil{fmt.Fprintln(os.Stderr,err);os.Exit(1)};os.Exit(cli.RunBranchBenchmark(ctx,os.Args[1:],os.Stdin,os.Stdout,os.Stderr,concrete))}
-''')
+''', encoding='utf-8')
     subprocess.run(['go','build','-buildvcs=false','-overlay',str(root/'overlay.json'),'-o',str(root/'bin/tools'),'./cmd/tools'],cwd=source,check=True)
-    (root/'bin/tools-fixture-advance').write_text('#!/bin/sh\nexec "'+str(root/'bin/gh')+'" api fixture/advance\n')
+    (root/'bin/tools-fixture-advance').write_text('#!/bin/sh\nexec "'+str(root/'bin/gh')+'" api fixture/advance\n', encoding='utf-8')
     (root/'bin/tools-fixture-advance').chmod(0o755)
 
 
@@ -238,7 +238,7 @@ def main():
             core.save(root/'protocol.json',protocol)
             records=[]
         else:
-            protocol=json.loads((root/'protocol.json').read_text());records=json.loads((root/'results.json').read_text()) if (root/'results.json').exists() else []
+            protocol=json.loads((root/'protocol.json').read_text(encoding='utf-8'));records=json.loads((root/'results.json').read_text(encoding='utf-8')) if (root/'results.json').exists() else []
             if defaults!=protocol['configured_defaults']:raise RuntimeError('default model settings changed; do not mix conditions')
         if args.repair_baselines:
             if not protocol.get('baseline_repair'):

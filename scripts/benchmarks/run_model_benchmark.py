@@ -146,8 +146,8 @@ def main():
         root.mkdir(parents=True)
         core.cleanup.build_interface(root, source, build_vcs=False)
         wrapper = root / 'bin/git'
-        wrapper.write_text(wrapper.read_text().replace("if 'push' in args:",
-            "if 'fetch' in args:\n  args=[os.environ['BRANCH_BENCHMARK_REMOTE'] if a=='origin' else a for a in args]\n if 'push' in args:"))
+        wrapper.write_text(wrapper.read_text(encoding='utf-8').replace("if 'push' in args:",
+            "if 'fetch' in args:\n  args=[os.environ['BRANCH_BENCHMARK_REMOTE'] if a=='origin' else a for a in args]\n if 'push' in args:"), encoding='utf-8')
     for name in ORIGINAL:
         setattr(core, name, globals()[name])
     servers = [dep.Backend(root), core.cleanup.Backend(root)]
@@ -189,7 +189,7 @@ def main():
                 'source_hashes': source_hashes, 'build_vcs': False, 'cli_binary_sha256': hashlib.sha256((root / 'bin/tools').read_bytes()).hexdigest(),
                 'runner_hashes': [{'sha256': hashlib.sha256(p.read_bytes()).hexdigest(), 'path': p.name} for p in
                     (Path(__file__), Path(core.__file__), Path(dep.__file__), Path(core.cleanup.__file__))],
-                'source_manifest': json.loads((source / 'benchmark-source.json').read_text()) if (source / 'benchmark-source.json').exists() else None,
+                'source_manifest': json.loads((source / 'benchmark-source.json').read_text(encoding='utf-8')) if (source / 'benchmark-source.json').exists() else None,
                 'versions': {name: subprocess.check_output(command, text=True).strip() for name, command in
                     [('codex', ['codex', '--version']), ('gh', [core.cleanup.REAL_GH, '--version']), ('go', ['go', 'version']), ('git', [core.cleanup.REAL_GIT, '--version'])]},
                 'expected': references, 'prompts': {task: {method: prompt(task, method) for method in ('gh', 'tools')} for task in args.tasks},
@@ -200,11 +200,11 @@ def main():
             core.save(root / 'protocol.json', protocol)
             records = []
         else:
-            protocol = json.loads((root / 'protocol.json').read_text())
+            protocol = json.loads((root / 'protocol.json').read_text(encoding='utf-8'))
             if protocol['source_hashes'] != source_hashes:
                 raise RuntimeError('source changed; use original frozen source for resume')
             args.models, args.tasks = protocol['models'], protocol['tasks']
-            records = json.loads((root / 'results.json').read_text())
+            records = json.loads((root / 'results.json').read_text(encoding='utf-8'))
         existing = {(r['model'], r['task'], r['index'], r['method']) for r in records}
         if args.run_models:
             for task in args.tasks:
@@ -215,14 +215,14 @@ def main():
                         print(json.dumps({'event': 'trial_started', 'model': model, 'task': task, 'index': index, 'method': method}), flush=True)
                         record = core.run_trial(root, servers, task, index, method, protocol['prompts'][task][method], model, 'high')
                         state_file = root / 'runs' / task / f'{index:02d}-{method}' / 'state-verification.json'
-                        record['state_verification'] = json.loads(state_file.read_text())
+                        record['state_verification'] = json.loads(state_file.read_text(encoding='utf-8'))
                         record['prompt_sha256'] = hashlib.sha256(protocol['prompts'][task][method].encode()).hexdigest()
                         # Each model keeps its own transcript directory after collection.
                         current = root / 'runs' / task / f'{index:02d}-{method}'
                         target = root / 'models' / model / task / current.name
                         target.parent.mkdir(parents=True, exist_ok=True)
                         current.rename(target)
-                        events = [json.loads(line) for line in (target / 'events.jsonl').read_text().splitlines() if line.strip()]
+                        events = [json.loads(line) for line in (target / 'events.jsonl').read_text(encoding='utf-8').splitlines() if line.strip()]
                         record['error_events'] = [e for e in events if e.get('type') in ('error', 'turn.failed')]
                         records.append(record)
                         core.save(root / 'results.json', records)
@@ -230,7 +230,7 @@ def main():
                         print(json.dumps({'event': 'trial_completed', **{key: record.get(key) for key in ('model', 'task', 'index', 'method', 'correct', 'usage', 'seconds')}}), flush=True)
                         if record['usage'] is None and record['command_calls'] == 0:
                             raise RuntimeError(f'{model}: model execution failed before any task command; see retained error events')
-            report = {'protocol': protocol, 'preflight': json.loads((root / 'preflight.json').read_text()), 'summary': summarize(records),
+            report = {'protocol': protocol, 'preflight': json.loads((root / 'preflight.json').read_text(encoding='utf-8')), 'summary': summarize(records),
                       'trials': records, 'correctness': {'passed': sum(r['correct'] for r in records), 'total': len(records)}}
             core.save(root / 'report.json', report)
             print(json.dumps({'event': 'experiment_completed', 'correctness': report['correctness']}), flush=True)

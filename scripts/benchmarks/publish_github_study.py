@@ -44,8 +44,8 @@ def refresh_readmes(repo,reports):
                       f'Whole-task tokens have not been remeasured after the [latest review output check]({base}pr/reviews.md).','']
         lines += [f'고정 합성 자료·소표본 결과이며 캐시 적중 차이가 남습니다. 일반적인 절감률이나 요금 절감을 뜻하지 않습니다. [공통 조건·한계·원본·재현]({base}README.md).' if korean else
                   f'These are small-sample results for a fixed synthetic workload; cache hit differences remain. They do not establish general or monetary savings. [Shared protocol, limits, evidence, and reproduction]({base}README.md).','']
-        content=path.read_text();start=content.index(title);stop=content.index(end,start)
-        path.write_text(content[:start]+'\n'.join(lines)+'\n'+content[stop:])
+        content=path.read_text(encoding='utf-8');start=content.index(title);stop=content.index(end,start)
+        path.write_text(content[:start]+'\n'.join(lines)+'\n'+content[stop:], encoding='utf-8')
 
 
 def main():
@@ -62,7 +62,7 @@ def main():
         return
     from run_github_study import TASKS, REPETITIONS, summarize, validate_frozen
     root=args.root.resolve()
-    report=json.loads((root/'report.json').read_text());protocol=report['protocol'];trials=report['trials']
+    report=json.loads((root/'report.json').read_text(encoding='utf-8'));protocol=report['protocol'];trials=report['trials']
     tasks=protocol['tasks'];expected_calls=len(tasks)*2*REPETITIONS
     assert tasks and len(set(tasks))==len(tasks) and set(tasks)<=set(TASKS)
     assert protocol['repetitions_per_method']==REPETITIONS and protocol['max_model_calls']==expected_calls
@@ -77,7 +77,7 @@ def main():
         events=[json.loads(line) for line in raw.splitlines()]
         assert [e['usage'] for e in events if e['type']=='turn.completed']==[record['usage']]
         assert record['uncached_plus_output']==record['usage']['input_tokens']-record['usage']['cached_input_tokens']+record['usage']['output_tokens']
-        assert record['actual']==json.loads((directory/'answer.json').read_text())
+        assert record['actual']==json.loads((directory/'answer.json').read_text(encoding='utf-8'))
         assert '--model' not in record['execution_args'] and '--ignore-user-config' not in record['execution_args']
         assert not any('model_reasoning_effort=' in arg for arg in record['execution_args'])
     data.mkdir(parents=True,exist_ok=True)
@@ -91,10 +91,10 @@ def main():
     evidence += [(name,(root/name).read_bytes()) for name in ('protocol.json','preflight.json','environment.json')]
     archive(data/(stem+'-events.tar.gz'),evidence)
     report['evidence']={'sha256':{name:hashlib.sha256((data/name).read_bytes()).hexdigest() for name in (stem+'-source.tar.gz',stem+'-events.tar.gz')},
-        'environment':json.loads((root/'environment.json').read_text()),
+        'environment':json.loads((root/'environment.json').read_text(encoding='utf-8')),
         'total_input_plus_output':sum(r['input_plus_output'] for r in trials),'total_uncached_plus_output':sum(r['uncached_plus_output'] for r in trials),
         'failure_diagnostics':[{'task':r['task'],'method':r['method'],'repetition':r['repetition'],'answer_correct':r['answer_correct'],'state_correct':r['state_correct'],'actual':r['actual'],'state_checks':r['state_checks']} for r in trials if not r['correct']]}
-    (data/(stem+'.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    (data/(stem+'.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
     reports=published_reports(repo)
     render(repo,reports);refresh_readmes(repo,reports)
     print(json.dumps({'calls':len(trials),'correct':sum(r['correct'] for r in trials),'state_correct':sum(r['state_correct'] for r in trials),'report':str(out/'README.md')},ensure_ascii=False))

@@ -144,13 +144,13 @@ def setup(root, server, task):
     if task=='cleanup-apply':
         # The current cleanup removes finished clean worktrees. This one has
         # authored work and must be retained; merge tests the clean removal.
-        (root/'worktree/user-work.txt').write_text('preserve worktree user file\n')
+        (root/'worktree/user-work.txt').write_text('preserve worktree user file\n', encoding='utf-8')
     if task in ('pr-submit','pr-merge'):
         server.head = core.cleanup.git(work, 'rev-parse', 'HEAD')
         server.base = server.base_sha
         # Fixture user files are ignored in the main worktree so submit sees
         # an authored clean commit. The removable PR worktree remains empty.
-        (work/'.git/info/exclude').write_text('body.md\nuser-work.txt\n.tools/\n')
+        (work/'.git/info/exclude').write_text('body.md\nuser-work.txt\n.tools/\n', encoding='utf-8')
         if task == 'pr-submit':
             core.cleanup.git(root/'remote.git', 'update-ref', 'refs/heads/'+core.BRANCH, server.base)
         else:
@@ -212,7 +212,7 @@ def schema(value):
 def verify(root, server, task, before):
     if task == 'cleanup-apply':
         result=core.cleanup.verify_state(root, server.fixture)
-        result['checks']['worktree_file_preserved']=(root/'worktree/user-work.txt').read_text()=='preserve worktree user file\n'
+        result['checks']['worktree_file_preserved']=(root/'worktree/user-work.txt').read_text(encoding='utf-8')=='preserve worktree user file\n'
         result['correct']=all(result['checks'].values())
         return result
     after = core.snapshot(root, server)
@@ -370,7 +370,7 @@ def main():
         for name in ('cmd','internal'):shutil.copytree(repo/name,source/name)
         small.build(root,source)
         wrapper=root/'bin/git'
-        wrapper.write_text(wrapper.read_text().replace("if 'push' in args:","if 'fetch' in args:\n  args=[os.environ['BRANCH_BENCHMARK_REMOTE'] if a=='origin' else a for a in args]\n if 'push' in args:"))
+        wrapper.write_text(wrapper.read_text(encoding='utf-8').replace("if 'push' in args:","if 'fetch' in args:\n  args=[os.environ['BRANCH_BENCHMARK_REMOTE'] if a=='origin' else a for a in args]\n if 'push' in args:"), encoding='utf-8')
     servers=[core.Backend(root),core.cleanup.Backend(root)];servers[0].RequestHandlerClass=Handler
     for server in servers:threading.Thread(target=server.serve_forever,daemon=True).start()
     for name in ORIGINAL:setattr(core,name,globals()[name])
@@ -383,7 +383,7 @@ def main():
                 server=servers[task=='cleanup-apply'];before,_=setup(root,server,task)
                 directory=root/'preflight'/task;directory.mkdir(parents=True,exist_ok=True)
                 server.interface_access_path=directory/'interface-access.jsonl'
-                server.interface_access_path.write_text('')
+                server.interface_access_path.write_text('', encoding='utf-8')
                 results=[]
                 for command in COMMANDS[task]:
                     result=subprocess.run(['codex','sandbox','--permission-profile','command_benchmark',*core.permission_args(root),'--cd',str(root/'workspace'),'--',*command],
@@ -407,7 +407,7 @@ def main():
                 'limitations':['One synthetic successful path per command; not all options or production scale.','One trial per method, uncontrolled cache; no monetary savings claim.','Current CLI vs direct gh/Git, not a before/after CLI experiment.','System/MCP prompts inherit user config. Runtime model/effort not exposed by JSON events.']}
             core.save(root/'protocol.json',protocol);records=[]
         else:
-            protocol=json.loads((root/'protocol.json').read_text());records=json.loads((root/'results.json').read_text())
+            protocol=json.loads((root/'protocol.json').read_text(encoding='utf-8'));records=json.loads((root/'results.json').read_text(encoding='utf-8'))
             if defaults!=protocol['configured_defaults']:raise RuntimeError('user defaults changed')
         if args.repair_delta:
             reason='Original output schema incorrectly required previous_filename on non-renamed files; heterogeneous array schemas corrected.'

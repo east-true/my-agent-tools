@@ -44,19 +44,19 @@ class WorkflowReportValidation(unittest.TestCase):
     def test_replacement_verifies_preimage_and_change_scope(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            (root / 'source.go').write_text('original')
+            (root / 'source.go').write_text('original', encoding='utf-8')
             prepared = code_context(root, ['source.go'])[0]
             with self.assertRaises(ValueError):
                 apply_replacement(root, 'source.go', 'changed', prepared['sha256'], ['other.go'])
-            (root / 'source.go').write_text('concurrent edit')
+            (root / 'source.go').write_text('concurrent edit', encoding='utf-8')
             with self.assertRaises(ValueError):
                 apply_replacement(root, 'source.go', 'changed', prepared['sha256'], ['source.go'])
-            self.assertEqual((root / 'source.go').read_text(), 'concurrent edit')
+            self.assertEqual((root / 'source.go').read_text(encoding='utf-8'), 'concurrent edit')
 
     def test_replacement_applies_matching_utf8_content(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            (root / 'source.go').write_text('original')
+            (root / 'source.go').write_text('original', encoding='utf-8')
             prepared = code_context(root, ['source.go'])[0]
             apply_replacement(root, 'source.go', '// 변경\n', prepared['sha256'], ['source.go'])
             self.assertEqual((root / 'source.go').read_text(encoding='utf-8'), '// 변경\n')
@@ -136,7 +136,7 @@ class WorkflowReportValidation(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary) / 'repo'
             root.mkdir()
-            (Path(temporary) / 'outside.go').write_text('outside')
+            (Path(temporary) / 'outside.go').write_text('outside', encoding='utf-8')
             with self.assertRaises(ValueError):
                 code_context(root, ['../outside.go'])
 

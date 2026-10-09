@@ -35,7 +35,7 @@ def measured_date(report):
 
 def published_reports(repo):
     root=repo/'docs/benchmarks/github/data'
-    return {p.stem:json.loads(p.read_text()) for p in sorted(root.glob('study*.json'))}
+    return {p.stem:json.loads(p.read_text(encoding='utf-8')) for p in sorted(root.glob('study*.json'))}
 
 
 def latest_results(reports):
@@ -49,7 +49,7 @@ def latest_results(reports):
 
 def review_update(root,report):
     path=root/'pr/reviews-output.json'
-    return path.exists() and json.loads(path.read_text())['measured_on'] > measured_date(report)
+    return path.exists() and json.loads(path.read_text(encoding='utf-8'))['measured_on'] > measured_date(report)
 
 
 def change(summary,key,korean=True):
@@ -93,7 +93,7 @@ def command_page(task,stem,report,output=None):
 
 
 def review_page(root):
-    data=json.loads((root/'pr/reviews-output.json').read_text())
+    data=json.loads((root/'pr/reviews-output.json').read_text(encoding='utf-8'))
     lines=['# `tools github pr reviews` 벤치마크','',
            f'최신 검증: **{data["measured_on"]}**, 개선 전·후 CLI의 같은 스레드 20개 출력 비교. 추가 모델 호출은 0회입니다.','',
            '`--compact`에서 빈 선택적 위치, 같은 현재·원래 위치와 diff 방향, 생성 시각과 같은 수정 시각을 생략했습니다. 현재 line:null, 다른 원래 위치·실제 수정 시각·작성자·URL·본문·부분 수집 결과는 유지합니다. 정확한 전체 JSON은 원문 파일과 SHA-256으로 보관합니다.','',
@@ -112,16 +112,16 @@ def render(repo,reports):
     selected=latest_results(reports);updated=review_update(root,selected['pr-reviews'][1])
     used={stem for stem,_ in selected.values()}
     output_path=root/'pr/reviews-output.json'
-    output=json.loads(output_path.read_text()) if output_path.exists() else None
+    output=json.loads(output_path.read_text(encoding='utf-8')) if output_path.exists() else None
     for task,(_,path,_) in COMMANDS.items():
         stem,report=selected[task];target=root/path;target.parent.mkdir(parents=True,exist_ok=True)
-        target.write_text(review_page(root) if task=='pr-reviews' and updated else command_page(task,stem,report,output))
+        target.write_text(review_page(root) if task=='pr-reviews' and updated else command_page(task,stem,report,output), encoding='utf-8')
     lines=['# GitHub 벤치마크','',
            '명령별 최신 결과입니다. 경로는 [사용법 문서](../../github/README.md)와 같습니다. 측정일은 한국시간입니다. 작업 전체 토큰과 출력 토큰은 별도 지표로 다룹니다.','',
            '| 명령 | 최신 검증 |','|---|---|']
     for task,(name,path,_) in COMMANDS.items():
         _,report=selected[task]
-        label=json.loads((root/'pr/reviews-output.json').read_text())['measured_on']+': compact 출력' if task=='pr-reviews' and updated else measured_date(report)+': 작업 전체, 방식별 3회'
+        label=json.loads((root/'pr/reviews-output.json').read_text(encoding='utf-8'))['measured_on']+': compact 출력' if task=='pr-reviews' and updated else measured_date(report)+': 작업 전체, 방식별 3회'
         lines.append(f"| [`{name}`]({path}) | {label} |")
     lines+=['','## 공통 측정 조건','',
         '| 측정일 | 범위 | 실행·정답/상태 통과 | 당시 기본 설정 |','|---|---|---|---|']
@@ -150,5 +150,5 @@ def render(repo,reports):
         'python3 scripts/benchmarks/publish_github_study.py --root /tmp/github-study','```','',
         '`--tasks`를 생략하면 15개 전체 명령을 측정합니다. 문서만 갱신하려면 `python3 scripts/benchmarks/publish_github_study.py --render-only`를 실행합니다. 모델 호출과 압축 원본 변경 없이 같은 명령별 구조를 생성합니다.','',
         '고정 소스 재현은 해당 source.tar.gz를 새 디렉터리에 풀고 scripts를 source/scripts로 복사한 뒤 그 안의 run_github_study.py를 실행합니다. 소스·작업의 재현을 위한 자료이며 모델 응답·토큰 수의 동일성을 보장하지 않습니다.','']
-    (root/'README.md').write_text('\n'.join(lines))
-    (repo/'docs/benchmarks/README.md').write_text('# 벤치마크\n\n명령별 최신 측정 결과와 검증 자료입니다. 사용법 문서와 같은 디렉터리 구조를 사용합니다. 공통 조건·원본·재현 방법은 그룹 안내에 모아 두었습니다.\n\n| 그룹 | 측정 범위 |\n|---|---|\n| [GitHub](github/README.md) | 15개 명령의 작업 전체 실측, 변경 명령만 재측정 |\n')
+    (root/'README.md').write_text('\n'.join(lines), encoding='utf-8')
+    (repo/'docs/benchmarks/README.md').write_text('# 벤치마크\n\n명령별 최신 측정 결과와 검증 자료입니다. 사용법 문서와 같은 디렉터리 구조를 사용합니다. 공통 조건·원본·재현 방법은 그룹 안내에 모아 두었습니다.\n\n| 그룹 | 측정 범위 |\n|---|---|\n| [GitHub](github/README.md) | 15개 명령의 작업 전체 실측, 변경 명령만 재측정 |\n', encoding='utf-8')

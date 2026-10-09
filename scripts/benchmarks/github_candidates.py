@@ -206,7 +206,7 @@ if __name__ == '__main__':
     parser.add_argument('--head')
     parser.add_argument('--include-patch', action='store_true', help='delta: include patches only when needed')
     args = parser.parse_args()
-    text = args.snapshot.read_text()
+    text = args.snapshot.read_text(encoding='utf-8')
     if args.kind == 'ci':
         result = ci(text)
     elif args.kind == 'ci-facts':

@@ -185,7 +185,7 @@ def main():
         for name in ('cmd','internal'):shutil.copytree(repo/name,source/name)
         small.build(root,source)
         wrapper=root/'bin/git'
-        wrapper.write_text(wrapper.read_text().replace("if 'push' in args:","if 'fetch' in args:\n  args=[os.environ['BRANCH_BENCHMARK_REMOTE'] if a=='origin' else a for a in args]\n if 'push' in args:"))
+        wrapper.write_text(wrapper.read_text(encoding='utf-8').replace("if 'push' in args:","if 'fetch' in args:\n  args=[os.environ['BRANCH_BENCHMARK_REMOTE'] if a=='origin' else a for a in args]\n if 'push' in args:"), encoding='utf-8')
         harness=root/'harness';harness.mkdir()
         for path in Path(__file__).parent.glob('*.py'):shutil.copy2(path,harness/path.name)
         shutil.copy2(Path(__file__).parent/'requirements.txt',harness/'requirements.txt')
@@ -217,7 +217,7 @@ def main():
             core.save(root/'environment.json',environment)
             core.save(root/'protocol.json',protocol);records=[];save_report(root,protocol,records)
         else:
-            protocol=json.loads((root/'protocol.json').read_text());records=json.loads((root/'results.json').read_text())
+            protocol=json.loads((root/'protocol.json').read_text(encoding='utf-8'));records=json.loads((root/'results.json').read_text(encoding='utf-8'))
             if args.tasks is not None and selected!=protocol['tasks']:raise RuntimeError('selected tasks differ from frozen protocol')
             if defaults!=protocol['configured_defaults']:raise RuntimeError('user defaults changed')
             validate_frozen(root,protocol)
