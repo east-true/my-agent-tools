@@ -1,0 +1,7 @@
+{
+  "prefix": "feat",
+  "title": "add github workflow commands",
+  "summary": "이슈와 PR 생성 시 반복되는 조회 및 본문 작성 작업을 줄입니다.",
+  "changes": ["기존 라벨·유형 선택", "인증된 사용자를 이슈 담당자로 지정", "등록 전 미리보기 제공"],
+  "acceptance": ["새 라벨·유형을 생성하지 않는다", "Linux·macOS·Windows용으로 빌드된다"]
+}

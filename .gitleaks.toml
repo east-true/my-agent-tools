@@ -1,0 +1,65 @@
+title = "Secrets and personal information"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Local Git metadata and generated build artifacts"
+paths = [
+  '''(^|/)(\.git|dist)(/|$)''',
+  '''(^|/)tools(\.exe)?$''',
+  '''(^|/)__pycache__(/|$)''',
+]
+
+[[allowlists]]
+description = "Published benchmark source SHA-256 fingerprints"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = ['''^docs/benchmarks/github/(?:data/study[^/]*\.json|pr/reviews-output\.json)$''']
+regexes = ['''^\s*"internal/github/api\.go":\s*"[a-f0-9]{64}",?\s*$''']
+
+[[allowlists]]
+description = "Published benchmark numeric standard deviations and paired percentages"
+targetRules = ["korean-resident-registration-number"]
+condition = "AND"
+regexTarget = "line"
+paths = ['''^docs/benchmarks/github/data/study[^/]*\.json$''']
+regexes = ['''^\s*"(?:stdev|(?:uncached|total)_change_percent)":\s*-?[0-9]+\.[0-9]+,?\s*$''']
+
+[[rules]]
+id = "personal-email"
+description = "Email address"
+regex = '''(?i)\b([a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,})\b'''
+secretGroup = 1
+tags = ["pii", "email"]
+
+[[rules.allowlists]]
+description = "Reserved example domains and GitHub privacy addresses"
+regexes = [
+  '''(?i)@(?:[a-z0-9-]+\.)*(?:example\.(?:com|org|net)|invalid|test|example)$''',
+  '''(?i)@users\.noreply\.github\.com$''',
+  '''(?i)^noreply@github\.com$''',
+]
+
+[[rules.allowlists]]
+description = "Git SSH transport users"
+regexes = [
+  '''^git@github\.com$''',
+  '''^git@gitlab\.com$''',
+  '''^git@bitbucket\.org$''',
+]
+
+[[rules]]
+id = "korean-mobile-phone"
+description = "Korean mobile phone number, including international format"
+regex = '''\b((?:0|82[ .-]?)1[016789][ .-]?[0-9]{3,4}[ .-]?[0-9]{4})\b'''
+secretGroup = 1
+tags = ["pii", "phone"]
+
+[[rules]]
+id = "korean-resident-registration-number"
+description = "Korean resident or foreign registration number format"
+regex = '''\b([0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12][0-9]|3[01])[- ]?[1-8][0-9]{6})\b'''
+secretGroup = 1
+tags = ["pii", "identification"]
