@@ -26,8 +26,13 @@ tools github pr reviews --repo OWNER/REPO --number 123
 | `--repo OWNER/REPO` | 기본은 현재 Git `origin`. Git 밖에서는 명시 |
 | `--all` | 해결된 스레드까지 포함 |
 | `--json` | 구조화된 최종 JSON 한 개 |
+| `--compact` | 긴 본문·diff hunk를 원문 파일에 보존하고 간결한 JSON 출력 |
+| `--artifact-dir DIR` | 간결한 출력의 원문 저장 경로, 기본 `.tools/state/evidence` |
+| `--token-encoding`, `--artifact-retention`, `--artifact-limit` | [토큰 비교와 원문 보관](../README.md#간결한-출력) |
 
 JSON은 `status`, `repo`, `number`, `url`, `head_sha`, `review_decision`, `complete`, `all`, `reviews`, `threads`, 선택적 `notes`를 포함합니다. 리뷰·스레드가 없으면 빈 배열을 반환합니다.
+
+`--compact`는 빈 선택적 위치 필드와 현재 위치와 같은 원래 위치를 생략합니다. 같은 시작 diff 방향, 생성 시각과 같은 댓글 수정 시각도 생략합니다. 현재 `line: null`과 다른 원래 위치·실제 수정 시각은 유지하며 정확한 전체 필드는 `evidence_file`에 보관합니다. [중복 제거의 출력 토큰 검증](../../benchmarks/github/pr/reviews.md).
 
 `complete`는 선택한 범위의 자료 수집이 완료되었는지를 뜻합니다. 후속 페이지·답글·리뷰 이력 조회에 실패하면 이미 모은 자료를 유지하고 `status: "partial"`, `complete: false`, `notes`를 반환합니다. 조회 중 head 커밋이 바뀌면 부분 결과로 표시하므로 새 커밋에 대해 다시 수집합니다. 여러 API 요청으로 얻은 스냅샷이며 조회 후 새 리뷰가 추가될 수 있습니다.
 
@@ -41,4 +46,4 @@ JSON은 `status`, `repo`, `number`, `url`, `head_sha`, `review_decision`, `compl
 
 읽기 전용이며 리뷰 제출·답글 작성·스레드 해결·머지를 수행하지 않습니다. Fine-grained 토큰에는 **Pull requests: read**가 필요합니다. [GraphQL 리뷰 스레드](https://docs.github.com/en/graphql/reference/pulls#pullrequestreviewthread), [리뷰 목록 API](https://docs.github.com/en/rest/pulls/reviews#list-reviews-for-a-pull-request).
 
-[공통 안내](../README.md) · [PR 생성](create.md) · [PR 머지](merge.md)
+[공통 안내](../README.md) · [통합·변경분 조회](inspect.md) · [간결한 출력](../README.md#간결한-출력) · [PR 생성](create.md) · [PR 머지](merge.md)

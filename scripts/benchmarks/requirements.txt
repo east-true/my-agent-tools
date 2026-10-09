@@ -1,0 +1,1 @@
+graphql-core==3.3.0 --hash=sha256:d37fac6ef4dfc3eaa5daa59dcb498d7cbb118439d240993c68fddc4cb1bade44

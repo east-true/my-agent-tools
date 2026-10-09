@@ -19,6 +19,8 @@ type CIRerunOptions struct {
 	Interval    time.Duration
 	Annotations bool
 	MaxLogBytes int64
+	Resume      *CIRerunCheckpoint
+	OnRequest   func(CIRerunCheckpoint) error
 }
 
 func (options *CIRerunOptions) Normalize() error {
@@ -51,6 +53,8 @@ type CIRerunResult struct {
 	Failure          *CIFailureResult `json:"failure,omitempty"`
 	Notes            []string         `json:"notes,omitempty"`
 	Error            string           `json:"error,omitempty"`
+	Resumed          bool             `json:"resumed,omitempty"`
+	StateFile        string           `json:"state_file,omitempty"`
 }
 
 func (client Client) ciRun(ctx context.Context, repo string, id int64) (CIRun, error) {
@@ -91,6 +95,20 @@ func (client Client) RerunCI(ctx context.Context, repo string, options CIRerunOp
 		}
 		return result, err
 	}
+	if options.Resume != nil {
+		state := options.Resume
+		if options.DryRun {
+			return finishError(errors.New("--resume cannot be combined with --dry-run"))
+		}
+		if err := state.Validate(repo, options.RunID); err != nil {
+			return finishError(err)
+		}
+		result.Mode, result.Resumed = state.Mode, true
+		result.PreviousAttempt, result.ExpectedAttempt = state.PreviousAttempt, state.ExpectedAttempt
+		result.RequestAttempted, result.RerunRequested = state.RequestAttempted, state.Accepted
+		result.Run = CIRun{ID: state.RunID, HeadSHA: state.HeadSHA}
+		return client.waitRerunCI(ctx, repo, options, result)
+	}
 	run, err := client.ciRun(ctx, repo, options.RunID)
 	if err != nil {
 		return finishError(err)
@@ -124,6 +142,12 @@ func (client Client) RerunCI(ctx context.Context, repo string, options CIRerunOp
 	if options.All {
 		endpoint = fmt.Sprintf("repos/%s/actions/runs/%d/rerun", repo, options.RunID)
 	}
+	checkpoint := CIRerunCheckpoint{Version: 1, Repo: repo, RunID: run.ID, PreviousAttempt: run.Attempt, ExpectedAttempt: run.Attempt + 1, HeadSHA: run.HeadSHA, Mode: result.Mode, RequestedAt: time.Now().UTC(), RequestAttempted: true}
+	if options.OnRequest != nil {
+		if err := options.OnRequest(checkpoint); err != nil {
+			return finishError(fmt.Errorf("save rerun checkpoint before request: %w", err))
+		}
+	}
 	result.RequestAttempted = true
 	if err := client.api(ctx, "POST", endpoint, map[string]any{}, nil); err != nil {
 		var rejection *sdk.ErrorResponse
@@ -135,16 +159,51 @@ func (client Client) RerunCI(ctx context.Context, repo string, options CIRerunOp
 		return finishError(err)
 	}
 	result.RerunRequested, result.Status = true, "requested"
+	checkpoint.Accepted = true
+	if options.OnRequest != nil {
+		if err := options.OnRequest(checkpoint); err != nil {
+			return finishError(fmt.Errorf("rerun accepted but checkpoint update failed: %w", err))
+		}
+	}
 	if !options.Wait {
 		return result, nil
+	}
+	return client.waitRerunCI(ctx, repo, options, result)
+}
+
+func (client Client) waitRerunCI(ctx context.Context, repo string, options CIRerunOptions, result CIRerunResult) (CIRerunResult, error) {
+	expectedHead := result.Run.HeadSHA
+	finishError := func(err error) (CIRerunResult, error) {
+		result.Error, result.Status = err.Error(), "unknown"
+		if ctx.Err() != nil {
+			result.Status = "timeout"
+			if errors.Is(ctx.Err(), context.Canceled) {
+				result.Status = "cancelled"
+			}
+		}
+		return result, err
 	}
 	for {
 		current, err := client.ciRun(ctx, repo, options.RunID)
 		if err != nil {
 			return finishError(err)
 		}
+		if current.HeadSHA != expectedHead || current.Attempt < result.PreviousAttempt {
+			return finishError(errors.New("workflow identity changed while resuming rerun"))
+		}
+		if result.Resumed && current.Attempt > result.ExpectedAttempt {
+			result.Notes = append(result.Notes, "A newer attempt exists; resumed evidence stays pinned to the saved expected attempt.")
+			var pinned CIRun
+			if err := client.api(ctx, "GET", fmt.Sprintf("repos/%s/actions/runs/%d/attempts/%d", repo, options.RunID, result.ExpectedAttempt), nil, &pinned); err != nil {
+				return finishError(err)
+			}
+			if pinned.ID != options.RunID || pinned.Attempt != result.ExpectedAttempt || pinned.Status == "" || (pinned.Status == "completed" && pinned.Conclusion == "") {
+				return finishError(errors.New("saved attempt metadata is incomplete"))
+			}
+			current = pinned
+		}
 		result.Run = current
-		if current.HeadSHA != run.HeadSHA || current.Attempt < run.Attempt {
+		if current.HeadSHA != expectedHead || current.Attempt < result.PreviousAttempt {
 			return finishError(errors.New("workflow identity changed while waiting for rerun"))
 		}
 		if current.Attempt > result.ExpectedAttempt {
@@ -164,6 +223,13 @@ func (client Client) RerunCI(ctx context.Context, repo string, options CIRerunOp
 				failures.Notes = append(failures.Notes, err.Error())
 			}
 			result.Failure = &failures
+			return result, nil
+		}
+		if !options.Wait {
+			result.Status = "requested"
+			if !result.RerunRequested {
+				result.Status = "unknown"
+			}
 			return result, nil
 		}
 		timer := time.NewTimer(options.Interval)

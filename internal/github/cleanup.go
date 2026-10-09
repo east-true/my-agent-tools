@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/url"
 	"path"
 	"regexp"
 	"slices"
@@ -16,6 +17,7 @@ type CleanupOptions struct {
 	Remote  string   `json:"remote"`
 	Scope   string   `json:"scope"`
 	Protect []string `json:"protect,omitempty"`
+	Branch  string   `json:"branch,omitempty"`
 }
 
 type CleanupTarget struct {
@@ -26,6 +28,7 @@ type CleanupTarget struct {
 	Eligible     bool     `json:"eligible"`
 	Reasons      []string `json:"reasons,omitempty"`
 	Skip         string   `json:"skip,omitempty"`
+	WorktreePath string   `json:"worktree_path,omitempty"`
 }
 
 type CleanupPlan struct {
@@ -196,28 +199,28 @@ func (client Client) cleanupClosedIssues(ctx context.Context, repo string) (map[
 	}
 }
 
-func (client Client) cleanupGit(ctx context.Context, options CleanupOptions, repo string) ([]cleanupLocalBranch, map[string]bool, error) {
+func (client Client) cleanupGit(ctx context.Context, options CleanupOptions, repo string) ([]cleanupLocalBranch, error) {
 	if options.Remote == "" || strings.HasPrefix(options.Remote, "-") || strings.ContainsAny(options.Remote, "\r\n\x00") {
-		return nil, nil, errors.New("invalid remote name")
+		return nil, errors.New("invalid remote name")
 	}
 	// A distinct push URL must also identify the selected repository.
 	for _, args := range [][]string{{"remote", "get-url", options.Remote}, {"remote", "get-url", "--push", "--all", options.Remote}} {
 		out, err := client.Runner.Run(ctx, nil, "git", args...)
 		if err != nil {
-			return nil, nil, err
+			return nil, err
 		}
 		values := strings.Fields(string(out))
 		if len(values) != 1 {
-			return nil, nil, errors.New("cleanup requires a single remote fetch/push URL")
+			return nil, errors.New("cleanup requires a single remote fetch/push URL")
 		}
 		actual, err := repoFromRemote(values[0])
 		if err != nil || !strings.EqualFold(actual, repo) {
-			return nil, nil, errors.New("cleanup remote must match the target GitHub repository for fetch and push")
+			return nil, errors.New("cleanup remote must match the target GitHub repository for fetch and push")
 		}
 	}
 	out, err := client.Runner.Run(ctx, nil, "git", "for-each-ref", "--format=%(refname)%00%(objectname)%00%(upstream:remotename)%00%(upstream:remoteref)", "refs/heads/")
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	local := []cleanupLocalBranch{}
 	for _, line := range strings.Split(strings.TrimSuffix(string(out), "\n"), "\n") {
@@ -226,32 +229,26 @@ func (client Client) cleanupGit(ctx context.Context, options CleanupOptions, rep
 		}
 		fields := strings.Split(line, "\x00")
 		if len(fields) != 4 || !strings.HasPrefix(fields[0], "refs/heads/") || fields[1] == "" {
-			return nil, nil, errors.New("invalid local branch inventory")
+			return nil, errors.New("invalid local branch inventory")
 		}
 		local = append(local, cleanupLocalBranch{strings.TrimPrefix(fields[0], "refs/heads/"), fields[1], fields[2], strings.TrimPrefix(fields[3], "refs/heads/")})
 	}
-	checked, err := client.cleanupWorktrees(ctx, options.Remote)
-	for _, branch := range local {
-		if checked[branch.name] && branch.remote == options.Remote && branch.remoteRef != "" {
-			checked[branch.remoteRef] = true
-		}
-	}
-	return local, checked, err
+	return local, nil
 }
 
 func (client Client) cleanupWorktrees(ctx context.Context, remote string) (map[string]bool, error) {
-	out, err := client.Runner.Run(ctx, nil, "git", "worktree", "list", "--porcelain")
+	worktrees, err := client.branchWorktrees(ctx)
 	if err != nil {
 		return nil, err
 	}
 	checked := map[string]bool{}
-	for _, line := range strings.Split(string(out), "\n") {
-		if branch, ok := strings.CutPrefix(line, "branch refs/heads/"); ok {
-			checked[branch] = true
+	for _, worktree := range worktrees {
+		if worktree.Branch != "" {
+			checked[worktree.Branch] = true
 		}
 	}
 	// A checked-out local alias also protects the remote branch it tracks.
-	out, err = client.Runner.Run(ctx, nil, "git", "for-each-ref", "--format=%(refname)%00%(upstream:remotename)%00%(upstream:remoteref)", "refs/heads/")
+	out, err := client.Runner.Run(ctx, nil, "git", "for-each-ref", "--format=%(refname)%00%(upstream:remotename)%00%(upstream:remoteref)", "refs/heads/")
 	if err != nil {
 		return nil, err
 	}
@@ -278,14 +275,34 @@ func (client Client) PlanCleanup(ctx context.Context, repo string, options Clean
 	if options.Scope != "both" && options.Scope != "local" && options.Scope != "remote" {
 		return plan, errors.New("scope must be both, local, or remote")
 	}
+	if options.Branch != "" {
+		if _, err := client.Runner.Run(ctx, nil, "git", "check-ref-format", "refs/heads/"+options.Branch); err != nil {
+			return plan, errors.New("--branch must be an exact valid Git branch name")
+		}
+	}
 	for _, pattern := range options.Protect {
 		if _, err := path.Match(pattern, ""); err != nil {
 			return plan, fmt.Errorf("invalid protection pattern: %w", err)
 		}
 	}
-	local, checked, err := client.cleanupGit(ctx, options, repo)
+	local, err := client.cleanupGit(ctx, options, repo)
 	if err != nil {
 		return plan, err
+	}
+	worktrees, worktreeSkips, err := client.cleanupWorktreeCandidates(ctx, options.Scope)
+	if err != nil {
+		return plan, err
+	}
+	checked := map[string]bool{}
+	for name := range worktrees {
+		if worktreeSkips[name] != "" {
+			checked[name] = true
+		}
+	}
+	for _, branch := range local {
+		if checked[branch.name] && branch.remote == options.Remote && branch.remoteRef != "" {
+			checked[branch.remoteRef] = true
+		}
 	}
 	var repository Repository
 	if err := client.api(ctx, "GET", "repos/"+repo, nil, &repository); err != nil {
@@ -295,7 +312,7 @@ func (client Client) PlanCleanup(ctx context.Context, repo string, options Clean
 		return plan, errors.New("repository has no default branch")
 	}
 	plan.DefaultBranch = repository.DefaultBranch
-	branches, err := cleanupPages[cleanupRemoteBranch](ctx, client, "repos/"+repo+"/branches")
+	branches, err := client.cleanupBranches(ctx, repo, options.Branch)
 	if err != nil {
 		return plan, err
 	}
@@ -306,7 +323,12 @@ func (client Client) PlanCleanup(ctx context.Context, repo string, options Clean
 		}
 		remote[branch.Name] = branch
 	}
-	prs, err := cleanupPages[cleanupPR](ctx, client, "repos/"+repo+"/pulls?state=all&sort=created&direction=desc")
+	endpoint := "repos/" + repo + "/pulls?state=all&sort=created&direction=desc"
+	if options.Branch != "" {
+		owner, _, _ := strings.Cut(repo, "/")
+		endpoint += "&head=" + url.QueryEscape(owner+":"+options.Branch)
+	}
+	prs, err := cleanupPages[cleanupPR](ctx, client, endpoint)
 	if err != nil {
 		return plan, err
 	}
@@ -322,9 +344,12 @@ func (client Client) PlanCleanup(ctx context.Context, repo string, options Clean
 			latest[pr.Head.Ref] = pr
 		}
 	}
-	links, closed, err := client.cleanupClosedIssues(ctx, repo)
-	if err != nil {
-		return plan, err
+	links, closed := map[string][]int{}, map[int]bool{}
+	if options.Branch == "" {
+		links, closed, err = client.cleanupClosedIssues(ctx, repo)
+		if err != nil {
+			return plan, err
+		}
 	}
 	issueChecked := map[int]bool{}
 	protected := func(name string) bool {
@@ -394,6 +419,9 @@ func (client Client) PlanCleanup(ctx context.Context, repo string, options Clean
 		}
 		sort.Strings(names)
 		for _, name := range names {
+			if options.Branch != "" && name != options.Branch {
+				continue
+			}
 			reason, skip, err := reasons(name)
 			if err != nil {
 				return plan, err
@@ -416,6 +444,9 @@ func (client Client) PlanCleanup(ctx context.Context, repo string, options Clean
 				return plan, errors.New("invalid remote-tracking branch inventory")
 			}
 			name := strings.TrimPrefix(fields[0], prefix)
+			if options.Branch != "" && name != options.Branch {
+				continue
+			}
 			if fields[2] != "" || remote[name].Name != "" {
 				continue
 			}
@@ -434,11 +465,20 @@ func (client Client) PlanCleanup(ctx context.Context, repo string, options Clean
 		if branch.remote == options.Remote && branch.remoteRef != "" {
 			name = branch.remoteRef
 		}
+		if options.Branch != "" && name != options.Branch {
+			continue
+		}
 		target := CleanupTarget{Scope: "local", Name: branch.name, RemoteBranch: name, SHA: branch.sha}
+		if worktree, exists := worktrees[branch.name]; exists {
+			target.WorktreePath = worktree.Path
+		}
 		if branch.remote != "" && branch.remote != options.Remote {
 			target.Skip = "upstream belongs to another remote"
 		} else if protected(branch.name) {
 			target.Skip = "protected or checked out in a worktree"
+			if reason := worktreeSkips[branch.name]; reason != "" {
+				target.Skip = reason
+			}
 		} else {
 			target.Reasons, target.Skip, err = reasons(name)
 			if err != nil {
@@ -467,7 +507,48 @@ func (client Client) PlanCleanup(ctx context.Context, repo string, options Clean
 		target.Eligible = target.Skip == ""
 		plan.Targets = append(plan.Targets, target)
 	}
+	// Worktrees are removed before their refs. An ineligible local checkout also
+	// keeps its remote and tracking refs, including aliases of that remote branch.
+	worktreeTargets := []CleanupTarget{}
+	blocked := map[string]bool{}
+	for _, target := range plan.Targets {
+		if target.Scope != "local" || target.WorktreePath == "" {
+			continue
+		}
+		worktreeTarget := target
+		worktreeTarget.Scope = "worktree"
+		worktreeTargets = append(worktreeTargets, worktreeTarget)
+		if !target.Eligible {
+			blocked[target.RemoteBranch] = true
+			blocked[target.Name] = true
+		}
+	}
+	for index := range plan.Targets {
+		target := &plan.Targets[index]
+		if target.Scope != "local" && blocked[target.RemoteBranch] {
+			target.Eligible = false
+			target.Skip = "associated worktree or local branch must be retained"
+		}
+	}
+	plan.Targets = append(worktreeTargets, plan.Targets...)
 	return plan, nil
+}
+
+func (client Client) cleanupBranches(ctx context.Context, repo, branch string) ([]cleanupRemoteBranch, error) {
+	if branch == "" {
+		return cleanupPages[cleanupRemoteBranch](ctx, client, "repos/"+repo+"/branches")
+	}
+	var item cleanupRemoteBranch
+	if err := client.api(ctx, "GET", "repos/"+repo+"/branches/"+url.PathEscape(branch), nil, &item); err != nil {
+		if isNotFound(err) {
+			return []cleanupRemoteBranch{}, nil
+		}
+		return nil, err
+	}
+	if item.Name != branch {
+		return nil, errors.New("GitHub returned a different branch during targeted cleanup")
+	}
+	return []cleanupRemoteBranch{item}, nil
 }
 
 // ApplyCleanup refreshes terminal states/protections and uses expected SHAs for deletion.
@@ -482,6 +563,7 @@ func (client Client) ApplyCleanup(ctx context.Context, plan CleanupPlan) (Cleanu
 		current[target.Scope+"\x00"+target.Name] = target
 	}
 	remoteFailed := map[string]bool{}
+	worktreeFailed := map[string]bool{}
 	var failures []error
 	for _, target := range plan.Targets {
 		action := CleanupAction{CleanupTarget: target, Status: "skipped"}
@@ -490,10 +572,31 @@ func (client Client) ApplyCleanup(ctx context.Context, plan CleanupPlan) (Cleanu
 			continue
 		}
 		now, exists := current[target.Scope+"\x00"+target.Name]
-		if !exists || !now.Eligible || now.SHA != target.SHA || now.RemoteBranch != target.RemoteBranch || !slices.Equal(now.Reasons, target.Reasons) || fresh.DefaultBranch != plan.DefaultBranch {
+		if !exists || !now.Eligible || now.SHA != target.SHA || now.RemoteBranch != target.RemoteBranch || now.WorktreePath != target.WorktreePath || !slices.Equal(now.Reasons, target.Reasons) || fresh.DefaultBranch != plan.DefaultBranch {
 			action.Skip = "branch or associated GitHub state changed; preview again"
 			if target.Scope == "remote" {
 				remoteFailed[target.RemoteBranch] = true
+			}
+			if target.Scope == "worktree" {
+				worktreeFailed[target.RemoteBranch] = true
+				worktreeFailed[target.Name] = true
+			}
+			result.Actions = append(result.Actions, action)
+			continue
+		}
+		if worktreeFailed[target.RemoteBranch] || worktreeFailed[target.Name] {
+			action.Skip = "worktree removal did not succeed; branch retained"
+			result.Actions = append(result.Actions, action)
+			continue
+		}
+		if target.Scope == "worktree" {
+			if err := client.removeCleanupWorktree(ctx, target, plan.Options); err != nil {
+				action.Status, action.Error = "error", err.Error()
+				failures = append(failures, err)
+				worktreeFailed[target.RemoteBranch] = true
+				worktreeFailed[target.Name] = true
+			} else {
+				action.Status = "deleted"
 			}
 			result.Actions = append(result.Actions, action)
 			continue

@@ -203,7 +203,9 @@ func TestCleanupPreviewTerminalStatesAndProtections(t *testing.T) {
 	w.issues[9] = "closed"
 	w.links[9] = []string{"feat/linked"}
 	w.protected["feat/protected"] = true
-	w.git("worktree", "add", filepath.Join(t.TempDir(), "worktree"), "feat/worktree")
+	worktree := filepath.Join(t.TempDir(), "worktree")
+	w.git("worktree", "add", worktree, "feat/worktree")
+	w.git("worktree", "lock", worktree)
 	plan := w.plan("both")
 	for _, name := range []string{"feat/merged", "fix/closed", "7-fix-issue", "feat/linked"} {
 		for _, scope := range []string{"remote", "local"} {
@@ -536,7 +538,9 @@ func TestCleanupRejectsMismatchedPushURLAndProtectsAliases(t *testing.T) {
 	w.git("branch", "alias", name)
 	w.git("config", "branch.alias.remote", "origin")
 	w.git("config", "branch.alias.merge", "refs/heads/"+name)
-	w.git("worktree", "add", filepath.Join(t.TempDir(), "alias-worktree"), "alias")
+	worktree := filepath.Join(t.TempDir(), "alias-worktree")
+	w.git("worktree", "add", worktree, "alias")
+	w.git("worktree", "lock", worktree)
 	if cleanupTarget(t, w.plan("both"), "remote", name).Eligible {
 		t.Fatal("remote of checked-out alias was eligible")
 	}

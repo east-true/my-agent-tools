@@ -27,14 +27,15 @@ func runCleanup(ctx context.Context, args []string, out, stderr io.Writer, runne
 	remote := flags.String("remote", "origin", "Git remote to inspect and clean")
 	scope := flags.String("scope", "both", "both, local, or remote")
 	protect := flags.String("protect", "", "additional protected branch names/globs, comma-separated")
-	apply := flags.Bool("apply", false, "delete eligible branches; default is read-only preview")
+	branch := flags.String("branch", "", "limit planning and cleanup to this exact remote branch and local aliases")
+	apply := flags.Bool("apply", false, "remove eligible worktrees and branches; default is read-only preview")
 	dryRun := flags.Bool("dry-run", false, "explicit read-only preview (cannot combine with --apply)")
 	jsonOutput := flags.Bool("json", false, "emit structured plan/results")
 	includeSkipped := flags.Bool("include-skipped", false, "include unchanged branches and reasons (default: candidates/actions and counts)")
 	flags.Usage = func() {
 		fmt.Fprintln(stderr, "Usage: tools github branch cleanup [options]")
 		flags.PrintDefaults()
-		fmt.Fprintln(stderr, "\nDefault: preview only. --apply rechecks GitHub states and expected commit SHAs.\nDefault/protected/worktree branches and branches with open PRs are excluded.\nLocal commits not verified as published are retained. --apply also deletes\nclosed but unmerged remote work; inspect the preview before applying.")
+		fmt.Fprintln(stderr, "\nDefault: preview only. --apply rechecks GitHub states and expected commit SHAs.\nClean linked worktrees for finished branches are removed with local cleanup.\nMain/current, locked or dirty worktrees, protected branches and open PR work are retained.\nLocal commits not verified as published are retained. --apply also deletes\nclosed but unmerged remote work; inspect the preview before applying.")
 	}
 	if err := flags.Parse(args[1:]); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
@@ -68,7 +69,7 @@ func runCleanup(ctx context.Context, args []string, out, stderr io.Writer, runne
 	if err != nil {
 		return fail(err, 1)
 	}
-	options := github.CleanupOptions{Remote: *remote, Scope: *scope}
+	options := github.CleanupOptions{Remote: *remote, Scope: *scope, Branch: *branch}
 	if *protect != "" {
 		for _, pattern := range strings.Split(*protect, ",") {
 			options.Protect = append(options.Protect, strings.TrimSpace(pattern))
@@ -102,9 +103,12 @@ func runCleanup(ctx context.Context, args []string, out, stderr io.Writer, runne
 			} else {
 				fmt.Fprintf(out, "keep %s %s: %s\n", target.Scope, target.Name, target.Skip)
 			}
+			if target.WorktreePath != "" {
+				fmt.Fprintln(out, "  worktree:", target.WorktreePath)
+			}
 		}
 		fmt.Fprintf(out, "eligible: %d; kept: %d (use --include-skipped for keep reasons)\n", eligible, kept)
-		fmt.Fprintln(out, "Use --apply to delete eligible branches.")
+		fmt.Fprintln(out, "Use --apply to remove eligible worktrees and branches.")
 		return 0
 	}
 	result, err := client.ApplyCleanup(ctx, plan)
@@ -132,6 +136,9 @@ func runCleanup(ctx context.Context, args []string, out, stderr io.Writer, runne
 			continue
 		}
 		fmt.Fprintf(out, "%s %s %s", action.Status, action.Scope, action.Name)
+		if action.WorktreePath != "" {
+			fmt.Fprintf(out, " (%s)", action.WorktreePath)
+		}
 		if action.Error != "" {
 			fmt.Fprint(out, ": ", action.Error)
 		} else if action.Status == "skipped" {

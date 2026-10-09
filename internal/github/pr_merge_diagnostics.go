@@ -4,59 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
-	"net/http"
 	"net/url"
 	"regexp"
 	"strconv"
 	"strings"
-	"time"
 	"unicode"
 )
-
-// JobLogAPI downloads bounded plain-text logs using an unauthenticated client
-// for GitHub's short-lived signed URL. The URL and raw log are never returned.
-type JobLogAPI interface {
-	JobLog(context.Context, string, int64) (string, error)
-}
-
-func (api SDK) JobLog(ctx context.Context, repo string, jobID int64) (string, error) {
-	owner, name, _ := strings.Cut(repo, "/")
-	location, redirectResponse, err := api.Client.Actions.GetWorkflowJobLogs(ctx, owner, name, jobID, 0)
-	if err != nil {
-		if redirectResponse != nil {
-			return "", fmt.Errorf("job log URL unavailable (HTTP %d); check Actions read access and log retention", redirectResponse.StatusCode)
-		}
-		return "", errors.New("job log URL unavailable; check Actions read access and log retention")
-	}
-	if location == nil || location.Scheme != "https" || location.Host == "" {
-		return "", errors.New("job log redirect must use HTTPS")
-	}
-	request, err := http.NewRequestWithContext(ctx, "GET", location.String(), nil)
-	if err != nil {
-		return "", errors.New("invalid job log redirect")
-	}
-	// Do not reuse the authenticated SDK transport for a storage host.
-	caller := &http.Client{Timeout: 20 * time.Second, CheckRedirect: func(req *http.Request, via []*http.Request) error {
-		if req.URL.Scheme != "https" || len(via) >= 5 {
-			return errors.New("invalid job log redirect")
-		}
-		return nil
-	}}
-	response, err := caller.Do(request)
-	if err != nil {
-		return "", errors.New("job log download failed")
-	}
-	defer response.Body.Close()
-	if response.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("job log download returned HTTP %d", response.StatusCode)
-	}
-	data, err := io.ReadAll(io.LimitReader(response.Body, 2*1024*1024))
-	if err != nil {
-		return "", errors.New("job log read failed")
-	}
-	return string(data), nil
-}
 
 func actionsJobID(link string) int64 {
 	u, err := url.Parse(link)
@@ -92,74 +45,184 @@ func compactText(value string, limit int) string {
 	return value
 }
 
-func logEvidence(log string) string {
-	var lines []string
-	for _, line := range strings.Split(log, "\n") {
-		lower := strings.ToLower(line)
-		if strings.Contains(lower, "##[error]") || strings.Contains(lower, "::error") || strings.Contains(lower, "--- fail:") || strings.Contains(lower, "error:") || strings.Contains(lower, "assertionerror") || strings.Contains(lower, "panic:") || strings.Contains(lower, "fatal:") {
-			lines = append(lines, compactText(line, 350))
-			if len(lines) == 5 {
-				break
-			}
-		}
-	}
-	return compactText(strings.Join(lines, "\n"), 1500)
+// CheckFailureEvidence keeps check output and external-CI annotations intact.
+// Actions job annotations/log facts are stored once in MergeResult.Failures.
+type CheckFailureEvidence struct {
+	ID          int64          `json:"id"`
+	Complete    bool           `json:"complete"`
+	Output      CheckOutput    `json:"output"`
+	Annotations []CIAnnotation `json:"annotations,omitempty"`
 }
 
-func (client Client) diagnoseChecks(ctx context.Context, repo string, reasons []MergeReason) {
-	for i := range reasons {
-		r := &reasons[i]
-		if r.checkID == 0 {
+type CheckOutput struct {
+	Title   string `json:"title"`
+	Summary string `json:"summary"`
+	Text    string `json:"text"`
+}
+
+type mergeDiagnosticJob struct {
+	ID          int64  `json:"id"`
+	RunID       int64  `json:"run_id"`
+	Attempt     int    `json:"run_attempt"`
+	HeadSHA     string `json:"head_sha"`
+	CheckRunURL string `json:"check_run_url"`
+}
+
+func mergeDiagnosticError(reason *MergeReason, err error) {
+	reason.Check.Complete = false
+	reason.DiagnosticError = compactText(strings.TrimSpace(reason.DiagnosticError+"\n"+err.Error()), 1000)
+}
+
+// diagnoseChecks uses the same exact-attempt collector as ci failures, rerun and
+// inspect. Job metadata identifies the historical attempt even after a rerun.
+func (client Client) diagnoseChecks(ctx context.Context, repo string, pr *mergePR, checks []mergeCheck, options MergeOptions, result *MergeResult) {
+	snapshots := map[int64]mergeCheck{}
+	for _, check := range checks {
+		snapshots[check.ID] = check
+	}
+	type collection struct {
+		result CIFailureResult
+		err    error
+	}
+	collected := map[string]*collection{}
+	ordered := []*collection{}
+	for i := range result.Reasons {
+		reason := &result.Reasons[i]
+		if reason.Code != "check_failed" || reason.checkID <= 0 {
 			continue
 		}
-		var check mergeCheck
-		if err := client.api(ctx, "GET", fmt.Sprintf("repos/%s/check-runs/%d", repo, r.checkID), nil, &check); err != nil {
-			r.DiagnosticError = compactText(err.Error(), 350)
-		} else {
-			r.Details = compactText(strings.Join([]string{check.Output.Title, check.Output.Summary, check.Output.Text}, "\n"), 1000)
-		}
-		var annotations []struct {
-			Path      string `json:"path"`
-			StartLine int    `json:"start_line"`
-			Level     string `json:"annotation_level"`
-			Message   string `json:"message"`
-		}
-		if err := client.api(ctx, "GET", fmt.Sprintf("repos/%s/check-runs/%d/annotations?per_page=100", repo, r.checkID), nil, &annotations); err != nil {
-			r.DiagnosticError = compactText(r.DiagnosticError+"\n"+err.Error(), 500)
-		} else {
-			for _, annotation := range annotations {
-				if annotation.Level == "failure" {
-					r.Details = compactText(r.Details+fmt.Sprintf("\n%s:%d: %s", annotation.Path, annotation.StartLine, annotation.Message), 1500)
-				}
-			}
-		}
-		if r.jobID != 0 {
-			var job struct {
-				Steps []struct {
-					Name       string `json:"name"`
-					Conclusion string `json:"conclusion"`
-				} `json:"steps"`
-			}
-			if err := client.api(ctx, "GET", fmt.Sprintf("repos/%s/actions/jobs/%d", repo, r.jobID), nil, &job); err != nil {
-				r.DiagnosticError = compactText(r.DiagnosticError+"\n"+err.Error(), 500)
+		check := snapshots[reason.checkID]
+		reason.Check = &CheckFailureEvidence{ID: reason.checkID, Complete: true, Output: check.Output}
+		reason.Details = compactText(strings.Join([]string{check.Output.Title, check.Output.Summary, check.Output.Text}, "\n"), 1000)
+		matched := false
+		if check.App.Slug == "github-actions" {
+			runID := actionsRunID(repo, reason.URL)
+			if runID == 0 || reason.jobID == 0 {
+				mergeDiagnosticError(reason, errors.New("Actions check has no verified run/job link; workflow evidence omitted"))
 			} else {
-				for _, step := range job.Steps {
-					if step.Conclusion == "failure" {
-						r.Details = compactText(r.Details+"\nFailed step: "+step.Name, 1500)
+				var job mergeDiagnosticJob
+				err := client.api(ctx, "GET", fmt.Sprintf("repos/%s/actions/jobs/%d", repo, reason.jobID), nil, &job)
+				checkID, checkErr := ciCheckRunID(repo, job.CheckRunURL)
+				if err == nil && (job.ID != reason.jobID || job.RunID != runID || job.Attempt <= 0 || job.HeadSHA == "" || (job.HeadSHA != pr.HeadSHA && job.HeadSHA != testSHA(pr)) || checkErr != nil || checkID != reason.checkID) {
+					err = errors.New("Actions job identity, commit or check does not match the failed PR check; workflow evidence omitted")
+				}
+				if err != nil {
+					mergeDiagnosticError(reason, err)
+				} else {
+					key := fmt.Sprintf("%d:%d", job.RunID, job.Attempt)
+					cached, exists := collected[key]
+					if !exists {
+						cached = &collection{}
+						cached.result, cached.err = client.mergeFailureForJob(ctx, repo, pr, job, options)
+						collected[key] = cached
+						ordered = append(ordered, cached)
+					}
+					if cached.result.Run.ID != 0 {
+						reason.RunID, reason.RunAttempt = job.RunID, job.Attempt
+					}
+					if cached.err != nil {
+						mergeDiagnosticError(reason, cached.err)
+					} else {
+						for _, failedJob := range cached.result.Jobs {
+							checkID, checkErr := ciCheckRunID(repo, failedJob.CheckRunURL)
+							if failedJob.ID == job.ID && checkErr == nil && checkID == reason.checkID {
+								matched = true
+								reason.Details = compactText(reason.Details+"\n"+mergeFailureSummary(cached.result, failedJob), 2500)
+								break
+							}
+						}
+						if !matched {
+							missing := errors.New("Selected failed job/check is missing from its run attempt; inspect the workflow")
+							cached.result.Complete, cached.result.Status = false, "partial"
+							cached.result.Notes = append(cached.result.Notes, missing.Error())
+							mergeDiagnosticError(reason, missing)
+						}
+						if !cached.result.Complete {
+							notes := append([]string{}, cached.result.Notes...)
+							for _, failedJob := range cached.result.Jobs {
+								notes = append(notes, failedJob.Notes...)
+							}
+							mergeDiagnosticError(reason, fmt.Errorf("CI failure evidence is partial: %s", strings.Join(notes, "; ")))
+						}
 					}
 				}
 			}
-			if api, ok := client.API.(JobLogAPI); ok {
-				log, err := api.JobLog(ctx, repo, r.jobID)
-				if err != nil {
-					r.DiagnosticError = compactText(r.DiagnosticError+"\n"+err.Error(), 500)
-				} else if evidence := logEvidence(log); evidence != "" {
-					r.Details = compactText(r.Details+"\n"+evidence, 2000)
+		}
+		// External CI and unavailable Actions diagnostics retain all check
+		// annotations. When Actions collected them, do not fetch them twice.
+		if options.Annotations && !matched {
+			annotations, err := client.ciAnnotations(ctx, repo, fmt.Sprintf("https://api.github.com/repos/%s/check-runs/%d", repo, reason.checkID))
+			reason.Check.Annotations = annotations
+			if err != nil {
+				mergeDiagnosticError(reason, err)
+			}
+			for _, annotation := range annotations[:min(3, len(annotations))] {
+				reason.Details = compactText(reason.Details+fmt.Sprintf("\n%s:%d: %s", annotation.Path, annotation.StartLine, annotation.Message), 2500)
+			}
+		}
+		if reason.Details == "" {
+			reason.Details = "No detailed failure evidence was available; inspect the linked check."
+		}
+	}
+	for _, cached := range ordered {
+		if cached.result.Run.ID != 0 {
+			result.Failures = append(result.Failures, cached.result)
+		}
+	}
+}
+
+func (client Client) mergeFailureForJob(ctx context.Context, repo string, pr *mergePR, job mergeDiagnosticJob, options MergeOptions) (CIFailureResult, error) {
+	var run CIRun
+	if err := client.api(ctx, "GET", fmt.Sprintf("repos/%s/actions/runs/%d/attempts/%d", repo, job.RunID, job.Attempt), nil, &run); err != nil {
+		return CIFailureResult{}, err
+	}
+	if run.ID != job.RunID || run.Attempt != job.Attempt || run.HeadSHA != job.HeadSHA || (run.HeadSHA != pr.HeadSHA && run.HeadSHA != testSHA(pr)) || run.Status == "" || (run.Status == "completed" && run.Conclusion == "") {
+		return CIFailureResult{}, errors.New("Actions run attempt identity or commit changed; workflow evidence omitted")
+	}
+	failures, err := client.ciFailuresForRun(ctx, repo, CIFailureOptions{RunID: run.ID, Annotations: options.Annotations, MaxLogBytes: options.MaxLogBytes}, run)
+	if err != nil {
+		failures.Status, failures.Complete = "partial", false
+		failures.Notes = append(failures.Notes, err.Error())
+	}
+	return failures, err
+}
+
+// The readable reason is bounded; the complete structured result above is not.
+func mergeFailureSummary(failure CIFailureResult, job CIJob) string {
+	parts := []string{}
+	for _, annotation := range job.Annotations[:min(3, len(job.Annotations))] {
+		parts = append(parts, fmt.Sprintf("%s:%d: %s", annotation.Path, annotation.StartLine, annotation.Message))
+	}
+	for _, step := range job.Steps[:min(3, len(job.Steps))] {
+		parts = append(parts, "Failed step: "+step.Name)
+	}
+	for _, evidence := range failure.Evidence {
+		belongs := false
+		for _, occurrence := range evidence.Occurrences {
+			belongs = belongs || occurrence.JobID == job.ID
+		}
+		if !belongs {
+			continue
+		}
+		for _, diagnostic := range evidence.Diagnostics[:min(3, len(evidence.Diagnostics))] {
+			parts = append(parts, fmt.Sprintf("%s:%d:%d: %s", diagnostic.Path, diagnostic.Line, diagnostic.Column, diagnostic.Message))
+		}
+		for _, test := range evidence.Tests[:min(3, len(evidence.Tests))] {
+			parts = append(parts, "Failed test: "+test.Path+" "+test.Name+" "+test.Message)
+		}
+		found := 0
+		for _, line := range evidence.Lines {
+			if ciError.MatchString(ciNormalizedLine(line)) {
+				parts = append(parts, line)
+				found++
+				if found == 3 {
+					break
 				}
 			}
 		}
-		if r.Details == "" {
-			r.Details = "No detailed failure evidence was available; inspect the linked check."
+		if len(parts) >= 12 {
+			break
 		}
 	}
+	return compactText(strings.Join(parts, "\n"), 1500)
 }

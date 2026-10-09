@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -25,8 +26,13 @@ type CursorAPI interface {
 }
 
 type SDK struct {
-	Client *sdk.Client
+	Client   *sdk.Client
+	cache    cacheConfig
+	stateDir string
 }
+
+func (api SDK) cacheConfiguration() cacheConfig { return api.cache }
+func (api SDK) StateDirectory() string          { return api.stateDir }
 
 func NewAPI(ctx context.Context, runner command.Runner) (API, error) {
 	token := strings.TrimSpace(os.Getenv("GH_TOKEN"))
@@ -45,14 +51,22 @@ func NewAPI(ctx context.Context, runner command.Runner) (API, error) {
 	if token == "" {
 		return nil, errors.New("GitHub authentication token is empty")
 	}
+	root := os.Getenv("TOOLS_GITHUB_CACHE_DIR")
+	if root == "" {
+		root = filepath.Join(defaultStateDirectory(), "github-cache")
+	}
+	if os.Getenv("TOOLS_GITHUB_CACHE") == "0" {
+		root = ""
+	}
+	config := cacheConfig{Root: root, Scope: cacheHash([]byte(token))}
 	client, err := sdk.NewClient(
 		sdk.WithAuthToken(token),
-		sdk.WithHTTPClient(&http.Client{Timeout: 60 * time.Second}),
+		sdk.WithHTTPClient(&http.Client{Timeout: 5 * time.Minute, Transport: &readTransport{cache: config}}),
 	)
 	if err != nil {
 		return nil, fmt.Errorf("initialize GitHub client: %w", err)
 	}
-	return SDK{Client: client}, nil
+	return SDK{Client: client, cache: config, stateDir: defaultStateDirectory()}, nil
 }
 
 func (api SDK) Do(ctx context.Context, method, endpoint string, payload, target any) (int, error) {

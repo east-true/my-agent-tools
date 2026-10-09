@@ -21,7 +21,10 @@ func (api SDK) CIJobLog(ctx context.Context, repo string, jobID, maxBytes int64)
 		return "", false, err
 	}
 	baseURL, baseErr := url.Parse(api.Client.BaseURL())
-	if u == nil || baseErr != nil || (u.Scheme != "https" && !(u.Scheme == "http" && baseURL.Scheme == "http" && u.Host == baseURL.Host)) {
+	allowed := func(location *url.URL) bool {
+		return location != nil && location.Host != "" && baseErr == nil && (location.Scheme == "https" || (location.Scheme == "http" && baseURL.Scheme == "http" && location.Host == baseURL.Host))
+	}
+	if !allowed(u) {
 		return "", false, errors.New("GitHub returned an invalid job log download URL")
 	}
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
@@ -29,7 +32,13 @@ func (api SDK) CIJobLog(ctx context.Context, repo string, jobID, maxBytes int64)
 		return "", false, errors.New("invalid job log download URL")
 	}
 	// Signed storage URLs must be fetched without the GitHub auth transport.
-	response, err := (&http.Client{Timeout: 60 * time.Second}).Do(req)
+	caller := &http.Client{Timeout: 60 * time.Second, CheckRedirect: func(req *http.Request, via []*http.Request) error {
+		if !allowed(req.URL) || len(via) >= 5 {
+			return errors.New("invalid job log redirect")
+		}
+		return nil
+	}}
+	response, err := caller.Do(req)
 	if err != nil {
 		if ctx.Err() != nil {
 			return "", false, ctx.Err()

@@ -17,6 +17,8 @@ func runPRReviews(ctx context.Context, args []string, out, stderr io.Writer, run
 	repo := flags.String("repo", "", "GitHub OWNER/REPO (default: current repository)")
 	jsonOutput := flags.Bool("json", false, "emit review bodies, thread locations and full conversations")
 	options := github.ReviewOptions{}
+	compact := compactFlags{}
+	compact.register(flags, false)
 	flags.IntVar(&options.Number, "number", 0, "pull request number (required)")
 	flags.BoolVar(&options.All, "all", false, "include resolved threads (default: unresolved, including outdated threads)")
 	flags.Usage = func() {
@@ -41,6 +43,9 @@ func runPRReviews(ctx context.Context, args []string, out, stderr io.Writer, run
 	if flags.NArg() != 0 {
 		return fail(errors.New("unexpected positional arguments"), 2)
 	}
+	if err := compact.validate(); err != nil {
+		return fail(err, 2)
+	}
 	if err := options.Validate(); err != nil {
 		return fail(err, 2)
 	}
@@ -57,8 +62,8 @@ func runPRReviews(ctx context.Context, args []string, out, stderr io.Writer, run
 	if err != nil {
 		return fail(err, 1)
 	}
-	if *jsonOutput {
-		if code := encode(out, stderr, result); code != 0 {
+	if *jsonOutput || compact.Enabled {
+		if code := encodeCompact(out, stderr, result, compact); code != 0 {
 			return code
 		}
 	} else {

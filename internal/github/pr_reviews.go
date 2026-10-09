@@ -8,8 +8,10 @@ import (
 )
 
 type ReviewOptions struct {
-	Number int
-	All    bool
+	Number         int
+	All            bool
+	CachedHead     string
+	CachedComments map[string]ReviewComment
 }
 
 func (options ReviewOptions) Validate() error {
@@ -112,7 +114,13 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 		result.Notes = append(result.Notes, err.Error())
 	}
 	owner, name, _ := strings.Cut(repo, "/")
-	const query = `query PullRequestReviews($owner:String!,$name:String!,$number:Int!,$cursor:String){repository(owner:$owner,name:$name){pullRequest(number:$number){url head_sha:headRefOid review_decision:reviewDecision reviewThreads(first:100,after:$cursor){nodes{` + reviewThreadFields + `}pageInfo{hasNextPage endCursor}}}}}`
+	sparse := options.CachedHead != "" && len(options.CachedComments) > 0
+	fields := reviewCommentFields
+	if sparse {
+		fields = `id author{login} url created_at:createdAt updated_at:updatedAt`
+	}
+	threadFields := strings.Replace(reviewThreadFields, reviewCommentFields, fields, 1)
+	query := `query PullRequestReviews($owner:String!,$name:String!,$number:Int!,$cursor:String){repository(owner:$owner,name:$name){pullRequest(number:$number){url head_sha:headRefOid review_decision:reviewDecision reviewThreads(first:100,after:$cursor){nodes{` + threadFields + `}pageInfo{hasNextPage endCursor}}}}}`
 	var cursor any
 	seen, threadIDs := map[string]bool{}, map[string]bool{}
 	for {
@@ -168,7 +176,7 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 				continue
 			}
 			threadIDs[thread.ID] = true
-			comments, err := client.reviewThreadComments(ctx, thread.ID, thread.Connection)
+			comments, err := client.reviewThreadComments(ctx, thread.ID, thread.Connection, fields)
 			thread.ReviewThread.Comments = comments
 			result.Threads = append(result.Threads, thread.ReviewThread)
 			if err != nil {
@@ -184,6 +192,25 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 			break
 		}
 		cursor = next
+	}
+	if sparse {
+		known := options.CachedComments
+		if result.HeadSHA != options.CachedHead {
+			known = nil
+		}
+		var comments []ReviewComment
+		for _, thread := range result.Threads {
+			comments = append(comments, thread.Comments...)
+		}
+		if err := client.hydrateReviewComments(ctx, comments, known); err != nil {
+			partial(fmt.Errorf("Changed review bodies incomplete: %w", err))
+		}
+		start := 0
+		for i := range result.Threads {
+			end := start + len(result.Threads[i].Comments)
+			copy(result.Threads[i].Comments, comments[start:end])
+			start = end
+		}
 	}
 	for page := 1; ; {
 		var reviews []PRReview
@@ -219,10 +246,10 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 	return result, nil
 }
 
-func (client Client) reviewThreadComments(ctx context.Context, id string, connection *reviewComments) ([]ReviewComment, error) {
+func (client Client) reviewThreadComments(ctx context.Context, id string, connection *reviewComments, fields string) ([]ReviewComment, error) {
 	comments := []ReviewComment{}
 	seen := map[string]bool{}
-	const query = `query ReviewThreadComments($id:ID!,$cursor:String!){node(id:$id){... on PullRequestReviewThread{comments(first:100,after:$cursor){nodes{` + reviewCommentFields + `}pageInfo{hasNextPage endCursor}}}}}`
+	query := `query ReviewThreadComments($id:ID!,$cursor:String!){node(id:$id){... on PullRequestReviewThread{comments(first:100,after:$cursor){nodes{` + fields + `}pageInfo{hasNextPage endCursor}}}}}`
 	for {
 		if connection == nil {
 			return comments, errors.New("GitHub returned no review comment connection")
@@ -251,4 +278,49 @@ func (client Client) reviewThreadComments(ctx context.Context, id string, connec
 		}
 		connection = response.Data.Node.Comments
 	}
+}
+
+func (client Client) hydrateReviewComments(ctx context.Context, comments []ReviewComment, known map[string]ReviewComment) error {
+	missing := []string{}
+	positions := map[string]int{}
+	for i, comment := range comments {
+		if comment.ID == "" {
+			return errors.New("review comment lacks an identity")
+		}
+		if _, exists := positions[comment.ID]; exists {
+			return errors.New("review comment repeated during collection")
+		}
+		positions[comment.ID] = i
+		if previous, ok := known[comment.ID]; ok && comment.UpdatedAt != "" && previous.UpdatedAt == comment.UpdatedAt {
+			comments[i].Body, comments[i].DiffHunk = previous.Body, previous.DiffHunk
+		} else {
+			missing = append(missing, comment.ID)
+		}
+	}
+	const query = `query ReviewCommentBodies($ids:[ID!]!){nodes(ids:$ids){... on PullRequestReviewComment{` + reviewCommentFields + `}}}`
+	for start := 0; start < len(missing); start += 100 {
+		ids := missing[start:min(start+100, len(missing))]
+		var response struct {
+			graphErrors
+			Data struct {
+				Nodes []*ReviewComment `json:"nodes"`
+			} `json:"data"`
+		}
+		if err := client.api(ctx, "POST", "graphql", map[string]any{"query": query, "variables": map[string]any{"ids": ids}}, &response); err != nil {
+			return err
+		}
+		if err := response.err(); err != nil {
+			return err
+		}
+		if len(response.Data.Nodes) != len(ids) {
+			return errors.New("review body response is incomplete")
+		}
+		for i, node := range response.Data.Nodes {
+			if node == nil || node.ID != ids[i] {
+				return errors.New("review comment disappeared or changed identity during collection")
+			}
+			comments[positions[node.ID]] = *node
+		}
+	}
+	return nil
 }

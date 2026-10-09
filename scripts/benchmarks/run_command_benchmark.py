@@ -372,8 +372,14 @@ def run_trial(root, servers, task, index, method, prompt=None, model='gpt-6.1-so
     (directory / 'prompt.txt').write_text(prompt)
     save(directory / 'schema.json', schema(expected(task)))
     answer = directory / 'answer.json'
-    args = ['codex', 'exec', '--json', '--ephemeral', '--ignore-user-config', '--model', model,
-            '-c', f'model_reasoning_effort="{reasoning_effort}"', '-c', 'approval_policy="never"',
+    args = ['codex', 'exec', '--json', '--ephemeral']
+    if model is not None or reasoning_effort is not None:
+        args.append('--ignore-user-config')
+    if model is not None:
+        args += ['--model', model]
+    if reasoning_effort is not None:
+        args += ['-c', f'model_reasoning_effort="{reasoning_effort}"']
+    args += ['-c', 'approval_policy="never"',
             '-c', 'default_permissions="command_benchmark"', *permission_args(root), '-c', 'features.multi_agent=false',
             '--color', 'never', '--cd', str(root / 'workspace'), '--output-schema', str(directory / 'schema.json'),
             '--output-last-message', str(answer), '-']
@@ -400,6 +406,7 @@ def run_trial(root, servers, task, index, method, prompt=None, model='gpt-6.1-so
     save(directory / 'state-verification.json', verification)
     save(directory / 'api-access.json', server.accesses)
     record = {'task': task, 'index': index, 'method': method, 'model': model, 'reasoning_effort': reasoning_effort,
+              'execution_args': args,
               'exit_code': proc.returncode, 'timed_out': timed_out,
               'correct': proc.returncode == 0 and usage is not None and actual == expected(task) and verification['correct'],
               'answer_correct': actual == expected(task), 'state_correct': verification['correct'], 'actual': actual,

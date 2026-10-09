@@ -58,6 +58,8 @@ func (api *fakeAPI) Do(_ context.Context, method, endpoint string, payload, targ
 			data = `[{"name":"Feature"}]`
 		case endpoint == "user":
 			data = `{"login":"tester"}`
+		case endpoint == "repos/owner/repo/issues/1":
+			data = `{"number":1,"node_id":"I_1","title":"feat: add cli","html_url":"https://github.com/owner/repo/issues/1"}`
 		case strings.HasSuffix(endpoint, "/git/ref/heads/main"):
 			data = `{"object":{"sha":"abc123"}}`
 		case strings.Contains(endpoint, "/git/ref/heads/"):

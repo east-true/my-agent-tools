@@ -56,6 +56,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
+      - name: Install benchmark validation dependency
+        run: python -m pip install --require-hashes -r scripts/benchmarks/requirements.txt
       - name: Check report and experiment helpers
         run: python -m unittest discover -s scripts/benchmarks -p "test_*.py"
       - name: Test and produce structured report

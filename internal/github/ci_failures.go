@@ -110,7 +110,7 @@ func (client Client) CIFailures(ctx context.Context, repo string, options CIFail
 
 // ciFailuresForRun pins diagnostics to the observed attempt, even when another
 // rerun starts while failure evidence is being downloaded.
-func (client Client) ciFailuresForRun(ctx context.Context, repo string, options CIFailureOptions, run CIRun) (CIFailureResult, error) {
+func (client Client) collectCIFailuresForRun(ctx context.Context, repo string, options CIFailureOptions, run CIRun) (CIFailureResult, error) {
 	result := CIFailureResult{Status: "ok", Repo: repo, Run: run, Complete: true, Jobs: []CIJob{}, Evidence: []CIEvidence{}}
 	seenPages := map[int]bool{}
 	for page := 1; ; {
@@ -197,7 +197,11 @@ func (client Client) ciFailuresForRun(ctx context.Context, repo string, options 
 		for _, section := range ciLogSections(*job, log) {
 			evidence := ciExtractEvidence(section.lines, truncated)
 			if section.step.Number == 0 {
-				evidence = CIEvidence{Kind: "log", Truncated: truncated, Lines: section.lines, Notice: "Step boundaries are unavailable; full available job log retained."}
+				kind := "log"
+				if len(evidence.Tests) > 0 {
+					kind = "test_failure"
+				}
+				evidence = CIEvidence{Kind: kind, Tests: evidence.Tests, Truncated: truncated, Lines: section.lines, Notice: "Step boundaries are unavailable; full available job log retained."}
 			}
 			evidence.Occurrences = []CIOccurrence{{JobID: job.ID, JobName: job.Name, StepNumber: section.step.Number, StepName: section.step.Name, URL: job.URL, StartLine: section.startLine, EndLine: section.startLine + len(section.lines) - 1}}
 			ciAppendEvidence(&result.Evidence, evidence)
@@ -209,15 +213,23 @@ func (client Client) ciFailuresForRun(ctx context.Context, repo string, options 
 	return result, nil
 }
 
-func (client Client) ciAnnotations(ctx context.Context, repo, checkURL string) ([]CIAnnotation, error) {
+func ciCheckRunID(repo, checkURL string) (int64, error) {
 	u, err := url.Parse(checkURL)
 	prefix := "/repos/" + repo + "/check-runs/"
 	if err != nil || !strings.HasPrefix(u.Path, prefix) {
-		return nil, errors.New("invalid check_run_url")
+		return 0, errors.New("invalid check_run_url")
 	}
 	id, err := strconv.ParseInt(strings.TrimPrefix(u.Path, prefix), 10, 64)
 	if err != nil || id <= 0 {
-		return nil, errors.New("invalid check run ID")
+		return 0, errors.New("invalid check run ID")
+	}
+	return id, nil
+}
+
+func (client Client) ciAnnotations(ctx context.Context, repo, checkURL string) ([]CIAnnotation, error) {
+	id, err := ciCheckRunID(repo, checkURL)
+	if err != nil {
+		return nil, err
 	}
 	all := []CIAnnotation{}
 	seen := map[int]bool{}

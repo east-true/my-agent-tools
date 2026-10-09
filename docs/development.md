@@ -20,6 +20,8 @@ gitleaks dir --config .gitleaks.toml --redact --no-banner .
 
 Reserved example domains, GitHub noreply addresses, and known Git SSH transport users are allowed only for the email rule. Test source files are scanned. Local `.git` metadata, generated CLI binaries, and Python bytecode caches are excluded from the directory scan. Commit author metadata and free-form names/addresses are not inspected; use a GitHub noreply commit email if desired.
 
+Benchmark JSON has narrow exceptions for the `internal/github/api.go` SHA-256 fingerprint and numeric standard deviations or paired percentages. Both the benchmark path and exact JSON line shape must match; the exceptions apply only to their respective detection rules. Other fields and files remain scanned.
+
 Local agent instructions and configuration (`AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `.agents/`, `.claude/`, and `.codex/`) are ignored by Git. Shared user documentation and examples remain versioned.
 
 

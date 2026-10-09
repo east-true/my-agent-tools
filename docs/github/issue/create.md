@@ -1,7 +1,8 @@
 # `tools github issue create`
 
 이슈를 생성하고 인증된 사용자를 담당자(`@me`)로 지정합니다.
-기본적으로 이슈 번호 기반 브랜치를 만들고 Development에 연결한 뒤 로컬에서 전환합니다.
+기본적으로 이슈 번호 기반 브랜치를 만들고 Development에 연결한 뒤 별도 워크트리에 체크아웃합니다.
+현재 폴더의 브랜치와 작업 파일은 그대로 유지합니다.
 
 ## 기본 사용
 
@@ -25,9 +26,9 @@ tools github issue create --prefix feat --title "add login" --body-file issue.md
 | `--file FILE` | JSON 명세. `-`이면 표준입력 |
 | `--repo OWNER/REPO` | 기본은 현재 `origin` |
 | `--config FILE` | 기본은 Git 루트의 `.tools.json` |
-| `--dry-run` | 계획 출력. GitHub 쓰기·fetch·checkout 생략 |
+| `--dry-run` | 계획 출력. GitHub 쓰기·fetch·워크트리 생성 생략 |
 | `--json` | 생성·부분 실패 결과를 구조화해 출력 |
-| `--no-checkout` | 연결된 원격 브랜치는 생성하고 로컬 전환 생략 |
+| `--no-checkout` | 연결된 원격 브랜치는 생성하고 로컬 워크트리 생성 생략 |
 | `--no-branch` | 이슈만 생성하고 브랜치 생성·연결 생략 |
 
 `--file`과 `--title`/`--body-file` 입력은 함께 사용할 수 없습니다.
@@ -83,15 +84,19 @@ tools github issue create --file - --dry-run --json
 저장소 기본 브랜치의 원격 SHA에서 생성하고 이슈의 Development에 연결합니다.
 slug는 제목에서 prefix를 제외한 문구를 소문자화하고 특수기호·공백을 `-`로 정리합니다. 최대 180자입니다.
 
-현재 Git worktree의 `origin`이 대상 저장소와 일치하면 원격 브랜치를 fetch하고 로컬에서 전환합니다.
+현재 Git worktree의 `origin`이 대상 저장소와 일치하면 원격 브랜치를 fetch하고 별도 워크트리를 만듭니다.
+기본 경로는 `<주 작업 폴더>.worktrees/<브랜치 이름>`입니다. 예를 들어 `/work/app`에서는 `/work/app.worktrees/123-feat-add-login`을 사용합니다.
+연결된 워크트리에서 실행해도 주 작업 폴더를 기준으로 같은 경로를 계산합니다.
+같은 브랜치의 유효한 기존 워크트리는 경로와 변경사항을 유지해 재사용합니다.
+기존 목적지 폴더나 다른 upstream의 로컬 브랜치가 있으면 덮어쓰지 않고 실패합니다.
 Git 밖이거나 origin이 다르면 안내와 함께 원격 브랜치만 생성합니다.
 원격 전용 작업은 `--repo OWNER/REPO --no-checkout`을 사용합니다.
 기존 로컬 브랜치·작업 파일을 강제로 덮어쓰지 않습니다.
-커밋·변경 내용 푸시는 별도로 수행합니다.
+결과의 `branch.worktree_path`로 이동한 뒤 구현·검증·커밋·푸시와 PR 생성을 수행합니다. CLI는 호출한 셸의 작업 경로를 바꾸지 않습니다.
 
 ## 결과와 복구
 
-미리보기 결과는 `status: planned`와 `plan`입니다. 브랜치 이름의 번호는 `<issue-number>`로 표시됩니다.
+미리보기 결과는 `status: planned`와 `plan`입니다. 브랜치 이름과 `plan.branch.worktree_path`의 번호는 `<issue-number>`로 표시됩니다.
 생성 결과의 주요 필드:
 
 | 필드 | 의미 |
@@ -101,9 +106,11 @@ Git 밖이거나 origin이 다르면 안내와 함께 원격 브랜치만 생성
 | `selection` | 선택한 라벨·유형·선택 이유 |
 | `suggested_branch` | 번호 기반 이름 제안. 이 필드만으로 실제 생성 완료를 뜻하지 않음 |
 | `branch` | 실제 확인된 브랜치 이름·URL·연결·checkout 상태 |
+| `branch.worktree_path` | 완료된 작업 경로. 로컬 실패 시에는 시도한 경로 |
+| `branch.worktree_reused` | 기존 워크트리를 재사용했을 때 `true` |
 | `notes`, `error` | 생략·부분 실패·복구 안내 |
 
-이슈 생성 후 브랜치·checkout 단계가 실패했다면 이슈를 다시 만들지 않습니다.
+이슈 생성 후 브랜치·워크트리 단계가 실패했다면 이슈를 다시 만들지 않습니다.
 
 ```sh
 tools github issue branch --number 123 --json

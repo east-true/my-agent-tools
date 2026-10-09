@@ -172,7 +172,7 @@ def reviews(data):
     return {'threads': threads}
 
 
-def delta(data, since, head):
+def delta(data, since, head, include_patch=False):
     if data.get('status') not in ('ahead', 'identical'):
         raise ValueError('Baseline is not an ancestor of head; a reset or full refresh is required')
     if data['base_commit']['sha'] != since:
@@ -187,11 +187,15 @@ def delta(data, since, head):
     # 300-file response is complete; use a local Git diff or another full source.
     if len(data.get('files', [])) >= 300:
         raise ValueError('Potential compare file limit; obtain a complete local Git diff')
-    return {'since': since, 'head': head,
-            'files': [{key: file[key] for key in ('filename', 'status', 'additions', 'deletions')}
-                      | {'patch': file.get('patch'),
-                         'previous_filename': file.get('previous_filename')}
-                      for file in data.get('files', [])]}
+    files = []
+    for file in sorted(data.get('files', []), key=lambda item: item['filename']):
+        item = {key: file[key] for key in ('filename', 'status', 'additions', 'deletions')}
+        if file.get('previous_filename') is not None:
+            item['previous_filename'] = file['previous_filename']
+        if include_patch:
+            item['patch'] = file.get('patch')
+        files.append(item)
+    return {'since': since, 'head': head, 'files': files}
 
 
 if __name__ == '__main__':
@@ -200,6 +204,7 @@ if __name__ == '__main__':
     parser.add_argument('snapshot', type=Path)
     parser.add_argument('--since')
     parser.add_argument('--head')
+    parser.add_argument('--include-patch', action='store_true', help='delta: include patches only when needed')
     args = parser.parse_args()
     text = args.snapshot.read_text()
     if args.kind == 'ci':
@@ -211,5 +216,5 @@ if __name__ == '__main__':
     else:
         if not args.since or not args.head:
             parser.error('delta requires --since and --head')
-        result = delta(json.loads(text), args.since, args.head)
+        result = delta(json.loads(text), args.since, args.head, include_patch=args.include_patch)
     print(json.dumps(result, ensure_ascii=False, separators=(',', ':')))

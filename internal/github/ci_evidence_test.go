@@ -37,7 +37,11 @@ func TestCICompilerEvidenceFallbackPreservesUnknownAndMalformedErrors(t *testing
 	} {
 		lines := strings.Split(log, "\n")
 		evidence := ciExtractEvidence(lines, false)
-		if evidence.Kind != "log" || strings.Join(evidence.Lines, "\n") != log {
+		want := "log"
+		if strings.Contains(log, "--- FAIL: TestEquality") {
+			want = "test_failure"
+		}
+		if evidence.Kind != want || strings.Join(evidence.Lines, "\n") != log {
 			t.Fatalf("fallback lost evidence: %+v", evidence)
 		}
 	}

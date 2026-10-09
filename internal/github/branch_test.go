@@ -133,10 +133,11 @@ func TestCheckoutFailureRetainsCreatedBranch(t *testing.T) {
 		fmt.Fprint(w, `{"data":{"createLinkedBranch":{"linkedBranch":{"ref":{"name":"17-fix-login"}}}}}`)
 	})
 	f.client.Runner = failingCheckout{}
-	plan := Plan{Repo: "owner/repo", WorkType: "fix", Slug: "login", BranchPlan: &BranchPlan{OID: "base", Checkout: true}}
+	path := filepath.Join(t.TempDir(), "17-fix-login")
+	plan := Plan{Repo: "owner/repo", WorkType: "fix", Slug: "login", BranchPlan: &BranchPlan{OID: "base", Checkout: true, WorktreePath: path}}
 	result := Result{Number: 17, IssueNodeID: "I_17", URL: "https://github.com/owner/repo/issues/17"}
 	err := f.client.CompleteBranch(context.Background(), plan, &result)
-	if err == nil || result.BranchInfo == nil || !result.BranchInfo.Linked || result.BranchInfo.CheckedOut || result.URL == "" {
+	if err == nil || result.BranchInfo == nil || !result.BranchInfo.Linked || result.BranchInfo.CheckedOut || result.BranchInfo.WorktreePath != path || result.URL == "" {
 		t.Fatalf("created objects lost: %+v error=%v", result, err)
 	}
 }
@@ -154,7 +155,7 @@ func (runner directoryRunner) Run(ctx context.Context, input []byte, name string
 	return out, nil
 }
 
-func TestCheckoutTracksRemoteBranchAndPreservesUserFiles(t *testing.T) {
+func TestWorktreeTracksRemoteBranchAndPreservesUserFiles(t *testing.T) {
 	if _, err := exec.LookPath("git"); err != nil {
 		t.Skip("git not installed")
 	}
@@ -171,6 +172,7 @@ func TestCheckoutTracksRemoteBranchAndPreservesUserFiles(t *testing.T) {
 	}
 	git("init", "--bare", remote)
 	git("init", local)
+	git("-C", local, "symbolic-ref", "HEAD", "refs/heads/main")
 	git("-C", local, "-c", "user.name=Test", "-c", "user.email=test@example.invalid", "-c", "commit.gpgsign=false", "commit", "--allow-empty", "-m", "initial")
 	git("-C", local, "remote", "add", "origin", remote)
 	git("-C", local, "push", "origin", "HEAD:refs/heads/17-fix-login")
@@ -179,16 +181,18 @@ func TestCheckoutTracksRemoteBranchAndPreservesUserFiles(t *testing.T) {
 		t.Fatal(err)
 	}
 	client := Client{Runner: directoryRunner{dir: local}}
-	if err := client.checkoutBranch(context.Background(), "17-fix-login"); err != nil {
+	path := filepath.Join(local+".worktrees", "17-fix-login")
+	actual, reused, err := client.worktreeBranch(context.Background(), "17-fix-login", path)
+	if err != nil || actual != path || reused {
 		t.Fatal(err)
 	}
-	if git("-C", local, "branch", "--show-current") != "17-fix-login" || git("-C", local, "rev-parse", "--abbrev-ref", "@{upstream}") != "origin/17-fix-login" {
+	if git("-C", local, "branch", "--show-current") != "main" || git("-C", path, "branch", "--show-current") != "17-fix-login" || git("-C", path, "rev-parse", "--abbrev-ref", "@{upstream}") != "origin/17-fix-login" {
 		t.Fatal("wrong branch or upstream")
 	}
 	if data, err := os.ReadFile(userFile); err != nil || string(data) != "keep this work" {
 		t.Fatal("user file was changed")
 	}
-	if err := client.checkoutBranch(context.Background(), "17-fix-login"); err != nil {
-		t.Fatalf("repeat checkout failed: %v", err)
+	if actual, reused, err := client.worktreeBranch(context.Background(), "17-fix-login", path); err != nil || actual != path || !reused {
+		t.Fatalf("repeat worktree failed: path=%s reused=%t error=%v", actual, reused, err)
 	}
 }

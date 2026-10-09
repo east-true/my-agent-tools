@@ -19,7 +19,7 @@ func mergeFixturePR(w http.ResponseWriter, edits map[string]any) {
 }
 
 func quickMergeOptions() MergeOptions {
-	return MergeOptions{Number: 7, Timeout: 2 * time.Second, Interval: time.Millisecond}
+	return MergeOptions{Number: 7, Timeout: 2 * time.Second, Interval: time.Millisecond, Annotations: true}
 }
 
 func mergeFixtureChecks(w http.ResponseWriter) {
@@ -79,9 +79,9 @@ type fixtureJobLogs struct {
 	calls int
 }
 
-func (api *fixtureJobLogs) JobLog(context.Context, string, int64) (string, error) {
+func (api *fixtureJobLogs) CIJobLog(context.Context, string, int64, int64) (string, bool, error) {
 	api.calls++
-	return "setup output\n2026-10-07 ##[error]expected 200, received 500\n" + strings.Repeat("unrelated output\n", 1000), nil
+	return "setup output\n2026-10-07T00:00:00Z ##[error]expected 200, received 500\n" + strings.Repeat("unrelated output\n", 1000), false, nil
 }
 
 func TestMergeFailureCollectsAnnotationsStepsAndLogEvidence(t *testing.T) {
@@ -90,15 +90,17 @@ func TestMergeFailureCollectsAnnotationsStepsAndLogEvidence(t *testing.T) {
 		case "/graphql":
 			mergeFixturePR(w, nil)
 		case "/repos/owner/repo/commits/head1/check-runs":
-			fmt.Fprint(w, `{"check_runs":[{"id":9,"name":"test","status":"completed","conclusion":"failure","app":{"slug":"github-actions"},"details_url":"https://github.com/owner/repo/actions/runs/4/job/42"}]}`)
+			fmt.Fprint(w, `{"check_runs":[{"id":9,"name":"test","status":"completed","conclusion":"failure","app":{"slug":"github-actions"},"details_url":"https://github.com/owner/repo/actions/runs/4/job/42","output":{"title":"Tests failed","summary":"Login test failed"}}]}`)
 		case "/repos/owner/repo/commits/head1/statuses":
 			fmt.Fprint(w, `[]`)
-		case "/repos/owner/repo/check-runs/9":
-			fmt.Fprint(w, `{"output":{"title":"Tests failed","summary":"Login test failed"}}`)
 		case "/repos/owner/repo/check-runs/9/annotations":
 			fmt.Fprint(w, `[{"path":"login_test.go","start_line":12,"annotation_level":"failure","message":"response mismatch"}]`)
 		case "/repos/owner/repo/actions/jobs/42":
-			fmt.Fprint(w, `{"steps":[{"name":"Run tests","conclusion":"failure"}]}`)
+			fmt.Fprint(w, `{"id":42,"run_id":4,"run_attempt":2,"head_sha":"head1","check_run_url":"https://api.github.com/repos/owner/repo/check-runs/9"}`)
+		case "/repos/owner/repo/actions/runs/4/attempts/2":
+			fmt.Fprint(w, `{"id":4,"run_attempt":2,"head_sha":"head1","status":"completed","conclusion":"failure"}`)
+		case "/repos/owner/repo/actions/runs/4/attempts/2/jobs":
+			fmt.Fprint(w, `{"jobs":[{"id":42,"status":"completed","conclusion":"failure","check_run_url":"https://api.github.com/repos/owner/repo/check-runs/9","steps":[{"name":"Run tests","conclusion":"failure"}]}]}`)
 		default:
 			t.Errorf("unexpected request %s", r.URL)
 			w.WriteHeader(500)
@@ -117,8 +119,8 @@ func TestMergeFailureCollectsAnnotationsStepsAndLogEvidence(t *testing.T) {
 		}
 	}
 	data, _ := json.Marshal(result)
-	if strings.Contains(string(data), "unrelated output") || len(data) > 4000 {
-		t.Fatalf("raw logs escaped into output: %d bytes", len(data))
+	if !strings.Contains(string(data), "unrelated output") || len(result.Failures) != 1 || !result.Failures[0].Complete || result.Failures[0].Run.Attempt != 2 || r.RunID != 4 || r.RunAttempt != 2 || r.Check == nil || !r.Check.Complete {
+		t.Fatalf("shared failure evidence or exact attempt was lost: %+v", result)
 	}
 }
 
@@ -451,7 +453,7 @@ func TestMergeAlreadyMergedAndCancellation(t *testing.T) {
 	}
 }
 
-func TestMergeLogEvidenceAndActionsURLParsing(t *testing.T) {
+func TestMergeReadableEvidenceAndActionsURLParsing(t *testing.T) {
 	for _, tc := range []struct {
 		url  string
 		want int64
@@ -465,7 +467,7 @@ func TestMergeLogEvidenceAndActionsURLParsing(t *testing.T) {
 			t.Errorf("actionsJobID(%s)=%d", tc.url, got)
 		}
 	}
-	evidence := logEvidence("2026-10-07 \x1b[31m##[error]failure\x1b[0m\n" + strings.Repeat("error: "+strings.Repeat("x", 500)+"\n", 100))
+	evidence := mergeFailureSummary(CIFailureResult{Evidence: []CIEvidence{{Lines: strings.Split("2026-10-07T00:00:00Z \x1b[31m##[error]failure\x1b[0m\n"+strings.Repeat("Error: "+strings.Repeat("x", 500)+"\n", 100), "\n"), Occurrences: []CIOccurrence{{JobID: 1}}}}}, CIJob{ID: 1})
 	if !strings.Contains(evidence, "failure") || strings.Contains(evidence, "\x1b") || len([]rune(evidence)) > 1501 {
 		t.Fatalf("unbounded or malformed evidence: %q", evidence)
 	}

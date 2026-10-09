@@ -1,6 +1,8 @@
 # `tools github ci failures`
 
-명시한 GitHub Actions 실행의 실패 자료를 한 번에 수집합니다. merge 명령과 별개인 읽기 전용 명령입니다.
+명시한 GitHub Actions 실행의 실패 자료만 한 번에 수집하는 독립 읽기 전용 명령입니다. [pr merge](../pr/merge.md)·[pr inspect](../pr/inspect.md)·[ci rerun](rerun.md)도 내부에서 같은 수집기를 사용합니다.
+
+완료 회차의 완전한 자료는 다른 명령과 [공통 캐시](../README.md#조회-재사용과-호출-제한)를 공유합니다. 실행 메타데이터는 다시 확인하며 부분 자료와 옵션이 다른 자료는 재사용하지 않습니다.
 
 ```sh
 tools github ci failures --run 123456789 --json
@@ -27,7 +29,9 @@ step 시각과 로그의 timestamp를 확실히 연결할 수 있을 때 실패 
 - 인터페이스의 누락 메서드
 - 프로세스 종료 코드
 
-서로 같은 구조화된 오류는 matrix job 간에 합치고, 각 job·step·원문 줄·URL을 `occurrences`에 보존합니다. 다른 오류는 별도로 반환합니다. 일반적인 테스트 실패, 네트워크 오류, 잘린 signature 등 지원하지 않는 자료는 해당 step 또는 job의 사용 가능한 로그 전체를 남깁니다. 오류의 근본 원인을 추론하지 않습니다.
+Go의 `--- FAIL: TestName`과 pytest의 `FAILED path::test - message`에서도 명시된 프레임워크·테스트 이름·경로·메시지를 `tests`로 추출합니다. 이 경우에도 해당 구간의 원문 로그를 함께 남깁니다.
+
+서로 같은 구조화된 오류는 matrix job 간에 합치고, 각 job·step·원문 줄·URL을 `occurrences`에 보존합니다. 로그 비교에서는 timestamp와 ANSI 표시만 제거하며, 시간만 다른 원문은 `log_variants`에 보존합니다. 다른 assertion 메시지와 오류는 별도로 반환합니다. 네트워크 오류, 잘린 signature 등 지원하지 않는 자료는 해당 step 또는 job의 사용 가능한 로그 전체를 남깁니다. 오류의 근본 원인을 추론하지 않습니다.
 
 ## 옵션과 결과
 
@@ -38,10 +42,12 @@ step 시각과 로그의 timestamp를 확실히 연결할 수 있을 때 실패 
 | `--json` | 구조화된 JSON 출력 |
 | `--annotations=false` | annotation 조회 생략, 기본은 조회 |
 | `--max-log-bytes N` | job별 다운로드 상한, 기본 8 MiB, 범위 1–134217728 바이트 |
+| `--compact`, `--artifact-dir DIR` | 긴 자료의 원문 보존과 간결한 출력, 저장 경로 변경 |
+| `--token-encoding`, `--artifact-retention`, `--artifact-limit` | [토큰 비교와 원문 보관](../README.md#간결한-출력) |
 
 JSON 결과에는 `status`, `repo`, `run`, `complete`, `failed_jobs`, `evidence`, 선택적 `notes`가 있습니다.
 
-`evidence.kind: "go_compiler"`는 지원하는 구조화된 컴파일러 사실입니다. `kind: "log"`는 전체 사용 가능한 로그를 `lines`로 반환합니다. `occurrences.start_line/end_line`은 다운로드한 job 로그의 1 기반 줄 번호이며, diagnostic의 `evidence_line`은 해당 구간 안의 1 기반 위치입니다.
+`evidence.kind: "go_compiler"`는 지원하는 구조화된 컴파일러 사실입니다. `kind: "test_failure"`는 명시된 테스트 실패 사실과 원문, `kind: "log"`는 전체 사용 가능한 로그를 `lines`로 반환합니다. `--compact`가 적용되면 `log_variants`는 원문 파일로 옮기고 `log_variants_omitted`로 표시합니다. `occurrences.start_line/end_line`은 다운로드한 job 로그의 1 기반 줄 번호이며, diagnostic과 test의 `evidence_line`은 해당 구간 안의 1 기반 위치입니다.
 
 `complete`는 자료 수집의 완전성을 뜻하며 원인 분석의 완전성이나 CI 성공을 뜻하지 않습니다. 로그 삭제·다운로드 실패·annotation 권한 오류·실행 진행 중·상한 초과는 `status: "partial"`, `complete: false`와 사유를 반환합니다. 이미 수집한 자료는 유지합니다. 로그 상한 초과에는 `truncated: true`도 표시하고 구조화된 사실로 축약하지 않습니다.
 
@@ -57,6 +63,6 @@ JSON 결과에는 `status`, `repo`, `run`, `complete`, `failed_jobs`, `evidence`
 
 Fine-grained 토큰에는 **Actions: read**, annotation 조회에는 **Checks: read**가 필요합니다. 비공개 저장소의 classic 토큰은 `repo` scope가 필요합니다. 서명된 로그 다운로드 URL에는 GitHub 인증 토큰을 전달하지 않습니다. [Actions 공식 문서](https://docs.github.com/en/rest/actions/workflow-jobs#download-job-logs-for-a-workflow-run), [Checks 공식 문서](https://docs.github.com/en/rest/checks/runs#list-check-run-annotations).
 
-이 명령은 CI 대기·재실행·PR merge·코드 수정을 수행하지 않으며 모델을 호출하지 않습니다. 재실행부터 새 회차의 결과 확인까지 처리하려면 [ci rerun](rerun.md)을 사용합니다. [프로토타입 비교 실험](../../benchmarks/github/ci.md)의 4.5% 감소는 고정 Go 로그 조건의 결과입니다. 현재 CLI의 일반적인 절감률로 적용하지 않습니다.
+이 명령은 CI 대기·재실행·PR merge·코드 수정을 수행하지 않으며 모델을 호출하지 않습니다. 재실행부터 새 회차의 결과 확인까지 처리하려면 [ci rerun](rerun.md)을 사용합니다. [최신 작업 전체 측정](../../benchmarks/github/ci/failures.md)에서 대표 수집 시나리오와 검증 범위를 확인할 수 있습니다.
 
-[공통 안내](../README.md) · [CI 재실행](rerun.md) · [PR 머지](../pr/merge.md)
+[공통 안내](../README.md) · [간결한 출력](../README.md#간결한-출력) · [PR 통합 조회](../pr/inspect.md) · [CI 재실행](rerun.md) · [PR 머지](../pr/merge.md)

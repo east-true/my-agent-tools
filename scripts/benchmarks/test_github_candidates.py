@@ -118,9 +118,17 @@ class CandidateValidation(unittest.TestCase):
                           {'filename': 'binary.dat', 'status': 'modified', 'additions': 0, 'deletions': 0}]}
 
     def test_delta_preserves_rename_and_missing_patch(self):
-        result = delta(self.delta_snapshot(), 'base', 'head')
+        result = delta(self.delta_snapshot(), 'base', 'head', include_patch=True)
+        result['files'].sort(key=lambda item: item['filename'], reverse=True)
         self.assertEqual(result['files'][0]['previous_filename'], 'old.go')
         self.assertIsNone(result['files'][1]['patch'])
+
+    def test_delta_defaults_to_sorted_metadata_without_patch(self):
+        result = delta(self.delta_snapshot(), 'base', 'head')
+        self.assertEqual([f['filename'] for f in result['files']], ['binary.dat', 'new.go'])
+        self.assertTrue(all('patch' not in f for f in result['files']))
+        self.assertNotIn('previous_filename', result['files'][0])
+        self.assertEqual(result['files'][1]['previous_filename'], 'old.go')
 
     def test_diverged_or_force_pushed_head_requires_refresh(self):
         for status in ('diverged', 'behind'):

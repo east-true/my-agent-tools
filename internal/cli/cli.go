@@ -24,8 +24,11 @@ Usage:
   tools github issue branch  Create or resume the branch for an existing issue
   tools github pr create     Create a pull request
   tools github pr reviews    Collect submitted reviews and unresolved review threads
-  tools github pr merge      Wait for checks, merge, or return failure details
-  tools github ci failures   Collect failed CI jobs, annotations and compiler facts
+  tools github pr inspect    Collect PR state, reviews, checks and failure evidence
+  tools github pr delta      Compare a baseline to the current head (metadata by default)
+  tools github pr submit     Push commits, reuse/create a PR and wait for checks
+  tools github pr merge      Wait for checks, merge, then clean this PR's branch
+  tools github ci failures   Collect failed CI jobs, annotations and error facts
   tools github ci rerun      Rerun failed jobs, wait, and return failure evidence
   tools github dependabot list List dependency security alerts
   tools github dependabot view View a dependency security alert
@@ -41,6 +44,9 @@ const githubHelp = `Usage:
   tools github issue branch --number NUMBER [options]
   tools github pr create --prefix PREFIX --title TITLE --body-file FILE [options]
   tools github pr reviews --number NUMBER [--all] [--json]
+  tools github pr inspect --number NUMBER [--state-file FILE] [--wait] [--json]
+  tools github pr delta --number NUMBER --since SHA [--include-patch] [--json]
+  tools github pr submit --prefix PREFIX --title TITLE --body-file FILE [options]
   tools github pr merge --number NUMBER [--timeout 10m] [--json]
   tools github ci failures --run RUN_ID [--repo OWNER/REPO] [--json]
   tools github ci rerun --run RUN_ID [--all] [--wait=false] [--json]
@@ -50,7 +56,7 @@ const githubHelp = `Usage:
 
 Use --file FILE instead of --title/--body-file for JSON input.
 --file - reads JSON from stdin. --dry-run previews without writes.
-Creation never commits or pushes.
+The create commands never commit or push; pr submit pushes existing commits.
 Use '<command> --help' for command-specific options.
 `
 
@@ -73,6 +79,9 @@ func printKindHelp(out io.Writer, kind string) {
 	if kind == "issue" {
 		fmt.Fprintln(&usage, "  tools github issue branch --number NUMBER [options]")
 	} else if kind == "pr" {
+		fmt.Fprintln(&usage, "  tools github pr inspect --number NUMBER [options]")
+		fmt.Fprintln(&usage, "  tools github pr delta --number NUMBER --since SHA [options]")
+		fmt.Fprintln(&usage, "  tools github pr submit --prefix PREFIX --title TITLE --body-file FILE [options]")
 		fmt.Fprintln(&usage, "  tools github pr reviews --number NUMBER [options]")
 		fmt.Fprintln(&usage, "  tools github pr merge --number NUMBER [options]")
 	}
@@ -100,6 +109,12 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 		return 0
 	}
 	kind := args[0]
+	if kind == "pr" && len(args) > 1 {
+		switch args[1] {
+		case "inspect", "delta", "submit":
+			return runPRWorkflow(ctx, args[1], args[2:], in, out, stderr, runner, newAPI)
+		}
+	}
 	if kind == "ci" {
 		return runCIFailures(ctx, args[1:], out, stderr, runner, newAPI)
 	}
@@ -154,7 +169,7 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 			bodyFile = flags.String("body-file", "", "UTF-8 Markdown body file, or - for stdin")
 		}
 		if kind == "issue" {
-			noCheckout = flags.Bool("no-checkout", false, "create the linked remote branch without local checkout")
+			noCheckout = flags.Bool("no-checkout", false, "create the linked remote branch without a local worktree")
 			if action == "create" {
 				noBranch = flags.Bool("no-branch", false, "create only the issue")
 			} else {
@@ -173,7 +188,7 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 			fmt.Fprintf(stderr, "\nExample: tools github %s create --prefix feat --title \"add login\" --body-file body.md\n", kind)
 			fmt.Fprintln(stderr, "JSON alternative: {\"prefix\":\"feat\",\"title\":\"add command\",\"summary\":\"기능 추가\"}")
 			if kind == "issue" {
-				fmt.Fprintln(stderr, "Labels and issue type follow prefix mapping; assignee is always @me. The numbered branch is created and linked automatically.")
+				fmt.Fprintln(stderr, "Labels and issue type follow prefix mapping; assignee is always @me. The numbered branch is linked and checked out in a separate worktree automatically; use the returned worktree_path.")
 			} else {
 				fmt.Fprintln(stderr, "Optional fields: issue, base, head, draft, labels, verification [{command,result,details}]. Commit and push first.")
 			}
@@ -295,6 +310,10 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 		if err := client.PrepareBranch(ctx, &plan, !*noCheckout); err != nil {
 			return fail(err, 1)
 		}
+		plan.BranchPlan.Name = result.Branch
+		if plan.BranchPlan.WorktreePath != "" {
+			plan.BranchPlan.WorktreePath = filepath.Join(filepath.Dir(plan.BranchPlan.WorktreePath), result.Branch)
+		}
 		if *dryRun {
 			return encode(out, stderr, map[string]any{"status": "planned", "plan": plan, "issue_url": result.URL})
 		}
@@ -348,6 +367,9 @@ func finish(out, stderr io.Writer, jsonOutput bool, result github.Result, err er
 	}
 	if result.BranchInfo != nil {
 		fmt.Fprintf(out, "branch: %s (linked=%t, checked_out=%t)\n", result.BranchInfo.Name, result.BranchInfo.Linked, result.BranchInfo.CheckedOut)
+		if result.BranchInfo.WorktreePath != "" {
+			fmt.Fprintln(out, "worktree:", result.BranchInfo.WorktreePath)
+		}
 	} else if result.Branch != "" {
 		fmt.Fprintln(out, "suggested branch:", result.Branch)
 	}

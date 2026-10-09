@@ -25,6 +25,8 @@ func runCIFailures(ctx context.Context, args []string, out, stderr io.Writer, ru
 	}
 	flags := flag.NewFlagSet("tools github ci failures", flag.ContinueOnError)
 	flags.SetOutput(stderr)
+	compact := compactFlags{}
+	compact.register(flags, false)
 	repo := flags.String("repo", "", "GitHub OWNER/REPO (default: current repository)")
 	runID := flags.Int64("run", 0, "workflow run ID (required; not a PR number)")
 	jsonOutput := flags.Bool("json", false, "emit structured evidence and per-job notes")
@@ -52,6 +54,9 @@ func runCIFailures(ctx context.Context, args []string, out, stderr io.Writer, ru
 	if flags.NArg() != 0 {
 		return fail(errors.New("unexpected positional arguments"), 2)
 	}
+	if err := compact.validate(); err != nil {
+		return fail(err, 2)
+	}
 	if *maxLogBytes <= 0 {
 		return fail(errors.New("--max-log-bytes must be between 1 and 134217728"), 2)
 	}
@@ -72,8 +77,8 @@ func runCIFailures(ctx context.Context, args []string, out, stderr io.Writer, ru
 	if err != nil {
 		return fail(err, 1)
 	}
-	if *jsonOutput {
-		if code := encode(out, stderr, result); code != 0 {
+	if *jsonOutput || compact.Enabled {
+		if code := encodeCompact(out, stderr, result, compact); code != 0 {
 			return code
 		}
 	} else {

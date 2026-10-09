@@ -5,23 +5,27 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
+	"path/filepath"
 	"regexp"
 	"strings"
 )
 
 type BranchPlan struct {
-	Name     string `json:"name"`
-	Base     string `json:"base"`
-	OID      string `json:"base_sha"`
-	Checkout bool   `json:"checkout"`
+	Name         string `json:"name"`
+	Base         string `json:"base"`
+	OID          string `json:"base_sha"`
+	Checkout     bool   `json:"checkout"`
+	WorktreePath string `json:"worktree_path,omitempty"`
 }
 
 type BranchOutcome struct {
-	Name       string `json:"name"`
-	URL        string `json:"url"`
-	Linked     bool   `json:"linked"`
-	CheckedOut bool   `json:"checked_out"`
-	Reused     bool   `json:"reused,omitempty"`
+	Name           string `json:"name"`
+	URL            string `json:"url"`
+	Linked         bool   `json:"linked"`
+	CheckedOut     bool   `json:"checked_out"`
+	Reused         bool   `json:"reused,omitempty"`
+	WorktreePath   string `json:"worktree_path,omitempty"`
+	WorktreeReused bool   `json:"worktree_reused,omitempty"`
 }
 
 func branchParts(title string) (string, string, error) {
@@ -62,7 +66,7 @@ func (client Client) PrepareBranch(ctx context.Context, plan *Plan, checkout boo
 	}
 	inside, err := client.Runner.Run(ctx, nil, "git", "rev-parse", "--is-inside-work-tree")
 	if err != nil || strings.TrimSpace(string(inside)) != "true" {
-		plan.Notes = append(plan.Notes, "local checkout skipped: no Git worktree; linked remote branch will be created")
+		plan.Notes = append(plan.Notes, "local worktree creation skipped: no Git worktree; linked remote branch will be created")
 		return nil
 	}
 	remote, err := client.Runner.Run(ctx, nil, "git", "remote", "get-url", "origin")
@@ -71,10 +75,16 @@ func (client Client) PrepareBranch(ctx context.Context, plan *Plan, checkout boo
 	}
 	localRepo, err := repoFromRemote(strings.TrimSpace(string(remote)))
 	if err != nil || !strings.EqualFold(localRepo, plan.Repo) {
-		plan.Notes = append(plan.Notes, "local checkout skipped: origin differs from target repository")
+		plan.Notes = append(plan.Notes, "local worktree creation skipped: origin differs from target repository")
 		return nil
 	}
 	plan.BranchPlan.Checkout = true
+	worktrees, err := client.branchWorktrees(ctx)
+	if err != nil {
+		return fmt.Errorf("inspect local worktrees before issue creation: %w", err)
+	}
+	root := worktrees[0].Path
+	plan.BranchPlan.WorktreePath = filepath.Join(root+".worktrees", plan.BranchPlan.Name)
 	return nil
 }
 
@@ -228,30 +238,15 @@ func (client Client) CompleteBranch(ctx context.Context, plan Plan, result *Resu
 		}
 	}
 	if plan.BranchPlan.Checkout {
-		if err := client.checkoutBranch(ctx, branch); err != nil {
-			return fmt.Errorf("issue and linked remote branch exist; local checkout failed: %w", err)
+		path := filepath.Join(filepath.Dir(plan.BranchPlan.WorktreePath), branch)
+		result.BranchInfo.WorktreePath = path
+		actual, reused, err := client.worktreeBranch(ctx, branch, path)
+		if err != nil {
+			return fmt.Errorf("issue and linked remote branch exist; local worktree failed: %w", err)
 		}
+		result.BranchInfo.WorktreePath = actual
+		result.BranchInfo.WorktreeReused = reused
 		result.BranchInfo.CheckedOut = true
 	}
 	return nil
-}
-
-func (client Client) checkoutBranch(ctx context.Context, branch string) error {
-	remoteRef := "origin/" + branch
-	if _, err := client.Runner.Run(ctx, nil, "git", "fetch", "--no-tags", "origin", "refs/heads/"+branch+":refs/remotes/"+remoteRef); err != nil {
-		return err
-	}
-	if _, err := client.Runner.Run(ctx, nil, "git", "show-ref", "--verify", "--quiet", "refs/heads/"+branch); err == nil {
-		upstream, err := client.Runner.Run(ctx, nil, "git", "for-each-ref", "--format=%(upstream:short)", "refs/heads/"+branch)
-		if err != nil {
-			return err
-		}
-		if strings.TrimSpace(string(upstream)) != remoteRef {
-			return errors.New("existing local branch has a different upstream; it was not overwritten")
-		}
-		_, err = client.Runner.Run(ctx, nil, "git", "switch", branch)
-		return err
-	}
-	_, err := client.Runner.Run(ctx, nil, "git", "switch", "--create", branch, "--track", remoteRef)
-	return err
 }

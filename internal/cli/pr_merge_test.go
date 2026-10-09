@@ -50,7 +50,7 @@ func (api *mergeCLIAPI) Do(_ context.Context, method, endpoint string, payload, 
 func invokeMergeCLI(t *testing.T, api *mergeCLIAPI, args ...string) (int, string, string) {
 	t.Helper()
 	var out, stderr bytes.Buffer
-	code := run(context.Background(), append([]string{"github", "pr", "merge"}, args...), nil, &out, &stderr, fakeRunner{}, func(context.Context, command.Runner) (github.API, error) { return api, nil })
+	code := run(context.Background(), append([]string{"github", "pr", "merge", "--cleanup=false"}, args...), nil, &out, &stderr, fakeRunner{}, func(context.Context, command.Runner) (github.API, error) { return api, nil })
 	return code, out.String(), stderr.String()
 }
 
@@ -63,6 +63,9 @@ func TestMergeHelpAndValidationBeforeAuthentication(t *testing.T) {
 		{[]string{"--number", "-1"}, 2}, {[]string{"--number", "7", "--timeout", "0s"}, 2},
 		{[]string{"--number", "7", "--timeout", "-1m"}, 2}, {[]string{"--number", "7", "--interval", "0s"}, 2},
 		{[]string{"--number", "7", "--method", "fast"}, 2}, {[]string{"--number", "7", "unexpected"}, 2},
+		{[]string{"--number", "7", "--max-log-bytes", "0"}, 2},
+		{[]string{"--number", "7", "--max-log-bytes", "-1"}, 2},
+		{[]string{"--number", "7", "--max-log-bytes", "134217729"}, 2},
 	} {
 		t.Run(strings.Join(tc.args, " "), func(t *testing.T) {
 			var out, stderr bytes.Buffer

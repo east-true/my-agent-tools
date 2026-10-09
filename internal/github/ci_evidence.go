@@ -28,25 +28,43 @@ type CIDiagnostic struct {
 }
 
 type CIEvidence struct {
-	Kind              string         `json:"kind"`
-	Truncated         bool           `json:"truncated,omitempty"`
-	Diagnostics       []CIDiagnostic `json:"diagnostics,omitempty"`
-	ExpectedArguments map[string]int `json:"expected_arguments,omitempty"`
-	MissingMethods    []string       `json:"missing_interface_methods,omitempty"`
-	ExitCodes         []int          `json:"exit_codes,omitempty"`
-	Lines             []string       `json:"lines,omitempty"`
-	Notice            string         `json:"notice,omitempty"`
-	Occurrences       []CIOccurrence `json:"occurrences"`
+	Kind              string          `json:"kind"`
+	Truncated         bool            `json:"truncated,omitempty"`
+	Diagnostics       []CIDiagnostic  `json:"diagnostics,omitempty"`
+	ExpectedArguments map[string]int  `json:"expected_arguments,omitempty"`
+	MissingMethods    []string        `json:"missing_interface_methods,omitempty"`
+	ExitCodes         []int           `json:"exit_codes,omitempty"`
+	Lines             []string        `json:"lines,omitempty"`
+	Notice            string          `json:"notice,omitempty"`
+	Occurrences       []CIOccurrence  `json:"occurrences"`
+	Tests             []CITestFailure `json:"tests,omitempty"`
+	LogVariants       []CILogVariant  `json:"log_variants,omitempty"`
+}
+
+type CITestFailure struct {
+	Framework    string `json:"framework"`
+	Name         string `json:"name"`
+	Path         string `json:"path,omitempty"`
+	Message      string `json:"message,omitempty"`
+	EvidenceLine int    `json:"evidence_line"`
+}
+
+type CILogVariant struct {
+	Lines       []string       `json:"lines"`
+	Occurrences []CIOccurrence `json:"occurrences"`
 }
 
 var (
 	ciANSI       = regexp.MustCompile(`\x1b\[[0-9;]*m`)
 	ciTimestamp  = regexp.MustCompile(`^\d{4}-\d\d-\d\dT\S+\s*`)
+	ciLogTime    = regexp.MustCompile(`^\d{4}-\d\d-\d\dT\S+[ \t]`)
 	ciGoLocation = regexp.MustCompile(`^(?:##\[error\])?(.+\.go):(\d+):(\d+):\s*(.+)$`)
 	ciCall       = regexp.MustCompile(`in call to ([A-Za-z_][A-Za-z0-9_./]*)`)
 	ciMissing    = regexp.MustCompile(`missing method ([A-Za-z_][A-Za-z0-9_]*)`)
 	ciExit       = regexp.MustCompile(`Process completed with exit code (-?\d+)\.`)
 	ciError      = regexp.MustCompile(`(?i)(^--- FAIL:|^FAIL(?:\s|$)|^panic:|^fatal:|^Traceback|^.*\.(?:go|py|ts|tsx|js|rs|c|cpp):\d+(?::\d+)?:\s|^.*(?:AssertionError|ModuleNotFoundError|ImportError|SyntaxError|TypeError|ReferenceError):|^npm ERR!|^##\[error\]|^Error:)`)
+	ciGoTest     = regexp.MustCompile(`^--- FAIL:\s+(\S+)(?:\s+\([0-9.]+s\))?$`)
+	ciPyTest     = regexp.MustCompile(`^FAILED\s+(.+?)(?:\s+-\s+(.+))?$`)
 )
 
 // Extract only facts supported by complete Go compiler evidence. Other failures
@@ -106,25 +124,64 @@ func ciExtractEvidence(lines []string, truncated bool) CIEvidence {
 	}
 	sort.Ints(evidence.ExitCodes)
 	if truncated || unsupported || len(evidence.Diagnostics) == 0 || len(exits) != 1 || exits[0] {
-		return CIEvidence{Kind: "log", Truncated: truncated, Lines: lines, Notice: "Unrecognized or incomplete compiler evidence; full available log retained. No root cause inferred."}
+		fallback := CIEvidence{Kind: "log", Truncated: truncated, Lines: lines, Notice: "Unrecognized or incomplete compiler evidence; full available log retained. No root cause inferred."}
+		for i, line := range lines {
+			message := ciNormalizedLine(line)
+			if match := ciGoTest.FindStringSubmatch(message); match != nil {
+				fallback.Tests = append(fallback.Tests, CITestFailure{Framework: "go", Name: match[1], EvidenceLine: i + 1})
+			} else if match := ciPyTest.FindStringSubmatch(message); match != nil && strings.Contains(match[1], "::") {
+				path, name, _ := strings.Cut(match[1], "::")
+				fallback.Tests = append(fallback.Tests, CITestFailure{Framework: "pytest", Name: name, Path: path, Message: match[2], EvidenceLine: i + 1})
+			}
+		}
+		if len(fallback.Tests) != 0 {
+			fallback.Kind = "test_failure"
+			fallback.Notice = "Test identities are extracted from explicit failure markers; full available context retained. No root cause inferred."
+		}
+		return fallback
 	}
 	return evidence
 }
 
 func ciAppendEvidence(all *[]CIEvidence, evidence CIEvidence) {
-	copy := evidence
-	copy.Occurrences = nil
-	key, _ := json.Marshal(copy)
+	key := ciEvidenceKey(evidence)
 	for i := range *all {
-		previous := (*all)[i]
-		previous.Occurrences = nil
-		encoded, _ := json.Marshal(previous)
-		if string(encoded) == string(key) {
+		if ciEvidenceKey((*all)[i]) == key {
+			if len(evidence.Lines) > 0 && strings.Join(evidence.Lines, "\n") != strings.Join((*all)[i].Lines, "\n") {
+				matched := false
+				for j := range (*all)[i].LogVariants {
+					if strings.Join((*all)[i].LogVariants[j].Lines, "\n") == strings.Join(evidence.Lines, "\n") {
+						(*all)[i].LogVariants[j].Occurrences = append((*all)[i].LogVariants[j].Occurrences, evidence.Occurrences...)
+						matched = true
+						break
+					}
+				}
+				if !matched {
+					(*all)[i].LogVariants = append((*all)[i].LogVariants, CILogVariant{Lines: evidence.Lines, Occurrences: evidence.Occurrences})
+				}
+			}
 			(*all)[i].Occurrences = append((*all)[i].Occurrences, evidence.Occurrences...)
 			return
 		}
 	}
 	*all = append(*all, evidence)
+}
+
+func ciNormalizedLine(line string) string {
+	return strings.TrimSpace(ciTimestamp.ReplaceAllString(ciANSI.ReplaceAllString(strings.TrimPrefix(line, "\ufeff"), ""), ""))
+}
+
+func ciEvidenceKey(evidence CIEvidence) string {
+	evidence.Occurrences, evidence.LogVariants = nil, nil
+	if len(evidence.Lines) > 0 {
+		lines := make([]string, len(evidence.Lines))
+		for i, line := range evidence.Lines {
+			lines[i] = ciLogTime.ReplaceAllString(ciANSI.ReplaceAllString(strings.TrimPrefix(line, "\ufeff"), ""), "")
+		}
+		evidence.Lines = lines
+	}
+	encoded, _ := json.Marshal(evidence)
+	return string(encoded)
 }
 
 func ciParameterCount(signature string) (int, error) {

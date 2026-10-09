@@ -16,6 +16,3 @@ To reproduce the controlled model experiments, use fresh output directories. The
 python scripts/benchmarks/run_workflow_benchmark.py --output /tmp/workflow-experiment --run-models
 python scripts/benchmarks/run_worker_benchmark.py --output /tmp/worker-experiment --cache /tmp/workflow-experiment/cache
 ```
-
-
-See the [benchmark report](benchmarks/github/workflow.md) for measured code-repair workflows.

@@ -13,10 +13,15 @@ import (
 )
 
 type MergeOptions struct {
-	Number   int
-	Timeout  time.Duration
-	Interval time.Duration
-	Method   string
+	Number      int
+	Timeout     time.Duration
+	Interval    time.Duration
+	Method      string
+	Cleanup     bool
+	Remote      string
+	Scope       string
+	Annotations bool
+	MaxLogBytes int64
 }
 
 func (options *MergeOptions) Normalize() error {
@@ -38,32 +43,57 @@ func (options *MergeOptions) Normalize() error {
 	if options.Method != "merge" && options.Method != "squash" && options.Method != "rebase" {
 		return errors.New("--method must be merge, squash, or rebase")
 	}
+	if options.Remote == "" {
+		options.Remote = "origin"
+	}
+	if options.Scope == "" {
+		options.Scope = "both"
+	}
+	if options.Scope != "both" && options.Scope != "local" && options.Scope != "remote" {
+		return errors.New("--scope must be both, local, or remote")
+	}
+	if options.Cleanup && (strings.HasPrefix(options.Remote, "-") || strings.ContainsAny(options.Remote, "\r\n\x00")) {
+		return errors.New("invalid cleanup remote name")
+	}
+	failures := CIFailureOptions{RunID: 1, MaxLogBytes: options.MaxLogBytes}
+	if err := failures.Normalize(); err != nil {
+		return err
+	}
+	options.MaxLogBytes = failures.MaxLogBytes
 	return nil
 }
 
 type MergeReason struct {
-	Code            string `json:"code"`
-	Name            string `json:"name,omitempty"`
-	Summary         string `json:"summary"`
-	URL             string `json:"url,omitempty"`
-	NextAction      string `json:"next_action"`
-	Details         string `json:"details,omitempty"`
-	DiagnosticError string `json:"diagnostic_error,omitempty"`
+	Code            string                `json:"code"`
+	Name            string                `json:"name,omitempty"`
+	Summary         string                `json:"summary"`
+	URL             string                `json:"url,omitempty"`
+	NextAction      string                `json:"next_action"`
+	Details         string                `json:"details,omitempty"`
+	DiagnosticError string                `json:"diagnostic_error,omitempty"`
+	Check           *CheckFailureEvidence `json:"check,omitempty"`
+	RunID           int64                 `json:"run_id,omitempty"`
+	RunAttempt      int                   `json:"run_attempt,omitempty"`
 	checkID         int64
 	jobID           int64
 }
 
 type MergeResult struct {
-	Status         string        `json:"status"`
-	Repo           string        `json:"repo"`
-	Number         int           `json:"number"`
-	URL            string        `json:"url,omitempty"`
-	HeadSHA        string        `json:"head_sha,omitempty"`
-	MergeSHA       string        `json:"merge_sha,omitempty"`
-	RequestID      string        `json:"request_id,omitempty"`
-	MergeRequested bool          `json:"merge_requested,omitempty"`
-	Queued         bool          `json:"queued,omitempty"`
-	Reasons        []MergeReason `json:"reasons,omitempty"`
+	Status         string            `json:"status"`
+	Repo           string            `json:"repo"`
+	Number         int               `json:"number"`
+	URL            string            `json:"url,omitempty"`
+	HeadSHA        string            `json:"head_sha,omitempty"`
+	MergeSHA       string            `json:"merge_sha,omitempty"`
+	RequestID      string            `json:"request_id,omitempty"`
+	MergeRequested bool              `json:"merge_requested,omitempty"`
+	Queued         bool              `json:"queued,omitempty"`
+	Reasons        []MergeReason     `json:"reasons,omitempty"`
+	Merged         bool              `json:"merged,omitempty"`
+	Cleanup        *CleanupResult    `json:"cleanup,omitempty"`
+	Notes          []string          `json:"notes,omitempty"`
+	Error          string            `json:"error,omitempty"`
+	Failures       []CIFailureResult `json:"failures,omitempty"`
 }
 
 type mergePR struct {
@@ -151,11 +181,7 @@ type mergeCheck struct {
 	App        struct {
 		Slug string `json:"slug"`
 	} `json:"app"`
-	Output struct {
-		Title   string `json:"title"`
-		Summary string `json:"summary"`
-		Text    string `json:"text"`
-	} `json:"output"`
+	Output CheckOutput `json:"output"`
 }
 
 type mergeStatus struct {
@@ -275,7 +301,7 @@ type asyncMerge struct {
 // MergePullRequest consumes intermediate states internally and emits one final
 // result. Only one merge mutation is ever submitted; accepted requests and queue
 // entries are observed until the PR is actually merged.
-func (client Client) MergePullRequest(ctx context.Context, repo string, options MergeOptions) (MergeResult, error) {
+func (client Client) mergePullRequest(ctx context.Context, repo string, options MergeOptions) (MergeResult, error) {
 	result := MergeResult{Status: "error", Repo: repo, Number: options.Number}
 	if err := options.Normalize(); err != nil {
 		return result, err
@@ -341,7 +367,7 @@ func (client Client) MergePullRequest(ctx context.Context, repo string, options 
 				case "failed":
 					result.Status = "blocked"
 					result.Reasons = []MergeReason{reason("merge_rejected", compactText(state.Details.Message, 1000), "Resolve the reported repository rule or merge condition and retry")}
-					client.diagnoseMergeRejection(ctx, repo, &result)
+					client.diagnoseMergeRejection(ctx, repo, options, &result)
 					return result, nil
 				case "merged":
 					if state.Details.SHA == "" {
@@ -370,7 +396,7 @@ func (client Client) MergePullRequest(ctx context.Context, repo string, options 
 				if pr.QueueEntry == nil {
 					result.Status = "blocked"
 					result.Reasons = []MergeReason{reason("merge_queue_removed", "PR is no longer in the merge queue", "Inspect merge queue checks and repository rules before retrying")}
-					client.diagnoseMergeRejection(ctx, repo, &result)
+					client.diagnoseMergeRejection(ctx, repo, options, &result)
 					return result, nil
 				}
 			}
@@ -385,7 +411,7 @@ func (client Client) MergePullRequest(ctx context.Context, repo string, options 
 			if len(failed)+len(blockers) > 0 {
 				result.Status = "blocked"
 				result.Reasons = append(blockers, failed...)
-				client.diagnoseChecks(ctx, repo, result.Reasons)
+				client.diagnoseChecks(ctx, repo, pr, checks, options, &result)
 				return result, nil
 			}
 			waiting = pending
@@ -427,7 +453,7 @@ func (client Client) MergePullRequest(ctx context.Context, repo string, options 
 					if errors.As(err, &response) && response.Response != nil && (response.Response.StatusCode == 400 || response.Response.StatusCode == 403 || response.Response.StatusCode == 405 || response.Response.StatusCode == 409 || response.Response.StatusCode == 422) {
 						result.Status = "blocked"
 						result.Reasons = []MergeReason{reason("merge_rejected", compactText(response.Message, 1000), "Resolve the reported merge condition or permissions; check for an existing merge request before retrying")}
-						client.diagnoseMergeRejection(ctx, repo, &result)
+						client.diagnoseMergeRejection(ctx, repo, options, &result)
 						return result, nil
 					}
 					return finishError(err)
@@ -485,7 +511,7 @@ func (client Client) prMergeChecks(ctx context.Context, repo string, pr *mergePR
 	return client.mergeChecks(ctx, repo, pr.HeadSHA)
 }
 
-func (client Client) diagnoseMergeRejection(ctx context.Context, repo string, result *MergeResult) {
+func (client Client) diagnoseMergeRejection(ctx context.Context, repo string, options MergeOptions, result *MergeResult) {
 	latest, err := client.mergePR(ctx, repo, result.Number)
 	if err != nil {
 		result.Reasons[0].DiagnosticError = compactText(err.Error(), 500)
@@ -504,5 +530,5 @@ func (client Client) diagnoseMergeRejection(ctx context.Context, repo string, re
 	failed, pending := checkReasons(checks, statuses)
 	result.Reasons = append(result.Reasons, failed...)
 	result.Reasons = append(result.Reasons, pending...)
-	client.diagnoseChecks(ctx, repo, result.Reasons)
+	client.diagnoseChecks(ctx, repo, latest, checks, options, result)
 }

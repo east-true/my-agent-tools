@@ -16,6 +16,7 @@ import (
 type Client struct {
 	Runner command.Runner
 	API    API
+	cache  cacheConfig
 }
 
 type Repository struct {
@@ -132,6 +133,10 @@ func (client Client) labels(ctx context.Context, repo string) ([]Label, error) {
 }
 
 func (client Client) Context(ctx context.Context, repo string) (Catalog, error) {
+	return client.catalog(ctx, repo, true)
+}
+
+func (client Client) catalog(ctx context.Context, repo string, issueTypes bool) (Catalog, error) {
 	var catalog Catalog
 	if err := client.api(ctx, "GET", "repos/"+repo, nil, &catalog.Repository); err != nil {
 		return catalog, fmt.Errorf("repository metadata: %w", err)
@@ -142,6 +147,9 @@ func (client Client) Context(ctx context.Context, repo string) (Catalog, error) 
 	}
 	catalog.Labels = labels
 	catalog.IssueTypes = []IssueType{}
+	if !issueTypes {
+		return catalog, nil
+	}
 	if err := client.api(ctx, "GET", "repos/"+repo+"/issue-types", nil, &catalog.IssueTypes); err != nil {
 		if !isNotFound(err) {
 			return catalog, fmt.Errorf("repository issue types: %w", err)
@@ -152,6 +160,10 @@ func (client Client) Context(ctx context.Context, repo string) (Catalog, error) 
 }
 
 func (client Client) Prepare(ctx context.Context, repo, kind string, spec Spec, policy Policy) (Plan, error) {
+	return client.prepare(ctx, repo, kind, spec, policy, true)
+}
+
+func (client Client) prepare(ctx context.Context, repo, kind string, spec Spec, policy Policy, compare bool) (Plan, error) {
 	if kind != "issue" && kind != "pr" {
 		return Plan{}, errors.New("kind must be issue or pr")
 	}
@@ -162,7 +174,7 @@ func (client Client) Prepare(ctx context.Context, repo, kind string, spec Spec, 
 	if err != nil {
 		return Plan{}, err
 	}
-	catalog, err := client.Context(ctx, repo)
+	catalog, err := client.catalog(ctx, repo, kind == "issue")
 	if err != nil {
 		return Plan{}, err
 	}
@@ -230,6 +242,9 @@ func (client Client) Prepare(ctx context.Context, repo, kind string, spec Spec, 
 	if base == "" || head == "" {
 		return Plan{}, errors.New("PR requires nonempty base and head branches")
 	}
+	if base == head {
+		return Plan{}, errors.New("PR head must differ from its base branch")
+	}
 	if strings.ContainsAny(base+head, "\r\n\x00") {
 		return Plan{}, errors.New("base and head must be branch names")
 	}
@@ -263,14 +278,10 @@ func (client Client) Prepare(ctx context.Context, repo, kind string, spec Spec, 
 			return Plan{}, errors.New("issue references a pull request, not an issue")
 		}
 	}
-	var comparison struct {
-		AheadBy int `json:"ahead_by"`
-	}
-	if err := client.api(ctx, "GET", "repos/"+repo+"/compare/"+url.PathEscape(base)+"..."+url.PathEscape(head), nil, &comparison); err != nil {
-		return Plan{}, fmt.Errorf("compare remote branches; push the head branch first: %w", err)
-	}
-	if comparison.AheadBy == 0 {
-		return Plan{}, errors.New("remote head has no commits ahead of base; commit and push changes first")
+	if compare {
+		if err := client.comparePRBranches(ctx, repo, base, head); err != nil {
+			return Plan{}, err
+		}
 	}
 	if err := selectMetadata(); err != nil {
 		return Plan{}, err
@@ -278,6 +289,19 @@ func (client Client) Prepare(ctx context.Context, repo, kind string, spec Spec, 
 	plan.Payload["base"], plan.Payload["head"], plan.Payload["draft"] = base, head, spec.Draft
 	plan.Payload["maintainer_can_modify"] = true
 	return plan, nil
+}
+
+func (client Client) comparePRBranches(ctx context.Context, repo, base, head string) error {
+	var comparison struct {
+		AheadBy int `json:"ahead_by"`
+	}
+	if err := client.api(ctx, "GET", "repos/"+repo+"/compare/"+url.PathEscape(base)+"..."+url.PathEscape(head), nil, &comparison); err != nil {
+		return fmt.Errorf("compare remote branches; push the head branch first: %w", err)
+	}
+	if comparison.AheadBy == 0 {
+		return errors.New("remote head has no commits ahead of base; commit and push changes first")
+	}
+	return nil
 }
 
 // Create does not retry mutations. A failure after creation retains the resource URL.

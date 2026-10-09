@@ -5,6 +5,8 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -53,7 +55,9 @@ func (runner *cleanupCLIRunner) Run(_ context.Context, _ []byte, _ string, args 
 		}
 		return []byte("refs/heads/main\x00\x00\nrefs/heads/feat/finished\x00origin\x00refs/heads/feat/finished\n"), nil
 	case "worktree":
-		return []byte("worktree /example\nbranch refs/heads/main\n"), nil
+		return []byte("worktree " + filepath.Join(os.TempDir(), "example") + "\x00branch refs/heads/main\x00\x00"), nil
+	case "rev-parse":
+		return []byte(filepath.Join(os.TempDir(), "example") + "\n"), nil
 	case "merge-base":
 		return nil, nil
 	case "config":
