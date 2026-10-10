@@ -5,3 +5,9 @@
 | 그룹 | 측정 범위 |
 |---|---|
 | [GitHub](github/README.md) | 15개 명령의 작업 전체 실측, 변경 명령만 재측정 |
+| [파일시스템](fs/README.md) | inspect·delta·apply의 작업 전체 토큰·파일 상태 비교 |
+| [변경 동작 완료 비교](actionable/README.md) | 일괄 오류·공통 치환·리뷰 반영·PR 복귀, 24회 및 원래 실패/재검증 근거 |
+| [변경 작업 완료 비교](completion/README.md) | 리뷰 원문·복귀, 큰 보고서·설정 검증·저장 CI 원문 선택 |
+| [사용 기록 기반 완료 비교](usage/README.md) | 리뷰 재사용·일반 대화, JUnit 판독·Markdown 조회·raw 파일 반영, 원래 불리한 기록 포함 |
+
+[전체 명령 점검](../command-audit.md)은 18개 명령의 독립 사용·복귀 조건과 모델 호출 없는 기능 검증입니다. 기존 토큰 실측과 구분합니다.

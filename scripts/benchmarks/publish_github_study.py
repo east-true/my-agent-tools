@@ -42,10 +42,16 @@ def refresh_readmes(repo,reports):
         if updated:
             lines += [f'[리뷰의 최신 출력 검증]({base}pr/reviews.md) 이후 작업 전체 토큰은 재측정하지 않았습니다.' if korean else
                       f'Whole-task tokens have not been remeasured after the [latest review output check]({base}pr/reviews.md).','']
-        lines += [f'고정 합성 자료·소표본 결과이며 캐시 적중 차이가 남습니다. 일반적인 절감률이나 요금 절감을 뜻하지 않습니다. [공통 조건·한계·원본·재현]({base}README.md).' if korean else
-                  f'These are small-sample results for a fixed synthetic workload; cache hit differences remain. They do not establish general or monetary savings. [Shared protocol, limits, evidence, and reproduction]({base}README.md).','']
+        lines += [f'고정 합성 자료·소표본 결과이며 캐시 적중 차이가 남습니다. 독립 1회 사용·다른 작업 후 복귀의 동시 개선이나 일반적인 절감률·요금 절감을 보장하지 않습니다. [공통 조건·한계·원본·재현]({base}README.md).' if korean else
+                  f'These are small-sample results for a fixed synthetic workload; cache hit differences remain. They do not establish simultaneous efficiency and token improvements for independent one-use or return-after-other-work scenarios, general savings, or monetary savings. [Shared protocol, limits, evidence, and reproduction]({base}README.md).','']
         content=path.read_text(encoding='utf-8');start=content.index(title);stop=content.index(end,start)
-        path.write_text(content[:start]+'\n'.join(lines)+'\n'+content[stop:], encoding='utf-8')
+        fs_heading='### 파일시스템 실측' if korean else '### Filesystem measurements'
+        fs_start=content.find(fs_heading,start,stop)
+        retained=content[fs_start:stop] if fs_start>=0 else ''
+        path.write_text(content[:start]+'\n'.join(lines)+'\n'+retained+content[stop:], encoding='utf-8')
+    from actionable_benchmark_docs import published, patch_readmes
+    if report := published(repo):
+        patch_readmes(repo, report)
 
 
 def main():

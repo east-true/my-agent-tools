@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/east-true/my-agent-tools/internal/command"
+	"github.com/east-true/my-agent-tools/internal/filesystem"
 	"github.com/east-true/my-agent-tools/internal/github"
 )
 
@@ -20,6 +21,10 @@ func runPRWorkflow(ctx context.Context, action string, args []string, in io.Read
 	flags.SetOutput(stderr)
 	repo := flags.String("repo", "", "GitHub OWNER/REPO (default: current origin)")
 	flags.Bool("json", false, "emit one structured result (workflow commands always return JSON)")
+	evidenceReader := evidenceReadFlags{}
+	if action != "delta" {
+		evidenceReader.register(flags)
+	}
 	compact := compactFlags{}
 	compact.register(flags, action != "delta")
 	number := 0
@@ -33,9 +38,14 @@ func runPRWorkflow(ctx context.Context, action string, args []string, in io.Read
 	}
 	if action == "inspect" || action == "submit" {
 		flags.StringVar(&inspect.Sections, "sections", "all", "select checks,reviews,failures; PR metadata is always included")
+		flags.BoolVar(&inspect.Conversation, "conversation", false, "include paginated ordinary PR comments in the reviews section")
 		flags.BoolVar(&inspect.Wait, "wait", action == "submit", "wait internally for checks to finish")
 		flags.BoolVar(&inspect.Annotations, "annotations", true, "include failed CI annotations")
 		flags.Int64Var(&inspect.MaxLogBytes, "max-log-bytes", 8<<20, "maximum bytes downloaded per failed job")
+	}
+	sourceOptions := reviewSources{}
+	if action == "inspect" {
+		sourceOptions.register(flags)
 	}
 	statePath, full := "", false
 	if action == "inspect" {
@@ -77,6 +87,9 @@ func runPRWorkflow(ctx context.Context, action string, args []string, in io.Read
 		_ = encode(out, stderr, map[string]any{"status": "error", "error": err.Error()})
 		return code
 	}
+	if evidenceReader.selected() {
+		return evidenceReader.run(flags, out, stderr)
+	}
 	if flags.NArg() != 0 {
 		return fail(errors.New("unexpected positional arguments"), 2)
 	}
@@ -99,6 +112,19 @@ func runPRWorkflow(ctx context.Context, action string, args []string, in io.Read
 		}
 		if err := inspect.Normalize(); err != nil {
 			return fail(err, 2)
+		}
+	}
+	if action == "inspect" {
+		if err := sourceOptions.validate(); err != nil {
+			return fail(err, 2)
+		}
+		if (sourceOptions.Threads || len(sourceOptions.Paths) > 0) && !includesReviews(inspect.Sections) {
+			return fail(errors.New("review source selection requires the reviews section"), 2)
+		}
+		if sourceOptions.Threads || len(sourceOptions.Paths) > 0 {
+			if err := filesystem.ValidatePaths(filesystem.Options{Root: sourceOptions.Root, Paths: sourceOptions.Paths}); err != nil {
+				return fail(err, 2)
+			}
 		}
 	}
 	if action == "delta" {
@@ -144,6 +170,9 @@ func runPRWorkflow(ctx context.Context, action string, args []string, in io.Read
 		if err != nil {
 			return fail(err, 2)
 		}
+		if before != nil && before.Conversation != inspect.Conversation {
+			return fail(errors.New("--state-file conversation scope differs; use a separate state file"), 2)
+		}
 		reuseInspectionEvidence(before, &inspect)
 	}
 	if action != "submit" || !dryRun {
@@ -170,11 +199,24 @@ func runPRWorkflow(ctx context.Context, action string, args []string, in io.Read
 		if err != nil {
 			return fail(err, 1)
 		}
+		sources, sourceErr := sourceOptions.read(ctx, result.Reviews)
+		if sourceErr != nil {
+			result.Status, result.Complete = "partial", false
+			result.Notes = append(result.Notes, "Local review sources: "+sourceErr.Error())
+		}
+		if sources != nil && !sources.Complete {
+			result.Complete = false
+		}
 		var value any = result
 		var after inspectionState
 		if statePath != "" {
 			value, after = inspectionDelta(result, before, full, statePath)
 			after.Annotations, after.MaxLogBytes = inspect.Annotations, inspect.MaxLogBytes
+			after.Conversation = inspect.Conversation
+		}
+		value, err = attachReviewSources(value, sources)
+		if err != nil {
+			return fail(err, 1)
 		}
 		if code := encodeCompact(out, stderr, value, compact); code != 0 {
 			return code

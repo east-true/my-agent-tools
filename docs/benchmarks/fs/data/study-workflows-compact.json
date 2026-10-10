@@ -1,0 +1,1088 @@
+{
+  "protocol": {
+    "version": 1,
+    "measured_at_utc": "2026-10-10T09:41:46.412446+00:00",
+    "configured_defaults": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "low",
+      "profile": null
+    },
+    "tasks": [
+      "delta"
+    ],
+    "repetitions_per_method": 3,
+    "max_model_calls": 6,
+    "schedule": [
+      {
+        "task": "delta",
+        "method": "tools",
+        "repetition": 1
+      },
+      {
+        "task": "delta",
+        "method": "direct",
+        "repetition": 1
+      },
+      {
+        "task": "delta",
+        "method": "direct",
+        "repetition": 2
+      },
+      {
+        "task": "delta",
+        "method": "tools",
+        "repetition": 2
+      },
+      {
+        "task": "delta",
+        "method": "tools",
+        "repetition": 3
+      },
+      {
+        "task": "delta",
+        "method": "direct",
+        "repetition": 3
+      }
+    ],
+    "efficient_usage": false,
+    "guidance_revision": 4,
+    "write_scope": "workspace and fixture-control directory only",
+    "seed": 20261010,
+    "source_manifest": [
+      {
+        "path": "cmd/tools/main.go",
+        "sha256": "7b1080531b6994117dea7a28e8a0bf9fcfcf52831d56c6051b7647371088dfb1"
+      },
+      {
+        "path": "go.mod",
+        "sha256": "9cdfe21c9804fe3ba95648b65e158f7bd88eb0753cf36906bfe253a1655a44c5"
+      },
+      {
+        "path": "go.sum",
+        "sha256": "5635d406c9086d72751fb8e7a9bd9735f41ffd57e5c509210ebeef64f7885a3d"
+      },
+      {
+        "path": "internal/cli/ci_failures.go",
+        "sha256": "d6d5dccbbe629d43a8c9a12c9596ce6c27f5f2446b431edbd6c35e79c38153b5"
+      },
+      {
+        "path": "internal/cli/ci_failures_test.go",
+        "sha256": "4b09ce68832d5666ceb6c8b33496c461ba9e3978c34bc7ef659ce9f5f805fced"
+      },
+      {
+        "path": "internal/cli/ci_rerun.go",
+        "sha256": "cbdbbbcee26d9115e2843cd50a371ee2556dabc6217d6b9e68d54d7224ac036e"
+      },
+      {
+        "path": "internal/cli/ci_rerun_state.go",
+        "sha256": "bd731a91c46f9aad7def64b2f14bdfb4cdca063a2a24b57b1e8b6a87cdd2ef64"
+      },
+      {
+        "path": "internal/cli/ci_rerun_state_test.go",
+        "sha256": "c4b8476e15b4b1efdbf13bd86cd8d033e4c627c3ef52edc181703b5cc32a0a8b"
+      },
+      {
+        "path": "internal/cli/cleanup.go",
+        "sha256": "b453d82dd23c770dcf50722b4d3fb55a6ffded565088489bdb90844e0e7d4d5f"
+      },
+      {
+        "path": "internal/cli/cleanup_test.go",
+        "sha256": "7517c8dd1c00d68fa3fb1120ab2c27b8600f26fcbbfe6a5d42b28e224d4c16eb"
+      },
+      {
+        "path": "internal/cli/cli.go",
+        "sha256": "6505eb8e56b49154613532de4cd3ca5131e833cc582b628646a0716d445da34c"
+      },
+      {
+        "path": "internal/cli/cli_test.go",
+        "sha256": "834e76acdc9ceb1844515452bc03c8afaef065847c588d5e1b78fe5ad2ba4eeb"
+      },
+      {
+        "path": "internal/cli/compact.go",
+        "sha256": "43f07a6b97c278694c5c791a33bc0031f2665f031090b80410b065523cc681f3"
+      },
+      {
+        "path": "internal/cli/compact_measurement_test.go",
+        "sha256": "3fa58c9a11776caeb7e58ebdb191e6092e50a57e7266a551a177c6d5d593f145"
+      },
+      {
+        "path": "internal/cli/compact_reviews_test.go",
+        "sha256": "8e409bbcf27340d00b184a012db6299551384c339355e7f47e084a9e8a3a0e6b"
+      },
+      {
+        "path": "internal/cli/compact_state_test.go",
+        "sha256": "088ff163187dc72d2067c6807391f705ee8d3d44e72620a94d6e0e0b518a8336"
+      },
+      {
+        "path": "internal/cli/dependabot.go",
+        "sha256": "0a0d5344de67659f0fdcc32bbaea18122825d9e24b6353bc71b3a160c93d2e24"
+      },
+      {
+        "path": "internal/cli/dependabot_test.go",
+        "sha256": "b2ae72a3a48636838df075bfebc5923b01e0e528fe23bbfe4ad6d5535dd11105"
+      },
+      {
+        "path": "internal/cli/fs.go",
+        "sha256": "6a2fcc7619e1955a80e1bf025c2a90183117970c40a9bc994f8bf36d53c91833"
+      },
+      {
+        "path": "internal/cli/fs_test.go",
+        "sha256": "94fea818f6c7b5c291aa65a33b4c16d538a87a1af0c9fcf1773f8241acbba25d"
+      },
+      {
+        "path": "internal/cli/improvements_test.go",
+        "sha256": "7ed98caf0cc907c673a7f0aa64987d5c7f6c31c41fdc672329e04cf5188467e9"
+      },
+      {
+        "path": "internal/cli/pr_merge.go",
+        "sha256": "7674123e24169d138bac076fbef4e5c232baa405ba31cd515fa90a75f4b38a81"
+      },
+      {
+        "path": "internal/cli/pr_merge_evidence_test.go",
+        "sha256": "a751c6684f1805dcb0b3020e126eb426e9bbd58417a98150f8abc115286f1b24"
+      },
+      {
+        "path": "internal/cli/pr_merge_test.go",
+        "sha256": "1b2829b4c1039ae815b35d234d1634e994a9bc39b500a08c8f24f506f89c41f9"
+      },
+      {
+        "path": "internal/cli/pr_reviews.go",
+        "sha256": "680ef0aafa0411754d6e25e14d3705ecc9b3329d6d43bf71e69ac6cccf3cac34"
+      },
+      {
+        "path": "internal/cli/pr_state.go",
+        "sha256": "151d34627ad40e140ed8c31dc9a6333f1220547f3fd575829ee8da38cf1316d5"
+      },
+      {
+        "path": "internal/cli/pr_workflows.go",
+        "sha256": "9dbd79bed3c6a0280d75792cdb1a0c5d3cde3f5426cece778162ef8f722e83ce"
+      },
+      {
+        "path": "internal/cli/pr_workflows_test.go",
+        "sha256": "3bec262ce27a7c6fdc3021f6a3573704a7cb4fbae5e641034b7aca269c47fa16"
+      },
+      {
+        "path": "internal/cli/review_rerun_test.go",
+        "sha256": "c712c8780a1c31306fd91aab907b076445b32ec8560dfb8d07cfdf500655204d"
+      },
+      {
+        "path": "internal/cli/setup.go",
+        "sha256": "dff280ec195bc0ef064145ef6bf3bf7a2a36a5840645d71353f2bb9fdf6f66dd"
+      },
+      {
+        "path": "internal/cli/setup_test.go",
+        "sha256": "8f90d7794febca9e66e508dec550993f3137a32d5d4a03586c3d07c942c1e6bb"
+      },
+      {
+        "path": "internal/cli/worktree_test.go",
+        "sha256": "46111d2411678600c2d4d34131f82d1be53e21afdacb8670f3a8821256186e9e"
+      },
+      {
+        "path": "internal/command/runner.go",
+        "sha256": "97ce6656fb463543187167358cd7cc1ff6b96132406adde3b41c5f74744cbf40"
+      },
+      {
+        "path": "internal/filesystem/apply.go",
+        "sha256": "9645d6a05663bfc29e7cd1c87fcb8ad46a7a7b43be8745b547b6c9e794d4e3a8"
+      },
+      {
+        "path": "internal/filesystem/delta.go",
+        "sha256": "10a4ff70f3d12c645ddf847c5755094fbfddc42e37e0eede1364197922aa6068"
+      },
+      {
+        "path": "internal/filesystem/diff.go",
+        "sha256": "30cfe3693eb8d309b31bd277aca96db51b6254fdc37466295641d99edaa57eff"
+      },
+      {
+        "path": "internal/filesystem/filesystem_test.go",
+        "sha256": "c2c62ac5af1707a79e695e696b23cb31ba95bf57b53fc3aaa339bad79c5add99"
+      },
+      {
+        "path": "internal/filesystem/inspect.go",
+        "sha256": "387cf7bac9dc91d83af2086a5cb7fef7fa7185f8b6fd28e027f63ab1aa47f418"
+      },
+      {
+        "path": "internal/filesystem/inspect_batch.go",
+        "sha256": "0f63ffce9bdfb4656f2c46ffacaabeaff4be6e93e4ef2117963fdfba3f155ddb"
+      },
+      {
+        "path": "internal/filesystem/plan.go",
+        "sha256": "5705800e9534122235d0c07b8ecd9fa322b1a6a8987405e105f9f7b8b8d3e09e"
+      },
+      {
+        "path": "internal/filesystem/scope.go",
+        "sha256": "5854dd06cefddbf0ca675b12378bd04d16c3ff169e33adb8b6e51bb4a6a81a68"
+      },
+      {
+        "path": "internal/filesystem/workflows_test.go",
+        "sha256": "8efdf2f10ad9fbc4e03bbe87fb2e832cd0d40195a5b504bc883cfe12a6d165f3"
+      },
+      {
+        "path": "internal/github/api.go",
+        "sha256": "0f5b112667bcef310f7c81d6c33d094953aaa4739f5d04e3eeda72f7d6e3bf6f"
+      },
+      {
+        "path": "internal/github/branch.go",
+        "sha256": "33c98731edf5b432470b1035c033824302e6f95ada7a356b910ef090ab998a6c"
+      },
+      {
+        "path": "internal/github/branch_test.go",
+        "sha256": "e06ace10f5d64a817bd6dea66c6f795920fefad4eb2cb3006029edbf7aa31a1e"
+      },
+      {
+        "path": "internal/github/cache.go",
+        "sha256": "386234d6318a7d3afd68a8e199818bfd1a564da6b9885db56222e7042edce681"
+      },
+      {
+        "path": "internal/github/ci_cache.go",
+        "sha256": "36dd3f5689011c31ed879ba6b06dd355cf3da2cc367fac76a1d5a215dca405ff"
+      },
+      {
+        "path": "internal/github/ci_checkpoint.go",
+        "sha256": "d38184eee3d4a53f410337f3f3f6226c976aa57beadc04177449b5a83bac2d62"
+      },
+      {
+        "path": "internal/github/ci_evidence.go",
+        "sha256": "beed6e32960e148c9afd1951553214487d44c959b1f29a1f0a11ff911d16432b"
+      },
+      {
+        "path": "internal/github/ci_evidence_test.go",
+        "sha256": "656d77853d66cd1bc6baee84d90ef0f896c30b2b6420e26995ca552c00648ea0"
+      },
+      {
+        "path": "internal/github/ci_failures.go",
+        "sha256": "7ea71d949fb07c16828f52a1fa7b3a1fa77d9533308b5e3798e6a92093eae7a8"
+      },
+      {
+        "path": "internal/github/ci_failures_test.go",
+        "sha256": "0df8ad0111c00f97597d05079373982556ea6ef0038a02fbe934071d78d89461"
+      },
+      {
+        "path": "internal/github/ci_log_download.go",
+        "sha256": "a33db02e869597f5b9cdca192eb02cb90725c77c6e575016349c407f95ddcd2b"
+      },
+      {
+        "path": "internal/github/ci_rerun.go",
+        "sha256": "6ff8a0a11450facc53d9eda09da17ea8137bd7335214ae01f4f3bcc77f40f0bc"
+      },
+      {
+        "path": "internal/github/ci_rerun_test.go",
+        "sha256": "003c472430acdb0f99b03ee6d4588a969098bba85e208776150566fe50586035"
+      },
+      {
+        "path": "internal/github/ci_resume_test.go",
+        "sha256": "04226f918a48279af3d9d7b8dfd28f421001c622d2c8c6494d9bfd959dea6794"
+      },
+      {
+        "path": "internal/github/cleanup.go",
+        "sha256": "a2cc228f557153c13a8f30e4a445d40430eabae673f3ad027338a20b3e1dce01"
+      },
+      {
+        "path": "internal/github/cleanup_test.go",
+        "sha256": "34fd74e50a6fea571e447f567e37237fba74ee5d93d1ca45ac135657532631ae"
+      },
+      {
+        "path": "internal/github/cleanup_worktree.go",
+        "sha256": "c6e40e2d2758644e38000e5ecd33f90089486c0264b8b6ca0a0328c4716a4911"
+      },
+      {
+        "path": "internal/github/cleanup_worktree_test.go",
+        "sha256": "ac6d567751e0cd7a6d8ddf609b3abbe6fe34d3386a0bb7b997faa9c5215b1fa3"
+      },
+      {
+        "path": "internal/github/client.go",
+        "sha256": "8c1c1d34e7229c040987ab1394e29e00d25b2bc7b2fc3f22688d5fcd1da4610a"
+      },
+      {
+        "path": "internal/github/client_test.go",
+        "sha256": "ce9ae83165da1b5e4f8486659148a6aca365404625ba2fa1b38134cbaccbff16"
+      },
+      {
+        "path": "internal/github/dependabot.go",
+        "sha256": "2f0abae52f0fefc42b39a50f382b9dbacd4908736437f47dfbd2e3d3b48f5f98"
+      },
+      {
+        "path": "internal/github/dependabot_test.go",
+        "sha256": "6661649404a91f9fca82770bb2f03b90c57be58a843f6abc5efb000f48407247"
+      },
+      {
+        "path": "internal/github/further_improvements_test.go",
+        "sha256": "a7885134bbf4e08c8a07b28dd12d161f31736fd269e5933651666755dee8409f"
+      },
+      {
+        "path": "internal/github/improvements_test.go",
+        "sha256": "7705727d484e235f780e59178eefae247af091137f07b4e155a7f2f1995246b6"
+      },
+      {
+        "path": "internal/github/policy.go",
+        "sha256": "e67f470c18292eb10dea17bf10a61b232985f2a9a63341a449768a7580f26317"
+      },
+      {
+        "path": "internal/github/pr_delta.go",
+        "sha256": "d528a5157da02a0c8b483bba88e9a544f42db78d37157382e35c088d25d2bcd3"
+      },
+      {
+        "path": "internal/github/pr_inspect.go",
+        "sha256": "932b0ead8929be88b6c414b73ee53013a9125435aa738014a876dbe6b74c517d"
+      },
+      {
+        "path": "internal/github/pr_inspect_delta_test.go",
+        "sha256": "f3ee76d3e01d6e752de26e79280cfc54c1a444b97a710d17be9643abecc46c64"
+      },
+      {
+        "path": "internal/github/pr_merge.go",
+        "sha256": "af8d57eb5e3c96cc02b39b59a7ea285f0b93096ba9e7be28cf036c81fde3aabf"
+      },
+      {
+        "path": "internal/github/pr_merge_cleanup.go",
+        "sha256": "aeec664eacc2c8ac243475e4c03f733313f4db0379593d251f3fea88c276dfbe"
+      },
+      {
+        "path": "internal/github/pr_merge_diagnostics.go",
+        "sha256": "1a816065b17566673a288fc63288c57d3eb3112783b5c7347be4a3257a65b8a9"
+      },
+      {
+        "path": "internal/github/pr_merge_diagnostics_test.go",
+        "sha256": "82719bb9becb6ae1ef3e5a4eb7cc28c8a61aba147def5533d425688e59d584ce"
+      },
+      {
+        "path": "internal/github/pr_merge_test.go",
+        "sha256": "86f0bc876d4cc95b92ab3d26acb839617cd436c8106b46862d8ddbe7582bfbe3"
+      },
+      {
+        "path": "internal/github/pr_reviews.go",
+        "sha256": "8614121599533e7f616317464d236106de2f80a91f26c0dead48a42444e33a8d"
+      },
+      {
+        "path": "internal/github/pr_reviews_test.go",
+        "sha256": "f77f932dabf65f7565b6fa3159d55add007acbd05622de129d5e27b3d58421de"
+      },
+      {
+        "path": "internal/github/pr_workflows.go",
+        "sha256": "1de318671fc75234907806acd89f62300a318e036fc191ed8a31110dfb35d720"
+      },
+      {
+        "path": "internal/github/pr_workflows_test.go",
+        "sha256": "824aa27ccb9c42738ae6a43651929e9271e149dfcd44d9a78c1a0ec0fe88de8c"
+      },
+      {
+        "path": "internal/github/read_transport.go",
+        "sha256": "eb155c4ffc505b12f2f1ed5ddec3c07818ff5cb1933299358dfc47b9f4ec9456"
+      },
+      {
+        "path": "internal/github/read_transport_test.go",
+        "sha256": "1d7890daf483f2fa5816b312ea3b8588675630ff94fd5f9d944c0d70b63c90e2"
+      },
+      {
+        "path": "internal/github/setup.go",
+        "sha256": "3392921117f62a2e943785b90730e4691412b5ed8e913787b7f7912f5acad2e0"
+      },
+      {
+        "path": "internal/github/setup_test.go",
+        "sha256": "4e0499afb746c576a7aadbc606dd0bb4ef38b2747d866324b9891545d7a120b8"
+      },
+      {
+        "path": "internal/github/spec.go",
+        "sha256": "6844f3223f55edb6fed239ac5bac024ae5837e899491f5651a4f941cc04edae3"
+      },
+      {
+        "path": "internal/github/spec_test.go",
+        "sha256": "99f4805c6b62ff94691e1d37d2268b02cb0e4c9ffcd19c1c07e2e9f3d059babb"
+      },
+      {
+        "path": "internal/github/state_directory.go",
+        "sha256": "9d3ab40d9f9bda38f26ed0579319f28c0e0dd4702be229547e62f6f75924691a"
+      },
+      {
+        "path": "internal/github/state_directory_test.go",
+        "sha256": "81ab8b0c506279ec304f891fde9d39e1e5a9537f4d5ca166884895a987fbb251"
+      },
+      {
+        "path": "internal/github/template.go",
+        "sha256": "3942ac9b36dfe628b4830a48177d36e933beff5ac9d648ed7574d82ffc664522"
+      },
+      {
+        "path": "internal/github/template_test.go",
+        "sha256": "82b730de6be73113b9185d1432a721dacec834076116efe055347c48ebb91b9a"
+      },
+      {
+        "path": "internal/github/worktree.go",
+        "sha256": "af8b1a6731ee3fb20eac57ac4082863fd67d03da239464653bd7bf7694a826dc"
+      },
+      {
+        "path": "internal/github/worktree_test.go",
+        "sha256": "1dc7562067fd21a91fadc2f6f28fe639f8eef146a0cc817ed9bc310f22f9e3f5"
+      }
+    ],
+    "runner_sha256": "bf727ad18612f5bee054c8120d9e046d28d20498f2490e76529541785b55e1f1",
+    "cli_sha256": "e29d0222e591c4f1e172f3f83dd6fc4c8c3fbb114a62ca7db997e801c5281ff8",
+    "prompts": {
+      "delta": {
+        "direct": "Perform only the specified filesystem workflow in this synthetic workspace. Preserve unrelated files, bytes, native existing permissions and input JSON. Paths use / and lines start at 1. Ignore dist, .git, .tools, node_modules and binary.dat. Installed Python is python3. No network, delegation, model calls, installs, or reading benchmark source/protocol/control/results/other sessions. Batch naturally; no minimum command count. Return only the answer schema. Work is authorized including requested edits. Use bounded ranges/concise outputs; do not dump whole source files.\nCreate baseline.json with original-byte SHA-256 and original text for EVERY src/**/*.txt file. Invoke fs-fixture-advance for exactly one successful mutation; rejected pre-mutation calls may be retried. Compare against the saved baseline TWICE without consuming or changing it. Hash content even if size/mtime match. Return sorted added,modified,deleted paths, unchanged count, every differing current line in the modified file, whether comparisons agree and baseline bytes are preserved. Renames are deletion+addition. Omit unchanged spans and added/deleted contents from the answer.\nMethod: direct rg/shell/Python standard library; never invoke tools or import its implementation. Optimize batching naturally; script authoring/verification costs included.\n",
+        "tools": "Perform only the specified filesystem workflow in this synthetic workspace. Preserve unrelated files, bytes, native existing permissions and input JSON. Paths use / and lines start at 1. Ignore dist, .git, .tools, node_modules and binary.dat. Installed Python is python3. No network, delegation, model calls, installs, or reading benchmark source/protocol/control/results/other sessions. Batch naturally; no minimum command count. Return only the answer schema. Work is authorized including requested edits. Use bounded ranges/concise outputs; do not dump whole source files.\nCreate baseline.json with original-byte SHA-256 and original text for EVERY src/**/*.txt file. Invoke fs-fixture-advance for exactly one successful mutation; rejected pre-mutation calls may be retried. Compare against the saved baseline TWICE without consuming or changing it. Hash content even if size/mtime match. Return sorted added,modified,deleted paths, unchanged count, every differing current line in the modified file, whether comparisons agree and baseline bytes are preserved. Renames are deletion+addition. Omit unchanged spans and added/deleted contents from the answer.\nMethod: production tools fs workflow; shell/Python may orchestrate/map/verify results but must not reimplement the workflow.\nInitialize using tools fs delta --include 'src/**/*.txt' --state-file baseline.json --include-content --json, then fs-fixture-advance, then the same delta command with --peek --content-kinds modified TWICE. Peek keeps baseline bytes. Modified ranges have start and lines; filter added/deleted full contents. Python/jq may map/verify outputs.\n"
+      }
+    },
+    "cache_controlled": false,
+    "settings": "inherited defaults; no model/effort override or --ignore-user-config",
+    "limitations": [
+      "Fixed synthetic workload, three trials per method.",
+      "Backend cache cannot be reset; total and uncached token metrics differ.",
+      "CLI installation/build excluded; direct script authoring included.",
+      "Runtime model/effort not exposed in exec events; configuration snapshot and absent overrides recorded."
+    ],
+    "inclusion_policy": "Retain every scheduled trial including failures, no replacement runs; abort on missing usage/quota or fixture defects.",
+    "workflows": true,
+    "compact_content": true,
+    "runner_manifest": {
+      "fs_workflow_benchmark.py": "abe70254b838f0edd2cc3c7c9e9fa212f4048f9615fcc86ebca0d83d518c4d74"
+    },
+    "legacy_cli_sha256": "23f06459af86952b5da7386f274a2cc5fc2e3b86efe5ffc753d300e9dc1b1e52",
+    "scenario_revision": "batched-workflows"
+  },
+  "trials": [
+    {
+      "task": "delta",
+      "method": "tools",
+      "repetition": 1,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 89996,
+        "cached_input_tokens": 63488,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 422,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"tools fs delta --include 'src/**/*.txt' --state-file baseline.json --include-content --json\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport subprocess,json,pathlib,hashlib\np=pathlib.Path('baseline.json')\nb=p.read_bytes()\nr=subprocess.run(['fs-fixture-advance'],capture_output=True,text=True)\nprint('mutation',r.returncode,r.stdout.strip(),r.stderr.strip())\nif r.returncode: raise SystemExit(r.returncode)\ncmd=['tools','fs','delta','--include','src/**/*.txt','--state-file','baseline.json','--include-content','--json','--peek','--content-kinds','modified']\na=[]\nfor _ in range(2):\n r=subprocess.run(cmd,capture_output=True,text=True,check=True)\n a.append(json.loads(r.stdout))\nprint(json.dumps({'comparisons':a,'baseline_preserved':p.read_bytes()==b},ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 2183,
+      "seconds": 21.144,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/1-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/1-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1627,
+      "events_sha256": "d5723be20a269d21f3abdcd04354f7ac6636b3ce218ee411c8520c21ad4e8a45",
+      "correct": true,
+      "input_plus_output": 90418,
+      "uncached_plus_output": 26930
+    },
+    {
+      "task": "delta",
+      "method": "direct",
+      "repetition": 1,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 61801,
+        "cached_input_tokens": 29696,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 826,
+        "reasoning_output_tokens": 50
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"pwd; rg --files -g 'AGENTS.md' -g '*.txt' -g '\"'!dist/**'\"' -g '\"'!.git/**'\"' -g '\"'!.tools/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!binary.dat'\"' | head -60; command -v fs-fixture-advance\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib, hashlib, json\nroot=pathlib.Path('.')\nexcluded={'dist','.git','.tools','node_modules'}\ndata={}\nfor p in sorted(root.glob('src/**/*.txt')):\n    if p.is_file() and not excluded.intersection(p.parts):\n        b=p.read_bytes()\n        data[p.as_posix()]={'sha256':hashlib.sha256(b).hexdigest(),'text':b.decode('utf-8')}\nwith open('baseline.json','x',encoding='utf-8') as f:\n    json.dump(data,f,ensure_ascii=False,sort_keys=True)\nprint(json.dumps({'baseline_files':len(data)}))\nPY\nfs-fixture-advance\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib, hashlib, json, difflib\nbaseline_path=pathlib.Path('baseline.json')\nsaved=baseline_path.read_bytes()\nexcluded={'dist','.git','.tools','node_modules'}\ndef compare():\n    baseline=json.loads(baseline_path.read_bytes())\n    current={p.as_posix():p.read_bytes() for p in sorted(pathlib.Path('.').glob('src/**/*.txt')) if p.is_file() and not excluded.intersection(p.parts)}\n    old=set(baseline); new=set(current)\n    modified=sorted(p for p in old & new if hashlib.sha256(current[p]).hexdigest()\"'!=baseline[p]['\"'sha256'])\n    lines=[]\n    for p in modified:\n        before=baseline[p]['text'].splitlines()\n        after=current[p].decode('utf-8').splitlines()\n        for tag,i,j,k,l in difflib.SequenceMatcher(None,before,after,autojunk=False).get_opcodes():\n            if tag in ('replace','insert'):\n                lines.extend({'path':p,'line':n+1,'text':after[n]} for n in range(k,l))\n    return {'added':sorted(new-old),'modified':modified,'deleted':sorted(old-new),'unchanged':len(old & new)-len(modified),'changed_lines':lines}\na=compare()\nb=compare()\na['repeat_consistent']=a==b\na['baseline_preserved']=baseline_path.read_bytes()==saved\nprint(json.dumps(a,ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 3,
+      "shell_output_bytes": 1235,
+      "seconds": 29.85,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/1-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/1-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1333,
+      "events_sha256": "997c0e34a3a5f8fe3bc90ce9d4af042a4b43f5a5798bdaaa5dd773b7ae282d9e",
+      "correct": true,
+      "input_plus_output": 62627,
+      "uncached_plus_output": 32931
+    },
+    {
+      "task": "delta",
+      "method": "direct",
+      "repetition": 2,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 61660,
+        "cached_input_tokens": 57472,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 793,
+        "reasoning_output_tokens": 28
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"pwd; rg --files --hidden -g AGENTS.md -g '*.txt' -g '\"'!dist/**'\"' -g '\"'!.git/**'\"' -g '\"'!.tools/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!binary.dat'\"'\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib, json, hashlib\nroot=pathlib.Path('src')\nignored={'dist','.git','.tools','node_modules'}\ndata={}\nfor p in sorted(root.rglob('*.txt')):\n    if p.is_file() and not any(x in ignored for x in p.parts):\n        b=p.read_bytes()\n        data[p.as_posix()]={'sha256':hashlib.sha256(b).hexdigest(),'text':b.decode('utf-8')}\nwith open('baseline.json','x',encoding='utf-8') as f:\n    json.dump(data,f,ensure_ascii=False,indent=2)\nprint('Baseline saved:',len(data),'files')\nPY\nfs-fixture-advance\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib,json,hashlib,difflib\nbaseline_path=pathlib.Path('baseline.json')\nsaved=baseline_path.read_bytes()\nbaseline=json.loads(saved)\nignored={'dist','.git','.tools','node_modules'}\ndef compare():\n    current={}\n    for p in sorted(pathlib.Path('src').rglob('*.txt')):\n        if p.is_file() and not any(x in ignored for x in p.parts):\n            b=p.read_bytes()\n            current[p.as_posix()]={'sha256':hashlib.sha256(b).hexdigest(),'text':b.decode('utf-8')}\n    old=set(baseline); new=set(current)\n    modified=sorted(p for p in old & new if baseline[p]['sha256']\"'!=current[p]['\"'sha256'])\n    lines=[]\n    for p in modified:\n        a=baseline[p]['text'].splitlines(); b=current[p]['text'].splitlines()\n        for tag,i,j,k,l in difflib.SequenceMatcher(None,a,b,autojunk=False).get_opcodes():\n            if tag in ('replace','insert'):\n                lines.extend({'path':p,'line':n+1,'text':b[n]} for n in range(k,l))\n    return {'added':sorted(new-old),'modified':modified,'deleted':sorted(old-new),'unchanged':len(old & new)-len(modified),'changed_lines':lines}\nfirst=compare()\nsecond=compare()\nfirst['repeat_consistent']=first==second\nfirst['baseline_preserved']=baseline_path.read_bytes()==saved\nprint(json.dumps(first,ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 3,
+      "shell_output_bytes": 1168,
+      "seconds": 26.229,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/2-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/2-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1333,
+      "events_sha256": "56262da2caf0afb23ceb7c89cee8a65497b2ad947fd1a636b3b8d2a4507028ae",
+      "correct": true,
+      "input_plus_output": 62453,
+      "uncached_plus_output": 4981
+    },
+    {
+      "task": "delta",
+      "method": "tools",
+      "repetition": 2,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 57396,
+        "cached_input_tokens": 49536,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 521,
+        "reasoning_output_tokens": 12
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc 'command -v tools fs-fixture-advance'",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport subprocess,json,pathlib,hashlib\ncmd=['tools','fs','delta','--include','src/**/*.txt','--state-file','baseline.json','--include-content','--json']\nr=subprocess.run(cmd,capture_output=True,text=True)\nprint('initialize exit',r.returncode)\nif r.returncode:\n print(r.stderr[:3000],r.stdout[:3000]);raise SystemExit(1)\nb=pathlib.Path('baseline.json').read_bytes()\nprint('baseline bytes',len(b),'sha256',hashlib.sha256(b).hexdigest())\nr=subprocess.run(['fs-fixture-advance'],capture_output=True,text=True)\nprint('advance exit',r.returncode, r.stdout[:2000],r.stderr[:2000])\nif r.returncode:raise SystemExit(1)\nresults=[]\nfor i in range(2):\n r=subprocess.run(cmd+['--peek','--content-kinds','modified'],capture_output=True,text=True)\n if r.returncode:\n  print(r.stderr[:3000]);raise SystemExit(1)\n results.append(json.loads(r.stdout))\nprint(json.dumps({'results':results,'repeat_consistent':results[0]==results[1],'baseline_preserved':b==pathlib.Path('baseline.json').read_bytes()},ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 2345,
+      "seconds": 21.745,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/2-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/2-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1627,
+      "events_sha256": "641509368a9eadab4b46ce9cdfffcc9196f606f4b70e56c6dba0c310d87c4bbe",
+      "correct": true,
+      "input_plus_output": 57917,
+      "uncached_plus_output": 8381
+    },
+    {
+      "task": "delta",
+      "method": "tools",
+      "repetition": 3,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 47067,
+        "cached_input_tokens": 30080,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 388,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"tools fs delta --include 'src/**/*.txt' --state-file baseline.json --include-content --json\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport subprocess,hashlib,json\nfrom pathlib import Path\nbefore=Path('baseline.json').read_bytes()\np=subprocess.run(['fs-fixture-advance'],capture_output=True,text=True)\nprint('advance:',p.returncode,p.stdout,p.stderr)\nif p.returncode: raise SystemExit(p.returncode)\ncmd=['tools','fs','delta','--include','src/**/*.txt','--state-file','baseline.json','--include-content','--json','--peek','--content-kinds','modified']\na=subprocess.run(cmd,capture_output=True,text=True,check=True)\nb=subprocess.run(cmd,capture_output=True,text=True,check=True)\nprint('first:',a.stdout)\nprint('second:',b.stdout)\nprint('baseline_preserved:',before==Path('baseline.json').read_bytes())\nprint('repeat_consistent:',json.loads(a.stdout)==json.loads(b.stdout))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 2081,
+      "seconds": 18.207,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/3-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/3-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1627,
+      "events_sha256": "0fa878d9dae6d4aaaad72a50ceb738142abd4839a25c6d018219d60980c8c800",
+      "correct": true,
+      "input_plus_output": 47455,
+      "uncached_plus_output": 17375
+    },
+    {
+      "task": "delta",
+      "method": "direct",
+      "repetition": 3,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 61865,
+        "cached_input_tokens": 45056,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 836,
+        "reasoning_output_tokens": 17
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"pwd; rg --files -g 'AGENTS.md' -g '*.txt' -g '\"'!dist/**'\"' -g '\"'!.git/**'\"' -g '\"'!.tools/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!binary.dat'\"'; command -v fs-fixture-advance\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib, hashlib, json, os\nfiles={}\nfor root, dirs, names in os.walk('src'):\n    dirs[:]=sorted(d for d in dirs if d not in {'dist','.git','.tools','node_modules'})\n    for name in sorted(names):\n        if name.endswith('.txt'):\n            p=pathlib.Path(root)/name\n            b=p.read_bytes()\n            files[p.as_posix()]={'sha256':hashlib.sha256(b).hexdigest(),'text':b.decode('utf-8')}\nwith open('baseline.json','x',encoding='utf-8') as f:\n    json.dump(files,f,ensure_ascii=False,sort_keys=True,indent=2)\nprint('Baseline saved:',len(files),'files')\nPY\nfs-fixture-advance\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib, hashlib, json, os, difflib\np=pathlib.Path('baseline.json')\nbefore=p.read_bytes()\ndef compare():\n    baseline=json.loads(p.read_bytes())\n    current={}\n    for root, dirs, names in os.walk('src'):\n        dirs[:]=sorted(d for d in dirs if d not in {'dist','.git','.tools','node_modules'})\n        for name in sorted(names):\n            if name.endswith('.txt'):\n                q=pathlib.Path(root)/name\n                current[q.as_posix()]=q.read_bytes()\n    old=set(baseline); new=set(current)\n    modified=sorted(k for k in old & new if hashlib.sha256(current[k]).hexdigest()\"'!=baseline[k]['\"'sha256'])\n    changed=[]\n    for k in modified:\n        a=baseline[k]['text'].splitlines(); b=current[k].decode('utf-8').splitlines()\n        for tag,i,j,x,y in difflib.SequenceMatcher(None,a,b,autojunk=False).get_opcodes():\n            if tag in ('replace','insert'):\n                changed.extend({'path':k,'line':n+1,'text':b[n]} for n in range(x,y))\n    return {'added':sorted(new-old),'modified':modified,'deleted':sorted(old-new),'unchanged':len(old & new)-len(modified),'changed_lines':changed}\na=compare(); b=compare()\na['repeat_consistent']=a==b\na['baseline_preserved']=before==p.read_bytes()\nprint(json.dumps(a,ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 3,
+      "shell_output_bytes": 1237,
+      "seconds": 28.961,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-delta-compact-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/3-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-delta-compact-20261010/runs/delta/3-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1333,
+      "events_sha256": "85e71965e6d2d278f36fd30211155b5f959c93eef847798c0e06b4a9534f6340",
+      "correct": true,
+      "input_plus_output": 62701,
+      "uncached_plus_output": 17645
+    }
+  ],
+  "summary": {
+    "delta": {
+      "direct": {
+        "n": 3,
+        "correct": 3,
+        "metrics": {
+          "uncached_plus_output": {
+            "mean": 18519,
+            "min": 4981,
+            "max": 32931,
+            "stdev": 13995.482557
+          },
+          "input_plus_output": {
+            "mean": 62593.666667,
+            "min": 62453,
+            "max": 62701,
+            "stdev": 127.31588
+          },
+          "command_calls": {
+            "mean": 3,
+            "min": 3,
+            "max": 3,
+            "stdev": 0.0
+          },
+          "shell_output_bytes": {
+            "mean": 1213.333333,
+            "min": 1168,
+            "max": 1237,
+            "stdev": 39.272552
+          },
+          "seconds": {
+            "mean": 28.346667,
+            "min": 26.229,
+            "max": 29.85,
+            "stdev": 1.887052
+          }
+        }
+      },
+      "tools": {
+        "n": 3,
+        "correct": 3,
+        "metrics": {
+          "uncached_plus_output": {
+            "mean": 17562,
+            "min": 8381,
+            "max": 26930,
+            "stdev": 9275.913809
+          },
+          "input_plus_output": {
+            "mean": 65263.333333,
+            "min": 47455,
+            "max": 90418,
+            "stdev": 22403.823386
+          },
+          "command_calls": {
+            "mean": 2,
+            "min": 2,
+            "max": 2,
+            "stdev": 0.0
+          },
+          "shell_output_bytes": {
+            "mean": 2203,
+            "min": 2081,
+            "max": 2345,
+            "stdev": 133.131514
+          },
+          "seconds": {
+            "mean": 20.365333,
+            "min": 18.207,
+            "max": 21.745,
+            "stdev": 1.893173
+          }
+        }
+      },
+      "comparison_eligible": true,
+      "change_percent": {
+        "uncached_plus_output": -5.167666,
+        "input_plus_output": 4.265075
+      }
+    }
+  },
+  "evidence": {
+    "sha256": {
+      "study-workflows-compact-source.tar.gz": "d5adada69209d9eff6ff474062f988c32e69e893099b7e61eb8d27e9ba67762f",
+      "study-workflows-compact-events.tar.gz": "230831364e6daf95c494954c1fe556fe6c55204fc2501f32dfa0afa165511863"
+    },
+    "total_input_plus_output": 383571,
+    "total_uncached_plus_output": 108243,
+    "delta_output_comparison": {
+      "before_bytes": 11433,
+      "after_bytes": 950,
+      "before_modified_lines": 2,
+      "after_modified_lines": 2
+    }
+  }
+}

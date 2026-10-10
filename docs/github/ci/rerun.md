@@ -76,3 +76,7 @@ tools github ci rerun --run 123456789 --resume --json
 Fine-grained 토큰에는 **Actions: write**, 실패 annotation 조회에는 **Checks: read**가 필요합니다. 인증은 공통 `GH_TOKEN` → `GITHUB_TOKEN` → 선택적 `gh auth token` 순서입니다. [재실행 API](https://docs.github.com/en/rest/actions/workflow-runs#re-run-failed-jobs-from-a-workflow-run), [재실행 커밋과 제한](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs).
 
 [공통 안내](../README.md) · [간결한 출력](../README.md#간결한-출력) · [CI 실패 자료](failures.md) · [PR 통합 조회](../pr/inspect.md) · [PR 머지](../pr/merge.md)
+
+## 저장된 CI 원문 읽기
+
+발췌에 없는 문맥은 `--read-evidence`와 예상 SHA·run·attempt·job·구간/패턴으로 선택해 읽는다. 원래 작업과 인증을 실행하지 않는 [공통 읽기 전용 계약](evidence.md)을 따른다.

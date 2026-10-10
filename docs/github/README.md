@@ -124,7 +124,7 @@ API 요청·다운로드 감소는 전체 에이전트 토큰 절감률과 별�
 
 `pr reviews`, `ci failures`, `ci rerun`은 `--compact`로 구조화된 간결한 출력을 선택합니다. `pr inspect`, `pr submit`, `pr merge`는 기본으로 활성화하며 `--compact=false`로 전체 출력을 사용합니다. `pr delta`는 기본 patch 생략으로 출력량을 줄이고 `--include-patch`로 선택합니다.
 
-긴 리뷰 본문·오류 자료는 원문 일부를, 긴 CI 로그는 오류 주변 문맥과 앞뒤 구간을 반환합니다. `body_truncated`, `message_truncated`, `lines_truncated`, `excerpts`, `omitted_lines`로 생략 사실을 표시합니다. 한 줄이 매우 긴 로그도 원문 파일에서 전체를 확인합니다. diff hunk도 전체 원문 파일에서 확인합니다. 원문은 `.tools/state/evidence/<SHA256>.json`에 저장하고 `evidence_file`, `evidence_sha256`을 반환합니다. `--artifact-dir DIR`로 경로를 바꿉니다.
+리뷰 본문·diff hunk·진단 `message`는 길어도 그대로 반환합니다. 리뷰의 중복 위치·시각 메타데이터를 줄이면서 코드 수정에 필요한 원문을 유지합니다. 긴 오류 설명의 `raw_details`·`summary`·`text`와 긴 CI 로그는 일부를 생략할 수 있으며 `*_truncated`, `lines_truncated`, `excerpts`, `omitted_lines`로 표시합니다. 해당 자료의 원문이 필요하면 `--compact=false`를 사용하거나 원문 파일을 확인합니다. 원문은 `.tools/state/evidence/<SHA256>.json`에 저장하고 `evidence_file`, `evidence_sha256`을 반환합니다. `--artifact-dir DIR`로 경로를 바꿉니다.
 
 파일 참조와 SHA-256까지 포함한 JSON의 바이트 수와 토큰 수가 모두 감소하는 경우에만 축소합니다. 토큰은 로컬에 포함된 인코더로 계산하며 모델·네트워크를 호출하지 않습니다. `--token-encoding o200k_base`가 기본이며 `cl100k_base`도 지원합니다. 사용하는 모델의 인코딩과 다르면 해당 모델의 토큰 수를 보장하지 않습니다. [고정 자료의 출력 토큰 측정](../benchmarks/github/pr/reviews.md)을 참고하세요.
 

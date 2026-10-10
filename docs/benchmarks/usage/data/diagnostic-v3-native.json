@@ -1,0 +1,1653 @@
+{
+  "pr-reviews": [
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "saved_result": {
+          "path": "/tmp/my-agent-tools-usage-study-v3-20261011/workspace/.tools/review.json",
+          "sha256": "eb651b3930a867776613c11585e48cd79ad8c25105c5d807779d0bd1fa29a3d0",
+          "verified": true
+        }
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "actual_final_bytes_and_mode": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "saved_result": {
+          "path": "/tmp/my-agent-tools-usage-study-v3-20261011/workspace/.tools/review.json",
+          "sha256": "eb651b3930a867776613c11585e48cd79ad8c25105c5d807779d0bd1fa29a3d0",
+          "verified": true
+        }
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "actual_final_bytes_and_mode": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "saved_result": {
+          "path": "/tmp/my-agent-tools-usage-study-v3-20261011/workspace/.tools/review.json",
+          "sha256": "9608842997d88c1ee40a64fb0bf32cfb612f134328fd62c938a06ff9a20f47c8",
+          "verified": true
+        }
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "actual_final_bytes_and_mode": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    }
+  ],
+  "pr-conversation": [
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "conversation": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "body": "Please see the inline request.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-1",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          },
+          {
+            "id": 2,
+            "user": null,
+            "body": "Review execution was limited; verify inline requests and CI separately.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-2",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          }
+        ]
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "submitted_reviews": 1,
+        "conversation_count": 2,
+        "latest_notice": "Review execution was limited; verify inline requests and CI separately."
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true,
+          "ordinary_and_submitted_comments_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "conversation": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "body": "Please see the inline request.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-1",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          },
+          {
+            "id": 2,
+            "user": null,
+            "body": "Review execution was limited; verify inline requests and CI separately.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-2",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          }
+        ]
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "submitted_reviews": 1,
+        "conversation_count": 2,
+        "latest_notice": "Review execution was limited; verify inline requests and CI separately."
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true,
+          "ordinary_and_submitted_comments_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "conversation": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "body": "Please see the inline request.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-1",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          },
+          {
+            "id": 2,
+            "user": null,
+            "body": "Review execution was limited; verify inline requests and CI separately.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-2",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          }
+        ]
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "submitted_reviews": 1,
+        "conversation_count": 2,
+        "latest_notice": "Review execution was limited; verify inline requests and CI separately."
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true,
+          "ordinary_and_submitted_comments_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    }
+  ],
+  "junit": [
+    {
+      "response": {
+        "status": "observed",
+        "complete": true,
+        "execution_verified": false,
+        "report_count": 2,
+        "tests": 4,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 1,
+        "reports": [
+          {
+            "path": "reports/acceptanceTest/TEST-acceptance.xml",
+            "sha256": "ab9ee63ceebe472331253e4944dae07c18837468e6a0c7c08d9f492317da7c4d",
+            "modified_at": "2026-10-10T16:33:59.221386867Z",
+            "suites": [
+              {
+                "name": "acceptance",
+                "tests": 1,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            ]
+          },
+          {
+            "path": "reports/test/TEST-unit.xml",
+            "sha256": "395a56cdda372311920edebf6d09d9a5ddaec46ff124fbdab7df000971f4dd22",
+            "modified_at": "2026-10-10T16:33:59.221306495Z",
+            "suites": [
+              {
+                "name": "unit",
+                "tests": 3,
+                "failures": 1,
+                "errors": 0,
+                "skipped": 1
+              }
+            ],
+            "diagnostics": [
+              {
+                "suite": "unit",
+                "name": "mismatch",
+                "classname": "Check",
+                "kind": "failure",
+                "message": "mismatch",
+                "type": "AssertionError",
+                "details": "expected <2>, got <3>\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\n"
+              },
+              {
+                "suite": "unit",
+                "name": "disabled",
+                "kind": "skipped",
+                "message": "explicit skip"
+              }
+            ]
+          }
+        ]
+      },
+      "actual": {
+        "tests": 4,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 1,
+        "report_count": 2,
+        "complete": true,
+        "execution_verified": false,
+        "problems": [],
+        "diagnostics": [
+          {
+            "path": "reports/test/TEST-unit.xml",
+            "suite": "unit",
+            "name": "mismatch",
+            "kind": "failure",
+            "message": "mismatch",
+            "type": "AssertionError",
+            "details": "expected <2>, got <3>\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\n"
+          },
+          {
+            "path": "reports/test/TEST-unit.xml",
+            "suite": "unit",
+            "name": "disabled",
+            "kind": "skipped",
+            "message": "explicit skip",
+            "type": "",
+            "details": ""
+          }
+        ]
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "reports/acceptanceTest/TEST-acceptance.xml": {
+            "sha256": "ab9ee63ceebe472331253e4944dae07c18837468e6a0c7c08d9f492317da7c4d",
+            "mode": 416
+          },
+          "reports/test/TEST-unit.xml": {
+            "sha256": "395a56cdda372311920edebf6d09d9a5ddaec46ff124fbdab7df000971f4dd22",
+            "mode": 416
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "observed",
+        "complete": true,
+        "execution_verified": false,
+        "report_count": 2,
+        "tests": 4,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 1,
+        "reports": [
+          {
+            "path": "reports/acceptanceTest/TEST-acceptance.xml",
+            "sha256": "ab9ee63ceebe472331253e4944dae07c18837468e6a0c7c08d9f492317da7c4d",
+            "modified_at": "2026-10-10T16:33:59.787220794Z",
+            "suites": [
+              {
+                "name": "acceptance",
+                "tests": 1,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            ]
+          },
+          {
+            "path": "reports/test/TEST-unit.xml",
+            "sha256": "da06e9b4c38927a9a0d0cf884f9d589d7791f9996a0fd2346d567c23941e4380",
+            "modified_at": "2026-10-10T16:33:59.787127831Z",
+            "suites": [
+              {
+                "name": "unit",
+                "tests": 3,
+                "failures": 1,
+                "errors": 0,
+                "skipped": 1
+              }
+            ],
+            "diagnostics": [
+              {
+                "suite": "unit",
+                "name": "mismatch",
+                "classname": "Check",
+                "kind": "failure",
+                "message": "mismatch",
+                "type": "AssertionError",
+                "details": "expected <2>, got <3>\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\n"
+              },
+              {
+                "suite": "unit",
+                "name": "disabled",
+                "kind": "skipped",
+                "message": "explicit skip"
+              }
+            ]
+          }
+        ]
+      },
+      "actual": {
+        "tests": 4,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 1,
+        "report_count": 2,
+        "complete": true,
+        "execution_verified": false,
+        "problems": [],
+        "diagnostics": [
+          {
+            "path": "reports/test/TEST-unit.xml",
+            "suite": "unit",
+            "name": "mismatch",
+            "kind": "failure",
+            "message": "mismatch",
+            "type": "AssertionError",
+            "details": "expected <2>, got <3>\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\n"
+          },
+          {
+            "path": "reports/test/TEST-unit.xml",
+            "suite": "unit",
+            "name": "disabled",
+            "kind": "skipped",
+            "message": "explicit skip",
+            "type": "",
+            "details": ""
+          }
+        ]
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "reports/acceptanceTest/TEST-acceptance.xml": {
+            "sha256": "ab9ee63ceebe472331253e4944dae07c18837468e6a0c7c08d9f492317da7c4d",
+            "mode": 416
+          },
+          "reports/test/TEST-unit.xml": {
+            "sha256": "da06e9b4c38927a9a0d0cf884f9d589d7791f9996a0fd2346d567c23941e4380",
+            "mode": 416
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "partial",
+        "complete": false,
+        "execution_verified": false,
+        "report_count": 2,
+        "tests": 4,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 1,
+        "reports": [
+          {
+            "path": "reports/acceptanceTest/TEST-acceptance.xml",
+            "sha256": "ab9ee63ceebe472331253e4944dae07c18837468e6a0c7c08d9f492317da7c4d",
+            "modified_at": "2026-10-10T16:34:00.352791435Z",
+            "suites": [
+              {
+                "name": "acceptance",
+                "tests": 1,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            ]
+          },
+          {
+            "path": "reports/test/TEST-unit.xml",
+            "sha256": "812b1b7a2aedb572e7db0e58d989bbf27730c2c63208a558c5e92dff534340d6",
+            "modified_at": "2026-10-10T16:34:00.352710907Z",
+            "suites": [
+              {
+                "name": "wrapper/unit",
+                "tests": 3,
+                "failures": 1,
+                "errors": 0,
+                "skipped": 1
+              }
+            ],
+            "diagnostics": [
+              {
+                "suite": "wrapper/unit",
+                "name": "mismatch",
+                "classname": "Check",
+                "kind": "failure",
+                "message": "mismatch",
+                "type": "AssertionError",
+                "details": "expected <2>, got <3>\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\n"
+              },
+              {
+                "suite": "wrapper/unit",
+                "name": "disabled",
+                "kind": "skipped",
+                "message": "explicit skip"
+              }
+            ]
+          }
+        ],
+        "problems": [
+          {
+            "path": "reports/test/TEST-broken.xml",
+            "reason": "XML syntax error on line 1: unexpected EOF"
+          }
+        ]
+      },
+      "actual": {
+        "tests": 4,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 1,
+        "report_count": 2,
+        "complete": false,
+        "execution_verified": false,
+        "problems": [
+          "reports/test/TEST-broken.xml"
+        ],
+        "diagnostics": [
+          {
+            "path": "reports/test/TEST-unit.xml",
+            "suite": "wrapper/unit",
+            "name": "mismatch",
+            "kind": "failure",
+            "message": "mismatch",
+            "type": "AssertionError",
+            "details": "expected <2>, got <3>\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\nat example.Check.run(Check.java:12)\n"
+          },
+          {
+            "path": "reports/test/TEST-unit.xml",
+            "suite": "wrapper/unit",
+            "name": "disabled",
+            "kind": "skipped",
+            "message": "explicit skip",
+            "type": "",
+            "details": ""
+          }
+        ]
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "reports/acceptanceTest/TEST-acceptance.xml": {
+            "sha256": "ab9ee63ceebe472331253e4944dae07c18837468e6a0c7c08d9f492317da7c4d",
+            "mode": 416
+          },
+          "reports/test/TEST-broken.xml": {
+            "sha256": "a7f88d5828a8e4138aa63ed761d39cc489fd0c7c666aae81bb3d0c12c64ceb4f",
+            "mode": 416
+          },
+          "reports/test/TEST-unit.xml": {
+            "sha256": "812b1b7a2aedb572e7db0e58d989bbf27730c2c63208a558c5e92dff534340d6",
+            "mode": 416
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    }
+  ],
+  "markdown": [
+    {
+      "response": {
+        "status": "ok",
+        "files": [
+          {
+            "path": "delivery/README.md",
+            "bytes": 2180,
+            "sha256": "73a859cbedf72ae13cac7832c693202f3bd686eb07d611cfa9ba4df112f69f33",
+            "ranges": [
+              {
+                "start": 50,
+                "text": "## Build\nRun the module build.\n```sh\n# fake heading\n## Build\n```\n### Verify\nRun exact tests; preserve this section.\nverify 0\nverify 1\nverify 2\nverify 3\nverify 4\nverify 5\nverify 6\nverify 7\nverify 8\nverify 9\n"
+              }
+            ],
+            "line_ending": "lf",
+            "final_newline": true,
+            "headings": [
+              {
+                "title": "Delivery",
+                "level": 1,
+                "start": 1,
+                "end": 109,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 68,
+                "end": 109,
+                "occurrence": 1
+              }
+            ]
+          },
+          {
+            "path": "order/README.md",
+            "bytes": 2286,
+            "sha256": "60da3eca3d65b03c7b682c8004709a6eb0fb05962f64bfce52c33128dd9e8607",
+            "ranges": [
+              {
+                "start": 50,
+                "text": "## Build\r\nRun the module build.\r\n```sh\r\n# fake heading\r\n## Build\r\n```\r\n### Verify\r\nRun exact tests; preserve this section.\r\nverify 0\r\nverify 1\r\nverify 2\r\nverify 3\r\nverify 4\r\nverify 5\r\nverify 6\r\nverify 7\r\nverify 8\r\nverify 9\r\n"
+              }
+            ],
+            "line_ending": "crlf",
+            "final_newline": true,
+            "headings": [
+              {
+                "title": "Order",
+                "level": 1,
+                "start": 1,
+                "end": 109,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 68,
+                "end": 109,
+                "occurrence": 1
+              }
+            ]
+          }
+        ],
+        "complete": true
+      },
+      "actual": {
+        "files": [
+          {
+            "path": "delivery/README.md",
+            "sha256": "73a859cbedf72ae13cac7832c693202f3bd686eb07d611cfa9ba4df112f69f33",
+            "headings": [
+              {
+                "title": "Delivery",
+                "level": 1,
+                "start": 1,
+                "end": 109,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 68,
+                "end": 109,
+                "occurrence": 1
+              }
+            ],
+            "section": {
+              "start": 50,
+              "text": "## Build\nRun the module build.\n```sh\n# fake heading\n## Build\n```\n### Verify\nRun exact tests; preserve this section.\nverify 0\nverify 1\nverify 2\nverify 3\nverify 4\nverify 5\nverify 6\nverify 7\nverify 8\nverify 9\n"
+            }
+          },
+          {
+            "path": "order/README.md",
+            "sha256": "60da3eca3d65b03c7b682c8004709a6eb0fb05962f64bfce52c33128dd9e8607",
+            "headings": [
+              {
+                "title": "Order",
+                "level": 1,
+                "start": 1,
+                "end": 109,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 68,
+                "end": 109,
+                "occurrence": 1
+              }
+            ],
+            "section": {
+              "start": 50,
+              "text": "## Build\r\nRun the module build.\r\n```sh\r\n# fake heading\r\n## Build\r\n```\r\n### Verify\r\nRun exact tests; preserve this section.\r\nverify 0\r\nverify 1\r\nverify 2\r\nverify 3\r\nverify 4\r\nverify 5\r\nverify 6\r\nverify 7\r\nverify 8\r\nverify 9\r\n"
+            }
+          }
+        ]
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "delivery/README.md": {
+            "sha256": "73a859cbedf72ae13cac7832c693202f3bd686eb07d611cfa9ba4df112f69f33",
+            "mode": 416
+          },
+          "order/README.md": {
+            "sha256": "60da3eca3d65b03c7b682c8004709a6eb0fb05962f64bfce52c33128dd9e8607",
+            "mode": 416
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "files": [
+          {
+            "path": "delivery/README.md",
+            "bytes": 2291,
+            "sha256": "9fab35b08422c8e052008396163bf4b7cc42ab778e037a33ee70cec2730ebf77",
+            "ranges": [
+              {
+                "start": 68,
+                "text": "## Build\nSecond build section.\n~~~text\n# still not a heading\n~~~\n### Verify\nOnly this occurrence is requested.\n"
+              }
+            ],
+            "line_ending": "lf",
+            "final_newline": true,
+            "headings": [
+              {
+                "title": "Delivery",
+                "level": 1,
+                "start": 1,
+                "end": 116,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 68,
+                "end": 74,
+                "occurrence": 2
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 73,
+                "end": 74,
+                "occurrence": 2
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 75,
+                "end": 116,
+                "occurrence": 1
+              }
+            ]
+          },
+          {
+            "path": "order/README.md",
+            "bytes": 2404,
+            "sha256": "cdd3bea315ba50d159099b78876146b7559609e9ccdf44855897a904c0e0f299",
+            "ranges": [
+              {
+                "start": 68,
+                "text": "## Build\r\nSecond build section.\r\n~~~text\r\n# still not a heading\r\n~~~\r\n### Verify\r\nOnly this occurrence is requested.\r\n"
+              }
+            ],
+            "line_ending": "crlf",
+            "final_newline": true,
+            "headings": [
+              {
+                "title": "Order",
+                "level": 1,
+                "start": 1,
+                "end": 116,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 68,
+                "end": 74,
+                "occurrence": 2
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 73,
+                "end": 74,
+                "occurrence": 2
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 75,
+                "end": 116,
+                "occurrence": 1
+              }
+            ]
+          }
+        ],
+        "complete": true
+      },
+      "actual": {
+        "files": [
+          {
+            "path": "delivery/README.md",
+            "sha256": "9fab35b08422c8e052008396163bf4b7cc42ab778e037a33ee70cec2730ebf77",
+            "headings": [
+              {
+                "title": "Delivery",
+                "level": 1,
+                "start": 1,
+                "end": 116,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 68,
+                "end": 74,
+                "occurrence": 2
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 73,
+                "end": 74,
+                "occurrence": 2
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 75,
+                "end": 116,
+                "occurrence": 1
+              }
+            ],
+            "section": {
+              "start": 68,
+              "text": "## Build\nSecond build section.\n~~~text\n# still not a heading\n~~~\n### Verify\nOnly this occurrence is requested.\n"
+            }
+          },
+          {
+            "path": "order/README.md",
+            "sha256": "cdd3bea315ba50d159099b78876146b7559609e9ccdf44855897a904c0e0f299",
+            "headings": [
+              {
+                "title": "Order",
+                "level": 1,
+                "start": 1,
+                "end": 116,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 68,
+                "end": 74,
+                "occurrence": 2
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 73,
+                "end": 74,
+                "occurrence": 2
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 75,
+                "end": 116,
+                "occurrence": 1
+              }
+            ],
+            "section": {
+              "start": 68,
+              "text": "## Build\r\nSecond build section.\r\n~~~text\r\n# still not a heading\r\n~~~\r\n### Verify\r\nOnly this occurrence is requested.\r\n"
+            }
+          }
+        ]
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "delivery/README.md": {
+            "sha256": "9fab35b08422c8e052008396163bf4b7cc42ab778e037a33ee70cec2730ebf77",
+            "mode": 416
+          },
+          "order/README.md": {
+            "sha256": "cdd3bea315ba50d159099b78876146b7559609e9ccdf44855897a904c0e0f299",
+            "mode": 416
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "files": [
+          {
+            "path": "delivery/README.md",
+            "bytes": 2183,
+            "sha256": "33379222f2ac6b105df232c4901694bbd67cafba2841f41d2ddf3666234f5289",
+            "ranges": [
+              {
+                "start": 50,
+                "text": "Build\n------\nRun the module build.\n```sh\n# fake heading\n## Build\n```\n### Verify\nRun exact tests; preserve this section.\nverify 0\nverify 1\nverify 2\nverify 3\nverify 4\nverify 5\nverify 6\nverify 7\nverify 8\nverify 9\n"
+              }
+            ],
+            "line_ending": "lf",
+            "final_newline": false,
+            "headings": [
+              {
+                "title": "Delivery",
+                "level": 1,
+                "start": 1,
+                "end": 110,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 68,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 57,
+                "end": 68,
+                "occurrence": 1
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 69,
+                "end": 110,
+                "occurrence": 1
+              }
+            ]
+          },
+          {
+            "path": "order/README.md",
+            "bytes": 2284,
+            "sha256": "55cd71b3f5620e51a5a912750408840294d45fc70b05345e1c84a1567838784d",
+            "ranges": [
+              {
+                "start": 50,
+                "text": "## Build\r\nRun the module build.\r\n```sh\r\n# fake heading\r\n## Build\r\n```\r\n### Verify\r\nRun exact tests; preserve this section.\r\nverify 0\r\nverify 1\r\nverify 2\r\nverify 3\r\nverify 4\r\nverify 5\r\nverify 6\r\nverify 7\r\nverify 8\r\nverify 9\r\n"
+              }
+            ],
+            "line_ending": "crlf",
+            "final_newline": false,
+            "headings": [
+              {
+                "title": "Order",
+                "level": 1,
+                "start": 1,
+                "end": 109,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 68,
+                "end": 109,
+                "occurrence": 1
+              }
+            ]
+          }
+        ],
+        "complete": true
+      },
+      "actual": {
+        "files": [
+          {
+            "path": "delivery/README.md",
+            "sha256": "33379222f2ac6b105df232c4901694bbd67cafba2841f41d2ddf3666234f5289",
+            "headings": [
+              {
+                "title": "Delivery",
+                "level": 1,
+                "start": 1,
+                "end": 110,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 68,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 57,
+                "end": 68,
+                "occurrence": 1
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 69,
+                "end": 110,
+                "occurrence": 1
+              }
+            ],
+            "section": {
+              "start": 50,
+              "text": "Build\n------\nRun the module build.\n```sh\n# fake heading\n## Build\n```\n### Verify\nRun exact tests; preserve this section.\nverify 0\nverify 1\nverify 2\nverify 3\nverify 4\nverify 5\nverify 6\nverify 7\nverify 8\nverify 9\n"
+            }
+          },
+          {
+            "path": "order/README.md",
+            "sha256": "55cd71b3f5620e51a5a912750408840294d45fc70b05345e1c84a1567838784d",
+            "headings": [
+              {
+                "title": "Order",
+                "level": 1,
+                "start": 1,
+                "end": 109,
+                "occurrence": 1
+              },
+              {
+                "title": "Build",
+                "level": 2,
+                "start": 50,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Verify",
+                "level": 3,
+                "start": 56,
+                "end": 67,
+                "occurrence": 1
+              },
+              {
+                "title": "Boundary",
+                "level": 2,
+                "start": 68,
+                "end": 109,
+                "occurrence": 1
+              }
+            ],
+            "section": {
+              "start": 50,
+              "text": "## Build\r\nRun the module build.\r\n```sh\r\n# fake heading\r\n## Build\r\n```\r\n### Verify\r\nRun exact tests; preserve this section.\r\nverify 0\r\nverify 1\r\nverify 2\r\nverify 3\r\nverify 4\r\nverify 5\r\nverify 6\r\nverify 7\r\nverify 8\r\nverify 9\r\n"
+            }
+          }
+        ]
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "delivery/README.md": {
+            "sha256": "33379222f2ac6b105df232c4901694bbd67cafba2841f41d2ddf3666234f5289",
+            "mode": 416
+          },
+          "order/README.md": {
+            "sha256": "55cd71b3f5620e51a5a912750408840294d45fc70b05345e1c84a1567838784d",
+            "mode": 416
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    }
+  ]
+}

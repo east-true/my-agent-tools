@@ -13,14 +13,15 @@ import (
 )
 
 type inspectionState struct {
-	Version     int                        `json:"version"`
-	Repo        string                     `json:"repo"`
-	Number      int                        `json:"number"`
-	HeadSHA     string                     `json:"head_sha"`
-	Items       map[string]json.RawMessage `json:"items"`
-	Sections    string                     `json:"sections,omitempty"`
-	Annotations bool                       `json:"annotations"`
-	MaxLogBytes int64                      `json:"max_log_bytes"`
+	Version      int                        `json:"version"`
+	Repo         string                     `json:"repo"`
+	Number       int                        `json:"number"`
+	HeadSHA      string                     `json:"head_sha"`
+	Items        map[string]json.RawMessage `json:"items"`
+	Sections     string                     `json:"sections,omitempty"`
+	Annotations  bool                       `json:"annotations"`
+	MaxLogBytes  int64                      `json:"max_log_bytes"`
+	Conversation bool                       `json:"conversation,omitempty"`
 }
 
 func lockInspectionState(path string) (func(), error) {
@@ -82,6 +83,12 @@ func inspectionItems(result github.InspectResult) inspectionState {
 		add(fmt.Sprintf("failure:%d:%d", failure.Run.ID, failure.Run.Attempt), failure)
 	}
 	if result.Reviews != nil {
+		if result.Reviews.Conversation != nil {
+			state.Conversation = true
+			for _, comment := range *result.Reviews.Conversation {
+				add(fmt.Sprintf("conversation:%d", comment.ID), comment)
+			}
+		}
 		for _, review := range result.Reviews.Reviews {
 			add(fmt.Sprintf("review:%d", review.ID), review)
 		}
@@ -153,8 +160,50 @@ func inspectionDelta(result github.InspectResult, before *inspectionState, full 
 		status = "unchanged"
 	}
 	output := map[string]any{"status": status, "repo": result.Repo, "number": result.Number, "head_sha": after.HeadSHA, "pr_status": result.Status, "complete": true, "state_file": statePath, "attention_required": result.Status == "blocked" || result.Status == "pending"}
+	// Include current actionable evidence even when the change set is empty.
+	// This lets a caller return after unrelated work without replaying history.
+	if work := outstandingInspection(result); work != nil {
+		output["outstanding"] = work
+	}
 	if status == "changed" {
 		output["added"], output["changed"], output["removed"] = added, changed, removed
 	}
 	return output, after
+}
+
+type inspectionWork struct {
+	Reviews      []github.PRReview            `json:"reviews,omitempty"`
+	PR           github.PRState               `json:"pr"`
+	Reasons      []github.MergeReason         `json:"reasons,omitempty"`
+	Checks       []github.PRCheck             `json:"checks,omitempty"`
+	Failures     []github.CIFailureResult     `json:"failures,omitempty"`
+	Threads      []github.ReviewThread        `json:"threads,omitempty"`
+	Conversation []github.ConversationComment `json:"conversation,omitempty"`
+}
+
+func outstandingInspection(result github.InspectResult) *inspectionWork {
+	work := &inspectionWork{PR: result.PR, Reasons: result.Reasons, Failures: result.Failures}
+	for _, check := range result.Checks {
+		done := check.Status == "completed" || check.Status == "success"
+		success := check.Conclusion == "success" || check.Conclusion == "neutral" || check.Conclusion == "skipped" || check.Kind == "status" && check.Status == "success"
+		if !done || !success {
+			work.Checks = append(work.Checks, check)
+		}
+	}
+	if result.Reviews != nil {
+		// 제출 이력은 원문 근거이며 현재 수정 의무로 재해석하지 않는다.
+		work.Reviews = result.Reviews.Reviews
+		if result.Reviews.Conversation != nil {
+			work.Conversation = *result.Reviews.Conversation
+		}
+		for _, thread := range result.Reviews.Threads {
+			if !thread.Resolved {
+				work.Threads = append(work.Threads, thread)
+			}
+		}
+	}
+	if len(work.Reasons)+len(work.Checks)+len(work.Failures)+len(work.Threads)+len(work.Conversation)+len(work.Reviews) == 0 {
+		return nil
+	}
+	return work
 }

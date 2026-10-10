@@ -53,7 +53,15 @@ def review_update(root,report):
 
 
 def change(summary,key,korean=True):
-    return f"{summary['change_percent'][key]:+.1f}%".replace('-','−') if summary['comparison_eligible'] else ('비교 보류' if korean else 'Withheld')
+    if not summary['comparison_eligible']:
+        return '비교 보류' if korean else 'Withheld'
+    value = summary['change_percent'].get(key)
+    if value is None:
+        direct = summary['gh']['metrics'][key]['mean']
+        if direct == 0:
+            return '—'
+        value = 100 * (summary['tools']['metrics'][key]['mean'] / direct - 1)
+    return f"{value:+.1f}%".replace('-', '−')
 
 
 def command_table(selected,base,korean,review_updated=False):
@@ -77,8 +85,15 @@ def command_page(task,stem,report,output=None):
     for key,label in [('uncached_plus_output','캐시 제외 입력+출력'),('input_plus_output','캐시 포함 총 토큰')]:
         fmt=lambda m:f"{m['mean']:,.0f} [{m['min']:,}–{m['max']:,}]"
         lines.append(f"| {label} | {fmt(gh['metrics'][key])} | {fmt(to['metrics'][key])} | {change(summary,key)} |")
-    lines+=['',f"정답·상태 검증: 직접 처리 {gh['correct']}/{gh['n']}, tools {to['correct']}/{to['n']}."]
+    if task == 'pr-create' and measured_date(report) >= '2026-10-11':
+        for key, label in [('seconds', '완료 시간(초)'), ('command_calls', '셸 실행 항목 수'), ('api_calls', 'API 요청 수')]:
+            direct, native = gh['metrics'][key], to['metrics'][key]
+            lines.append(f"| {label} | {direct['mean']:.2f} [{direct['min']}–{direct['max']}] | {native['mean']:.2f} [{native['min']}–{native['max']}] | {change(summary, key)} |")
+    lines+=['',f"정답·상태 검증: 직접 처리 {gh['correct']}/{gh['n']}, tools {to['correct']}/{to['n']}.", '',
+           '모델 입력 캐시를 통제하지 않은 고정 시나리오의 결과입니다. 독립 1회 사용·다른 작업 후 복귀에서 작업 효율과 전체 토큰의 동시 개선을 보장하지 않습니다. CLI 자료 캐시와 모델 입력 캐시는 별개입니다.']
     if task in NOTES and measured_date(report)=='2026-10-08':lines+=['',NOTES[task]]
+    if task == 'pr-create' and measured_date(report) >= '2026-10-11':
+        lines += ['', '생성 결과의 creation_context는 최종 로컬 브랜치 검증을 포함합니다. 표본에서 총 토큰·캐시 제외 토큰·시간이 감소하고 셸 실행 수는 늘지 않았으며 API 수는 같습니다. 현재 표본의 AND 충족이며 캐시 없는 최초 실행이나 안정적인 실사용 효과의 증명은 아닙니다. 테스트 REST 응답의 head/base를 실제 API의 객체 형식으로 보완했으므로 과거 표와의 차이를 코드 효과로 계산하지 않습니다.']
     if stem!='study' and task in ('pr-reviews','pr-inspect'):lines+=['','리뷰 compact 개선 후 같은 프롬프트·자료로 재측정했습니다. 이전 전체 실험과 기본 추론 강도가 달라 과거 수치와의 차이를 코드 개선 효과로 단정하지 않습니다.']
     if task=='pr-reviews' and stem!='study':
         lines+=['','tools의 2회차는 캐시 입력 적중이 높아 캐시 제외 값이 3,351로 줄었습니다. 캐시 제외 변화와 캐시 포함 총 토큰 변화를 함께 확인합니다.']
@@ -102,6 +117,7 @@ def review_page(root):
     row=data['measurements'][0]
     lines+=['',f"UTF-8 출력: {row['before_bytes']:,} → {row['after_bytes']:,}바이트.",'',
             '최종 정답·Git 상태·전체 원문 SHA가 같은지 검증했습니다. 파일 참조와 SHA-256을 포함하고 마지막 개행을 제외한 직렬화 출력 측정입니다. 개선 후 작업 전체 토큰은 재측정하지 않았으므로 전체 절감률로 해석하지 않습니다. 원문 파일 경로가 달라지면 참조 문자열의 바이트·토큰 수도 달라질 수 있습니다.',
+            '', '독립 1회 사용·다른 작업 후 복귀의 작업 전체 효율은 검증하지 않았습니다. 상세 원문이 필요한 작업의 재조회 비용도 이 출력 측정에는 포함되지 않습니다.',
             '', '```sh','python3 scripts/benchmarks/measure_review_metadata.py --root /tmp/review-metadata-check','```','',
             '[사용법](../../../github/pr/reviews.md) · [출력 검증 원본](reviews-output.json) · [공통 조건·의존성](../README.md)','']
     return '\n'.join(lines)
@@ -134,7 +150,8 @@ def render(repo,reports):
         '모델·추론 강도는 매 실험의 사용자 기본값을 상속했습니다. 실행 인자에 모델·추론 강도와 ignore-user-config 옵션을 지정하지 않았습니다. JSON 이벤트가 실제 선택 모델·추론 강도를 노출하지 않아 설정 스냅샷과 옵션 생략으로 기록했습니다. 설정이 다른 실험을 합산하거나 과거 수치와의 차이를 코드 개선 효과로 해석하지 않습니다.','',
         '소스·CLI·실행기·프롬프트·정답 스키마·seed 20261008·실행 순서를 모델 호출 전에 고정했습니다. 명령 순서는 매 반복 섞고 각 명령의 방식 순서를 교차했으며, 매번 새 세션·임시 Git 저장소·CLI 캐시로 시작했습니다. 직접 처리도 배치·jq·로컬 스크립트를 허용했습니다. 실패·재시도도 포함하고 실패한 모델 실행을 교체하지 않았습니다.','',
         '캐시 제외 입력+출력은 input_tokens − cached_input_tokens + output_tokens, 총 토큰은 input_tokens + output_tokens입니다. 추론 출력을 중복 합산하지 않습니다. 어느 방식이든 3회 전부 정답·상태 검증을 통과하지 않으면 변화율 비교를 보류합니다. 원본에는 평균·중앙값·표본 표준편차·범위·각 쌍의 변화율·명령·API 수가 있습니다.','',
-        '고정 합성 자료의 제어 실험입니다. 실제 CLI·gh·Git과 임시 bare 원격을 사용하고, API는 선택 필드·별칭·페이지를 처리하는 로컬 GraphQL 서버로 연결했습니다. 캐시는 강제로 초기화할 수 없어 캐시 제외 지표에도 적중 차이가 남습니다. 방식별 3회와 대표 시나리오에 한정하며 모든 옵션·대형 자료·오류 경로·실제 GitHub 성능·금액 절감을 대표하지 않습니다.','']
+        '고정 합성 자료의 제어 실험입니다. 실제 CLI·gh·Git과 임시 bare 원격을 사용하고, API는 선택 필드·별칭·페이지를 처리하는 로컬 GraphQL 서버로 연결했습니다. 캐시는 강제로 초기화할 수 없어 캐시 제외 지표에도 적중 차이가 남습니다. 방식별 3회와 대표 시나리오에 한정하며 모든 옵션·대형 자료·오류 경로·실제 GitHub 성능·금액 절감을 대표하지 않습니다.','',
+        '평가의 기본 조건은 독립 1회 사용입니다. 새 세션·CLI 캐시 초기화는 모델 입력 캐시 없는 최초 실행을 뜻하지 않습니다. 다른 작업 후 실제 문맥 복귀는 별도 측정하지 않았으며 연속 반복의 캐시 이득을 독립 사용의 절감으로 일반화하지 않습니다. 작업 효율 향상 AND 전체 토큰 절감의 안정적 충족 여부는 이 표만으로 판정하지 않습니다. [18개 전체 명령의 사용 조건·기능 점검](../../command-audit.md).','']
     if len(reports)>1:lines+=['최신 재측정은 리뷰 compact 출력이 바뀌는 두 명령에 한정했습니다. PR 제출의 기존 ready 시나리오는 리뷰 스레드가 비어 있고 머지 성공 시나리오에도 대상 메타데이터가 없어 기존 결과를 유지합니다.','']
     if updated:lines+=['리뷰의 최신 compact 출력 검증 이후 작업 전체 토큰은 재측정하지 않았습니다. 공통 원본의 이전 리뷰 결과를 개선 후 작업 전체 수치로 사용하지 않습니다.','']
     lines+=['## 원본과 재현','']
@@ -152,3 +169,12 @@ def render(repo,reports):
         '고정 소스 재현은 해당 source.tar.gz를 새 디렉터리에 풀고 scripts를 source/scripts로 복사한 뒤 그 안의 run_github_study.py를 실행합니다. 소스·작업의 재현을 위한 자료이며 모델 응답·토큰 수의 동일성을 보장하지 않습니다.','']
     (root/'README.md').write_text('\n'.join(lines), encoding='utf-8')
     (repo/'docs/benchmarks/README.md').write_text('# 벤치마크\n\n명령별 최신 측정 결과와 검증 자료입니다. 사용법 문서와 같은 디렉터리 구조를 사용합니다. 공통 조건·원본·재현 방법은 그룹 안내에 모아 두었습니다.\n\n| 그룹 | 측정 범위 |\n|---|---|\n| [GitHub](github/README.md) | 15개 명령의 작업 전체 실측, 변경 명령만 재측정 |\n', encoding='utf-8')
+
+    if (repo/'docs/benchmarks/fs/README.md').exists():
+        index=repo/'docs/benchmarks/README.md'
+        index.write_text(index.read_text(encoding='utf-8').rstrip()+'\n| [파일시스템](fs/README.md) | inspect·delta·apply의 작업 전체 토큰·파일 상태 비교 |\n',encoding='utf-8')
+    if (repo/'docs/command-audit.md').exists():
+        index=repo/'docs/benchmarks/README.md'
+        index.write_text(index.read_text(encoding='utf-8').rstrip()+'\n\n[전체 명령 점검](../command-audit.md)은 18개 명령의 독립 사용·복귀 조건과 모델 호출 없는 기능 검증입니다. 기존 토큰 실측과 구분합니다.\n',encoding='utf-8')
+    from actionable_benchmark_docs import render as render_actionable
+    render_actionable(repo)

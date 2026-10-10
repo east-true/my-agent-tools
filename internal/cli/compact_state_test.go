@@ -30,7 +30,7 @@ func TestCompactEvidencePreservesRawResultAndActualLineNumbers(t *testing.T) {
 	if !bytes.Contains(compact, []byte(`"id":9223372036854775807`)) {
 		t.Fatal("compact output changed a large database ID")
 	}
-	if len(compact) >= len(raw) || result["status"] != "failed" || result["complete"] != true || result["rerun_requested"] != true || result["body_truncated"] != true {
+	if len(compact) >= len(raw) || result["status"] != "failed" || result["complete"] != true || result["rerun_requested"] != true || result["body"] != value["body"] || result["diff_hunk"] != value["diff_hunk"] {
 		t.Fatalf("result not reduced without changing operation state: %s", compact)
 	}
 	preserved, err := os.ReadFile(result["evidence_file"].(string))
@@ -91,7 +91,7 @@ func TestCompactStorageFailurePreservesMutationOutcome(t *testing.T) {
 	if err := os.WriteFile(path, []byte("occupied"), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	value := map[string]any{"status": "merged", "merge_requested": true, "body": strings.Repeat("long evidence ", 1000)}
+	value := map[string]any{"status": "merged", "merge_requested": true, "raw_details": strings.Repeat("long evidence ", 1000)}
 	var out, stderr bytes.Buffer
 	code := encodeCompact(&out, &stderr, value, compactFlags{Enabled: true, Dir: path})
 	if code != 1 || !strings.Contains(out.String(), `"status":"merged"`) || !strings.Contains(out.String(), `"merge_requested":true`) || stderr.Len() == 0 {
@@ -121,8 +121,8 @@ func TestInspectionDeltaOnlyEmitsChangedEntitiesAndPreservesOutstandingWork(t *t
 		t.Fatalf("unexpected delta: %+v", output)
 	}
 	encoded, _ := json.Marshal(output)
-	if bytes.Contains(encoded, []byte(`"body":"request"`)) {
-		t.Fatal("previous conversation replayed")
+	if !bytes.Contains(encoded, []byte(`"body":"request"`)) || delta["outstanding"] == nil {
+		t.Fatal("current unresolved request missing from actionable evidence")
 	}
 	result.Reviews.Threads = nil
 	output, _ = inspectionDelta(result, &after, false, "state.json")

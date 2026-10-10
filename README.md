@@ -6,19 +6,20 @@
 
 `tools` is a cross-platform CLI for automating repeatable workflows. It combines routine steps into commands that agents and developers can reuse across projects, with project-specific preferences kept in configuration.
 
-Workflows follow `tools <group> <command>`. GitHub is the first available group; additional workflows will be added as separate command groups.
+Workflows follow `tools <group> <command>`, with separate GitHub and filesystem groups.
 
 ## Available workflows
 
 | Group | What it automates | Documentation |
 |---|---|---|
 | `github` | Repository setup, issues, linked branches, PRs and reviews, CI diagnostics and reruns, Dependabot alerts, and finished-branch cleanup | [GitHub commands](docs/github/README.md) |
+| `fs` | Raw files/Markdown sections, deltas, verified batch edits, and JUnit report evidence | [Filesystem commands](docs/fs/README.md) |
 
 ## Token usage measurements
 
 Latest results per command, with three trials per method. The table shows **mean uncached input + output** and the change in total tokens including cached input. Dates use Korea Standard Time; each command page provides ranges and answer/state checks.
 
-Inherited defaults: 2026-10-08: `gpt-6.1-sol` / `high`; 2026-10-10: `gpt-6.1-sol` / `low`. Batches with different settings are not pooled; changes from earlier batches cannot be attributed to code improvements alone.
+Inherited defaults: 2026-10-08: `gpt-6.1-sol` / `high`; 2026-10-10: `gpt-6.1-sol` / `low`; 2026-10-11: `gpt-6.1-sol` / `high`. Batches with different settings are not pooled.
 
 | Command | Date | Direct mean | tools mean | Change | Total change (incl. cache) |
 |---|---|---:|---:|---:|---:|
@@ -26,9 +27,9 @@ Inherited defaults: 2026-10-08: `gpt-6.1-sol` / `high`; 2026-10-10: `gpt-6.1-sol
 | [`github setup`](docs/benchmarks/github/setup.md) | 2026-10-08 | 17,343 | 15,695 | −9.5% | −36.2% |
 | [`github issue create`](docs/benchmarks/github/issue/create.md) | 2026-10-08 | 18,583 | 20,244 | +8.9% | −62.4% |
 | [`github issue branch`](docs/benchmarks/github/issue/branch.md) | 2026-10-08 | 15,314 | 15,626 | +2.0% | −40.8% |
-| [`github pr create`](docs/benchmarks/github/pr/create.md) | 2026-10-08 | 17,681 | 21,590 | +22.1% | −42.9% |
-| [`github pr reviews`](docs/benchmarks/github/pr/reviews.md) | 2026-10-10 | 18,621 | 13,108 | −29.6% | −4.5% |
-| [`github pr inspect`](docs/benchmarks/github/pr/inspect.md) | 2026-10-10 | 18,931 | 17,951 | −5.2% | −36.5% |
+| [`github pr create`](docs/benchmarks/github/pr/create.md) | 2026-10-11 | 18,491 | 15,713 | −15.0% | −59.0% |
+| [`github pr reviews`](docs/benchmarks/github/pr/reviews.md) | 2026-10-11 | 13,978 | 18,389 | +31.6% | +0.6% |
+| [`github pr inspect`](docs/benchmarks/github/pr/inspect.md) | 2026-10-10 | 19,458 | 17,753 | −8.8% | −14.3% |
 | [`github pr delta`](docs/benchmarks/github/pr/delta.md) | 2026-10-08 | 16,851 | 15,314 | −9.1% | −51.7% |
 | [`github pr submit`](docs/benchmarks/github/pr/submit.md) | 2026-10-08 | 19,974 | 15,777 | −21.0% | −66.0% |
 | [`github pr merge`](docs/benchmarks/github/pr/merge.md) | 2026-10-08 | 20,302 | 11,468 | −43.5% | −76.3% |
@@ -38,7 +39,30 @@ Inherited defaults: 2026-10-08: `gpt-6.1-sol` / `high`; 2026-10-10: `gpt-6.1-sol
 | [`github dependabot view`](docs/benchmarks/github/dependabot/view.md) | 2026-10-08 | 11,243 | 15,175 | +35.0% | −0.7% |
 | [`github branch cleanup --apply`](docs/benchmarks/github/branch/cleanup.md) | 2026-10-08 | 30,151 | 21,365 | −29.1% | −54.9% |
 
-These are small-sample results for a fixed synthetic workload; cache hit differences remain. They do not establish general or monetary savings. [Shared protocol, limits, evidence, and reproduction](docs/benchmarks/github/README.md).
+These are small-sample results for a fixed synthetic workload; cache hit differences remain. They do not establish simultaneous efficiency and token improvements for independent one-use or return-after-other-work scenarios, general savings, or monetary savings. [Shared protocol, limits, evidence, and reproduction](docs/benchmarks/github/README.md).
+
+### Filesystem measurements
+
+Filesystem defaults by cohort: 2026-10-10: `gpt-6.1-sol` / `low`; 2026-10-11: `gpt-6.1-sol` / `high`. Most rows use three pairs; JUnit normal reading uses two. Means use uncached input + output; total changes include cached input.
+
+| Command | Direct mean | tools mean | Uncached change | Total change (incl. cache) | Answer + state | Joint assessment |
+|---|---:|---:|---:|---:|---:|---|
+| [`fs inspect: Markdown`](docs/benchmarks/fs/inspect.md) | 21,294 | 16,324 | −23.3% | −42.0% | 6/6 | AND met in sample |
+| [`fs inspect: raw file`](docs/benchmarks/fs/inspect.md) | 16,459 | 15,601 | −5.2% | −2.3% | 6/6 | AND met in sample |
+| [`fs delta`](docs/benchmarks/fs/delta.md) | 18,026 | 16,674 | −7.5% | −12.9% | 6/6 | AND met in sample |
+| [`fs apply: validation`](docs/benchmarks/fs/apply.md) | 17,178 | 15,768 | −8.2% | −50.7% | 6/6 | AND met in sample |
+| [`fs apply: shared edits`](docs/benchmarks/fs/apply.md) | 18,583 | 17,300 | −6.9% | −1.6% | 6/6 | AND met in sample |
+| [`fs test-results`](docs/benchmarks/fs/test-results.md) | 21,844 | 25,794 | +18.1% | −11.5% | 4/4 | Conditional: cache metrics conflict |
+
+Standalone one-off use and return after other real work have not been tested separately. Cache was uncontrolled, including in the first trial; AND assessments apply only to observed sample means.
+
+[Protocol, limits, evidence, and reproduction](docs/benchmarks/fs/README.md).
+
+Latest review, PR return, and two apply scenarios include input authoring and final-state checks. [Scopes, cache limits, and evidence](docs/benchmarks/actionable/README.md).
+
+Session-derived workflows report total/uncached tokens, time and actual CLI/API counts in the [completion study](docs/benchmarks/usage/README.md). JUnit overview uses two normal pairs; the malformed-XML pair is separate.
+
+The latest changed-workflow comparison covers review source/return, large report recovery, saved-config proof and offline CI evidence. It compares complete direct/tool tasks, including authoring, recovery and final verification, while retaining unfavorable trials and separately reporting cache conflicts. [Results and evidence](docs/benchmarks/completion/README.md).
 
 ## Install
 
@@ -125,6 +149,30 @@ tools github branch cleanup --apply --json
 ```
 
 Cleanup removes clean linked worktrees together with finished branches. It preserves the main/current worktree, locked or dirty worktrees, protected branches, open PR work, and unpublished local commits. Closed, unmerged remote work is also eligible; inspect the preview. [Cleanup rules and options](docs/github/branch/cleanup.md).
+### Filesystem workflows
+
+```sh
+tools fs inspect --root . --include '**/*.go' --pattern cache --pattern retry --context 2 --json
+tools fs inspect --request examples/fs/read-requests.json --json
+# Markdown structure and a known complete section
+tools fs inspect --path README.md --outline --json
+tools fs inspect --path README.md --section Install --raw --hash --json
+# Valid report counts and diagnostics; does not prove a test execution
+tools fs test-results --include "build/test-results/**/*.xml" --json
+# Original fragments for edits, including exact line terminators
+tools fs inspect --request examples/fs/read-requests.json --raw --hash --json
+tools fs delta --root . --include '**/*.go' --state-file .tools/state/fs/go.json --include-content --json
+# Two fresh observations with one report and a preserved baseline
+tools fs delta --include '**/*.go' --state-file .tools/state/fs/go.json --include-content --peek --comparisons 2 --json
+tools fs apply --root . --plan edits.json --json
+tools fs apply --root . --plan edits.json --apply --report-changes --json
+# Capture hashes, save the plan, apply and verify an authorized spec
+tools fs apply --spec replacements.json --save-plan validated-plan.json --apply --report-changes --json
+# If recounting exactly this replacement was requested, include its diagnostic and recovery
+tools fs apply --spec replacements.json --recount 1:1 --save-plan recounted-plan.json --apply --report-changes --json
+```
+
+No Git checkout or GitHub authentication is required. `apply` previews by default and validates the whole plan's hashes and exact replacement counts before writes, then reads applied files back to verify them. Incomplete reads return `partial` and do not advance delta state. [Options, plan format, and mutation scope](docs/fs/README.md).
 
 ## Documentation
 
@@ -132,6 +180,7 @@ Cleanup removes clean linked worktrees together with finished branches. It prese
 - [GitHub agent usage (Korean)](docs/agent-usage.md) — a short workflow for coding agents.
 - [Input and policy examples](examples/github) — issue/PR JSON, Markdown, and `.tools.json`.
 - [Benchmarks](docs/benchmarks/README.md) — latest command measurements, raw data, and reproduction.
+- [All-command audit (Korean)](docs/command-audit.md) — independent use, returning after other work, and the earlier 18-command checks and added evidence for the current 19-command set.
 - [Development and leak checks](docs/development.md) · [CI report experiment](docs/ci-reports.md).
 
 Use `tools --help` to discover commands and a command's `--help` for its options.

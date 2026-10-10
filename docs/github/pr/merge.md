@@ -116,3 +116,7 @@ Fine-grained 토큰에는 Pull requests·Checks·Commit statuses 읽기, 머지�
 `merge_requested: true`이면 머지 요청을 전송한 상태입니다. `request_id`는 수락된 비동기 요청 UUID이며 `queued: true`는 큐 등록을 확인했다는 뜻입니다. **시간 제한·취소는 GitHub에 수락된 요청이나 큐 등록을 취소하지 않습니다.** 이후에도 머지될 수 있으므로, 해당 필드가 있거나 결과가 `unknown`이면 원격 PR 상태를 확인한 뒤 재실행합니다. 머지 큐에서 제거되면 `merge_queue_removed`와 확인 가능한 진단을 반환합니다.
 
 [공통 안내](../README.md) · [PR 생성](create.md) · [브랜치 정리](../branch/cleanup.md)
+
+## 저장된 CI 원문 읽기
+
+발췌에 없는 문맥은 `--read-evidence`와 예상 SHA·run·attempt·job·구간/패턴으로 선택해 읽는다. 원래 작업과 인증을 실행하지 않는 [공통 읽기 전용 계약](../ci/evidence.md)을 따른다.

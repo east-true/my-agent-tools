@@ -10,6 +10,7 @@ import (
 type ReviewOptions struct {
 	Number         int
 	All            bool
+	Conversation   bool
 	CachedHead     string
 	CachedComments map[string]ReviewComment
 }
@@ -45,6 +46,17 @@ type ReviewComment struct {
 	DiffHunk  string        `json:"diff_hunk"`
 }
 
+// ConversationComment는 리뷰 스레드·제출 리뷰와 구분하는 일반 PR 댓글이다.
+// 삭제된 작성자는 null로 보존한다.
+type ConversationComment struct {
+	ID        int64         `json:"id"`
+	Author    *ReviewAuthor `json:"user"`
+	Body      string        `json:"body"`
+	URL       string        `json:"html_url"`
+	CreatedAt string        `json:"created_at"`
+	UpdatedAt string        `json:"updated_at"`
+}
+
 type ReviewThread struct {
 	ID                string          `json:"id"`
 	Path              string          `json:"path"`
@@ -60,17 +72,19 @@ type ReviewThread struct {
 }
 
 type ReviewResult struct {
-	Status         string         `json:"status"`
-	Repo           string         `json:"repo"`
-	Number         int            `json:"number"`
-	URL            string         `json:"url"`
-	HeadSHA        string         `json:"head_sha"`
-	ReviewDecision string         `json:"review_decision"`
-	Complete       bool           `json:"complete"`
-	All            bool           `json:"all"`
-	Reviews        []PRReview     `json:"reviews"`
-	Threads        []ReviewThread `json:"threads"`
-	Notes          []string       `json:"notes,omitempty"`
+	Status         string                 `json:"status"`
+	Repo           string                 `json:"repo"`
+	Number         int                    `json:"number"`
+	URL            string                 `json:"url"`
+	HeadSHA        string                 `json:"head_sha"`
+	HeadVerified   bool                   `json:"head_verified,omitempty"`
+	ReviewDecision string                 `json:"review_decision"`
+	Complete       bool                   `json:"complete"`
+	All            bool                   `json:"all"`
+	Reviews        []PRReview             `json:"reviews"`
+	Threads        []ReviewThread         `json:"threads"`
+	Conversation   *[]ConversationComment `json:"conversation,omitempty"`
+	Notes          []string               `json:"notes,omitempty"`
 }
 
 type reviewPageInfo struct {
@@ -102,8 +116,8 @@ type graphReviewThread struct {
 const reviewCommentFields = `id author{login} body url created_at:createdAt updated_at:updatedAt diff_hunk:diffHunk`
 const reviewThreadFields = `id path line start_line:startLine original_line:originalLine original_start_line:originalStartLine diff_side:diffSide start_diff_side:startDiffSide is_resolved:isResolved is_outdated:isOutdated comments(first:100){nodes{` + reviewCommentFields + `}pageInfo{hasNextPage endCursor}}`
 
-// PullRequestReviews reads submitted review history and unresolved threads by
-// default. Bodies remain source text, not inferred tasks or resolutions.
+// PullRequestReviews는 기본적으로 제출된 리뷰 이력과 미해결 스레드를 읽는다.
+// 본문은 원문으로 보존하고 작업·해결 여부를 추론하지 않는다.
 func (client Client) PullRequestReviews(ctx context.Context, repo string, options ReviewOptions) (ReviewResult, error) {
 	result := ReviewResult{Status: "ok", Repo: repo, Number: options.Number, Complete: true, All: options.All, Reviews: []PRReview{}, Threads: []ReviewThread{}}
 	if err := options.Validate(); err != nil {
@@ -121,6 +135,12 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 	}
 	threadFields := strings.Replace(reviewThreadFields, reviewCommentFields, fields, 1)
 	query := `query PullRequestReviews($owner:String!,$name:String!,$number:Int!,$cursor:String){repository(owner:$owner,name:$name){pullRequest(number:$number){url head_sha:headRefOid review_decision:reviewDecision reviewThreads(first:100,after:$cursor){nodes{` + threadFields + `}pageInfo{hasNextPage endCursor}}}}}`
+	firstQuery := strings.Replace(query, "reviewThreads(first:100", submittedReviewSelection+" reviewThreads(first:100", 1)
+	if sparse {
+		// 증분 스레드 조회의 원문 생략 계약은 유지한다.
+		firstQuery = query
+	}
+	var submitted *submittedReviewConnection
 	var cursor any
 	seen, threadIDs := map[string]bool{}, map[string]bool{}
 	for {
@@ -129,9 +149,10 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 			Data struct {
 				Repository *struct {
 					PR *struct {
-						URL            string `json:"url"`
-						HeadSHA        string `json:"head_sha"`
-						ReviewDecision string `json:"review_decision"`
+						URL            string                     `json:"url"`
+						HeadSHA        string                     `json:"head_sha"`
+						ReviewDecision string                     `json:"review_decision"`
+						Submitted      *submittedReviewConnection `json:"submittedReviews"`
 						Threads        *struct {
 							Nodes    []graphReviewThread `json:"nodes"`
 							PageInfo reviewPageInfo      `json:"pageInfo"`
@@ -140,9 +161,20 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 				} `json:"repository"`
 			} `json:"data"`
 		}
-		err := client.api(ctx, "POST", "graphql", map[string]any{"query": query, "variables": map[string]any{"owner": owner, "name": name, "number": options.Number, "cursor": cursor}}, &response)
+		pageQuery := query
+		if cursor == nil {
+			pageQuery = firstQuery
+		}
+		err := client.api(ctx, "POST", "graphql", map[string]any{"query": pageQuery, "variables": map[string]any{"owner": owner, "name": name, "number": options.Number, "cursor": cursor}}, &response)
 		if err == nil {
-			err = response.err()
+			if graphErr := response.err(); graphErr != nil {
+				// 일부 선택 필드의 오류로 이미 반환된 유효한 스레드 원문을 버리지 않는다.
+				if response.Data.Repository != nil && response.Data.Repository.PR != nil && response.Data.Repository.PR.Threads != nil && response.Data.Repository.PR.HeadSHA != "" && response.Data.Repository.PR.URL != "" {
+					partial(graphErr)
+				} else {
+					err = graphErr
+				}
+			}
 		}
 		if err == nil && (response.Data.Repository == nil || response.Data.Repository.PR == nil) {
 			err = errors.New("GitHub returned no pull request")
@@ -163,6 +195,7 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 		pr := response.Data.Repository.PR
 		if result.HeadSHA == "" {
 			result.URL, result.HeadSHA, result.ReviewDecision = pr.URL, pr.HeadSHA, pr.ReviewDecision
+			submitted = pr.Submitted
 		} else if pr.HeadSHA != result.HeadSHA {
 			partial(errors.New("PR head changed during review collection; collect again for the new commit"))
 			break
@@ -212,7 +245,13 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 			start = end
 		}
 	}
-	for page := 1; ; {
+	if submitted != nil {
+		if err := client.collectSubmittedReviews(ctx, repo, &result, submitted); err != nil {
+			partial(fmt.Errorf("Submitted review history incomplete: %w", err))
+		}
+	}
+	// 선택 필드가 없는 응답은 REST로 보완하며, 정상 GraphQL 응답은 중복 조회하지 않는다.
+	for page := 1; submitted == nil; {
 		var reviews []PRReview
 		next, err := client.API.Do(ctx, "GET", fmt.Sprintf("repos/%s/pulls/%d/reviews?per_page=100&page=%d", repo, options.Number, page), nil, &reviews)
 		if err != nil {
@@ -233,6 +272,35 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 		}
 		page = next
 	}
+	if options.Conversation {
+		comments := []ConversationComment{}
+		result.Conversation = &comments
+		seen := map[int64]bool{}
+		for page := 1; ; {
+			var batch []ConversationComment
+			next, err := client.API.Do(ctx, "GET", fmt.Sprintf("repos/%s/issues/%d/comments?per_page=100&page=%d", repo, options.Number, page), nil, &batch)
+			if err != nil {
+				partial(fmt.Errorf("PR conversation incomplete: %w", err))
+				break
+			}
+			for _, comment := range batch {
+				if comment.ID <= 0 || comment.URL == "" || seen[comment.ID] {
+					partial(errors.New("PR conversation comment lacks identity/URL or was repeated during pagination"))
+					continue
+				}
+				seen[comment.ID] = true
+				comments = append(comments, comment)
+			}
+			if next == 0 {
+				break
+			}
+			if next <= page {
+				partial(errors.New("PR conversation pagination did not advance"))
+				break
+			}
+			page = next
+		}
+	}
 	var current struct {
 		Head struct {
 			SHA string `json:"sha"`
@@ -242,6 +310,8 @@ func (client Client) PullRequestReviews(ctx context.Context, repo string, option
 		partial(fmt.Errorf("Unable to verify PR head after collection: %w", err))
 	} else if current.Head.SHA != result.HeadSHA {
 		partial(errors.New("PR head changed or is unavailable after review collection; collect again"))
+	} else {
+		result.HeadVerified = true
 	}
 	return result, nil
 }

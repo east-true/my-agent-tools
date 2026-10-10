@@ -93,7 +93,7 @@ func TestInspectCLIUpdatesStateOnlyAfterCompleteDeliveredOutput(t *testing.T) {
 	api := &workflowCLIAPI{body: "original request"}
 	args := []string{"inspect", "--number", "7", "--repo", "owner/repo", "--state-file", state, "--artifact-dir", filepath.Join(dir, "evidence"), "--json"}
 	code, data, stderr := invokeWorkflowCLI(t, api, args...)
-	if code != 0 || stderr != "" || !bytes.Contains(data, []byte(`"evidence_file"`)) {
+	if code != 0 || stderr != "" || !bytes.Contains(data, []byte("original request")) || !bytes.Contains(data, []byte(`"diff_hunk"`)) {
 		t.Fatalf("first result: code=%d data=%s stderr=%s", code, data, stderr)
 	}
 	before, err := os.ReadFile(state)
@@ -101,7 +101,7 @@ func TestInspectCLIUpdatesStateOnlyAfterCompleteDeliveredOutput(t *testing.T) {
 		t.Fatal(err)
 	}
 	code, data, stderr = invokeWorkflowCLI(t, api, args...)
-	if code != 0 || !bytes.Contains(data, []byte(`"status":"unchanged"`)) || bytes.Contains(data, []byte("original request")) || !bytes.Contains(data, []byte(`"attention_required":true`)) {
+	if code != 0 || !bytes.Contains(data, []byte(`"status":"unchanged"`)) || !bytes.Contains(data, []byte("original request")) || !bytes.Contains(data, []byte(`"outstanding"`)) || !bytes.Contains(data, []byte(`"attention_required":true`)) {
 		t.Fatalf("repeated result: code=%d data=%s stderr=%s", code, data, stderr)
 	}
 	api.partial = true

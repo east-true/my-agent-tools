@@ -1,0 +1,1293 @@
+{
+  "protocol": {
+    "version": 1,
+    "measured_at_utc": "2026-10-10T18:58:30.414567+00:00",
+    "tasks": [
+      "fs-file"
+    ],
+    "schedule": [
+      {
+        "task": "fs-file",
+        "method": "direct",
+        "repetition": 1
+      },
+      {
+        "task": "fs-file",
+        "method": "tools",
+        "repetition": 1
+      },
+      {
+        "task": "fs-file",
+        "method": "tools",
+        "repetition": 2
+      },
+      {
+        "task": "fs-file",
+        "method": "direct",
+        "repetition": 2
+      },
+      {
+        "task": "fs-file",
+        "method": "direct",
+        "repetition": 3
+      },
+      {
+        "task": "fs-file",
+        "method": "tools",
+        "repetition": 3
+      }
+    ],
+    "max_model_calls": 6,
+    "repetitions_per_method": 3,
+    "configured_defaults": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "high",
+      "profile": null
+    },
+    "runner_hashes": {
+      "actionable_benchmark_docs.py": "a5e0424fdb3596d45128b9b17d2b00b71d83564b5fa2bbfaa01abd2bef351482",
+      "fs_completion_benchmark.py": "1f5242e3dfa727d782103cc49edbed93237e943f177dd1df7dd1bf5567898591",
+      "fs_workflow_benchmark.py": "abe70254b838f0edd2cc3c7c9e9fa212f4048f9615fcc86ebca0d83d518c4d74",
+      "github_benchmark_docs.py": "cbd6fd3738d2c1969376ade5853ee3f63fce67a29f40d23cd323defddd56fe4f",
+      "github_candidates.py": "0a8c854cdeed54fc5ee908f6f58cac0601ceb910fb1c8c4c29287deb943aab4b",
+      "github_graphql_fixture.py": "3d35d49fc4123c71eb29345f811052ba8af7709e25d652d3edc9cd44d4587a52",
+      "measure_delta_output.py": "dc57818818ed2d0876f4290f402ee2d3eb3eff0c4bfe2b20c3e18303fa4623b6",
+      "measure_review_metadata.py": "2e30abb0ff5fb0a7d80df88d0bb2495a325129bf9b4e24e8e9b20a03246703a4",
+      "publish_actionable_benchmark.py": "82e3c321864a94d3de7f62d2c0d21a05ba898e0dc431a16159d8a77a14e60f54",
+      "publish_all_github_benchmark.py": "ffe876b409b562b42388d02c7248478d6357a6345e64a235527d792ba96d4bae",
+      "publish_fs_benchmark.py": "5d39f82b07753307ed754396028838624e5c5e6b19a05e54331f5ce2980fcacd",
+      "publish_github_study.py": "c6f3e5912302241e0d66391c72e8ca9dd545b0561385e9d81c73b4c1cf69d886",
+      "publish_usage_benchmark.py": "397c50e3fd81a052d97598e79107b60d9c8e79d1dad0c12c15a6eed5f71cfec0",
+      "requirements.txt": "5d1df13d71eeedf33a16808e5b90ef74eecb769edc986b497650450a66965127",
+      "run_actionable_benchmark.py": "5e65bc37bdf6123f1dc460e3c57ea103fce2d7ecfffb3d2235b2474b978cc1a8",
+      "run_all_github_benchmark.py": "18ac8d78093168be269f67351f0c75d089dff7f3dd373b39a0cc9c2aa189814b",
+      "run_branch_cleanup_benchmark.py": "c3609d9e5c6ae66327a6cd750e1a0cce36ccd0f8750c0a1fa37437ef82d470ca",
+      "run_command_benchmark.py": "e7c2f45bd8fe68b847358573baef5333de4c06380f5f2c2d93d82461abfb7726",
+      "run_default_benchmark.py": "461e48e0f4566eb7ae7122e8c895d9bfc1d1ae34c46fa310769decb1dcc844b5",
+      "run_dependabot_benchmark.py": "e8c79d6af8ea3582f9abc044379c53a5b1bc8b051129d197ed77874feb7071c7",
+      "run_fs_benchmark.py": "1ce5133ed096e8cb0fcc5fcaa5a20705e293e6b8916024f1ca1fc2e40ab1c59c",
+      "run_github_study.py": "658530b59582d1477c726ec9e66558e5011146c46c9fe48fa3e26f9c1327b58a",
+      "run_model_benchmark.py": "6285b62b6d60234bbb6f8a8eb4467ffb529d8a8913c4a29c8cb0a569b1ef1964",
+      "run_usage_benchmark.py": "0fb865ea82b40f489082eabde232b09961864f62b2b05f5c5f18e9febe896726",
+      "run_worker_benchmark.py": "67a9b4605df3a91005a48fbdb927dda8594cacb9676cfe4af333eb5c0e2097a7",
+      "run_workflow_benchmark.py": "b0bec9e3b365afddab5a5f5c915b9b96490466290749fb2c4e48c41dd065c19a",
+      "test_actionable_benchmark.py": "ef157166a691dbb059628cf243d1703adce7e237fccead3af7aadcbee61ca9ff",
+      "test_actionable_docs.py": "c64a668406ccc7cfa90a51d132b6ae0f091ee633976dd796025b403d03de9d28",
+      "test_all_github_benchmark.py": "32744c351c26a09dcaa901ff3877dd0b87df19bb79f7bf18a12bb654e46e1a44",
+      "test_default_benchmark.py": "b0ab0b104583304786d7749646d2aea85e5b226186e91bc73a515b93eec4cb79",
+      "test_fs_benchmark.py": "7329ab24d32c8876978bb73c84ae1f6c50b21a289cda42739cede2d192784861",
+      "test_fs_example.py": "164c02ef3d4409e6bc730cc1fd8ab07a2c86860b3c7ad4710ad0cdb6373787bc",
+      "test_github_candidates.py": "0907680fdced726ede1510383893fde514a9b911248b36284966ccb6fe2655e9",
+      "test_github_study.py": "978ca78b0a5b4aaf80a44e8ab8d3139f1f874eff012fc41355702433e3457f95",
+      "test_resume_evidence.py": "a99a695d9bd6a4b4940e621ffa8b73dc4568aaf095e7cf0103313417a2f9f6f9",
+      "test_usage_benchmark.py": "08b0716ce6d40d24830556e55c761650b34419cfcd1ec62bb183b7839e089066",
+      "test_workflow_reports.py": "98a70f897f1a5624836cc8ca1686a8feda9185db33e8722b27f94357827e3247",
+      "usage_benchmark_docs.py": "1dd4b2edf1205f41e7a4b7e94082bdd5f4420cb8a16004dbaaacdf4f1d641068",
+      "workflow_reports.py": "c231ffe1955acfc14e454f06e265bdcbbb2e9dd9cff7504b8e529976452d9a7f"
+    },
+    "cli_sha256": "d7ca323d87923c3130698f46ad834c224dc7fefb56eb084eabe2d5118033007b",
+    "helper_sha256": "40843cf4ae60c2ff13b03c7e8462ccbae666ebb0ec8c5dbfad13653e1b5b9fd6",
+    "overlay_sha256": "580c8dc2a2a27df3f6b56ec1a672a3b278668f1b7cfbc0dbb5a5771d9ebd1aaa",
+    "preflights": [
+      {
+        "task": "fs-file",
+        "repetition": 1,
+        "correct": true,
+        "model_calls": 0
+      },
+      {
+        "task": "fs-file",
+        "repetition": 2,
+        "correct": true,
+        "model_calls": 0
+      },
+      {
+        "task": "fs-file",
+        "repetition": 3,
+        "correct": true,
+        "model_calls": 0
+      }
+    ],
+    "cache_controlled": false,
+    "model_settings": "inherited defaults; no model/effort overrides or ignore-user-config",
+    "limitations": [
+      "Session-inspired synthetic tasks; not a replay of complete private sessions.",
+      "Independent one-use tasks; no warmed command state or controlled provider input cache.",
+      "Linux runtime, actual CLI/Git/gh, API-only localhost overlay with CLI invocation logging.",
+      "Local API latency is not GitHub production latency. Direct GraphQL batching is supported.",
+      "Checked-in edit-integer example is installed; tool discovery/authoring is not simulated for this helper.",
+      "Malformed JUnit case is an explicit error scenario, separate from regular efficiency.",
+      "No direct comparison to earlier different fixtures, model defaults or output scopes."
+    ],
+    "inclusion_policy": "Keep all scheduled attempts, failures and unfavorable results. Stop on missing usage; no replacements.",
+    "prompts": {
+      "fs-file": {
+        "1": {
+          "direct": "Complete only the specified synthetic task. Preserve all original unrelated bytes and native modes. No delegation, model calls, installs, real GitHub mutations, external network or reading source/harness/protocol/results/control/other sessions. Python is python3. Local scripts and authored inputs are allowed. Batch and filter naturally; no minimum command count, mandatory preview or artificial page limit. Installed shell executables tools, gh, git, rg and python3 are on PATH. Keep any authored files/snapshots inside the current workspace, which is fresh for each trial. Input authoring, mapping, retries, source edits and final verification count as work. Return only the answer schema.\nRead settings.py exact current bytes and preimage SHA256. Increase its retry_budget by exactly 3. Preserve timeout=30, every other byte, CRLF, final newline state and native mode. Apply and read back the real file; return before/after byte SHA, resulting retry_budget/timeout and verified/unrelated_preserved. Do not assume the initial budget.\nMethod: direct shell/rg/Python standard library; never invoke tools or import its implementation.\n",
+          "tools": "Complete only the specified synthetic task. Preserve all original unrelated bytes and native modes. No delegation, model calls, installs, real GitHub mutations, external network or reading source/harness/protocol/results/control/other sessions. Python is python3. Local scripts and authored inputs are allowed. Batch and filter naturally; no minimum command count, mandatory preview or artificial page limit. Installed shell executables tools, gh, git, rg and python3 are on PATH. Keep any authored files/snapshots inside the current workspace, which is fresh for each trial. Input authoring, mapping, retries, source edits and final verification count as work. Return only the answer schema.\nRead settings.py exact current bytes and preimage SHA256. Increase its retry_budget by exactly 3. Preserve timeout=30, every other byte, CRLF, final newline state and native mode. Apply and read back the real file; return before/after byte SHA, resulting retry_budget/timeout and verified/unrelated_preserved. Do not assume the initial budget.\nMethod: invoke the shell executable named tools for collection; fs/github are its subcommands. Python may author requests, map results, edit/read back and filter output.\nThe checked-in examples/fs/edit-integer.py is installed as trusted edit-integer.py on PATH. Run edit-integer.py --path settings.py --key retry_budget --amount 3 --expect timeout=30 directly. It connects production inspect/apply, checks timeout before writing and verifies final exact bytes/SHA/mode. Receipt.value is actual retry_budget; receipt.preserved_integers.timeout is the observed unchanged timeout, not an assumed value. Receipt also has path,before_sha256,after_sha256,verified,unrelated_preserved. Use successful verified evidence without duplicate read-back. Or batch CLI inspection, an authored edit and full read-back naturally.\n"
+        },
+        "2": {
+          "direct": "Complete only the specified synthetic task. Preserve all original unrelated bytes and native modes. No delegation, model calls, installs, real GitHub mutations, external network or reading source/harness/protocol/results/control/other sessions. Python is python3. Local scripts and authored inputs are allowed. Batch and filter naturally; no minimum command count, mandatory preview or artificial page limit. Installed shell executables tools, gh, git, rg and python3 are on PATH. Keep any authored files/snapshots inside the current workspace, which is fresh for each trial. Input authoring, mapping, retries, source edits and final verification count as work. Return only the answer schema.\nRead settings.py exact current bytes and preimage SHA256. Increase its retry_budget by exactly 3. Preserve timeout=30, every other byte, CRLF, final newline state and native mode. Apply and read back the real file; return before/after byte SHA, resulting retry_budget/timeout and verified/unrelated_preserved. Do not assume the initial budget.\nMethod: direct shell/rg/Python standard library; never invoke tools or import its implementation.\n",
+          "tools": "Complete only the specified synthetic task. Preserve all original unrelated bytes and native modes. No delegation, model calls, installs, real GitHub mutations, external network or reading source/harness/protocol/results/control/other sessions. Python is python3. Local scripts and authored inputs are allowed. Batch and filter naturally; no minimum command count, mandatory preview or artificial page limit. Installed shell executables tools, gh, git, rg and python3 are on PATH. Keep any authored files/snapshots inside the current workspace, which is fresh for each trial. Input authoring, mapping, retries, source edits and final verification count as work. Return only the answer schema.\nRead settings.py exact current bytes and preimage SHA256. Increase its retry_budget by exactly 3. Preserve timeout=30, every other byte, CRLF, final newline state and native mode. Apply and read back the real file; return before/after byte SHA, resulting retry_budget/timeout and verified/unrelated_preserved. Do not assume the initial budget.\nMethod: invoke the shell executable named tools for collection; fs/github are its subcommands. Python may author requests, map results, edit/read back and filter output.\nThe checked-in examples/fs/edit-integer.py is installed as trusted edit-integer.py on PATH. Run edit-integer.py --path settings.py --key retry_budget --amount 3 --expect timeout=30 directly. It connects production inspect/apply, checks timeout before writing and verifies final exact bytes/SHA/mode. Receipt.value is actual retry_budget; receipt.preserved_integers.timeout is the observed unchanged timeout, not an assumed value. Receipt also has path,before_sha256,after_sha256,verified,unrelated_preserved. Use successful verified evidence without duplicate read-back. Or batch CLI inspection, an authored edit and full read-back naturally.\n"
+        },
+        "3": {
+          "direct": "Complete only the specified synthetic task. Preserve all original unrelated bytes and native modes. No delegation, model calls, installs, real GitHub mutations, external network or reading source/harness/protocol/results/control/other sessions. Python is python3. Local scripts and authored inputs are allowed. Batch and filter naturally; no minimum command count, mandatory preview or artificial page limit. Installed shell executables tools, gh, git, rg and python3 are on PATH. Keep any authored files/snapshots inside the current workspace, which is fresh for each trial. Input authoring, mapping, retries, source edits and final verification count as work. Return only the answer schema.\nRead settings.py exact current bytes and preimage SHA256. Increase its retry_budget by exactly 3. Preserve timeout=30, every other byte, CRLF, final newline state and native mode. Apply and read back the real file; return before/after byte SHA, resulting retry_budget/timeout and verified/unrelated_preserved. Do not assume the initial budget.\nMethod: direct shell/rg/Python standard library; never invoke tools or import its implementation.\n",
+          "tools": "Complete only the specified synthetic task. Preserve all original unrelated bytes and native modes. No delegation, model calls, installs, real GitHub mutations, external network or reading source/harness/protocol/results/control/other sessions. Python is python3. Local scripts and authored inputs are allowed. Batch and filter naturally; no minimum command count, mandatory preview or artificial page limit. Installed shell executables tools, gh, git, rg and python3 are on PATH. Keep any authored files/snapshots inside the current workspace, which is fresh for each trial. Input authoring, mapping, retries, source edits and final verification count as work. Return only the answer schema.\nRead settings.py exact current bytes and preimage SHA256. Increase its retry_budget by exactly 3. Preserve timeout=30, every other byte, CRLF, final newline state and native mode. Apply and read back the real file; return before/after byte SHA, resulting retry_budget/timeout and verified/unrelated_preserved. Do not assume the initial budget.\nMethod: invoke the shell executable named tools for collection; fs/github are its subcommands. Python may author requests, map results, edit/read back and filter output.\nThe checked-in examples/fs/edit-integer.py is installed as trusted edit-integer.py on PATH. Run edit-integer.py --path settings.py --key retry_budget --amount 3 --expect timeout=30 directly. It connects production inspect/apply, checks timeout before writing and verifies final exact bytes/SHA/mode. Receipt.value is actual retry_budget; receipt.preserved_integers.timeout is the observed unchanged timeout, not an assumed value. Receipt also has path,before_sha256,after_sha256,verified,unrelated_preserved. Use successful verified evidence without duplicate read-back. Or batch CLI inspection, an authored edit and full read-back naturally.\n"
+        }
+      }
+    },
+    "source_manifest": [
+      {
+        "path": "cmd/tools/main.go",
+        "sha256": "7b1080531b6994117dea7a28e8a0bf9fcfcf52831d56c6051b7647371088dfb1"
+      },
+      {
+        "path": "examples/fs/edit-integer.py",
+        "sha256": "40843cf4ae60c2ff13b03c7e8462ccbae666ebb0ec8c5dbfad13653e1b5b9fd6"
+      },
+      {
+        "path": "go.mod",
+        "sha256": "9cdfe21c9804fe3ba95648b65e158f7bd88eb0753cf36906bfe253a1655a44c5"
+      },
+      {
+        "path": "go.sum",
+        "sha256": "5635d406c9086d72751fb8e7a9bd9735f41ffd57e5c509210ebeef64f7885a3d"
+      },
+      {
+        "path": "internal/cli/actionable_output_test.go",
+        "sha256": "9b4bd1168f0e91267d69c840225c0d51e23884904da763edb4ecb813f8a29c76"
+      },
+      {
+        "path": "internal/cli/ci_failures.go",
+        "sha256": "d6d5dccbbe629d43a8c9a12c9596ce6c27f5f2446b431edbd6c35e79c38153b5"
+      },
+      {
+        "path": "internal/cli/ci_failures_test.go",
+        "sha256": "4b09ce68832d5666ceb6c8b33496c461ba9e3978c34bc7ef659ce9f5f805fced"
+      },
+      {
+        "path": "internal/cli/ci_rerun.go",
+        "sha256": "cbdbbbcee26d9115e2843cd50a371ee2556dabc6217d6b9e68d54d7224ac036e"
+      },
+      {
+        "path": "internal/cli/ci_rerun_state.go",
+        "sha256": "bd731a91c46f9aad7def64b2f14bdfb4cdca063a2a24b57b1e8b6a87cdd2ef64"
+      },
+      {
+        "path": "internal/cli/ci_rerun_state_test.go",
+        "sha256": "c4b8476e15b4b1efdbf13bd86cd8d033e4c627c3ef52edc181703b5cc32a0a8b"
+      },
+      {
+        "path": "internal/cli/cleanup.go",
+        "sha256": "b453d82dd23c770dcf50722b4d3fb55a6ffded565088489bdb90844e0e7d4d5f"
+      },
+      {
+        "path": "internal/cli/cleanup_test.go",
+        "sha256": "7517c8dd1c00d68fa3fb1120ab2c27b8600f26fcbbfe6a5d42b28e224d4c16eb"
+      },
+      {
+        "path": "internal/cli/cli.go",
+        "sha256": "93bd0d22f81c898d4e28fdf47551544a9e643c1350b6da367aac5a7a340a291c"
+      },
+      {
+        "path": "internal/cli/cli_test.go",
+        "sha256": "834e76acdc9ceb1844515452bc03c8afaef065847c588d5e1b78fe5ad2ba4eeb"
+      },
+      {
+        "path": "internal/cli/compact.go",
+        "sha256": "c9a807eaab86c67660cd876546b6ee4a993867cf7b51221dc2cf37cb53f1c44d"
+      },
+      {
+        "path": "internal/cli/compact_measurement_test.go",
+        "sha256": "d8d6e066badb4123f1ca66615fc28e9d36c4f5e18b677c00f0d62c1af190870e"
+      },
+      {
+        "path": "internal/cli/compact_reviews_test.go",
+        "sha256": "8e409bbcf27340d00b184a012db6299551384c339355e7f47e084a9e8a3a0e6b"
+      },
+      {
+        "path": "internal/cli/compact_state_test.go",
+        "sha256": "4500f14acafc375aaf93ba6b016ebea0aa25e74a35f881ad31d7377d86355d4f"
+      },
+      {
+        "path": "internal/cli/dependabot.go",
+        "sha256": "0a0d5344de67659f0fdcc32bbaea18122825d9e24b6353bc71b3a160c93d2e24"
+      },
+      {
+        "path": "internal/cli/dependabot_test.go",
+        "sha256": "b2ae72a3a48636838df075bfebc5923b01e0e528fe23bbfe4ad6d5535dd11105"
+      },
+      {
+        "path": "internal/cli/fs.go",
+        "sha256": "af70e243e349589d7ab99b596fb13af5892db1e471c90ed3c9b57e4299cfda73"
+      },
+      {
+        "path": "internal/cli/fs_test.go",
+        "sha256": "0adf5c684664d9548fb95a1e7f04af353e8a70b544a965d3f4caf747421433b0"
+      },
+      {
+        "path": "internal/cli/improvements_test.go",
+        "sha256": "b692b539d636f81ed62eef0cb9e4017acb2338c350c41af55a3fbca8e4cc6fba"
+      },
+      {
+        "path": "internal/cli/pr_merge.go",
+        "sha256": "7674123e24169d138bac076fbef4e5c232baa405ba31cd515fa90a75f4b38a81"
+      },
+      {
+        "path": "internal/cli/pr_merge_evidence_test.go",
+        "sha256": "a751c6684f1805dcb0b3020e126eb426e9bbd58417a98150f8abc115286f1b24"
+      },
+      {
+        "path": "internal/cli/pr_merge_test.go",
+        "sha256": "1b2829b4c1039ae815b35d234d1634e994a9bc39b500a08c8f24f506f89c41f9"
+      },
+      {
+        "path": "internal/cli/pr_reviews.go",
+        "sha256": "dba2ad324179a0757c913504fe255570704329e6070f0da70c125edb56084325"
+      },
+      {
+        "path": "internal/cli/pr_sources_test.go",
+        "sha256": "dbc354e8d7ae4f6d5cda03af093eabf1ca76bae62caf0779fd07f87129b01e3d"
+      },
+      {
+        "path": "internal/cli/pr_state.go",
+        "sha256": "dfcdd2252e28256c53c74c44dd935f3e6c357eec00db9cd44fc62633d332db94"
+      },
+      {
+        "path": "internal/cli/pr_workflows.go",
+        "sha256": "6f2f35efdba253ceca04afc6c8c8553b51ea16869107226744c43dd355aca786"
+      },
+      {
+        "path": "internal/cli/pr_workflows_test.go",
+        "sha256": "f3190a775297d0a83b4d12d5195e43b4b9dcab1a5e7c496a664988aa32d5413e"
+      },
+      {
+        "path": "internal/cli/review_rerun_test.go",
+        "sha256": "c712c8780a1c31306fd91aab907b076445b32ec8560dfb8d07cfdf500655204d"
+      },
+      {
+        "path": "internal/cli/setup.go",
+        "sha256": "dff280ec195bc0ef064145ef6bf3bf7a2a36a5840645d71353f2bb9fdf6f66dd"
+      },
+      {
+        "path": "internal/cli/setup_test.go",
+        "sha256": "8f90d7794febca9e66e508dec550993f3137a32d5d4a03586c3d07c942c1e6bb"
+      },
+      {
+        "path": "internal/cli/usage_features_test.go",
+        "sha256": "cc635f99bf22bc8ee34b7ad8ddc18f31ea30bfc3dae2aa5f86ea0f2ed141e348"
+      },
+      {
+        "path": "internal/cli/worktree_test.go",
+        "sha256": "46111d2411678600c2d4d34131f82d1be53e21afdacb8670f3a8821256186e9e"
+      },
+      {
+        "path": "internal/command/runner.go",
+        "sha256": "97ce6656fb463543187167358cd7cc1ff6b96132406adde3b41c5f74744cbf40"
+      },
+      {
+        "path": "internal/filesystem/actionable_test.go",
+        "sha256": "fc7a315c1f42fb2e7d8f31c759c2b423d7a7c7de5cf056262af6c8d5fff91030"
+      },
+      {
+        "path": "internal/filesystem/apply.go",
+        "sha256": "b9b2901a681219929d6bfb019d5a112a9c9f94468a2ce22942d9dbe58efd32a9"
+      },
+      {
+        "path": "internal/filesystem/batch_spec_test.go",
+        "sha256": "58b11989577ea04ec7a1c2ad0512cfbef83a50aec8f69f4f84522402afb83ea0"
+      },
+      {
+        "path": "internal/filesystem/delta.go",
+        "sha256": "bb87dcfc7faf31c36f9f2cdd376faccf94c09b86003e723ee5cfb3eb6cd86fdd"
+      },
+      {
+        "path": "internal/filesystem/diagnostic.go",
+        "sha256": "92d1999e61e9fc63b09106a55b6a9852c62da96ed77c4992e370ea19b3322738"
+      },
+      {
+        "path": "internal/filesystem/diff.go",
+        "sha256": "d976ae16a8a77f93cf33666e2e5651fc358f0f295eefec652696687cde22ce8d"
+      },
+      {
+        "path": "internal/filesystem/filesystem_test.go",
+        "sha256": "c2c62ac5af1707a79e695e696b23cb31ba95bf57b53fc3aaa339bad79c5add99"
+      },
+      {
+        "path": "internal/filesystem/inspect.go",
+        "sha256": "a3c6ccc2df3c4d3d60d6d80db2a2eca524c647984482cd5d44bfdb12c5ea5515"
+      },
+      {
+        "path": "internal/filesystem/inspect_batch.go",
+        "sha256": "67282a6673e21d8cd4e08d548f806c58797b0aaf119ab583071c7727c64de59b"
+      },
+      {
+        "path": "internal/filesystem/markdown.go",
+        "sha256": "5b872e382ae3e62ac864dca327b231b7aaa15436ac6f09009df14e3ef0fdf5f8"
+      },
+      {
+        "path": "internal/filesystem/observe.go",
+        "sha256": "a295d1abeef97496b168e8610ca72d1e665bceb01e0ef4319bde8caa763ee629"
+      },
+      {
+        "path": "internal/filesystem/plan.go",
+        "sha256": "5c52a7d8d62b07f29197be51d2d94281a89a254920d586228a0aee3898a14d40"
+      },
+      {
+        "path": "internal/filesystem/recount_test.go",
+        "sha256": "a95c8451fd0a6d56ca32801934a3da84486f623c408e6e746bff9a95ca2e1921"
+      },
+      {
+        "path": "internal/filesystem/scope.go",
+        "sha256": "5854dd06cefddbf0ca675b12378bd04d16c3ff169e33adb8b6e51bb4a6a81a68"
+      },
+      {
+        "path": "internal/filesystem/test_results.go",
+        "sha256": "22e901370ab8415d03d95a0030510699116ccc36bedb6f06b76cfc48731bc024"
+      },
+      {
+        "path": "internal/filesystem/usage_features_test.go",
+        "sha256": "4a8636f002c791586668c88baaf1360a229761fbbc7418fb3b592f426657c691"
+      },
+      {
+        "path": "internal/filesystem/workflows_test.go",
+        "sha256": "8efdf2f10ad9fbc4e03bbe87fb2e832cd0d40195a5b504bc883cfe12a6d165f3"
+      },
+      {
+        "path": "internal/github/api.go",
+        "sha256": "0f5b112667bcef310f7c81d6c33d094953aaa4739f5d04e3eeda72f7d6e3bf6f"
+      },
+      {
+        "path": "internal/github/branch.go",
+        "sha256": "33c98731edf5b432470b1035c033824302e6f95ada7a356b910ef090ab998a6c"
+      },
+      {
+        "path": "internal/github/branch_test.go",
+        "sha256": "e06ace10f5d64a817bd6dea66c6f795920fefad4eb2cb3006029edbf7aa31a1e"
+      },
+      {
+        "path": "internal/github/cache.go",
+        "sha256": "386234d6318a7d3afd68a8e199818bfd1a564da6b9885db56222e7042edce681"
+      },
+      {
+        "path": "internal/github/ci_cache.go",
+        "sha256": "36dd3f5689011c31ed879ba6b06dd355cf3da2cc367fac76a1d5a215dca405ff"
+      },
+      {
+        "path": "internal/github/ci_checkpoint.go",
+        "sha256": "d38184eee3d4a53f410337f3f3f6226c976aa57beadc04177449b5a83bac2d62"
+      },
+      {
+        "path": "internal/github/ci_evidence.go",
+        "sha256": "beed6e32960e148c9afd1951553214487d44c959b1f29a1f0a11ff911d16432b"
+      },
+      {
+        "path": "internal/github/ci_evidence_test.go",
+        "sha256": "656d77853d66cd1bc6baee84d90ef0f896c30b2b6420e26995ca552c00648ea0"
+      },
+      {
+        "path": "internal/github/ci_failures.go",
+        "sha256": "7ea71d949fb07c16828f52a1fa7b3a1fa77d9533308b5e3798e6a92093eae7a8"
+      },
+      {
+        "path": "internal/github/ci_failures_test.go",
+        "sha256": "0df8ad0111c00f97597d05079373982556ea6ef0038a02fbe934071d78d89461"
+      },
+      {
+        "path": "internal/github/ci_log_download.go",
+        "sha256": "a33db02e869597f5b9cdca192eb02cb90725c77c6e575016349c407f95ddcd2b"
+      },
+      {
+        "path": "internal/github/ci_rerun.go",
+        "sha256": "6ff8a0a11450facc53d9eda09da17ea8137bd7335214ae01f4f3bcc77f40f0bc"
+      },
+      {
+        "path": "internal/github/ci_rerun_test.go",
+        "sha256": "003c472430acdb0f99b03ee6d4588a969098bba85e208776150566fe50586035"
+      },
+      {
+        "path": "internal/github/ci_resume_test.go",
+        "sha256": "04226f918a48279af3d9d7b8dfd28f421001c622d2c8c6494d9bfd959dea6794"
+      },
+      {
+        "path": "internal/github/cleanup.go",
+        "sha256": "a2cc228f557153c13a8f30e4a445d40430eabae673f3ad027338a20b3e1dce01"
+      },
+      {
+        "path": "internal/github/cleanup_test.go",
+        "sha256": "34fd74e50a6fea571e447f567e37237fba74ee5d93d1ca45ac135657532631ae"
+      },
+      {
+        "path": "internal/github/cleanup_worktree.go",
+        "sha256": "c6e40e2d2758644e38000e5ecd33f90089486c0264b8b6ca0a0328c4716a4911"
+      },
+      {
+        "path": "internal/github/cleanup_worktree_test.go",
+        "sha256": "ac6d567751e0cd7a6d8ddf609b3abbe6fe34d3386a0bb7b997faa9c5215b1fa3"
+      },
+      {
+        "path": "internal/github/client.go",
+        "sha256": "37662d4d233075fcd5514871aa4f4c81ff29a669ab3011335e22e85bfe453b0a"
+      },
+      {
+        "path": "internal/github/client_test.go",
+        "sha256": "ce9ae83165da1b5e4f8486659148a6aca365404625ba2fa1b38134cbaccbff16"
+      },
+      {
+        "path": "internal/github/conversation_test.go",
+        "sha256": "65001b5764d02c47f590e1dd8515c18889cb6d1bcdcb6a340687fe807cd20ebe"
+      },
+      {
+        "path": "internal/github/dependabot.go",
+        "sha256": "2f0abae52f0fefc42b39a50f382b9dbacd4908736437f47dfbd2e3d3b48f5f98"
+      },
+      {
+        "path": "internal/github/dependabot_test.go",
+        "sha256": "6661649404a91f9fca82770bb2f03b90c57be58a843f6abc5efb000f48407247"
+      },
+      {
+        "path": "internal/github/further_improvements_test.go",
+        "sha256": "a7885134bbf4e08c8a07b28dd12d161f31736fd269e5933651666755dee8409f"
+      },
+      {
+        "path": "internal/github/improvements_test.go",
+        "sha256": "7705727d484e235f780e59178eefae247af091137f07b4e155a7f2f1995246b6"
+      },
+      {
+        "path": "internal/github/policy.go",
+        "sha256": "e67f470c18292eb10dea17bf10a61b232985f2a9a63341a449768a7580f26317"
+      },
+      {
+        "path": "internal/github/pr_creation_context_test.go",
+        "sha256": "8eabe2694472a02fafbd7061dd214470c53f5ec455dc9e22070da29f8ea3f47a"
+      },
+      {
+        "path": "internal/github/pr_delta.go",
+        "sha256": "d528a5157da02a0c8b483bba88e9a544f42db78d37157382e35c088d25d2bcd3"
+      },
+      {
+        "path": "internal/github/pr_inspect.go",
+        "sha256": "bcba628d71267aa285469b2b0bc3ee3787292451c403580d3ea6cb005d44d820"
+      },
+      {
+        "path": "internal/github/pr_inspect_delta_test.go",
+        "sha256": "f3ee76d3e01d6e752de26e79280cfc54c1a444b97a710d17be9643abecc46c64"
+      },
+      {
+        "path": "internal/github/pr_merge.go",
+        "sha256": "af8d57eb5e3c96cc02b39b59a7ea285f0b93096ba9e7be28cf036c81fde3aabf"
+      },
+      {
+        "path": "internal/github/pr_merge_cleanup.go",
+        "sha256": "aeec664eacc2c8ac243475e4c03f733313f4db0379593d251f3fea88c276dfbe"
+      },
+      {
+        "path": "internal/github/pr_merge_diagnostics.go",
+        "sha256": "1a816065b17566673a288fc63288c57d3eb3112783b5c7347be4a3257a65b8a9"
+      },
+      {
+        "path": "internal/github/pr_merge_diagnostics_test.go",
+        "sha256": "82719bb9becb6ae1ef3e5a4eb7cc28c8a61aba147def5533d425688e59d584ce"
+      },
+      {
+        "path": "internal/github/pr_merge_test.go",
+        "sha256": "86f0bc876d4cc95b92ab3d26acb839617cd436c8106b46862d8ddbe7582bfbe3"
+      },
+      {
+        "path": "internal/github/pr_reviews.go",
+        "sha256": "80ef1bb498e3402873e5e566e752c3df62a91d2ab5c3cfe98ee6979706d988a0"
+      },
+      {
+        "path": "internal/github/pr_reviews_batch.go",
+        "sha256": "52b25793cf2a8a5d7ace9cb993536158ff3d85d5bc05c95e85252fb6bfdbf5da"
+      },
+      {
+        "path": "internal/github/pr_reviews_batch_test.go",
+        "sha256": "23de2c362b9f38f83e476bf96ee72b9ecc335a74d4b8e72ca2beb742af5b2440"
+      },
+      {
+        "path": "internal/github/pr_reviews_test.go",
+        "sha256": "f77f932dabf65f7565b6fa3159d55add007acbd05622de129d5e27b3d58421de"
+      },
+      {
+        "path": "internal/github/pr_workflows.go",
+        "sha256": "1de318671fc75234907806acd89f62300a318e036fc191ed8a31110dfb35d720"
+      },
+      {
+        "path": "internal/github/pr_workflows_test.go",
+        "sha256": "824aa27ccb9c42738ae6a43651929e9271e149dfcd44d9a78c1a0ec0fe88de8c"
+      },
+      {
+        "path": "internal/github/read_transport.go",
+        "sha256": "eb155c4ffc505b12f2f1ed5ddec3c07818ff5cb1933299358dfc47b9f4ec9456"
+      },
+      {
+        "path": "internal/github/read_transport_test.go",
+        "sha256": "1d7890daf483f2fa5816b312ea3b8588675630ff94fd5f9d944c0d70b63c90e2"
+      },
+      {
+        "path": "internal/github/setup.go",
+        "sha256": "3392921117f62a2e943785b90730e4691412b5ed8e913787b7f7912f5acad2e0"
+      },
+      {
+        "path": "internal/github/setup_test.go",
+        "sha256": "4e0499afb746c576a7aadbc606dd0bb4ef38b2747d866324b9891545d7a120b8"
+      },
+      {
+        "path": "internal/github/spec.go",
+        "sha256": "6844f3223f55edb6fed239ac5bac024ae5837e899491f5651a4f941cc04edae3"
+      },
+      {
+        "path": "internal/github/spec_test.go",
+        "sha256": "99f4805c6b62ff94691e1d37d2268b02cb0e4c9ffcd19c1c07e2e9f3d059babb"
+      },
+      {
+        "path": "internal/github/state_directory.go",
+        "sha256": "9d3ab40d9f9bda38f26ed0579319f28c0e0dd4702be229547e62f6f75924691a"
+      },
+      {
+        "path": "internal/github/state_directory_test.go",
+        "sha256": "81ab8b0c506279ec304f891fde9d39e1e5a9537f4d5ca166884895a987fbb251"
+      },
+      {
+        "path": "internal/github/template.go",
+        "sha256": "3942ac9b36dfe628b4830a48177d36e933beff5ac9d648ed7574d82ffc664522"
+      },
+      {
+        "path": "internal/github/template_test.go",
+        "sha256": "82b730de6be73113b9185d1432a721dacec834076116efe055347c48ebb91b9a"
+      },
+      {
+        "path": "internal/github/worktree.go",
+        "sha256": "af8b1a6731ee3fb20eac57ac4082863fd67d03da239464653bd7bf7694a826dc"
+      },
+      {
+        "path": "internal/github/worktree_test.go",
+        "sha256": "1dc7562067fd21a91fadc2f6f28fe639f8eef146a0cc817ed9bc310f22f9e3f5"
+      }
+    ]
+  },
+  "trials": [
+    {
+      "task": "fs-file",
+      "index": 1,
+      "method": "direct",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"command_benchmark\"",
+        "-c",
+        "permissions.command_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-usage-study-v7-receipt-20261011\"=\"write\"}",
+        "-c",
+        "permissions.command_benchmark.network.enabled=true",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/01-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/01-direct/answer.json",
+        "-"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "path": "settings.py",
+        "before_sha256": "38e12842c8bd1dd6bc657ccf6424e68f7076fb4277859b7b511177b8c047a0b9",
+        "after_sha256": "fff1e95b76f287b48a22bfea8511d87d34f33bb8441fc5e11296cdc8254c0110",
+        "retry_budget": 11,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state_checks": {
+        "original_files_preserved": true,
+        "no_api_mutations": true,
+        "actual_final_bytes_and_mode": true
+      },
+      "usage": {
+        "input_tokens": 30477,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 718,
+        "reasoning_output_tokens": 0
+      },
+      "seconds": 18.427,
+      "prompt_bytes": 1135,
+      "command_calls": 1,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 275,
+      "commands": [
+        "/bin/bash -lc \"python3 - <<'PY'\nfrom pathlib import Path\nimport hashlib\nimport os\nimport re\nimport stat\n\npath = Path('settings.py')\nbefore = path.read_bytes()\nmode = stat.S_IMODE(path.stat().st_mode)\nbefore_sha = hashlib.sha256(before).hexdigest()\npattern = rb'(?m)\"'^(?P<prefix>[ '\"\\\\t]*retry_budget[ \\\\t]*=[ \\\\t]*)(?P<value>[0-9]+)(?P<suffix>[ \\\\t]*(?:#[\"'^'\"\\\\r\\\\n]*)?\\\\r?\"'$)'\"'\nmatches = list(re.finditer(pattern, before))\nif len(matches) \"'!= 1:\n    raise ValueError('\"'Expected exactly one retry_budget assignment')\nmatch = matches[0]\nbudget = int(match.group('value')) + 3\ntimeout_pattern = rb'(?m)\"'^[ '\"\\\\t]*timeout[ \\\\t]*=[ \\\\t]*(?P<value>[0-9]+)[ \\\\t]*(?:#[\"'^'\"\\\\r\\\\n]*)?\\\\r?\"'$'\"'\ntimeouts = list(re.finditer(timeout_pattern, before))\nif len(timeouts) \"'!= 1 or int(timeouts[0].group('\"'value')) \"'!= 30:\n    raise ValueError('\"'Expected timeout=30')\nstart, end = match.span('value')\nafter_expected = before[:start] + str(budget).encode('ascii') + before[end:]\nwith path.open('r+b') as file:\n    file.write(after_expected)\n    file.truncate()\nafter = path.read_bytes()\nafter_mode = stat.S_IMODE(path.stat().st_mode)\nnew_matches = list(re.finditer(pattern, after))\nnew_timeouts = list(re.finditer(timeout_pattern, after))\nunrelated_preserved = after == after_expected and after_mode == mode\nverified = (unrelated_preserved and len(new_matches) == 1 and int(new_matches[0].group('value')) == budget and len(new_timeouts) == 1 and int(new_timeouts[0].group('value')) == 30)\nimport json\nprint(json.dumps({'path': str(path), 'before_sha256': before_sha, 'after_sha256': hashlib.sha256(after).hexdigest(), 'retry_budget': budget, 'timeout': int(new_timeouts[0].group('value')), 'verified': verified, 'unrelated_preserved': unrelated_preserved}))\nif not verified:\n    raise ValueError('Verification failed')\nPY\""
+      ],
+      "api_calls": 0,
+      "api_writes": 0,
+      "events_sha256": "a1cbd0a88d4269235188e2a7df146ece666f6215a06c4b936df6490c85ef1d64",
+      "api_access": [],
+      "input_plus_output": 31195,
+      "uncached_input": 15757,
+      "cached_input": 14720,
+      "output_tokens": 718,
+      "repetition": 1,
+      "cli_invocations": [],
+      "cli_calls": 0,
+      "uncached_plus_output": 16475
+    },
+    {
+      "task": "fs-file",
+      "index": 2,
+      "method": "tools",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"command_benchmark\"",
+        "-c",
+        "permissions.command_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-usage-study-v7-receipt-20261011\"=\"write\"}",
+        "-c",
+        "permissions.command_benchmark.network.enabled=true",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/02-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/02-tools/answer.json",
+        "-"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "path": "settings.py",
+        "before_sha256": "38e12842c8bd1dd6bc657ccf6424e68f7076fb4277859b7b511177b8c047a0b9",
+        "after_sha256": "fff1e95b76f287b48a22bfea8511d87d34f33bb8441fc5e11296cdc8254c0110",
+        "retry_budget": 11,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state_checks": {
+        "original_files_preserved": true,
+        "no_api_mutations": true,
+        "actual_final_bytes_and_mode": true
+      },
+      "usage": {
+        "input_tokens": 30267,
+        "cached_input_tokens": 14848,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 199,
+        "reasoning_output_tokens": 0
+      },
+      "seconds": 9.152,
+      "prompt_bytes": 1850,
+      "command_calls": 1,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 315,
+      "commands": [
+        "/bin/bash -lc 'edit-integer.py --path settings.py --key retry_budget --amount 3 --expect timeout=30'"
+      ],
+      "api_calls": 0,
+      "api_writes": 0,
+      "events_sha256": "d56b6f861aa476f7bde07f4f11b724b4b6520fc91d09654f00fff320188d75ea",
+      "api_access": [],
+      "input_plus_output": 30466,
+      "uncached_input": 15419,
+      "cached_input": 14848,
+      "output_tokens": 199,
+      "repetition": 1,
+      "cli_invocations": [
+        {
+          "args": [
+            "fs",
+            "inspect",
+            "--root",
+            ".",
+            "--path",
+            "settings.py",
+            "--raw",
+            "--hash",
+            "--json"
+          ],
+          "exit_code": 0,
+          "seconds": 0.000263963
+        },
+        {
+          "args": [
+            "fs",
+            "apply",
+            "--root",
+            ".",
+            "--plan",
+            "-",
+            "--apply",
+            "--json"
+          ],
+          "exit_code": 0,
+          "seconds": 0.010093466
+        }
+      ],
+      "cli_calls": 2,
+      "uncached_plus_output": 15618
+    },
+    {
+      "task": "fs-file",
+      "index": 3,
+      "method": "tools",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"command_benchmark\"",
+        "-c",
+        "permissions.command_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-usage-study-v7-receipt-20261011\"=\"write\"}",
+        "-c",
+        "permissions.command_benchmark.network.enabled=true",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/03-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/03-tools/answer.json",
+        "-"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "path": "settings.py",
+        "before_sha256": "e6606ff8b396c82457da425a25f727aab12d18a430cc4802ce89d9131fb5639f",
+        "after_sha256": "1002226085d0736fb5c3a5a5b2a1c61a03def579365d1746fa673c9aa52cd30e",
+        "retry_budget": 12,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state_checks": {
+        "original_files_preserved": true,
+        "no_api_mutations": true,
+        "actual_final_bytes_and_mode": true
+      },
+      "usage": {
+        "input_tokens": 30257,
+        "cached_input_tokens": 14848,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 189,
+        "reasoning_output_tokens": 0
+      },
+      "seconds": 9.091,
+      "prompt_bytes": 1850,
+      "command_calls": 1,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 315,
+      "commands": [
+        "/bin/bash -lc 'edit-integer.py --path settings.py --key retry_budget --amount 3 --expect timeout=30'"
+      ],
+      "api_calls": 0,
+      "api_writes": 0,
+      "events_sha256": "4143116024289460863c6c8293404d44cfe5fae81db484d5764354c5945b7b5e",
+      "api_access": [],
+      "input_plus_output": 30446,
+      "uncached_input": 15409,
+      "cached_input": 14848,
+      "output_tokens": 189,
+      "repetition": 2,
+      "cli_invocations": [
+        {
+          "args": [
+            "fs",
+            "inspect",
+            "--root",
+            ".",
+            "--path",
+            "settings.py",
+            "--raw",
+            "--hash",
+            "--json"
+          ],
+          "exit_code": 0,
+          "seconds": 0.000264251
+        },
+        {
+          "args": [
+            "fs",
+            "apply",
+            "--root",
+            ".",
+            "--plan",
+            "-",
+            "--apply",
+            "--json"
+          ],
+          "exit_code": 0,
+          "seconds": 0.00396018
+        }
+      ],
+      "cli_calls": 2,
+      "uncached_plus_output": 15598
+    },
+    {
+      "task": "fs-file",
+      "index": 4,
+      "method": "direct",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"command_benchmark\"",
+        "-c",
+        "permissions.command_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-usage-study-v7-receipt-20261011\"=\"write\"}",
+        "-c",
+        "permissions.command_benchmark.network.enabled=true",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/04-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/04-direct/answer.json",
+        "-"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "path": "settings.py",
+        "before_sha256": "e6606ff8b396c82457da425a25f727aab12d18a430cc4802ce89d9131fb5639f",
+        "after_sha256": "1002226085d0736fb5c3a5a5b2a1c61a03def579365d1746fa673c9aa52cd30e",
+        "retry_budget": 12,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state_checks": {
+        "original_files_preserved": true,
+        "no_api_mutations": true,
+        "actual_final_bytes_and_mode": true
+      },
+      "usage": {
+        "input_tokens": 30457,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 698,
+        "reasoning_output_tokens": 0
+      },
+      "seconds": 18.474,
+      "prompt_bytes": 1135,
+      "command_calls": 1,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 275,
+      "commands": [
+        "/bin/bash -lc \"python3 - <<'PY'\nfrom pathlib import Path\nimport hashlib\nimport json\nimport re\nimport stat\n\npath = Path('settings.py')\nbefore = path.read_bytes()\nmode_before = stat.S_IMODE(path.stat().st_mode)\nbefore_sha = hashlib.sha256(before).hexdigest()\npattern = rb'(?m)\"'^(?P<prefix>[ '\"\\\\t]*retry_budget[ \\\\t]*=[ \\\\t]*)(?P<value>[0-9]+)(?P<suffix>[ \\\\t]*(?:#[\"'^'\"\\\\r\\\\n]*)?\\\\r?\"'$)'\"'\nmatches = list(re.finditer(pattern, before))\nif len(matches) \"'!= 1:\n    raise RuntimeError('\"'Expected exactly one retry_budget assignment')\nmatch = matches[0]\nbudget = int(match.group('value')) + 3\nstart, end = match.span('value')\nexpected = before[:start] + str(budget).encode('ascii') + before[end:]\ntimeout_pattern = rb'(?m)\"'^[ '\"\\\\t]*timeout[ \\\\t]*=[ \\\\t]*(?P<value>[0-9]+)[ \\\\t]*(?:#[\"'^'\"\\\\r\\\\n]*)?\\\\r?\"'$'\"'\ntimeouts = list(re.finditer(timeout_pattern, before))\nif len(timeouts) \"'!= 1 or int(timeouts[0].group('\"'value')) \"'!= 30:\n    raise RuntimeError('\"'Expected timeout=30')\nwith path.open('r+b') as stream:\n    stream.write(expected)\n    stream.truncate()\nafter = path.read_bytes()\nmode_after = stat.S_IMODE(path.stat().st_mode)\nafter_matches = list(re.finditer(pattern, after))\nafter_timeouts = list(re.finditer(timeout_pattern, after))\nresult_budget = int(after_matches[0].group('value')) if len(after_matches) == 1 else None\nresult_timeout = int(after_timeouts[0].group('value')) if len(after_timeouts) == 1 else None\npreserved = after == expected and mode_after == mode_before\nverified = preserved and result_budget == budget and result_timeout == 30\nprint(json.dumps({'path': str(path), 'before_sha256': before_sha, 'after_sha256': hashlib.sha256(after).hexdigest(), 'retry_budget': result_budget, 'timeout': result_timeout, 'verified': verified, 'unrelated_preserved': preserved}))\nPY\""
+      ],
+      "api_calls": 0,
+      "api_writes": 0,
+      "events_sha256": "84e2914f6db58302cc34417d14b4b919ef80044952ee68b0162c287c9d7e9f14",
+      "api_access": [],
+      "input_plus_output": 31155,
+      "uncached_input": 15737,
+      "cached_input": 14720,
+      "output_tokens": 698,
+      "repetition": 2,
+      "cli_invocations": [],
+      "cli_calls": 0,
+      "uncached_plus_output": 16435
+    },
+    {
+      "task": "fs-file",
+      "index": 5,
+      "method": "direct",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"command_benchmark\"",
+        "-c",
+        "permissions.command_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-usage-study-v7-receipt-20261011\"=\"write\"}",
+        "-c",
+        "permissions.command_benchmark.network.enabled=true",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/05-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/05-direct/answer.json",
+        "-"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "path": "settings.py",
+        "before_sha256": "2ac6f907defbcb053b6b72e2aad6611d6d91b36532d1a498e89f666218568fdb",
+        "after_sha256": "528f66a6231a28745545815b3e1aa1cfb44a050522ddda8a6a57378481bc9564",
+        "retry_budget": 13,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state_checks": {
+        "original_files_preserved": true,
+        "no_api_mutations": true,
+        "actual_final_bytes_and_mode": true
+      },
+      "usage": {
+        "input_tokens": 30472,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 714,
+        "reasoning_output_tokens": 0
+      },
+      "seconds": 16.32,
+      "prompt_bytes": 1135,
+      "command_calls": 1,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 275,
+      "commands": [
+        "/bin/bash -lc \"python3 - <<'PY'\nfrom pathlib import Path\nimport hashlib\nimport re\nimport stat\n\npath = Path('settings.py')\nbefore = path.read_bytes()\nmode = stat.S_IMODE(path.stat().st_mode)\nbefore_sha = hashlib.sha256(before).hexdigest()\npattern = rb'(?m)\"'^[ '\"\\\\t]*retry_budget[ \\\\t]*=[ \\\\t]*([0-9]+)(?=[ \\\\t]*(?:#[\"'^'\"\\\\r\\\\n]*)?\\\\r?\"'$)'\"'\nmatches = list(re.finditer(pattern, before))\nif len(matches) \"'!= 1:\n    raise RuntimeError('\"'Expected exactly one retry_budget assignment')\nmatch = matches[0]\ntimeout_pattern = rb'(?m)\"'^[ '\"\\\\t]*timeout[ \\\\t]*=[ \\\\t]*([0-9]+)(?=[ \\\\t]*(?:#[\"'^'\"\\\\r\\\\n]*)?\\\\r?\"'$)'\"'\ntimeouts = list(re.finditer(timeout_pattern, before))\nif len(timeouts) \"'!= 1 or int(timeouts[0].group(1)) != 30:\n    raise RuntimeError('\"'Expected timeout=30')\nbudget = int(match.group(1)) + 3\nstart, end = match.span(1)\nreplacement = str(budget).encode('ascii')\nexpected = before[:start] + replacement + before[end:]\nwith path.open('r+b') as file:\n    file.write(expected)\n    file.truncate()\nafter = path.read_bytes()\nafter_mode = stat.S_IMODE(path.stat().st_mode)\nafter_matches = list(re.finditer(pattern, after))\nafter_timeouts = list(re.finditer(timeout_pattern, after))\nverified = after == expected and len(after_matches) == 1 and int(after_matches[0].group(1)) == budget and len(after_timeouts) == 1 and int(after_timeouts[0].group(1)) == 30\nunrelated_preserved = after[:start] == before[:start] and after[start + len(replacement):] == before[end:] and after_mode == mode\nif not verified or not unrelated_preserved:\n    raise RuntimeError('Verification failed')\nimport json\nprint(json.dumps({'path': str(path), 'before_sha256': before_sha, 'after_sha256': hashlib.sha256(after).hexdigest(), 'retry_budget': budget, 'timeout': 30, 'verified': verified, 'unrelated_preserved': unrelated_preserved}))\nPY\""
+      ],
+      "api_calls": 0,
+      "api_writes": 0,
+      "events_sha256": "2562839744ed9f21c009659880e7f7790d6ef5cb7839dc6c838d8f16ac69beba",
+      "api_access": [],
+      "input_plus_output": 31186,
+      "uncached_input": 15752,
+      "cached_input": 14720,
+      "output_tokens": 714,
+      "repetition": 3,
+      "cli_invocations": [],
+      "cli_calls": 0,
+      "uncached_plus_output": 16466
+    },
+    {
+      "task": "fs-file",
+      "index": 6,
+      "method": "tools",
+      "model": null,
+      "reasoning_effort": null,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"command_benchmark\"",
+        "-c",
+        "permissions.command_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-usage-study-v7-receipt-20261011\"=\"write\"}",
+        "-c",
+        "permissions.command_benchmark.network.enabled=true",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/06-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-usage-study-v7-receipt-20261011/runs/fs-file/06-tools/answer.json",
+        "-"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "correct": true,
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "path": "settings.py",
+        "before_sha256": "2ac6f907defbcb053b6b72e2aad6611d6d91b36532d1a498e89f666218568fdb",
+        "after_sha256": "528f66a6231a28745545815b3e1aa1cfb44a050522ddda8a6a57378481bc9564",
+        "retry_budget": 13,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state_checks": {
+        "original_files_preserved": true,
+        "no_api_mutations": true,
+        "actual_final_bytes_and_mode": true
+      },
+      "usage": {
+        "input_tokens": 30252,
+        "cached_input_tokens": 14848,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 184,
+        "reasoning_output_tokens": 0
+      },
+      "seconds": 9.504,
+      "prompt_bytes": 1850,
+      "command_calls": 1,
+      "failed_command_calls": 0,
+      "shell_output_bytes": 315,
+      "commands": [
+        "/bin/bash -lc 'edit-integer.py --path settings.py --key retry_budget --amount 3 --expect timeout=30'"
+      ],
+      "api_calls": 0,
+      "api_writes": 0,
+      "events_sha256": "1022a3aa218b5e95f1683d60e9e4281a7d01d81fa951bb7c8094a849d31ffecf",
+      "api_access": [],
+      "input_plus_output": 30436,
+      "uncached_input": 15404,
+      "cached_input": 14848,
+      "output_tokens": 184,
+      "repetition": 3,
+      "cli_invocations": [
+        {
+          "args": [
+            "fs",
+            "inspect",
+            "--root",
+            ".",
+            "--path",
+            "settings.py",
+            "--raw",
+            "--hash",
+            "--json"
+          ],
+          "exit_code": 0,
+          "seconds": 0.000326231
+        },
+        {
+          "args": [
+            "fs",
+            "apply",
+            "--root",
+            ".",
+            "--plan",
+            "-",
+            "--apply",
+            "--json"
+          ],
+          "exit_code": 0,
+          "seconds": 0.008313107
+        }
+      ],
+      "cli_calls": 2,
+      "uncached_plus_output": 15588
+    }
+  ],
+  "summary": {
+    "fs-file": {
+      "tools": {
+        "n": 3,
+        "usage_n": 3,
+        "correct": 3,
+        "state_correct": 3,
+        "metrics": {
+          "input_plus_output": {
+            "mean": 30449.333333333332,
+            "median": 30446,
+            "min": 30436,
+            "max": 30466,
+            "stdev": 15.275252316519467
+          },
+          "uncached_plus_output": {
+            "mean": 15601.333333333334,
+            "median": 15598,
+            "min": 15588,
+            "max": 15618,
+            "stdev": 15.275252316519467
+          },
+          "uncached_input": {
+            "mean": 15410.666666666666,
+            "median": 15409,
+            "min": 15404,
+            "max": 15419,
+            "stdev": 7.637626158259733
+          },
+          "cached_input": {
+            "mean": 14848,
+            "median": 14848,
+            "min": 14848,
+            "max": 14848,
+            "stdev": 0.0
+          },
+          "output_tokens": {
+            "mean": 190.66666666666666,
+            "median": 189,
+            "min": 184,
+            "max": 199,
+            "stdev": 7.637626158259733
+          },
+          "api_calls": {
+            "mean": 0,
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "stdev": 0.0
+          },
+          "command_calls": {
+            "mean": 1,
+            "median": 1,
+            "min": 1,
+            "max": 1,
+            "stdev": 0.0
+          },
+          "seconds": {
+            "mean": 9.248999999999999,
+            "median": 9.152,
+            "min": 9.091,
+            "max": 9.504,
+            "stdev": 0.2229327252782778
+          }
+        }
+      },
+      "comparison_eligible": true,
+      "change_percent": {
+        "input_plus_output": -2.339206294902507,
+        "uncached_plus_output": -5.209008425145822
+      },
+      "paired_changes": [
+        {
+          "repetition": 1,
+          "both_correct": true,
+          "uncached_change_percent": -5.201820940819424,
+          "total_change_percent": -2.3369129668216027
+        },
+        {
+          "repetition": 2,
+          "both_correct": true,
+          "uncached_change_percent": -5.092789777912987,
+          "total_change_percent": -2.2757181832771645
+        },
+        {
+          "repetition": 3,
+          "both_correct": true,
+          "uncached_change_percent": -5.332199684197736,
+          "total_change_percent": -2.404925286987747
+        }
+      ],
+      "direct": {
+        "n": 3,
+        "usage_n": 3,
+        "correct": 3,
+        "state_correct": 3,
+        "metrics": {
+          "input_plus_output": {
+            "mean": 31178.666666666668,
+            "median": 31186,
+            "min": 31155,
+            "max": 31195,
+            "stdev": 20.984120980716188
+          },
+          "uncached_plus_output": {
+            "mean": 16458.666666666668,
+            "median": 16466,
+            "min": 16435,
+            "max": 16475,
+            "stdev": 20.984120980716188
+          },
+          "uncached_input": {
+            "mean": 15748.666666666666,
+            "median": 15752,
+            "min": 15737,
+            "max": 15757,
+            "stdev": 10.408329997330664
+          },
+          "cached_input": {
+            "mean": 14720,
+            "median": 14720,
+            "min": 14720,
+            "max": 14720,
+            "stdev": 0.0
+          },
+          "output_tokens": {
+            "mean": 710,
+            "median": 714,
+            "min": 698,
+            "max": 718,
+            "stdev": 10.583005244258363
+          },
+          "api_calls": {
+            "mean": 0,
+            "median": 0,
+            "min": 0,
+            "max": 0,
+            "stdev": 0.0
+          },
+          "command_calls": {
+            "mean": 1,
+            "median": 1,
+            "min": 1,
+            "max": 1,
+            "stdev": 0.0
+          },
+          "seconds": {
+            "mean": 17.740333333333332,
+            "median": 18.427,
+            "min": 16.32,
+            "max": 18.474,
+            "stdev": 1.2302692117310474
+          }
+        }
+      }
+    }
+  },
+  "evidence": {
+    "sha256": {
+      "receipt-v7-source.tar.gz": "73e1503f01a67a122870465c8a83ec54fa08ba1ec685520844a2b62a055047b2",
+      "receipt-v7-events.tar.gz": "191ed0e10c0fb2ff6245888db48620327d5829ae97cc494f80f52e783986e6ea"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "scope": "same explicit raw file request, exact bytes and SHA; native CLI counts only, no model tokens",
+  "before_cli_sha256": "a8cb2192410cfdc2e7b058b818a7b805cbc8f8ced5501336edf94d1db2ba6623",
+  "after_cli_sha256": "1de6a7b36683d77b240ff1063440da462ea93c089fe661fbd6fdd388a2f99f2b",
+  "before_calls": 2,
+  "after_calls": 1,
+  "correct": true,
+  "before_responses": [
+    {
+      "status": "ok",
+      "files": [
+        {
+          "path": "settings.py",
+          "bytes": 28,
+          "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "status": "ok",
+      "files": [
+        {
+          "path": "settings.py",
+          "bytes": 28,
+          "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+          "ranges": [
+            {
+              "start": 1,
+              "text": "retry_budget=2\r\ntimeout=30\r\n"
+            }
+          ],
+          "line_ending": "crlf",
+          "final_newline": true
+        }
+      ],
+      "complete": true
+    }
+  ],
+  "after_response": {
+    "status": "ok",
+    "files": [
+      {
+        "path": "settings.py",
+        "bytes": 28,
+        "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+        "ranges": [
+          {
+            "start": 1,
+            "text": "retry_budget=2\r\ntimeout=30\r\n"
+          }
+        ],
+        "line_ending": "crlf",
+        "final_newline": true
+      }
+    ],
+    "complete": true
+  },
+  "model_calls": 0
+}

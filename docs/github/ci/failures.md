@@ -66,3 +66,7 @@ Fine-grained 토큰에는 **Actions: read**, annotation 조회에는 **Checks: r
 이 명령은 CI 대기·재실행·PR merge·코드 수정을 수행하지 않으며 모델을 호출하지 않습니다. 재실행부터 새 회차의 결과 확인까지 처리하려면 [ci rerun](rerun.md)을 사용합니다. [최신 작업 전체 측정](../../benchmarks/github/ci/failures.md)에서 대표 수집 시나리오와 검증 범위를 확인할 수 있습니다.
 
 [공통 안내](../README.md) · [간결한 출력](../README.md#간결한-출력) · [PR 통합 조회](../pr/inspect.md) · [CI 재실행](rerun.md) · [PR 머지](../pr/merge.md)
+
+## 저장된 CI 원문 읽기
+
+발췌에 없는 문맥은 `--read-evidence`와 예상 SHA·run·attempt·job·구간/패턴으로 선택해 읽는다. 원래 작업과 인증을 실행하지 않는 [공통 읽기 전용 계약](evidence.md)을 따른다.

@@ -1,0 +1,618 @@
+{
+  "pr-reviews": [
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "head_verified": true,
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "saved_result": {
+          "path": "/tmp/my-agent-tools-usage-study-v4-reviews-20261011/workspace/.tools/review.json",
+          "sha256": "c5dedca4197c04577e993d1e52e7433f5a95e7f2195e90e9bfe34e37751fb0c0",
+          "verified": true
+        }
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "actual_final_bytes_and_mode": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "head_verified": true,
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "saved_result": {
+          "path": "/tmp/my-agent-tools-usage-study-v4-reviews-20261011/workspace/.tools/review.json",
+          "sha256": "c5dedca4197c04577e993d1e52e7433f5a95e7f2195e90e9bfe34e37751fb0c0",
+          "verified": true
+        }
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "actual_final_bytes_and_mode": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "head_verified": true,
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "saved_result": {
+          "path": "/tmp/my-agent-tools-usage-study-v4-reviews-20261011/workspace/.tools/review.json",
+          "sha256": "a3f33fc505782b007f582f91ec0e2efcd8248f3d965acd4e89aed9c0d1bf421a",
+          "verified": true
+        }
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "actual_final_bytes_and_mode": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    }
+  ],
+  "pr-conversation": [
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "head_verified": true,
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "conversation": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "body": "Please see the inline request.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-1",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          },
+          {
+            "id": 2,
+            "user": null,
+            "body": "Review execution was limited; verify inline requests and CI separately.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-2",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          }
+        ]
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "submitted_reviews": 1,
+        "conversation_count": 2,
+        "latest_notice": "Review execution was limited; verify inline requests and CI separately."
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true,
+          "ordinary_and_submitted_comments_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "head_verified": true,
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "conversation": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "body": "Please see the inline request.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-1",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          },
+          {
+            "id": 2,
+            "user": null,
+            "body": "Review execution was limited; verify inline requests and CI separately.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-2",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          }
+        ]
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "submitted_reviews": 1,
+        "conversation_count": 2,
+        "latest_notice": "Review execution was limited; verify inline requests and CI separately."
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true,
+          "ordinary_and_submitted_comments_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "head_verified": true,
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "state": "CHANGES_REQUESTED",
+            "body": "submitted request",
+            "commit_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "submitted_at": "2026-10-10T00:00:00Z",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#pullrequestreview-1"
+          }
+        ],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "conversation": [
+          {
+            "id": 1,
+            "user": {
+              "login": "reviewer"
+            },
+            "body": "Please see the inline request.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-1",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          },
+          {
+            "id": 2,
+            "user": null,
+            "body": "Review execution was limited; verify inline requests and CI separately.",
+            "html_url": "https://github.com/fixture/command-benchmark/pull/7#issuecomment-2",
+            "created_at": "2026-10-10T00:00:00Z",
+            "updated_at": "2026-10-10T01:00:00Z"
+          }
+        ]
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "submitted_reviews": 1,
+        "conversation_count": 2,
+        "latest_notice": "Review execution was limited; verify inline requests and CI separately."
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "exact_thread_body_and_diff_observed": true,
+          "fresh_head_observed": true,
+          "ordinary_and_submitted_comments_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    }
+  ]
+}

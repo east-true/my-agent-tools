@@ -18,6 +18,8 @@ func runPRMerge(ctx context.Context, args []string, out, stderr io.Writer, runne
 	repo := flags.String("repo", "", "GitHub OWNER/REPO (default: current repository)")
 	jsonOutput := flags.Bool("json", false, "emit one final structured result")
 	options := github.MergeOptions{}
+	evidenceReader := evidenceReadFlags{}
+	evidenceReader.register(flags)
 	compact := compactFlags{}
 	compact.register(flags, true)
 	flags.BoolVar(&options.Cleanup, "cleanup", true, "after actual merge, clean this PR's branch/worktrees; --cleanup=false skips cleanup")
@@ -47,6 +49,9 @@ func runPRMerge(ctx context.Context, args []string, out, stderr io.Writer, runne
 			fmt.Fprintln(stderr, "error:", err)
 		}
 		return code
+	}
+	if evidenceReader.selected() {
+		return evidenceReader.run(flags, out, stderr)
 	}
 	if flags.NArg() != 0 {
 		return fail(errors.New("unexpected positional arguments"), 2)

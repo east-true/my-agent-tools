@@ -1,0 +1,1930 @@
+{
+  "version": 1,
+  "kind": "functional-audit-summary",
+  "date_kst": "2026-10-10",
+  "model_calls": 0,
+  "runtime_platform": "linux",
+  "token_measurement": false,
+  "real_github_mutations": false,
+  "groups": {
+    "github": {
+      "executed_at_utc": "2026-10-10T12:42:22.055439+00:00",
+      "source_sha256": [
+        {
+          "path": "cmd/tools/main.go",
+          "sha256": "7b1080531b6994117dea7a28e8a0bf9fcfcf52831d56c6051b7647371088dfb1"
+        },
+        {
+          "path": "go.mod",
+          "sha256": "9cdfe21c9804fe3ba95648b65e158f7bd88eb0753cf36906bfe253a1655a44c5"
+        },
+        {
+          "path": "go.sum",
+          "sha256": "5635d406c9086d72751fb8e7a9bd9735f41ffd57e5c509210ebeef64f7885a3d"
+        },
+        {
+          "path": "internal/cli/actionable_output_test.go",
+          "sha256": "9b4bd1168f0e91267d69c840225c0d51e23884904da763edb4ecb813f8a29c76"
+        },
+        {
+          "path": "internal/cli/ci_failures.go",
+          "sha256": "d6d5dccbbe629d43a8c9a12c9596ce6c27f5f2446b431edbd6c35e79c38153b5"
+        },
+        {
+          "path": "internal/cli/ci_failures_test.go",
+          "sha256": "4b09ce68832d5666ceb6c8b33496c461ba9e3978c34bc7ef659ce9f5f805fced"
+        },
+        {
+          "path": "internal/cli/ci_rerun.go",
+          "sha256": "cbdbbbcee26d9115e2843cd50a371ee2556dabc6217d6b9e68d54d7224ac036e"
+        },
+        {
+          "path": "internal/cli/ci_rerun_state.go",
+          "sha256": "bd731a91c46f9aad7def64b2f14bdfb4cdca063a2a24b57b1e8b6a87cdd2ef64"
+        },
+        {
+          "path": "internal/cli/ci_rerun_state_test.go",
+          "sha256": "c4b8476e15b4b1efdbf13bd86cd8d033e4c627c3ef52edc181703b5cc32a0a8b"
+        },
+        {
+          "path": "internal/cli/cleanup.go",
+          "sha256": "b453d82dd23c770dcf50722b4d3fb55a6ffded565088489bdb90844e0e7d4d5f"
+        },
+        {
+          "path": "internal/cli/cleanup_test.go",
+          "sha256": "7517c8dd1c00d68fa3fb1120ab2c27b8600f26fcbbfe6a5d42b28e224d4c16eb"
+        },
+        {
+          "path": "internal/cli/cli.go",
+          "sha256": "6505eb8e56b49154613532de4cd3ca5131e833cc582b628646a0716d445da34c"
+        },
+        {
+          "path": "internal/cli/cli_test.go",
+          "sha256": "834e76acdc9ceb1844515452bc03c8afaef065847c588d5e1b78fe5ad2ba4eeb"
+        },
+        {
+          "path": "internal/cli/compact.go",
+          "sha256": "c9a807eaab86c67660cd876546b6ee4a993867cf7b51221dc2cf37cb53f1c44d"
+        },
+        {
+          "path": "internal/cli/compact_measurement_test.go",
+          "sha256": "d8d6e066badb4123f1ca66615fc28e9d36c4f5e18b677c00f0d62c1af190870e"
+        },
+        {
+          "path": "internal/cli/compact_reviews_test.go",
+          "sha256": "8e409bbcf27340d00b184a012db6299551384c339355e7f47e084a9e8a3a0e6b"
+        },
+        {
+          "path": "internal/cli/compact_state_test.go",
+          "sha256": "4500f14acafc375aaf93ba6b016ebea0aa25e74a35f881ad31d7377d86355d4f"
+        },
+        {
+          "path": "internal/cli/dependabot.go",
+          "sha256": "0a0d5344de67659f0fdcc32bbaea18122825d9e24b6353bc71b3a160c93d2e24"
+        },
+        {
+          "path": "internal/cli/dependabot_test.go",
+          "sha256": "b2ae72a3a48636838df075bfebc5923b01e0e528fe23bbfe4ad6d5535dd11105"
+        },
+        {
+          "path": "internal/cli/fs.go",
+          "sha256": "0ccb8c0d6e614d2b28f0937aa98166417b1a2446c79567ac3dabd55bc623989a"
+        },
+        {
+          "path": "internal/cli/fs_test.go",
+          "sha256": "0adf5c684664d9548fb95a1e7f04af353e8a70b544a965d3f4caf747421433b0"
+        },
+        {
+          "path": "internal/cli/improvements_test.go",
+          "sha256": "b692b539d636f81ed62eef0cb9e4017acb2338c350c41af55a3fbca8e4cc6fba"
+        },
+        {
+          "path": "internal/cli/pr_merge.go",
+          "sha256": "7674123e24169d138bac076fbef4e5c232baa405ba31cd515fa90a75f4b38a81"
+        },
+        {
+          "path": "internal/cli/pr_merge_evidence_test.go",
+          "sha256": "a751c6684f1805dcb0b3020e126eb426e9bbd58417a98150f8abc115286f1b24"
+        },
+        {
+          "path": "internal/cli/pr_merge_test.go",
+          "sha256": "1b2829b4c1039ae815b35d234d1634e994a9bc39b500a08c8f24f506f89c41f9"
+        },
+        {
+          "path": "internal/cli/pr_reviews.go",
+          "sha256": "680ef0aafa0411754d6e25e14d3705ecc9b3329d6d43bf71e69ac6cccf3cac34"
+        },
+        {
+          "path": "internal/cli/pr_state.go",
+          "sha256": "f741cfb6848619c6e3f084e316968717c7d59dfd5e51a231a1cd7dc184487a39"
+        },
+        {
+          "path": "internal/cli/pr_workflows.go",
+          "sha256": "9dbd79bed3c6a0280d75792cdb1a0c5d3cde3f5426cece778162ef8f722e83ce"
+        },
+        {
+          "path": "internal/cli/pr_workflows_test.go",
+          "sha256": "f3190a775297d0a83b4d12d5195e43b4b9dcab1a5e7c496a664988aa32d5413e"
+        },
+        {
+          "path": "internal/cli/review_rerun_test.go",
+          "sha256": "c712c8780a1c31306fd91aab907b076445b32ec8560dfb8d07cfdf500655204d"
+        },
+        {
+          "path": "internal/cli/setup.go",
+          "sha256": "dff280ec195bc0ef064145ef6bf3bf7a2a36a5840645d71353f2bb9fdf6f66dd"
+        },
+        {
+          "path": "internal/cli/setup_test.go",
+          "sha256": "8f90d7794febca9e66e508dec550993f3137a32d5d4a03586c3d07c942c1e6bb"
+        },
+        {
+          "path": "internal/cli/worktree_test.go",
+          "sha256": "46111d2411678600c2d4d34131f82d1be53e21afdacb8670f3a8821256186e9e"
+        },
+        {
+          "path": "internal/command/runner.go",
+          "sha256": "97ce6656fb463543187167358cd7cc1ff6b96132406adde3b41c5f74744cbf40"
+        },
+        {
+          "path": "internal/filesystem/actionable_test.go",
+          "sha256": "fc7a315c1f42fb2e7d8f31c759c2b423d7a7c7de5cf056262af6c8d5fff91030"
+        },
+        {
+          "path": "internal/filesystem/apply.go",
+          "sha256": "b9b2901a681219929d6bfb019d5a112a9c9f94468a2ce22942d9dbe58efd32a9"
+        },
+        {
+          "path": "internal/filesystem/batch_spec_test.go",
+          "sha256": "58b11989577ea04ec7a1c2ad0512cfbef83a50aec8f69f4f84522402afb83ea0"
+        },
+        {
+          "path": "internal/filesystem/delta.go",
+          "sha256": "bb87dcfc7faf31c36f9f2cdd376faccf94c09b86003e723ee5cfb3eb6cd86fdd"
+        },
+        {
+          "path": "internal/filesystem/diagnostic.go",
+          "sha256": "92d1999e61e9fc63b09106a55b6a9852c62da96ed77c4992e370ea19b3322738"
+        },
+        {
+          "path": "internal/filesystem/diff.go",
+          "sha256": "d976ae16a8a77f93cf33666e2e5651fc358f0f295eefec652696687cde22ce8d"
+        },
+        {
+          "path": "internal/filesystem/filesystem_test.go",
+          "sha256": "c2c62ac5af1707a79e695e696b23cb31ba95bf57b53fc3aaa339bad79c5add99"
+        },
+        {
+          "path": "internal/filesystem/inspect.go",
+          "sha256": "2d5e33c1e2a02f60ee10ed5c404426f5c431692e6680440d5ce7a3795b9982e5"
+        },
+        {
+          "path": "internal/filesystem/inspect_batch.go",
+          "sha256": "c6810d2e5190864c13d96c8ca3ebf50ff624ca47ae18ac66edd42826cb8923c7"
+        },
+        {
+          "path": "internal/filesystem/observe.go",
+          "sha256": "a295d1abeef97496b168e8610ca72d1e665bceb01e0ef4319bde8caa763ee629"
+        },
+        {
+          "path": "internal/filesystem/plan.go",
+          "sha256": "5c52a7d8d62b07f29197be51d2d94281a89a254920d586228a0aee3898a14d40"
+        },
+        {
+          "path": "internal/filesystem/recount_test.go",
+          "sha256": "a95c8451fd0a6d56ca32801934a3da84486f623c408e6e746bff9a95ca2e1921"
+        },
+        {
+          "path": "internal/filesystem/scope.go",
+          "sha256": "5854dd06cefddbf0ca675b12378bd04d16c3ff169e33adb8b6e51bb4a6a81a68"
+        },
+        {
+          "path": "internal/filesystem/workflows_test.go",
+          "sha256": "8efdf2f10ad9fbc4e03bbe87fb2e832cd0d40195a5b504bc883cfe12a6d165f3"
+        },
+        {
+          "path": "internal/github/api.go",
+          "sha256": "0f5b112667bcef310f7c81d6c33d094953aaa4739f5d04e3eeda72f7d6e3bf6f"
+        },
+        {
+          "path": "internal/github/branch.go",
+          "sha256": "33c98731edf5b432470b1035c033824302e6f95ada7a356b910ef090ab998a6c"
+        },
+        {
+          "path": "internal/github/branch_test.go",
+          "sha256": "e06ace10f5d64a817bd6dea66c6f795920fefad4eb2cb3006029edbf7aa31a1e"
+        },
+        {
+          "path": "internal/github/cache.go",
+          "sha256": "386234d6318a7d3afd68a8e199818bfd1a564da6b9885db56222e7042edce681"
+        },
+        {
+          "path": "internal/github/ci_cache.go",
+          "sha256": "36dd3f5689011c31ed879ba6b06dd355cf3da2cc367fac76a1d5a215dca405ff"
+        },
+        {
+          "path": "internal/github/ci_checkpoint.go",
+          "sha256": "d38184eee3d4a53f410337f3f3f6226c976aa57beadc04177449b5a83bac2d62"
+        },
+        {
+          "path": "internal/github/ci_evidence.go",
+          "sha256": "beed6e32960e148c9afd1951553214487d44c959b1f29a1f0a11ff911d16432b"
+        },
+        {
+          "path": "internal/github/ci_evidence_test.go",
+          "sha256": "656d77853d66cd1bc6baee84d90ef0f896c30b2b6420e26995ca552c00648ea0"
+        },
+        {
+          "path": "internal/github/ci_failures.go",
+          "sha256": "7ea71d949fb07c16828f52a1fa7b3a1fa77d9533308b5e3798e6a92093eae7a8"
+        },
+        {
+          "path": "internal/github/ci_failures_test.go",
+          "sha256": "0df8ad0111c00f97597d05079373982556ea6ef0038a02fbe934071d78d89461"
+        },
+        {
+          "path": "internal/github/ci_log_download.go",
+          "sha256": "a33db02e869597f5b9cdca192eb02cb90725c77c6e575016349c407f95ddcd2b"
+        },
+        {
+          "path": "internal/github/ci_rerun.go",
+          "sha256": "6ff8a0a11450facc53d9eda09da17ea8137bd7335214ae01f4f3bcc77f40f0bc"
+        },
+        {
+          "path": "internal/github/ci_rerun_test.go",
+          "sha256": "003c472430acdb0f99b03ee6d4588a969098bba85e208776150566fe50586035"
+        },
+        {
+          "path": "internal/github/ci_resume_test.go",
+          "sha256": "04226f918a48279af3d9d7b8dfd28f421001c622d2c8c6494d9bfd959dea6794"
+        },
+        {
+          "path": "internal/github/cleanup.go",
+          "sha256": "a2cc228f557153c13a8f30e4a445d40430eabae673f3ad027338a20b3e1dce01"
+        },
+        {
+          "path": "internal/github/cleanup_test.go",
+          "sha256": "34fd74e50a6fea571e447f567e37237fba74ee5d93d1ca45ac135657532631ae"
+        },
+        {
+          "path": "internal/github/cleanup_worktree.go",
+          "sha256": "c6e40e2d2758644e38000e5ecd33f90089486c0264b8b6ca0a0328c4716a4911"
+        },
+        {
+          "path": "internal/github/cleanup_worktree_test.go",
+          "sha256": "ac6d567751e0cd7a6d8ddf609b3abbe6fe34d3386a0bb7b997faa9c5215b1fa3"
+        },
+        {
+          "path": "internal/github/client.go",
+          "sha256": "8c1c1d34e7229c040987ab1394e29e00d25b2bc7b2fc3f22688d5fcd1da4610a"
+        },
+        {
+          "path": "internal/github/client_test.go",
+          "sha256": "ce9ae83165da1b5e4f8486659148a6aca365404625ba2fa1b38134cbaccbff16"
+        },
+        {
+          "path": "internal/github/dependabot.go",
+          "sha256": "2f0abae52f0fefc42b39a50f382b9dbacd4908736437f47dfbd2e3d3b48f5f98"
+        },
+        {
+          "path": "internal/github/dependabot_test.go",
+          "sha256": "6661649404a91f9fca82770bb2f03b90c57be58a843f6abc5efb000f48407247"
+        },
+        {
+          "path": "internal/github/further_improvements_test.go",
+          "sha256": "a7885134bbf4e08c8a07b28dd12d161f31736fd269e5933651666755dee8409f"
+        },
+        {
+          "path": "internal/github/improvements_test.go",
+          "sha256": "7705727d484e235f780e59178eefae247af091137f07b4e155a7f2f1995246b6"
+        },
+        {
+          "path": "internal/github/policy.go",
+          "sha256": "e67f470c18292eb10dea17bf10a61b232985f2a9a63341a449768a7580f26317"
+        },
+        {
+          "path": "internal/github/pr_delta.go",
+          "sha256": "d528a5157da02a0c8b483bba88e9a544f42db78d37157382e35c088d25d2bcd3"
+        },
+        {
+          "path": "internal/github/pr_inspect.go",
+          "sha256": "932b0ead8929be88b6c414b73ee53013a9125435aa738014a876dbe6b74c517d"
+        },
+        {
+          "path": "internal/github/pr_inspect_delta_test.go",
+          "sha256": "f3ee76d3e01d6e752de26e79280cfc54c1a444b97a710d17be9643abecc46c64"
+        },
+        {
+          "path": "internal/github/pr_merge.go",
+          "sha256": "af8d57eb5e3c96cc02b39b59a7ea285f0b93096ba9e7be28cf036c81fde3aabf"
+        },
+        {
+          "path": "internal/github/pr_merge_cleanup.go",
+          "sha256": "aeec664eacc2c8ac243475e4c03f733313f4db0379593d251f3fea88c276dfbe"
+        },
+        {
+          "path": "internal/github/pr_merge_diagnostics.go",
+          "sha256": "1a816065b17566673a288fc63288c57d3eb3112783b5c7347be4a3257a65b8a9"
+        },
+        {
+          "path": "internal/github/pr_merge_diagnostics_test.go",
+          "sha256": "82719bb9becb6ae1ef3e5a4eb7cc28c8a61aba147def5533d425688e59d584ce"
+        },
+        {
+          "path": "internal/github/pr_merge_test.go",
+          "sha256": "86f0bc876d4cc95b92ab3d26acb839617cd436c8106b46862d8ddbe7582bfbe3"
+        },
+        {
+          "path": "internal/github/pr_reviews.go",
+          "sha256": "8614121599533e7f616317464d236106de2f80a91f26c0dead48a42444e33a8d"
+        },
+        {
+          "path": "internal/github/pr_reviews_test.go",
+          "sha256": "f77f932dabf65f7565b6fa3159d55add007acbd05622de129d5e27b3d58421de"
+        },
+        {
+          "path": "internal/github/pr_workflows.go",
+          "sha256": "1de318671fc75234907806acd89f62300a318e036fc191ed8a31110dfb35d720"
+        },
+        {
+          "path": "internal/github/pr_workflows_test.go",
+          "sha256": "824aa27ccb9c42738ae6a43651929e9271e149dfcd44d9a78c1a0ec0fe88de8c"
+        },
+        {
+          "path": "internal/github/read_transport.go",
+          "sha256": "eb155c4ffc505b12f2f1ed5ddec3c07818ff5cb1933299358dfc47b9f4ec9456"
+        },
+        {
+          "path": "internal/github/read_transport_test.go",
+          "sha256": "1d7890daf483f2fa5816b312ea3b8588675630ff94fd5f9d944c0d70b63c90e2"
+        },
+        {
+          "path": "internal/github/setup.go",
+          "sha256": "3392921117f62a2e943785b90730e4691412b5ed8e913787b7f7912f5acad2e0"
+        },
+        {
+          "path": "internal/github/setup_test.go",
+          "sha256": "4e0499afb746c576a7aadbc606dd0bb4ef38b2747d866324b9891545d7a120b8"
+        },
+        {
+          "path": "internal/github/spec.go",
+          "sha256": "6844f3223f55edb6fed239ac5bac024ae5837e899491f5651a4f941cc04edae3"
+        },
+        {
+          "path": "internal/github/spec_test.go",
+          "sha256": "99f4805c6b62ff94691e1d37d2268b02cb0e4c9ffcd19c1c07e2e9f3d059babb"
+        },
+        {
+          "path": "internal/github/state_directory.go",
+          "sha256": "9d3ab40d9f9bda38f26ed0579319f28c0e0dd4702be229547e62f6f75924691a"
+        },
+        {
+          "path": "internal/github/state_directory_test.go",
+          "sha256": "81ab8b0c506279ec304f891fde9d39e1e5a9537f4d5ca166884895a987fbb251"
+        },
+        {
+          "path": "internal/github/template.go",
+          "sha256": "3942ac9b36dfe628b4830a48177d36e933beff5ac9d648ed7574d82ffc664522"
+        },
+        {
+          "path": "internal/github/template_test.go",
+          "sha256": "82b730de6be73113b9185d1432a721dacec834076116efe055347c48ebb91b9a"
+        },
+        {
+          "path": "internal/github/worktree.go",
+          "sha256": "af8b1a6731ee3fb20eac57ac4082863fd67d03da239464653bd7bf7694a826dc"
+        },
+        {
+          "path": "internal/github/worktree_test.go",
+          "sha256": "1dc7562067fd21a91fadc2f6f28fe639f8eef146a0cc817ed9bc310f22f9e3f5"
+        }
+      ],
+      "cli_sha256": "8f6904ec8019e4ce0fbede7e7369830d773423decf69c158119f50359ac23119",
+      "runner_sha256": {
+        "actionable_benchmark_docs.py": "b7c5a950611514ba8f1e7a8882eb585145046f4b42fc7eb28add83f52f9689b2",
+        "fs_completion_benchmark.py": "1f5242e3dfa727d782103cc49edbed93237e943f177dd1df7dd1bf5567898591",
+        "fs_workflow_benchmark.py": "abe70254b838f0edd2cc3c7c9e9fa212f4048f9615fcc86ebca0d83d518c4d74",
+        "github_benchmark_docs.py": "cbd6fd3738d2c1969376ade5853ee3f63fce67a29f40d23cd323defddd56fe4f",
+        "github_candidates.py": "0a8c854cdeed54fc5ee908f6f58cac0601ceb910fb1c8c4c29287deb943aab4b",
+        "github_graphql_fixture.py": "0a7ff1e264d11b68ffc75e441acd0c269c9630b047d115dc82e527957b03eebf",
+        "measure_delta_output.py": "dc57818818ed2d0876f4290f402ee2d3eb3eff0c4bfe2b20c3e18303fa4623b6",
+        "measure_review_metadata.py": "2e30abb0ff5fb0a7d80df88d0bb2495a325129bf9b4e24e8e9b20a03246703a4",
+        "publish_actionable_benchmark.py": "47f1e5a6f36726cf160c543eebecc8d8c79be0223e97c1a7e80cc456765e488c",
+        "publish_all_github_benchmark.py": "ffe876b409b562b42388d02c7248478d6357a6345e64a235527d792ba96d4bae",
+        "publish_fs_benchmark.py": "5d39f82b07753307ed754396028838624e5c5e6b19a05e54331f5ce2980fcacd",
+        "publish_github_study.py": "c6f3e5912302241e0d66391c72e8ca9dd545b0561385e9d81c73b4c1cf69d886",
+        "requirements.txt": "5d1df13d71eeedf33a16808e5b90ef74eecb769edc986b497650450a66965127",
+        "run_actionable_benchmark.py": "13e931eb74c2bfee318750d0875edc1e7b36e89d22e0bef56493eca36217a057",
+        "run_all_github_benchmark.py": "18ac8d78093168be269f67351f0c75d089dff7f3dd373b39a0cc9c2aa189814b",
+        "run_branch_cleanup_benchmark.py": "c3609d9e5c6ae66327a6cd750e1a0cce36ccd0f8750c0a1fa37437ef82d470ca",
+        "run_command_benchmark.py": "d2d11790f7decf9a8bdf26a09132b4a854a84891612cd014091f6d5f19e000f1",
+        "run_default_benchmark.py": "461e48e0f4566eb7ae7122e8c895d9bfc1d1ae34c46fa310769decb1dcc844b5",
+        "run_dependabot_benchmark.py": "e8c79d6af8ea3582f9abc044379c53a5b1bc8b051129d197ed77874feb7071c7",
+        "run_fs_benchmark.py": "1ce5133ed096e8cb0fcc5fcaa5a20705e293e6b8916024f1ca1fc2e40ab1c59c",
+        "run_github_study.py": "658530b59582d1477c726ec9e66558e5011146c46c9fe48fa3e26f9c1327b58a",
+        "run_model_benchmark.py": "6285b62b6d60234bbb6f8a8eb4467ffb529d8a8913c4a29c8cb0a569b1ef1964",
+        "run_worker_benchmark.py": "67a9b4605df3a91005a48fbdb927dda8594cacb9676cfe4af333eb5c0e2097a7",
+        "run_workflow_benchmark.py": "b0bec9e3b365afddab5a5f5c915b9b96490466290749fb2c4e48c41dd065c19a",
+        "test_actionable_benchmark.py": "37e47f7d83bdb5416bfdedb20c8c1c5828c919a521773ec6aa95975f7034678e",
+        "test_actionable_docs.py": "06735f7322aa2fd23db1db707900ffb3acba913bc304893ef25c43c319f0e37e",
+        "test_all_github_benchmark.py": "32744c351c26a09dcaa901ff3877dd0b87df19bb79f7bf18a12bb654e46e1a44",
+        "test_default_benchmark.py": "b0ab0b104583304786d7749646d2aea85e5b226186e91bc73a515b93eec4cb79",
+        "test_fs_benchmark.py": "7329ab24d32c8876978bb73c84ae1f6c50b21a289cda42739cede2d192784861",
+        "test_github_candidates.py": "0907680fdced726ede1510383893fde514a9b911248b36284966ccb6fe2655e9",
+        "test_github_study.py": "978ca78b0a5b4aaf80a44e8ab8d3139f1f874eff012fc41355702433e3457f95",
+        "test_resume_evidence.py": "a99a695d9bd6a4b4940e621ffa8b73dc4568aaf095e7cf0103313417a2f9f6f9",
+        "test_workflow_reports.py": "98a70f897f1a5624836cc8ca1686a8feda9185db33e8722b27f94357827e3247",
+        "workflow_reports.py": "c231ffe1955acfc14e454f06e265bdcbbb2e9dd9cff7504b8e529976452d9a7f"
+      },
+      "scenario_revision": null,
+      "recount_workflows": false
+    },
+    "fs": {
+      "executed_at_utc": "2026-10-10T12:41:57.673129+00:00",
+      "source_sha256": [
+        {
+          "path": "cmd/tools/main.go",
+          "sha256": "7b1080531b6994117dea7a28e8a0bf9fcfcf52831d56c6051b7647371088dfb1"
+        },
+        {
+          "path": "go.mod",
+          "sha256": "9cdfe21c9804fe3ba95648b65e158f7bd88eb0753cf36906bfe253a1655a44c5"
+        },
+        {
+          "path": "go.sum",
+          "sha256": "5635d406c9086d72751fb8e7a9bd9735f41ffd57e5c509210ebeef64f7885a3d"
+        },
+        {
+          "path": "internal/cli/actionable_output_test.go",
+          "sha256": "9b4bd1168f0e91267d69c840225c0d51e23884904da763edb4ecb813f8a29c76"
+        },
+        {
+          "path": "internal/cli/ci_failures.go",
+          "sha256": "d6d5dccbbe629d43a8c9a12c9596ce6c27f5f2446b431edbd6c35e79c38153b5"
+        },
+        {
+          "path": "internal/cli/ci_failures_test.go",
+          "sha256": "4b09ce68832d5666ceb6c8b33496c461ba9e3978c34bc7ef659ce9f5f805fced"
+        },
+        {
+          "path": "internal/cli/ci_rerun.go",
+          "sha256": "cbdbbbcee26d9115e2843cd50a371ee2556dabc6217d6b9e68d54d7224ac036e"
+        },
+        {
+          "path": "internal/cli/ci_rerun_state.go",
+          "sha256": "bd731a91c46f9aad7def64b2f14bdfb4cdca063a2a24b57b1e8b6a87cdd2ef64"
+        },
+        {
+          "path": "internal/cli/ci_rerun_state_test.go",
+          "sha256": "c4b8476e15b4b1efdbf13bd86cd8d033e4c627c3ef52edc181703b5cc32a0a8b"
+        },
+        {
+          "path": "internal/cli/cleanup.go",
+          "sha256": "b453d82dd23c770dcf50722b4d3fb55a6ffded565088489bdb90844e0e7d4d5f"
+        },
+        {
+          "path": "internal/cli/cleanup_test.go",
+          "sha256": "7517c8dd1c00d68fa3fb1120ab2c27b8600f26fcbbfe6a5d42b28e224d4c16eb"
+        },
+        {
+          "path": "internal/cli/cli.go",
+          "sha256": "6505eb8e56b49154613532de4cd3ca5131e833cc582b628646a0716d445da34c"
+        },
+        {
+          "path": "internal/cli/cli_test.go",
+          "sha256": "834e76acdc9ceb1844515452bc03c8afaef065847c588d5e1b78fe5ad2ba4eeb"
+        },
+        {
+          "path": "internal/cli/compact.go",
+          "sha256": "c9a807eaab86c67660cd876546b6ee4a993867cf7b51221dc2cf37cb53f1c44d"
+        },
+        {
+          "path": "internal/cli/compact_measurement_test.go",
+          "sha256": "d8d6e066badb4123f1ca66615fc28e9d36c4f5e18b677c00f0d62c1af190870e"
+        },
+        {
+          "path": "internal/cli/compact_reviews_test.go",
+          "sha256": "8e409bbcf27340d00b184a012db6299551384c339355e7f47e084a9e8a3a0e6b"
+        },
+        {
+          "path": "internal/cli/compact_state_test.go",
+          "sha256": "4500f14acafc375aaf93ba6b016ebea0aa25e74a35f881ad31d7377d86355d4f"
+        },
+        {
+          "path": "internal/cli/dependabot.go",
+          "sha256": "0a0d5344de67659f0fdcc32bbaea18122825d9e24b6353bc71b3a160c93d2e24"
+        },
+        {
+          "path": "internal/cli/dependabot_test.go",
+          "sha256": "b2ae72a3a48636838df075bfebc5923b01e0e528fe23bbfe4ad6d5535dd11105"
+        },
+        {
+          "path": "internal/cli/fs.go",
+          "sha256": "0ccb8c0d6e614d2b28f0937aa98166417b1a2446c79567ac3dabd55bc623989a"
+        },
+        {
+          "path": "internal/cli/fs_test.go",
+          "sha256": "0adf5c684664d9548fb95a1e7f04af353e8a70b544a965d3f4caf747421433b0"
+        },
+        {
+          "path": "internal/cli/improvements_test.go",
+          "sha256": "b692b539d636f81ed62eef0cb9e4017acb2338c350c41af55a3fbca8e4cc6fba"
+        },
+        {
+          "path": "internal/cli/pr_merge.go",
+          "sha256": "7674123e24169d138bac076fbef4e5c232baa405ba31cd515fa90a75f4b38a81"
+        },
+        {
+          "path": "internal/cli/pr_merge_evidence_test.go",
+          "sha256": "a751c6684f1805dcb0b3020e126eb426e9bbd58417a98150f8abc115286f1b24"
+        },
+        {
+          "path": "internal/cli/pr_merge_test.go",
+          "sha256": "1b2829b4c1039ae815b35d234d1634e994a9bc39b500a08c8f24f506f89c41f9"
+        },
+        {
+          "path": "internal/cli/pr_reviews.go",
+          "sha256": "680ef0aafa0411754d6e25e14d3705ecc9b3329d6d43bf71e69ac6cccf3cac34"
+        },
+        {
+          "path": "internal/cli/pr_state.go",
+          "sha256": "f741cfb6848619c6e3f084e316968717c7d59dfd5e51a231a1cd7dc184487a39"
+        },
+        {
+          "path": "internal/cli/pr_workflows.go",
+          "sha256": "9dbd79bed3c6a0280d75792cdb1a0c5d3cde3f5426cece778162ef8f722e83ce"
+        },
+        {
+          "path": "internal/cli/pr_workflows_test.go",
+          "sha256": "f3190a775297d0a83b4d12d5195e43b4b9dcab1a5e7c496a664988aa32d5413e"
+        },
+        {
+          "path": "internal/cli/review_rerun_test.go",
+          "sha256": "c712c8780a1c31306fd91aab907b076445b32ec8560dfb8d07cfdf500655204d"
+        },
+        {
+          "path": "internal/cli/setup.go",
+          "sha256": "dff280ec195bc0ef064145ef6bf3bf7a2a36a5840645d71353f2bb9fdf6f66dd"
+        },
+        {
+          "path": "internal/cli/setup_test.go",
+          "sha256": "8f90d7794febca9e66e508dec550993f3137a32d5d4a03586c3d07c942c1e6bb"
+        },
+        {
+          "path": "internal/cli/worktree_test.go",
+          "sha256": "46111d2411678600c2d4d34131f82d1be53e21afdacb8670f3a8821256186e9e"
+        },
+        {
+          "path": "internal/command/runner.go",
+          "sha256": "97ce6656fb463543187167358cd7cc1ff6b96132406adde3b41c5f74744cbf40"
+        },
+        {
+          "path": "internal/filesystem/actionable_test.go",
+          "sha256": "fc7a315c1f42fb2e7d8f31c759c2b423d7a7c7de5cf056262af6c8d5fff91030"
+        },
+        {
+          "path": "internal/filesystem/apply.go",
+          "sha256": "b9b2901a681219929d6bfb019d5a112a9c9f94468a2ce22942d9dbe58efd32a9"
+        },
+        {
+          "path": "internal/filesystem/batch_spec_test.go",
+          "sha256": "58b11989577ea04ec7a1c2ad0512cfbef83a50aec8f69f4f84522402afb83ea0"
+        },
+        {
+          "path": "internal/filesystem/delta.go",
+          "sha256": "bb87dcfc7faf31c36f9f2cdd376faccf94c09b86003e723ee5cfb3eb6cd86fdd"
+        },
+        {
+          "path": "internal/filesystem/diagnostic.go",
+          "sha256": "92d1999e61e9fc63b09106a55b6a9852c62da96ed77c4992e370ea19b3322738"
+        },
+        {
+          "path": "internal/filesystem/diff.go",
+          "sha256": "d976ae16a8a77f93cf33666e2e5651fc358f0f295eefec652696687cde22ce8d"
+        },
+        {
+          "path": "internal/filesystem/filesystem_test.go",
+          "sha256": "c2c62ac5af1707a79e695e696b23cb31ba95bf57b53fc3aaa339bad79c5add99"
+        },
+        {
+          "path": "internal/filesystem/inspect.go",
+          "sha256": "2d5e33c1e2a02f60ee10ed5c404426f5c431692e6680440d5ce7a3795b9982e5"
+        },
+        {
+          "path": "internal/filesystem/inspect_batch.go",
+          "sha256": "c6810d2e5190864c13d96c8ca3ebf50ff624ca47ae18ac66edd42826cb8923c7"
+        },
+        {
+          "path": "internal/filesystem/observe.go",
+          "sha256": "a295d1abeef97496b168e8610ca72d1e665bceb01e0ef4319bde8caa763ee629"
+        },
+        {
+          "path": "internal/filesystem/plan.go",
+          "sha256": "5c52a7d8d62b07f29197be51d2d94281a89a254920d586228a0aee3898a14d40"
+        },
+        {
+          "path": "internal/filesystem/recount_test.go",
+          "sha256": "a95c8451fd0a6d56ca32801934a3da84486f623c408e6e746bff9a95ca2e1921"
+        },
+        {
+          "path": "internal/filesystem/scope.go",
+          "sha256": "5854dd06cefddbf0ca675b12378bd04d16c3ff169e33adb8b6e51bb4a6a81a68"
+        },
+        {
+          "path": "internal/filesystem/workflows_test.go",
+          "sha256": "8efdf2f10ad9fbc4e03bbe87fb2e832cd0d40195a5b504bc883cfe12a6d165f3"
+        },
+        {
+          "path": "internal/github/api.go",
+          "sha256": "0f5b112667bcef310f7c81d6c33d094953aaa4739f5d04e3eeda72f7d6e3bf6f"
+        },
+        {
+          "path": "internal/github/branch.go",
+          "sha256": "33c98731edf5b432470b1035c033824302e6f95ada7a356b910ef090ab998a6c"
+        },
+        {
+          "path": "internal/github/branch_test.go",
+          "sha256": "e06ace10f5d64a817bd6dea66c6f795920fefad4eb2cb3006029edbf7aa31a1e"
+        },
+        {
+          "path": "internal/github/cache.go",
+          "sha256": "386234d6318a7d3afd68a8e199818bfd1a564da6b9885db56222e7042edce681"
+        },
+        {
+          "path": "internal/github/ci_cache.go",
+          "sha256": "36dd3f5689011c31ed879ba6b06dd355cf3da2cc367fac76a1d5a215dca405ff"
+        },
+        {
+          "path": "internal/github/ci_checkpoint.go",
+          "sha256": "d38184eee3d4a53f410337f3f3f6226c976aa57beadc04177449b5a83bac2d62"
+        },
+        {
+          "path": "internal/github/ci_evidence.go",
+          "sha256": "beed6e32960e148c9afd1951553214487d44c959b1f29a1f0a11ff911d16432b"
+        },
+        {
+          "path": "internal/github/ci_evidence_test.go",
+          "sha256": "656d77853d66cd1bc6baee84d90ef0f896c30b2b6420e26995ca552c00648ea0"
+        },
+        {
+          "path": "internal/github/ci_failures.go",
+          "sha256": "7ea71d949fb07c16828f52a1fa7b3a1fa77d9533308b5e3798e6a92093eae7a8"
+        },
+        {
+          "path": "internal/github/ci_failures_test.go",
+          "sha256": "0df8ad0111c00f97597d05079373982556ea6ef0038a02fbe934071d78d89461"
+        },
+        {
+          "path": "internal/github/ci_log_download.go",
+          "sha256": "a33db02e869597f5b9cdca192eb02cb90725c77c6e575016349c407f95ddcd2b"
+        },
+        {
+          "path": "internal/github/ci_rerun.go",
+          "sha256": "6ff8a0a11450facc53d9eda09da17ea8137bd7335214ae01f4f3bcc77f40f0bc"
+        },
+        {
+          "path": "internal/github/ci_rerun_test.go",
+          "sha256": "003c472430acdb0f99b03ee6d4588a969098bba85e208776150566fe50586035"
+        },
+        {
+          "path": "internal/github/ci_resume_test.go",
+          "sha256": "04226f918a48279af3d9d7b8dfd28f421001c622d2c8c6494d9bfd959dea6794"
+        },
+        {
+          "path": "internal/github/cleanup.go",
+          "sha256": "a2cc228f557153c13a8f30e4a445d40430eabae673f3ad027338a20b3e1dce01"
+        },
+        {
+          "path": "internal/github/cleanup_test.go",
+          "sha256": "34fd74e50a6fea571e447f567e37237fba74ee5d93d1ca45ac135657532631ae"
+        },
+        {
+          "path": "internal/github/cleanup_worktree.go",
+          "sha256": "c6e40e2d2758644e38000e5ecd33f90089486c0264b8b6ca0a0328c4716a4911"
+        },
+        {
+          "path": "internal/github/cleanup_worktree_test.go",
+          "sha256": "ac6d567751e0cd7a6d8ddf609b3abbe6fe34d3386a0bb7b997faa9c5215b1fa3"
+        },
+        {
+          "path": "internal/github/client.go",
+          "sha256": "8c1c1d34e7229c040987ab1394e29e00d25b2bc7b2fc3f22688d5fcd1da4610a"
+        },
+        {
+          "path": "internal/github/client_test.go",
+          "sha256": "ce9ae83165da1b5e4f8486659148a6aca365404625ba2fa1b38134cbaccbff16"
+        },
+        {
+          "path": "internal/github/dependabot.go",
+          "sha256": "2f0abae52f0fefc42b39a50f382b9dbacd4908736437f47dfbd2e3d3b48f5f98"
+        },
+        {
+          "path": "internal/github/dependabot_test.go",
+          "sha256": "6661649404a91f9fca82770bb2f03b90c57be58a843f6abc5efb000f48407247"
+        },
+        {
+          "path": "internal/github/further_improvements_test.go",
+          "sha256": "a7885134bbf4e08c8a07b28dd12d161f31736fd269e5933651666755dee8409f"
+        },
+        {
+          "path": "internal/github/improvements_test.go",
+          "sha256": "7705727d484e235f780e59178eefae247af091137f07b4e155a7f2f1995246b6"
+        },
+        {
+          "path": "internal/github/policy.go",
+          "sha256": "e67f470c18292eb10dea17bf10a61b232985f2a9a63341a449768a7580f26317"
+        },
+        {
+          "path": "internal/github/pr_delta.go",
+          "sha256": "d528a5157da02a0c8b483bba88e9a544f42db78d37157382e35c088d25d2bcd3"
+        },
+        {
+          "path": "internal/github/pr_inspect.go",
+          "sha256": "932b0ead8929be88b6c414b73ee53013a9125435aa738014a876dbe6b74c517d"
+        },
+        {
+          "path": "internal/github/pr_inspect_delta_test.go",
+          "sha256": "f3ee76d3e01d6e752de26e79280cfc54c1a444b97a710d17be9643abecc46c64"
+        },
+        {
+          "path": "internal/github/pr_merge.go",
+          "sha256": "af8d57eb5e3c96cc02b39b59a7ea285f0b93096ba9e7be28cf036c81fde3aabf"
+        },
+        {
+          "path": "internal/github/pr_merge_cleanup.go",
+          "sha256": "aeec664eacc2c8ac243475e4c03f733313f4db0379593d251f3fea88c276dfbe"
+        },
+        {
+          "path": "internal/github/pr_merge_diagnostics.go",
+          "sha256": "1a816065b17566673a288fc63288c57d3eb3112783b5c7347be4a3257a65b8a9"
+        },
+        {
+          "path": "internal/github/pr_merge_diagnostics_test.go",
+          "sha256": "82719bb9becb6ae1ef3e5a4eb7cc28c8a61aba147def5533d425688e59d584ce"
+        },
+        {
+          "path": "internal/github/pr_merge_test.go",
+          "sha256": "86f0bc876d4cc95b92ab3d26acb839617cd436c8106b46862d8ddbe7582bfbe3"
+        },
+        {
+          "path": "internal/github/pr_reviews.go",
+          "sha256": "8614121599533e7f616317464d236106de2f80a91f26c0dead48a42444e33a8d"
+        },
+        {
+          "path": "internal/github/pr_reviews_test.go",
+          "sha256": "f77f932dabf65f7565b6fa3159d55add007acbd05622de129d5e27b3d58421de"
+        },
+        {
+          "path": "internal/github/pr_workflows.go",
+          "sha256": "1de318671fc75234907806acd89f62300a318e036fc191ed8a31110dfb35d720"
+        },
+        {
+          "path": "internal/github/pr_workflows_test.go",
+          "sha256": "824aa27ccb9c42738ae6a43651929e9271e149dfcd44d9a78c1a0ec0fe88de8c"
+        },
+        {
+          "path": "internal/github/read_transport.go",
+          "sha256": "eb155c4ffc505b12f2f1ed5ddec3c07818ff5cb1933299358dfc47b9f4ec9456"
+        },
+        {
+          "path": "internal/github/read_transport_test.go",
+          "sha256": "1d7890daf483f2fa5816b312ea3b8588675630ff94fd5f9d944c0d70b63c90e2"
+        },
+        {
+          "path": "internal/github/setup.go",
+          "sha256": "3392921117f62a2e943785b90730e4691412b5ed8e913787b7f7912f5acad2e0"
+        },
+        {
+          "path": "internal/github/setup_test.go",
+          "sha256": "4e0499afb746c576a7aadbc606dd0bb4ef38b2747d866324b9891545d7a120b8"
+        },
+        {
+          "path": "internal/github/spec.go",
+          "sha256": "6844f3223f55edb6fed239ac5bac024ae5837e899491f5651a4f941cc04edae3"
+        },
+        {
+          "path": "internal/github/spec_test.go",
+          "sha256": "99f4805c6b62ff94691e1d37d2268b02cb0e4c9ffcd19c1c07e2e9f3d059babb"
+        },
+        {
+          "path": "internal/github/state_directory.go",
+          "sha256": "9d3ab40d9f9bda38f26ed0579319f28c0e0dd4702be229547e62f6f75924691a"
+        },
+        {
+          "path": "internal/github/state_directory_test.go",
+          "sha256": "81ab8b0c506279ec304f891fde9d39e1e5a9537f4d5ca166884895a987fbb251"
+        },
+        {
+          "path": "internal/github/template.go",
+          "sha256": "3942ac9b36dfe628b4830a48177d36e933beff5ac9d648ed7574d82ffc664522"
+        },
+        {
+          "path": "internal/github/template_test.go",
+          "sha256": "82b730de6be73113b9185d1432a721dacec834076116efe055347c48ebb91b9a"
+        },
+        {
+          "path": "internal/github/worktree.go",
+          "sha256": "af8b1a6731ee3fb20eac57ac4082863fd67d03da239464653bd7bf7694a826dc"
+        },
+        {
+          "path": "internal/github/worktree_test.go",
+          "sha256": "1dc7562067fd21a91fadc2f6f28fe639f8eef146a0cc817ed9bc310f22f9e3f5"
+        }
+      ],
+      "cli_sha256": "ef7cc2764e34349eb365f4f214506a3159d6e7f0464df8b9860b1f9d3c20d167",
+      "runner_sha256": {
+        "fs_workflow_benchmark.py": "abe70254b838f0edd2cc3c7c9e9fa212f4048f9615fcc86ebca0d83d518c4d74",
+        "fs_completion_benchmark.py": "1f5242e3dfa727d782103cc49edbed93237e943f177dd1df7dd1bf5567898591"
+      },
+      "scenario_revision": "completion-workflows-v4-recount",
+      "recount_workflows": true
+    }
+  },
+  "commands": [
+    {
+      "group": "github",
+      "task": "context",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "context",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "repo": "fixture/command-benchmark",
+        "default_branch": "main",
+        "labels": [
+          "bug",
+          "enhancement",
+          "documentation",
+          "refactor",
+          "ci",
+          "tests",
+          "chore",
+          "build",
+          "performance",
+          "style",
+          "revert"
+        ],
+        "issue_types": [
+          "Bug",
+          "Feature",
+          "Task"
+        ]
+      },
+      "state_checks": {
+        "working_file_preserved": true,
+        "authored_body_preserved": true,
+        "git_preserved": true,
+        "read_only": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 3
+    },
+    {
+      "group": "github",
+      "task": "setup",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "setup",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "github": {
+          "body_language": "ko",
+          "label_map": {
+            "build": [
+              "build"
+            ],
+            "chore": [
+              "chore"
+            ],
+            "ci": [
+              "ci"
+            ],
+            "docs": [
+              "documentation"
+            ],
+            "feat": [
+              "enhancement"
+            ],
+            "fix": [
+              "bug"
+            ],
+            "perf": [
+              "performance"
+            ],
+            "refactor": [
+              "refactor"
+            ],
+            "revert": [
+              "revert"
+            ],
+            "style": [
+              "style"
+            ],
+            "test": [
+              "tests"
+            ]
+          },
+          "issue_type_map": {
+            "build": [
+              "Task"
+            ],
+            "chore": [
+              "Task"
+            ],
+            "ci": [
+              "Task"
+            ],
+            "docs": [
+              "Task"
+            ],
+            "feat": [
+              "Feature"
+            ],
+            "fix": [
+              "Bug"
+            ],
+            "perf": [
+              "Task"
+            ],
+            "refactor": [
+              "Task"
+            ],
+            "revert": [
+              "Task"
+            ],
+            "style": [
+              "Task"
+            ],
+            "test": [
+              "Task"
+            ]
+          }
+        }
+      },
+      "state_checks": {
+        "working_file_preserved": true,
+        "authored_body_preserved": true,
+        "git_preserved": true,
+        "saved_config": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 3
+    },
+    {
+      "group": "github",
+      "task": "issue-create",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "issue",
+          "create",
+          "--prefix",
+          "fix",
+          "--title",
+          "measure command workflow",
+          "--body-file",
+          "body.md",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "number": 41,
+        "linked": true,
+        "checked_out": true,
+        "branch": "41-fix-measure-command-workflow"
+      },
+      "state_checks": {
+        "main_head_preserved": true,
+        "user_files_preserved": true,
+        "remote_branch": true,
+        "local_branch": true,
+        "tracking_branch": true,
+        "worktree_checkout": true,
+        "upstream": true,
+        "development_link": true,
+        "single_link_mutation": true,
+        "issue_state": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 9
+    },
+    {
+      "group": "github",
+      "task": "issue-branch",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "issue",
+          "branch",
+          "--number",
+          "41",
+          "--json"
+        ],
+        [
+          "tools",
+          "github",
+          "issue",
+          "branch",
+          "--number",
+          "41",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "number": 41,
+        "linked": true,
+        "checked_out": true,
+        "branch": "41-fix-measure-command-workflow"
+      },
+      "state_checks": {
+        "main_head_preserved": true,
+        "user_files_preserved": true,
+        "remote_branch": true,
+        "local_branch": true,
+        "tracking_branch": true,
+        "worktree_checkout": true,
+        "upstream": true,
+        "development_link": true,
+        "single_link_mutation": true,
+        "issue_state": true,
+        "resume_link_checked": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 10
+    },
+    {
+      "group": "github",
+      "task": "pr-create",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "pr",
+          "create",
+          "--prefix",
+          "fix",
+          "--title",
+          "measure command workflow",
+          "--body-file",
+          "body.md",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "number": 42,
+        "title": "fix: measure command workflow",
+        "body": "## 요약\n\n명령별 토큰 사용량을 검증합니다.\n\n## 검증\n\n실험 저장소의 최종 상태를 확인합니다.\n\nCloses #41",
+        "labels": [
+          "bug"
+        ],
+        "base": "main",
+        "head": "41-fix-measure-command-workflow"
+      },
+      "state_checks": {
+        "working_file_preserved": true,
+        "authored_body_preserved": true,
+        "git_preserved": true,
+        "pr_state": true,
+        "no_extra_issue_or_link": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 7
+    },
+    {
+      "group": "github",
+      "task": "pr-reviews",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "pr",
+          "reviews",
+          "--number",
+          "7",
+          "--compact",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "submitted_count": 0,
+        "threads": [
+          {
+            "id": "T1",
+            "path": "file1.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C1",
+                "body": "Please validate input 1."
+              }
+            ]
+          },
+          {
+            "id": "T2",
+            "path": "file2.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C2",
+                "body": "Please validate input 2."
+              }
+            ]
+          },
+          {
+            "id": "T3",
+            "path": "file3.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C3",
+                "body": "Please validate input 3."
+              }
+            ]
+          },
+          {
+            "id": "T4",
+            "path": "file4.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C4",
+                "body": "Please validate input 4."
+              }
+            ]
+          },
+          {
+            "id": "T5",
+            "path": "file5.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C5",
+                "body": "Please validate input 5."
+              }
+            ]
+          },
+          {
+            "id": "T6",
+            "path": "file6.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C6",
+                "body": "Please validate input 6."
+              }
+            ]
+          },
+          {
+            "id": "T7",
+            "path": "file7.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C7",
+                "body": "Please validate input 7."
+              }
+            ]
+          },
+          {
+            "id": "T8",
+            "path": "file8.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C8",
+                "body": "Please validate input 8."
+              }
+            ]
+          },
+          {
+            "id": "T9",
+            "path": "file9.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C9",
+                "body": "Please validate input 9."
+              }
+            ]
+          },
+          {
+            "id": "T10",
+            "path": "file10.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C10",
+                "body": "Please validate input 10."
+              }
+            ]
+          },
+          {
+            "id": "T11",
+            "path": "file11.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C11",
+                "body": "Please validate input 11."
+              }
+            ]
+          },
+          {
+            "id": "T12",
+            "path": "file12.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C12",
+                "body": "Please validate input 12."
+              }
+            ]
+          },
+          {
+            "id": "T13",
+            "path": "file13.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C13",
+                "body": "Please validate input 13."
+              }
+            ]
+          },
+          {
+            "id": "T14",
+            "path": "file14.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C14",
+                "body": "Please validate input 14."
+              }
+            ]
+          },
+          {
+            "id": "T15",
+            "path": "file15.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C15",
+                "body": "Please validate input 15."
+              }
+            ]
+          },
+          {
+            "id": "T16",
+            "path": "file16.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C16",
+                "body": "Please validate input 16."
+              }
+            ]
+          },
+          {
+            "id": "T17",
+            "path": "file17.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C17",
+                "body": "Please validate input 17."
+              }
+            ]
+          },
+          {
+            "id": "T18",
+            "path": "file18.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C18",
+                "body": "Please validate input 18."
+              }
+            ]
+          },
+          {
+            "id": "T19",
+            "path": "file19.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C19",
+                "body": "Please validate input 19."
+              }
+            ]
+          },
+          {
+            "id": "T20",
+            "path": "file20.go",
+            "line": 10,
+            "comments": [
+              {
+                "id": "C20",
+                "body": "Please validate input 20."
+              }
+            ]
+          }
+        ]
+      },
+      "state_checks": {
+        "read_only_git_and_user_files": true,
+        "mutations": true,
+        "reviews_and_history_observed": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 3
+    },
+    {
+      "group": "github",
+      "task": "pr-inspect",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "pr",
+          "inspect",
+          "--number",
+          "7",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "run": 42,
+        "attempt": 2,
+        "expected_arguments": 1,
+        "missing_method": "Flush",
+        "exit_code": 1,
+        "status": "blocked",
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "base": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "checks": [
+          "build"
+        ],
+        "threads": 20
+      },
+      "state_checks": {
+        "read_only_git_and_user_files": true,
+        "mutations": true,
+        "logs_observed": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 12
+    },
+    {
+      "group": "github",
+      "task": "pr-delta",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "pr",
+          "delta",
+          "--number",
+          "7",
+          "--since",
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "since": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "complete": true,
+        "files": [
+          {
+            "filename": "new.go",
+            "status": "renamed",
+            "additions": 2,
+            "deletions": 1,
+            "previous_filename": "old.go"
+          },
+          {
+            "filename": "src/build.go",
+            "status": "modified",
+            "additions": 3,
+            "deletions": 2
+          }
+        ]
+      },
+      "state_checks": {
+        "read_only_git_and_user_files": true,
+        "mutations": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 3
+    },
+    {
+      "group": "github",
+      "task": "pr-submit",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "pr",
+          "submit",
+          "--prefix",
+          "fix",
+          "--title",
+          "measure command workflow",
+          "--body-file",
+          "body.md",
+          "--interval",
+          "10ms",
+          "--timeout",
+          "5s",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "number": 42,
+        "head": "26e5bd6329a757244bcb0f77805806ec65ef2cf1",
+        "branch": "41-fix-measure-command-workflow",
+        "pushed": true,
+        "inspection_status": "ready"
+      },
+      "state_checks": {
+        "remote_push": true,
+        "local_preserved": true,
+        "pr_created_once": true,
+        "pr_fields": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 19
+    },
+    {
+      "group": "github",
+      "task": "pr-merge",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "pr",
+          "merge",
+          "--number",
+          "7",
+          "--interval",
+          "10ms",
+          "--timeout",
+          "5s",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "number": 7,
+        "head": "26e5bd6329a757244bcb0f77805806ec65ef2cf1",
+        "merge_sha": "cccccccccccccccccccccccccccccccccccccccc",
+        "merged": true,
+        "deleted_local": [
+          "41-fix-measure-command-workflow"
+        ],
+        "deleted_remote": [
+          "41-fix-measure-command-workflow"
+        ],
+        "removed_worktree": true
+      },
+      "state_checks": {
+        "merged_once": true,
+        "local_expected_deletion": true,
+        "remote_expected_deletion": true,
+        "tracking_expected_deletion": true,
+        "worktree_removed": true,
+        "user_files_and_head_preserved": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 16
+    },
+    {
+      "group": "github",
+      "task": "ci-failures",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "ci",
+          "failures",
+          "--run",
+          "42",
+          "--compact",
+          "--json"
+        ],
+        [
+          "tools",
+          "github",
+          "ci",
+          "failures",
+          "--run",
+          "42",
+          "--compact",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "run": 42,
+        "attempt": 2,
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "src/build.go",
+        "line": 7,
+        "expected_arguments": 1,
+        "missing_method": "Flush",
+        "exit_code": 1
+      },
+      "state_checks": {
+        "read_only_git_and_user_files": true,
+        "mutations": true,
+        "logs_observed": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 6
+    },
+    {
+      "group": "github",
+      "task": "ci-rerun",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "ci",
+          "rerun",
+          "--run",
+          "42",
+          "--interval",
+          "10ms",
+          "--timeout",
+          "5s",
+          "--compact",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "run": 42,
+        "attempt": 3,
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "src/build.go",
+        "line": 7,
+        "expected_arguments": 1,
+        "missing_method": "Flush",
+        "exit_code": 1,
+        "status": "failed",
+        "rerun_requested": true
+      },
+      "state_checks": {
+        "read_only_git_and_user_files": true,
+        "mutations": true,
+        "logs_observed": true,
+        "completed_new_attempt": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 9
+    },
+    {
+      "group": "github",
+      "task": "dependabot-list",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "dependabot",
+          "list",
+          "--severity",
+          "high,critical",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "count": 2,
+        "alerts": [
+          {
+            "number": 7,
+            "state": "open",
+            "package": "@example/parser",
+            "ecosystem": "npm",
+            "manifest_path": "package-lock.json",
+            "scope": "runtime",
+            "severity": "critical",
+            "vulnerable_version_range": "< 2.0.1",
+            "first_patched_version": "2.0.1"
+          },
+          {
+            "number": 8,
+            "state": "open",
+            "package": "example.com/library",
+            "ecosystem": "go",
+            "manifest_path": "go.mod",
+            "scope": "runtime",
+            "severity": "high",
+            "vulnerable_version_range": "<= 1.4.0",
+            "first_patched_version": null
+          }
+        ]
+      },
+      "state_checks": {
+        "read_only_git_and_user_files": true,
+        "mutations": true,
+        "both_cursor_pages": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 2
+    },
+    {
+      "group": "github",
+      "task": "dependabot-view",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "dependabot",
+          "view",
+          "--number",
+          "7",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "number": 7,
+        "description": "Synthetic advisory description for the benchmark; no real vulnerability.",
+        "references": [
+          "https://example.com/advisory"
+        ]
+      },
+      "state_checks": {
+        "read_only_git_and_user_files": true,
+        "mutations": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 1
+    },
+    {
+      "group": "github",
+      "task": "cleanup-apply",
+      "cli_commands": [
+        [
+          "tools",
+          "github",
+          "branch",
+          "cleanup",
+          "--apply",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "deleted_local": [
+          "17-fix-closed-issue",
+          "18-fix-deleted-issue",
+          "feat/linked",
+          "feat/merged",
+          "feat/squashed",
+          "fix/closed"
+        ],
+        "deleted_remote": [
+          "17-fix-closed-issue",
+          "feat/linked",
+          "feat/merged",
+          "feat/unpublished",
+          "fix/closed"
+        ],
+        "deleted_tracking": [
+          "origin/18-fix-deleted-issue",
+          "origin/feat/squashed"
+        ],
+        "kept_targets": 17
+      },
+      "state_checks": {
+        "local": true,
+        "remote": true,
+        "tracking": true,
+        "worktree_preserved": true,
+        "working_file_preserved": true,
+        "current_branch_preserved": true,
+        "deleted_branch_config_removed": true,
+        "worktree_file_preserved": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "real_gh_transport_contract": true,
+      "api_access_count": 8
+    },
+    {
+      "group": "fs",
+      "task": "inspect",
+      "cli_commands": [
+        [
+          "tools",
+          "fs",
+          "inspect",
+          "--request",
+          "queries.json",
+          "--raw",
+          "--hash",
+          "--json"
+        ],
+        [
+          "tools",
+          "fs",
+          "apply",
+          "--plan",
+          "-",
+          "--apply",
+          "--report-changes",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "modified": [
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "verified": [
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "blocks_reversed": true,
+        "unrelated_preserved": true
+      },
+      "state_checks": {
+        "exact_edits_and_original_terminators": true,
+        "unrelated_bytes_preserved": true,
+        "existing_permissions_preserved": true,
+        "no_internal_temporaries": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "other_workflow_steps": "Build a replacement plan from exact returned text and SHA before applying it."
+    },
+    {
+      "group": "fs",
+      "task": "delta",
+      "cli_commands": [
+        [
+          "tools",
+          "fs",
+          "delta",
+          "--include",
+          "src/**/*.txt",
+          "--state-file",
+          "baseline.json",
+          "--include-content",
+          "--json"
+        ],
+        [
+          "tools",
+          "fs",
+          "delta",
+          "--include",
+          "src/**/*.txt",
+          "--state-file",
+          "baseline.json",
+          "--include-content",
+          "--json",
+          "--peek",
+          "--content-kinds",
+          "modified",
+          "--comparisons",
+          "2"
+        ]
+      ],
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "other_workflow_steps": "Perform one controlled fixture mutation between initializing the baseline and the two observations."
+    },
+    {
+      "group": "fs",
+      "task": "apply",
+      "cli_commands": [
+        [
+          "tools",
+          "fs",
+          "apply",
+          "--spec",
+          "spec.json",
+          "--recount",
+          "1:1",
+          "--save-plan",
+          "plan.json",
+          "--apply",
+          "--report-changes",
+          "--json"
+        ]
+      ],
+      "actual": {
+        "applied": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "user_files_preserved": true,
+        "verified": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "plan_saved": true,
+        "diagnostic": {
+          "path": "src/module_00.txt",
+          "replacement_index": 1,
+          "expected_count": 2,
+          "actual_count": 1
+        }
+      },
+      "state_checks": {
+        "unrelated_bytes_preserved": true,
+        "all_requested_bytes_match": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "saved_plan_has_exact_original_hashes": true
+      },
+      "correct": true,
+      "model_calls": 0,
+      "other_workflow_steps": "Only the first file’s first count correction is authorized; preserve the input spec."
+    }
+  ],
+  "limitations": [
+    "Representative scenarios, not every option or error path.",
+    "Some workflows intentionally contain multiple CLI calls; functional success is not proof of one-call or token savings.",
+    "Model input cache and real context return after unrelated work were not measured.",
+    "No live GitHub latency, macOS runtime, or Windows runtime measurement.",
+    "This is a normalized summary; reproduce raw responses and state traces with the documented preflight runners."
+  ]
+}

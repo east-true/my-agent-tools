@@ -18,6 +18,10 @@ import (
 const help = `tools: repeatable agent workflows
 
 Usage:
+  tools fs inspect          Select files, search patterns and read bounded ranges
+  tools fs delta            Compare files with a content-hash snapshot
+  tools fs apply            Preview or apply validated batch edits
+  tools fs test-results     Read JUnit counts and diagnostics without claiming a test run
   tools github context       Inspect existing labels and issue types
   tools github setup         Fetch labels/types and save project config
   tools github issue create  Create an issue, assign @me, create and link its branch
@@ -43,7 +47,7 @@ const githubHelp = `Usage:
   tools github issue create --prefix PREFIX --title TITLE --body-file FILE [options]
   tools github issue branch --number NUMBER [options]
   tools github pr create --prefix PREFIX --title TITLE --body-file FILE [options]
-  tools github pr reviews --number NUMBER [--all] [--json]
+  tools github pr reviews --number NUMBER [--all] [--conversation] [--save-result FILE] [--json]
   tools github pr inspect --number NUMBER [--state-file FILE] [--wait] [--json]
   tools github pr delta --number NUMBER --since SHA [--include-patch] [--json]
   tools github pr submit --prefix PREFIX --title TITLE --body-file FILE [options]
@@ -97,6 +101,9 @@ func run(ctx context.Context, args []string, in io.Reader, out, stderr io.Writer
 	if len(args) == 0 || args[0] == "--help" || args[0] == "-h" {
 		printHelp(out, help)
 		return 0
+	}
+	if args[0] == "fs" {
+		return runFilesystem(ctx, args[1:], in, out, stderr)
 	}
 	if args[0] != "github" {
 		fmt.Fprintf(stderr, "unknown command %q; use tools --help\n", args[0])

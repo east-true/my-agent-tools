@@ -6,19 +6,20 @@
 
 `tools`는 반복 작업을 자동화하는 크로스 플랫폼 CLI입니다. 여러 단계를 명령으로 묶어 에이전트와 개발자가 프로젝트마다 재사용하고, 프로젝트별 선호는 설정으로 관리합니다.
 
-작업은 `tools <group> <command>` 형태로 구분합니다. GitHub는 현재 제공하는 첫 작업 그룹이며, 앞으로 다른 자동화도 별도 명령 그룹으로 추가합니다.
+작업은 `tools <group> <command>` 형태로 구분하며 GitHub와 파일시스템을 별도 그룹으로 제공합니다.
 
 ## 사용 가능한 작업 그룹
 
 | 그룹 | 자동화하는 작업 | 문서 |
 |---|---|---|
 | `github` | 저장소 설정, 이슈, 연결 브랜치, PR·리뷰, CI 진단·재실행, Dependabot 경고, 종료된 브랜치 정리 | [GitHub 명령어](github/README.md) |
+| `fs` | raw 파일·Markdown 섹션·이어 읽기, 증분 조회·배치 수정·JUnit 보고서 판독 | [파일시스템 명령어](fs/README.md) |
 
 ## 토큰 사용량 실측
 
 명령별 최신 실측을 모았습니다. 방식별 3회씩 비교했으며, 표는 **캐시 제외 입력+출력 평균**과 캐시 입력을 포함한 총 토큰 변화입니다. 측정일은 한국시간이며 범위·정답/상태 검증은 각 명령 문서에 있습니다.
 
-측정 당시 기본 설정: 2026-10-08: `gpt-6.1-sol` / `high`; 2026-10-10: `gpt-6.1-sol` / `low`. 서로 다른 설정의 실험을 합산하거나 과거와의 차이를 코드 개선 효과로 해석하지 않습니다.
+측정 당시 기본 설정: 2026-10-08: `gpt-6.1-sol` / `high`; 2026-10-10: `gpt-6.1-sol` / `low`; 2026-10-11: `gpt-6.1-sol` / `high`. 서로 다른 설정의 실험을 합산하지 않습니다.
 
 | 명령 | 측정일 | 직접 처리 평균 | tools 평균 | 변화 | 캐시 포함 변화 |
 |---|---|---:|---:|---:|---:|
@@ -26,9 +27,9 @@
 | [`github setup`](benchmarks/github/setup.md) | 2026-10-08 | 17,343 | 15,695 | −9.5% | −36.2% |
 | [`github issue create`](benchmarks/github/issue/create.md) | 2026-10-08 | 18,583 | 20,244 | +8.9% | −62.4% |
 | [`github issue branch`](benchmarks/github/issue/branch.md) | 2026-10-08 | 15,314 | 15,626 | +2.0% | −40.8% |
-| [`github pr create`](benchmarks/github/pr/create.md) | 2026-10-08 | 17,681 | 21,590 | +22.1% | −42.9% |
-| [`github pr reviews`](benchmarks/github/pr/reviews.md) | 2026-10-10 | 18,621 | 13,108 | −29.6% | −4.5% |
-| [`github pr inspect`](benchmarks/github/pr/inspect.md) | 2026-10-10 | 18,931 | 17,951 | −5.2% | −36.5% |
+| [`github pr create`](benchmarks/github/pr/create.md) | 2026-10-11 | 18,491 | 15,713 | −15.0% | −59.0% |
+| [`github pr reviews`](benchmarks/github/pr/reviews.md) | 2026-10-11 | 13,978 | 18,389 | +31.6% | +0.6% |
+| [`github pr inspect`](benchmarks/github/pr/inspect.md) | 2026-10-10 | 19,458 | 17,753 | −8.8% | −14.3% |
 | [`github pr delta`](benchmarks/github/pr/delta.md) | 2026-10-08 | 16,851 | 15,314 | −9.1% | −51.7% |
 | [`github pr submit`](benchmarks/github/pr/submit.md) | 2026-10-08 | 19,974 | 15,777 | −21.0% | −66.0% |
 | [`github pr merge`](benchmarks/github/pr/merge.md) | 2026-10-08 | 20,302 | 11,468 | −43.5% | −76.3% |
@@ -38,7 +39,30 @@
 | [`github dependabot view`](benchmarks/github/dependabot/view.md) | 2026-10-08 | 11,243 | 15,175 | +35.0% | −0.7% |
 | [`github branch cleanup --apply`](benchmarks/github/branch/cleanup.md) | 2026-10-08 | 30,151 | 21,365 | −29.1% | −54.9% |
 
-고정 합성 자료·소표본 결과이며 캐시 적중 차이가 남습니다. 일반적인 절감률이나 요금 절감을 뜻하지 않습니다. [공통 조건·한계·원본·재현](benchmarks/github/README.md).
+고정 합성 자료·소표본 결과이며 캐시 적중 차이가 남습니다. 독립 1회 사용·다른 작업 후 복귀의 동시 개선이나 일반적인 절감률·요금 절감을 보장하지 않습니다. [공통 조건·한계·원본·재현](benchmarks/github/README.md).
+
+### 파일시스템 실측
+
+파일시스템 실험별 기본 설정: 2026-10-10: `gpt-6.1-sol` / `low`; 2026-10-11: `gpt-6.1-sol` / `high`. 보통 방식별 3회이며 JUnit 일반 판독은 2쌍입니다. 캐시 제외 평균과 캐시 포함 총 토큰 변화를 함께 표시합니다.
+
+| 명령 | 직접 평균 | tools 평균 | 캐시 제외 변화 | 캐시 포함 변화 | 정답·상태 | 동시 개선 판단 |
+|---|---:|---:|---:|---:|---:|---|
+| [`fs inspect: Markdown`](benchmarks/fs/inspect.md) | 21,294 | 16,324 | −23.3% | −42.0% | 6/6 | 표본에서 AND 충족 |
+| [`fs inspect: raw file`](benchmarks/fs/inspect.md) | 16,459 | 15,601 | −5.2% | −2.3% | 6/6 | 표본에서 AND 충족 |
+| [`fs delta`](benchmarks/fs/delta.md) | 18,026 | 16,674 | −7.5% | −12.9% | 6/6 | 표본에서 AND 충족 |
+| [`fs apply: 오류 진단`](benchmarks/fs/apply.md) | 17,178 | 15,768 | −8.2% | −50.7% | 6/6 | 표본에서 AND 충족 |
+| [`fs apply: 공통 치환`](benchmarks/fs/apply.md) | 18,583 | 17,300 | −6.9% | −1.6% | 6/6 | 표본에서 AND 충족 |
+| [`fs test-results`](benchmarks/fs/test-results.md) | 21,844 | 25,794 | +18.1% | −11.5% | 4/4 | 조건부·캐시 지표 상충 |
+
+독립 1회 사용·다른 실제 작업 후 재사용은 별도 검증하지 않았습니다. 캐시를 통제하지 않아 최초 표본도 캐시 없는 실행이 아닙니다. AND 판정은 측정 표본의 평균에 한정합니다.
+
+[조건·한계·원본·재현](benchmarks/fs/README.md).
+
+리뷰·PR 복귀·apply 두 시나리오의 최신 수치는 입력 작성·실제 완료 검증을 포함합니다. [범위·캐시 한계·원본](benchmarks/actionable/README.md).
+
+사용 기록에서 찾은 최신 작업의 토큰·시간·실제 CLI/API 수와 조건부 결과는 [별도 완료 비교](benchmarks/usage/README.md)에 있습니다. JUnit 표는 일반 판독 2쌍이며 XML 오류 1쌍은 별도 공개합니다.
+
+최신 변경 작업 비교는 리뷰 원문·복귀, 큰 보고서 복구, 실제 설정 저장 검증과 저장된 CI 원문 선택을 다룹니다. 직접 처리와 tools의 같은 완료 작업에서 입력 작성·복구·최종 검증을 포함하고 불리한 실행과 캐시 상충도 보존합니다. [결과·원본](benchmarks/completion/README.md).
 
 ## 설치
 
@@ -125,6 +149,25 @@ tools github branch cleanup --apply --json
 ```
 
 종료된 브랜치의 깨끗한 연결 워크트리는 함께 제거합니다. 주 작업 폴더·실행 중인 워크트리, 잠겼거나 변경 파일이 있는 워크트리, 보호 브랜치, 열린 PR 작업, 로컬 미게시 커밋은 보존합니다. 머지 없이 닫힌 원격 작업도 삭제 대상이므로 미리보기를 확인하세요. [정리 조건과 옵션](github/branch/cleanup.md).
+### 파일시스템 작업
+
+```sh
+tools fs inspect --root . --include '**/*.go' --pattern cache --pattern retry --context 2 --json
+tools fs inspect --request examples/fs/read-requests.json --json
+# 수정에 사용할 원문 조각과 정확한 줄바꿈·해시 조회
+tools fs inspect --request examples/fs/read-requests.json --raw --hash --json
+tools fs delta --root . --include '**/*.go' --state-file .tools/state/fs/go.json --include-content --json
+# 실제 두 번 관찰하고 기준을 보존하며 동일 보고서는 한 번만 출력
+tools fs delta --include '**/*.go' --state-file .tools/state/fs/go.json --include-content --peek --comparisons 2 --json
+tools fs apply --root . --plan edits.json --json
+tools fs apply --root . --plan edits.json --apply --report-changes --json
+# 이미 승인한 수정 조건을 계획 생성부터 재검증까지 처리
+tools fs apply --spec replacements.json --save-plan validated-plan.json --apply --report-changes --json
+# 해당 치환의 횟수 수정을 지시한 경우 진단·복구까지 통합
+tools fs apply --spec replacements.json --recount 1:1 --save-plan recounted-plan.json --apply --report-changes --json
+```
+
+Git·GitHub 인증 없이 사용합니다. `apply`는 기본 미리보기이며 계획 전체의 SHA·치환 횟수를 먼저 확인하고 실제 반영한 파일을 다시 읽어 검증합니다. 조회 누락·상한 초과 시 `partial`로 반환하고 증분 기준은 갱신하지 않습니다. [옵션·계획 형식·반영 범위](fs/README.md).
 
 ## 문서
 
@@ -132,6 +175,7 @@ tools github branch cleanup --apply --json
 - [GitHub 에이전트용 빠른 사용법](agent-usage.md) — 코딩 에이전트에 전달할 짧은 작업 흐름.
 - [입력·설정 예제](../examples/github) — 이슈·PR JSON, Markdown, `.tools.json`.
 - [벤치마크](benchmarks/README.md) — 명령별 최신 측정, 원본 자료, 재현 방법.
+- [전체 명령 점검](command-audit.md) — 이전 18개 점검과 현재 19개 명령의 추가 기능 검증 근거.
 - [개발·개인정보 검사](development.md) · [CI 보고서 실험](ci-reports.md).
 
 명령 목록은 `tools --help`, 세부 옵션은 각 명령의 `--help`에서 확인합니다.

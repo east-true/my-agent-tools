@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "files": [
+    {"path": "config/new.txt", "sha256": "absent", "content": "limit=40\n"}
+  ]
+}

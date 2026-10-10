@@ -75,7 +75,7 @@ func TestCompactOutputMeasurements(t *testing.T) {
 				t.Fatal(err)
 			}
 			compacted := string(before) != string(after)
-			if afterTokens > beforeTokens || (compacted && afterTokens == beforeTokens) || compacted != (name != "short" && name != "whitespace") {
+			if afterTokens > beforeTokens || (compacted && afterTokens == beforeTokens) || compacted != (name != "short" && name != "whitespace" && name != "review") {
 				t.Fatalf("%s/%s: tokens=%d->%d compacted=%t", name, encoding, beforeTokens, afterTokens, compacted)
 			}
 			rows = append(rows, measurement{name, string(encoding), fmt.Sprintf("%x", sha256.Sum256(before)), fmt.Sprintf("%x", sha256.Sum256(after)), len(before), len(after), beforeTokens, afterTokens, compacted})

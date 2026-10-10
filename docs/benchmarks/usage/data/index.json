@@ -1,0 +1,36 @@
+{
+  "cohorts": {
+    "diagnostic-v3": {
+      "file": "diagnostic-v3.json",
+      "label": "최초 진단 실험: 모든 24회 보존",
+      "trials": 24
+    },
+    "reviews-v4": {
+      "file": "reviews-v4.json",
+      "label": "리뷰 검증 근거·사전 경로 검사 보완: 12회",
+      "trials": 12
+    },
+    "fsfile-v5": {
+      "file": "fsfile-v5.json",
+      "label": "명시한 raw 파일 조회·반영 보완: 6회",
+      "trials": 6
+    },
+    "workflows-v6": {
+      "file": "workflows-v6.json",
+      "label": "리뷰 소스 묶음·API 배치·Markdown 공통 선택·연결 수정",
+      "trials": 24
+    },
+    "receipt-v7": {
+      "file": "receipt-v7.json",
+      "label": "실제 보존 값·완료 검증을 반환하는 연결 수정",
+      "trials": 6
+    }
+  },
+  "latest": {
+    "markdown": "workflows-v6",
+    "junit": "diagnostic-v3",
+    "pr-reviews": "workflows-v6",
+    "pr-conversation": "workflows-v6",
+    "fs-file": "receipt-v7"
+  }
+}

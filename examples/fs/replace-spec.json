@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "files": [
+    {"path": "config/settings.txt", "replacements": [{"old": "limit=20", "new": "limit=40", "count": 1}]}
+  ]
+}

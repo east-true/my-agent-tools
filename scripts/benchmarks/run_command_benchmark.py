@@ -138,7 +138,11 @@ class Handler(BaseHTTPRequestHandler):
                 status = 400
         else:
             status = 404
-        data = json.dumps(result, ensure_ascii=False, separators=(',', ':')).encode()
+        # PR 응답은 실제 REST처럼 ref 객체를 쓰고 검증용 생성 기록은 요청 값을 유지한다.
+        wire = result
+        if isinstance(result, dict) and isinstance(result.get('head'), str) and endpoint in (base + '/pulls', base + '/pulls/42'):
+            wire = dict(result, head={'ref': result['head'], 'sha': cleanup.git(s.root / 'workspace', 'rev-parse', 'HEAD')}, base={'ref': result['base']})
+        data = json.dumps(wire, ensure_ascii=False, separators=(',', ':')).encode()
         s.accesses.append({'method': self.command, 'endpoint': self.path, 'payload': body,
                            'status': status, 'response_bytes': len(data)})
         self.send_response(status)
@@ -299,7 +303,7 @@ def prompt_for(task, method):
             'setup': 'Return plan.config from the result; the command saves .tools.json.',
             'issue-create': 'Return number and branch.name/linked/checked_out.',
             'issue-branch': 'Both calls must succeed. The second must reuse the branch; return number and branch.name/linked/checked_out.',
-            'pr-create': 'Return number; title is the prefixed final title "fix: measure command workflow", body is trimmed body.md plus two newlines and Closes #41, labels from selection.labels, base=main and head=current branch.',
+            'pr-create': 'Return number; title is the prefixed final title "fix: measure command workflow", body is trimmed body.md plus two newlines and Closes #41, labels from selection.labels, base=creation_context.requested_base and head=creation_context.local_branch when local_branch_verified=true. The command performs a fresh final local branch check; no duplicate branch query is needed.',
             'cleanup-preview': 'Use plan.targets with eligible=true grouped by scope/name; kept_targets=summary.kept. Sort candidate arrays.',
         }[task]
     return shared + '\nMethod usage guide:\n' + guide + '\n'

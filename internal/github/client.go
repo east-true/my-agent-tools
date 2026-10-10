@@ -45,20 +45,22 @@ type Plan struct {
 	Notes         []string       `json:"notes,omitempty"`
 	WorkType      string         `json:"-"`
 	Slug          string         `json:"-"`
+	LocalHead     string         `json:"-"`
 }
 
 type Result struct {
-	Status      string         `json:"status"`
-	Kind        string         `json:"kind"`
-	Repo        string         `json:"repo"`
-	Number      int            `json:"number"`
-	URL         string         `json:"url"`
-	Branch      string         `json:"suggested_branch,omitempty"`
-	Notes       []string       `json:"notes,omitempty"`
-	Error       string         `json:"error,omitempty"`
-	Selection   Selection      `json:"selection"`
-	BranchInfo  *BranchOutcome `json:"branch,omitempty"`
-	IssueNodeID string         `json:"-"`
+	Status      string             `json:"status"`
+	Kind        string             `json:"kind"`
+	Repo        string             `json:"repo"`
+	Number      int                `json:"number"`
+	URL         string             `json:"url"`
+	Branch      string             `json:"suggested_branch,omitempty"`
+	Notes       []string           `json:"notes,omitempty"`
+	Error       string             `json:"error,omitempty"`
+	Selection   Selection          `json:"selection"`
+	BranchInfo  *BranchOutcome     `json:"branch,omitempty"`
+	IssueNodeID string             `json:"-"`
+	PRContext   *PRCreationContext `json:"creation_context,omitempty"`
 }
 
 type resource struct {
@@ -72,6 +74,13 @@ type resource struct {
 	} `json:"assignees"`
 	IssueType   *IssueType      `json:"type"`
 	PullRequest json.RawMessage `json:"pull_request"`
+	Head        *struct {
+		Ref string `json:"ref"`
+		SHA string `json:"sha"`
+	} `json:"head"`
+	Base *struct {
+		Ref string `json:"ref"`
+	} `json:"base"`
 }
 
 var repoPattern = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9-]*/[a-zA-Z0-9_.-]+$`)
@@ -234,6 +243,7 @@ func (client Client) prepare(ctx context.Context, repo, kind string, spec Spec, 
 			return Plan{}, fmt.Errorf("resolve current branch (or set head in input): %w", err)
 		}
 		head = strings.TrimSpace(string(out))
+		plan.LocalHead = head
 	}
 	base := spec.Base
 	if base == "" {
@@ -322,6 +332,15 @@ func (client Client) Create(ctx context.Context, plan Plan) (Result, error) {
 		result.Notes = append(result.Notes, "creation response lacks number or URL; check GitHub before retrying")
 		return result, errors.New("GitHub creation response lacks number or URL; check GitHub before retrying")
 	}
+	if plan.Kind == "pr" {
+		result.PRContext = &PRCreationContext{RequestedHead: plan.Payload["head"].(string), RequestedBase: plan.Payload["base"].(string)}
+		if created.Head != nil {
+			result.PRContext.HeadRef, result.PRContext.HeadSHA = created.Head.Ref, created.Head.SHA
+		}
+		if created.Base != nil {
+			result.PRContext.BaseRef = created.Base.Ref
+		}
+	}
 	if plan.Kind == "issue" {
 		result.Branch = fmt.Sprintf("%d-%s-%s", created.Number, plan.WorkType, plan.Slug)
 		for _, login := range plan.Payload["assignees"].([]string) {
@@ -358,5 +377,29 @@ func (client Client) Create(ctx context.Context, plan Plan) (Result, error) {
 	if result.Status == "partial" {
 		return result, fmt.Errorf("%s %s exists but some metadata was not applied; do not recreate", plan.Kind, result.URL)
 	}
+	if plan.Kind == "pr" && plan.LocalHead != "" {
+		actual, err := client.Runner.Run(ctx, nil, "git", "symbolic-ref", "--quiet", "--short", "HEAD")
+		if err != nil || strings.TrimSpace(string(actual)) == "" {
+			result.Status = "partial"
+			return result, errors.New("PR exists but the final local branch could not be verified; do not recreate")
+		}
+		result.PRContext.LocalBranch = strings.TrimSpace(string(actual))
+		if result.PRContext.LocalBranch != plan.LocalHead {
+			result.Status = "partial"
+			return result, errors.New("PR exists but the local branch changed during creation; do not recreate")
+		}
+		result.PRContext.LocalBranchVerified = true
+	}
 	return result, nil
+}
+
+// 생성 요청·서버 응답·최종 로컬 검증을 구분해 후속 조회의 근거로 제공한다.
+type PRCreationContext struct {
+	RequestedHead       string `json:"requested_head"`
+	RequestedBase       string `json:"requested_base"`
+	HeadRef             string `json:"head_ref,omitempty"`
+	BaseRef             string `json:"base_ref,omitempty"`
+	HeadSHA             string `json:"head_sha,omitempty"`
+	LocalBranch         string `json:"local_branch,omitempty"`
+	LocalBranchVerified bool   `json:"local_branch_verified,omitempty"`
 }

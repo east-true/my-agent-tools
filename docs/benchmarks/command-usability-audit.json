@@ -1,0 +1,532 @@
+{
+  "version": 1,
+  "kind": "command-usability-audit",
+  "date_kst": "2026-10-11",
+  "commands": [
+    "github context",
+    "github setup",
+    "github issue create",
+    "github issue branch",
+    "github pr create",
+    "github pr submit",
+    "github pr reviews",
+    "github pr inspect",
+    "github pr delta",
+    "github pr merge",
+    "github ci failures",
+    "github ci rerun",
+    "github dependabot list",
+    "github dependabot view",
+    "github branch cleanup",
+    "fs inspect",
+    "fs delta",
+    "fs apply",
+    "fs test-results"
+  ],
+  "model_calls": 0,
+  "token_measurement": false,
+  "real_github_mutations": false,
+  "runtime_platform": "linux",
+  "scope": "19 command help contracts; two production CLI observations and one inspection serialization observation; remaining proposals use source/docs/existing trial evidence",
+  "observations": [
+    {
+      "artifact_saved": false,
+      "case": "compact_bundled_source",
+      "exact": true,
+      "original_bytes": 2700,
+      "returned_bytes": 2700,
+      "source_complete": true
+    },
+    {
+      "attention_required": true,
+      "body_present": true,
+      "case": "unchanged_submitted_review",
+      "requested_review_count": 1,
+      "status": "unchanged"
+    },
+    {
+      "case": "large_junit_default_budget",
+      "complete": false,
+      "cursor_present": false,
+      "diagnostics_unavailable": true,
+      "exit_code": 1,
+      "returned_bytes": 787,
+      "saved_report_present": true,
+      "tests": 1
+    },
+    {
+      "authentication_calls": 0,
+      "case": "command_help",
+      "commands": 19,
+      "help_success": 19
+    }
+  ],
+  "source_sha256": [
+    {
+      "path": "go.mod",
+      "sha256": "9cdfe21c9804fe3ba95648b65e158f7bd88eb0753cf36906bfe253a1655a44c5"
+    },
+    {
+      "path": "go.sum",
+      "sha256": "5635d406c9086d72751fb8e7a9bd9735f41ffd57e5c509210ebeef64f7885a3d"
+    },
+    {
+      "path": "cmd/tools/main.go",
+      "sha256": "7b1080531b6994117dea7a28e8a0bf9fcfcf52831d56c6051b7647371088dfb1"
+    },
+    {
+      "path": "internal/cli/actionable_output_test.go",
+      "sha256": "9b4bd1168f0e91267d69c840225c0d51e23884904da763edb4ecb813f8a29c76"
+    },
+    {
+      "path": "internal/cli/ci_evidence_read.go",
+      "sha256": "0a7756ec3e17eb9e59c6faeed4e2c787b5300e1b113579a66110d77f7c2905cd"
+    },
+    {
+      "path": "internal/cli/ci_failures.go",
+      "sha256": "37b9c96e63b65d94581d88b06bf1c7570592aa5f6cf7dea5f7184e54bb9ce1c5"
+    },
+    {
+      "path": "internal/cli/ci_failures_test.go",
+      "sha256": "4b09ce68832d5666ceb6c8b33496c461ba9e3978c34bc7ef659ce9f5f805fced"
+    },
+    {
+      "path": "internal/cli/ci_rerun.go",
+      "sha256": "1df3282bc75eb78ff482ac02b371ae763ffbaea010bebaaaa9599f756e0a9dfb"
+    },
+    {
+      "path": "internal/cli/ci_rerun_state.go",
+      "sha256": "bd731a91c46f9aad7def64b2f14bdfb4cdca063a2a24b57b1e8b6a87cdd2ef64"
+    },
+    {
+      "path": "internal/cli/ci_rerun_state_test.go",
+      "sha256": "c4b8476e15b4b1efdbf13bd86cd8d033e4c627c3ef52edc181703b5cc32a0a8b"
+    },
+    {
+      "path": "internal/cli/cleanup.go",
+      "sha256": "b453d82dd23c770dcf50722b4d3fb55a6ffded565088489bdb90844e0e7d4d5f"
+    },
+    {
+      "path": "internal/cli/cleanup_test.go",
+      "sha256": "7517c8dd1c00d68fa3fb1120ab2c27b8600f26fcbbfe6a5d42b28e224d4c16eb"
+    },
+    {
+      "path": "internal/cli/cli.go",
+      "sha256": "93bd0d22f81c898d4e28fdf47551544a9e643c1350b6da367aac5a7a340a291c"
+    },
+    {
+      "path": "internal/cli/cli_test.go",
+      "sha256": "834e76acdc9ceb1844515452bc03c8afaef065847c588d5e1b78fe5ad2ba4eeb"
+    },
+    {
+      "path": "internal/cli/command_completion_test.go",
+      "sha256": "1794df75c8b94bac04f6e007b7c83d08bac2d1b247d792e9d31e14a46d0f3b1c"
+    },
+    {
+      "path": "internal/cli/compact.go",
+      "sha256": "0ae2ad7c22c4230daf2154578bb140b63e84031a4800389e78a9e60afb134e87"
+    },
+    {
+      "path": "internal/cli/compact_measurement_test.go",
+      "sha256": "d8d6e066badb4123f1ca66615fc28e9d36c4f5e18b677c00f0d62c1af190870e"
+    },
+    {
+      "path": "internal/cli/compact_reviews_test.go",
+      "sha256": "8e409bbcf27340d00b184a012db6299551384c339355e7f47e084a9e8a3a0e6b"
+    },
+    {
+      "path": "internal/cli/compact_state_test.go",
+      "sha256": "4500f14acafc375aaf93ba6b016ebea0aa25e74a35f881ad31d7377d86355d4f"
+    },
+    {
+      "path": "internal/cli/dependabot.go",
+      "sha256": "0a0d5344de67659f0fdcc32bbaea18122825d9e24b6353bc71b3a160c93d2e24"
+    },
+    {
+      "path": "internal/cli/dependabot_test.go",
+      "sha256": "b2ae72a3a48636838df075bfebc5923b01e0e528fe23bbfe4ad6d5535dd11105"
+    },
+    {
+      "path": "internal/cli/fs.go",
+      "sha256": "f47424ca537b7fd0f739633a1a0224874385a35910ddb858df8c4222e55f447d"
+    },
+    {
+      "path": "internal/cli/fs_report.go",
+      "sha256": "f5cc30281a116b5eebb6beac00b59d9bbe4ee5c8bb86cb0b6d8083f6e69b6e75"
+    },
+    {
+      "path": "internal/cli/fs_test.go",
+      "sha256": "0adf5c684664d9548fb95a1e7f04af353e8a70b544a965d3f4caf747421433b0"
+    },
+    {
+      "path": "internal/cli/improvements_test.go",
+      "sha256": "b692b539d636f81ed62eef0cb9e4017acb2338c350c41af55a3fbca8e4cc6fba"
+    },
+    {
+      "path": "internal/cli/pr_merge.go",
+      "sha256": "39351926257ac60519e04821dcd16bfa6d75cdccecc8dab216ccaf2bbdfb5ef6"
+    },
+    {
+      "path": "internal/cli/pr_merge_evidence_test.go",
+      "sha256": "a751c6684f1805dcb0b3020e126eb426e9bbd58417a98150f8abc115286f1b24"
+    },
+    {
+      "path": "internal/cli/pr_merge_test.go",
+      "sha256": "1b2829b4c1039ae815b35d234d1634e994a9bc39b500a08c8f24f506f89c41f9"
+    },
+    {
+      "path": "internal/cli/pr_reviews.go",
+      "sha256": "4eb4b29c73b05d0397b2a9e64c83f83c829bb754a0dfb046760295c97d21ed99"
+    },
+    {
+      "path": "internal/cli/pr_sources_test.go",
+      "sha256": "dbc354e8d7ae4f6d5cda03af093eabf1ca76bae62caf0779fd07f87129b01e3d"
+    },
+    {
+      "path": "internal/cli/pr_state.go",
+      "sha256": "1e9053b7849ea43fbc4e56a06633ab965e61c41da6acf4095943b559a4b50f12"
+    },
+    {
+      "path": "internal/cli/pr_workflows.go",
+      "sha256": "0110902587328d78ef790f7b9045ab3e568aa6e9241722fec02150fb274452dc"
+    },
+    {
+      "path": "internal/cli/pr_workflows_test.go",
+      "sha256": "f3190a775297d0a83b4d12d5195e43b4b9dcab1a5e7c496a664988aa32d5413e"
+    },
+    {
+      "path": "internal/cli/review_rerun_test.go",
+      "sha256": "c712c8780a1c31306fd91aab907b076445b32ec8560dfb8d07cfdf500655204d"
+    },
+    {
+      "path": "internal/cli/review_sources.go",
+      "sha256": "2a06f12c0742f86c50206c1213815a0d1c8b8b82ed241db4c26e5a92d3f87565"
+    },
+    {
+      "path": "internal/cli/setup.go",
+      "sha256": "59e62a9ba260797d720e0ab5d67e55c61915ceda314b4a1f153fb19a5be115be"
+    },
+    {
+      "path": "internal/cli/setup_test.go",
+      "sha256": "8f90d7794febca9e66e508dec550993f3137a32d5d4a03586c3d07c942c1e6bb"
+    },
+    {
+      "path": "internal/cli/usage_features_test.go",
+      "sha256": "cc635f99bf22bc8ee34b7ad8ddc18f31ea30bfc3dae2aa5f86ea0f2ed141e348"
+    },
+    {
+      "path": "internal/cli/worktree_test.go",
+      "sha256": "46111d2411678600c2d4d34131f82d1be53e21afdacb8670f3a8821256186e9e"
+    },
+    {
+      "path": "internal/command/runner.go",
+      "sha256": "97ce6656fb463543187167358cd7cc1ff6b96132406adde3b41c5f74744cbf40"
+    },
+    {
+      "path": "internal/filesystem/actionable_test.go",
+      "sha256": "fc7a315c1f42fb2e7d8f31c759c2b423d7a7c7de5cf056262af6c8d5fff91030"
+    },
+    {
+      "path": "internal/filesystem/apply.go",
+      "sha256": "76af49d74338fbb340aaa2742316a10308c51f24b10f2eee40604676fd0e01e9"
+    },
+    {
+      "path": "internal/filesystem/batch_spec_test.go",
+      "sha256": "58b11989577ea04ec7a1c2ad0512cfbef83a50aec8f69f4f84522402afb83ea0"
+    },
+    {
+      "path": "internal/filesystem/delta.go",
+      "sha256": "ed3b65998d460eaeb05b4c1d5c96fa5e20d1d1f8911ce261e7888086402fa36f"
+    },
+    {
+      "path": "internal/filesystem/diagnostic.go",
+      "sha256": "92d1999e61e9fc63b09106a55b6a9852c62da96ed77c4992e370ea19b3322738"
+    },
+    {
+      "path": "internal/filesystem/diff.go",
+      "sha256": "d976ae16a8a77f93cf33666e2e5651fc358f0f295eefec652696687cde22ce8d"
+    },
+    {
+      "path": "internal/filesystem/filesystem_test.go",
+      "sha256": "c2c62ac5af1707a79e695e696b23cb31ba95bf57b53fc3aaa339bad79c5add99"
+    },
+    {
+      "path": "internal/filesystem/inspect.go",
+      "sha256": "a3c6ccc2df3c4d3d60d6d80db2a2eca524c647984482cd5d44bfdb12c5ea5515"
+    },
+    {
+      "path": "internal/filesystem/inspect_batch.go",
+      "sha256": "67282a6673e21d8cd4e08d548f806c58797b0aaf119ab583071c7727c64de59b"
+    },
+    {
+      "path": "internal/filesystem/markdown.go",
+      "sha256": "5b872e382ae3e62ac864dca327b231b7aaa15436ac6f09009df14e3ef0fdf5f8"
+    },
+    {
+      "path": "internal/filesystem/observe.go",
+      "sha256": "a295d1abeef97496b168e8610ca72d1e665bceb01e0ef4319bde8caa763ee629"
+    },
+    {
+      "path": "internal/filesystem/plan.go",
+      "sha256": "5c52a7d8d62b07f29197be51d2d94281a89a254920d586228a0aee3898a14d40"
+    },
+    {
+      "path": "internal/filesystem/recount_test.go",
+      "sha256": "a95c8451fd0a6d56ca32801934a3da84486f623c408e6e746bff9a95ca2e1921"
+    },
+    {
+      "path": "internal/filesystem/report.go",
+      "sha256": "fff5e489941d9cafa3c8b6aae86efe6049a04bef8f881b165ac3f6e39288fbef"
+    },
+    {
+      "path": "internal/filesystem/report_selection.go",
+      "sha256": "3c28f62b81cf9bf693a2c7ca1efa2570ee2871a3f0a50ff253875b73a60960f7"
+    },
+    {
+      "path": "internal/filesystem/report_test.go",
+      "sha256": "f36807c75033bcf36d7f70b1ce4575b6b2db741934a412a9e1c9c8661a3745b6"
+    },
+    {
+      "path": "internal/filesystem/scope.go",
+      "sha256": "1c2e4eeea5a8422c692d7d874b0d5790f970410e6314dde1bd42fd0856725153"
+    },
+    {
+      "path": "internal/filesystem/test_results.go",
+      "sha256": "900e69bc33b912814a6cac4a883425a2d1a745e106453849e718f7dc447e52cf"
+    },
+    {
+      "path": "internal/filesystem/usage_features_test.go",
+      "sha256": "4a8636f002c791586668c88baaf1360a229761fbbc7418fb3b592f426657c691"
+    },
+    {
+      "path": "internal/filesystem/workflows_test.go",
+      "sha256": "8efdf2f10ad9fbc4e03bbe87fb2e832cd0d40195a5b504bc883cfe12a6d165f3"
+    },
+    {
+      "path": "internal/github/api.go",
+      "sha256": "0f5b112667bcef310f7c81d6c33d094953aaa4739f5d04e3eeda72f7d6e3bf6f"
+    },
+    {
+      "path": "internal/github/branch.go",
+      "sha256": "33c98731edf5b432470b1035c033824302e6f95ada7a356b910ef090ab998a6c"
+    },
+    {
+      "path": "internal/github/branch_test.go",
+      "sha256": "e06ace10f5d64a817bd6dea66c6f795920fefad4eb2cb3006029edbf7aa31a1e"
+    },
+    {
+      "path": "internal/github/cache.go",
+      "sha256": "386234d6318a7d3afd68a8e199818bfd1a564da6b9885db56222e7042edce681"
+    },
+    {
+      "path": "internal/github/ci_cache.go",
+      "sha256": "36dd3f5689011c31ed879ba6b06dd355cf3da2cc367fac76a1d5a215dca405ff"
+    },
+    {
+      "path": "internal/github/ci_checkpoint.go",
+      "sha256": "d38184eee3d4a53f410337f3f3f6226c976aa57beadc04177449b5a83bac2d62"
+    },
+    {
+      "path": "internal/github/ci_evidence.go",
+      "sha256": "beed6e32960e148c9afd1951553214487d44c959b1f29a1f0a11ff911d16432b"
+    },
+    {
+      "path": "internal/github/ci_evidence_test.go",
+      "sha256": "656d77853d66cd1bc6baee84d90ef0f896c30b2b6420e26995ca552c00648ea0"
+    },
+    {
+      "path": "internal/github/ci_failures.go",
+      "sha256": "7ea71d949fb07c16828f52a1fa7b3a1fa77d9533308b5e3798e6a92093eae7a8"
+    },
+    {
+      "path": "internal/github/ci_failures_test.go",
+      "sha256": "0df8ad0111c00f97597d05079373982556ea6ef0038a02fbe934071d78d89461"
+    },
+    {
+      "path": "internal/github/ci_log_download.go",
+      "sha256": "a33db02e869597f5b9cdca192eb02cb90725c77c6e575016349c407f95ddcd2b"
+    },
+    {
+      "path": "internal/github/ci_rerun.go",
+      "sha256": "6ff8a0a11450facc53d9eda09da17ea8137bd7335214ae01f4f3bcc77f40f0bc"
+    },
+    {
+      "path": "internal/github/ci_rerun_test.go",
+      "sha256": "003c472430acdb0f99b03ee6d4588a969098bba85e208776150566fe50586035"
+    },
+    {
+      "path": "internal/github/ci_resume_test.go",
+      "sha256": "04226f918a48279af3d9d7b8dfd28f421001c622d2c8c6494d9bfd959dea6794"
+    },
+    {
+      "path": "internal/github/cleanup.go",
+      "sha256": "a2cc228f557153c13a8f30e4a445d40430eabae673f3ad027338a20b3e1dce01"
+    },
+    {
+      "path": "internal/github/cleanup_test.go",
+      "sha256": "34fd74e50a6fea571e447f567e37237fba74ee5d93d1ca45ac135657532631ae"
+    },
+    {
+      "path": "internal/github/cleanup_worktree.go",
+      "sha256": "c6e40e2d2758644e38000e5ecd33f90089486c0264b8b6ca0a0328c4716a4911"
+    },
+    {
+      "path": "internal/github/cleanup_worktree_test.go",
+      "sha256": "ac6d567751e0cd7a6d8ddf609b3abbe6fe34d3386a0bb7b997faa9c5215b1fa3"
+    },
+    {
+      "path": "internal/github/client.go",
+      "sha256": "37662d4d233075fcd5514871aa4f4c81ff29a669ab3011335e22e85bfe453b0a"
+    },
+    {
+      "path": "internal/github/client_test.go",
+      "sha256": "ce9ae83165da1b5e4f8486659148a6aca365404625ba2fa1b38134cbaccbff16"
+    },
+    {
+      "path": "internal/github/conversation_test.go",
+      "sha256": "65001b5764d02c47f590e1dd8515c18889cb6d1bcdcb6a340687fe807cd20ebe"
+    },
+    {
+      "path": "internal/github/dependabot.go",
+      "sha256": "2f0abae52f0fefc42b39a50f382b9dbacd4908736437f47dfbd2e3d3b48f5f98"
+    },
+    {
+      "path": "internal/github/dependabot_test.go",
+      "sha256": "6661649404a91f9fca82770bb2f03b90c57be58a843f6abc5efb000f48407247"
+    },
+    {
+      "path": "internal/github/further_improvements_test.go",
+      "sha256": "a7885134bbf4e08c8a07b28dd12d161f31736fd269e5933651666755dee8409f"
+    },
+    {
+      "path": "internal/github/improvements_test.go",
+      "sha256": "7705727d484e235f780e59178eefae247af091137f07b4e155a7f2f1995246b6"
+    },
+    {
+      "path": "internal/github/policy.go",
+      "sha256": "e67f470c18292eb10dea17bf10a61b232985f2a9a63341a449768a7580f26317"
+    },
+    {
+      "path": "internal/github/pr_creation_context_test.go",
+      "sha256": "8eabe2694472a02fafbd7061dd214470c53f5ec455dc9e22070da29f8ea3f47a"
+    },
+    {
+      "path": "internal/github/pr_delta.go",
+      "sha256": "d528a5157da02a0c8b483bba88e9a544f42db78d37157382e35c088d25d2bcd3"
+    },
+    {
+      "path": "internal/github/pr_inspect.go",
+      "sha256": "bcba628d71267aa285469b2b0bc3ee3787292451c403580d3ea6cb005d44d820"
+    },
+    {
+      "path": "internal/github/pr_inspect_delta_test.go",
+      "sha256": "f3ee76d3e01d6e752de26e79280cfc54c1a444b97a710d17be9643abecc46c64"
+    },
+    {
+      "path": "internal/github/pr_merge.go",
+      "sha256": "af8d57eb5e3c96cc02b39b59a7ea285f0b93096ba9e7be28cf036c81fde3aabf"
+    },
+    {
+      "path": "internal/github/pr_merge_cleanup.go",
+      "sha256": "aeec664eacc2c8ac243475e4c03f733313f4db0379593d251f3fea88c276dfbe"
+    },
+    {
+      "path": "internal/github/pr_merge_diagnostics.go",
+      "sha256": "1a816065b17566673a288fc63288c57d3eb3112783b5c7347be4a3257a65b8a9"
+    },
+    {
+      "path": "internal/github/pr_merge_diagnostics_test.go",
+      "sha256": "82719bb9becb6ae1ef3e5a4eb7cc28c8a61aba147def5533d425688e59d584ce"
+    },
+    {
+      "path": "internal/github/pr_merge_test.go",
+      "sha256": "86f0bc876d4cc95b92ab3d26acb839617cd436c8106b46862d8ddbe7582bfbe3"
+    },
+    {
+      "path": "internal/github/pr_reviews.go",
+      "sha256": "80ef1bb498e3402873e5e566e752c3df62a91d2ab5c3cfe98ee6979706d988a0"
+    },
+    {
+      "path": "internal/github/pr_reviews_batch.go",
+      "sha256": "52b25793cf2a8a5d7ace9cb993536158ff3d85d5bc05c95e85252fb6bfdbf5da"
+    },
+    {
+      "path": "internal/github/pr_reviews_batch_test.go",
+      "sha256": "23de2c362b9f38f83e476bf96ee72b9ecc335a74d4b8e72ca2beb742af5b2440"
+    },
+    {
+      "path": "internal/github/pr_reviews_test.go",
+      "sha256": "f77f932dabf65f7565b6fa3159d55add007acbd05622de129d5e27b3d58421de"
+    },
+    {
+      "path": "internal/github/pr_workflows.go",
+      "sha256": "1de318671fc75234907806acd89f62300a318e036fc191ed8a31110dfb35d720"
+    },
+    {
+      "path": "internal/github/pr_workflows_test.go",
+      "sha256": "824aa27ccb9c42738ae6a43651929e9271e149dfcd44d9a78c1a0ec0fe88de8c"
+    },
+    {
+      "path": "internal/github/read_transport.go",
+      "sha256": "eb155c4ffc505b12f2f1ed5ddec3c07818ff5cb1933299358dfc47b9f4ec9456"
+    },
+    {
+      "path": "internal/github/read_transport_test.go",
+      "sha256": "1d7890daf483f2fa5816b312ea3b8588675630ff94fd5f9d944c0d70b63c90e2"
+    },
+    {
+      "path": "internal/github/setup.go",
+      "sha256": "3392921117f62a2e943785b90730e4691412b5ed8e913787b7f7912f5acad2e0"
+    },
+    {
+      "path": "internal/github/setup_test.go",
+      "sha256": "4e0499afb746c576a7aadbc606dd0bb4ef38b2747d866324b9891545d7a120b8"
+    },
+    {
+      "path": "internal/github/spec.go",
+      "sha256": "6844f3223f55edb6fed239ac5bac024ae5837e899491f5651a4f941cc04edae3"
+    },
+    {
+      "path": "internal/github/spec_test.go",
+      "sha256": "99f4805c6b62ff94691e1d37d2268b02cb0e4c9ffcd19c1c07e2e9f3d059babb"
+    },
+    {
+      "path": "internal/github/state_directory.go",
+      "sha256": "9d3ab40d9f9bda38f26ed0579319f28c0e0dd4702be229547e62f6f75924691a"
+    },
+    {
+      "path": "internal/github/state_directory_test.go",
+      "sha256": "81ab8b0c506279ec304f891fde9d39e1e5a9537f4d5ca166884895a987fbb251"
+    },
+    {
+      "path": "internal/github/template.go",
+      "sha256": "3942ac9b36dfe628b4830a48177d36e933beff5ac9d648ed7574d82ffc664522"
+    },
+    {
+      "path": "internal/github/template_test.go",
+      "sha256": "82b730de6be73113b9185d1432a721dacec834076116efe055347c48ebb91b9a"
+    },
+    {
+      "path": "internal/github/worktree.go",
+      "sha256": "af8b1a6731ee3fb20eac57ac4082863fd67d03da239464653bd7bf7694a826dc"
+    },
+    {
+      "path": "internal/github/worktree_test.go",
+      "sha256": "1dc7562067fd21a91fadc2f6f28fe639f8eef146a0cc817ed9bc310f22f9e3f5"
+    },
+    {
+      "path": "scripts/benchmarks/audit_command_usability.py",
+      "sha256": "3e8fa83b04704276778d18c85abe06d78c20a5907532adc4e93a10c4dbed0c89"
+    },
+    {
+      "path": "scripts/benchmarks/command_usability_probe.go.txt",
+      "sha256": "aab2df901bb6af9eda809bf6bad2b30b4f9e7040a93d56c685759149556ef2ad"
+    }
+  ],
+  "limitations": [
+    "Help checks do not establish successful execution of all 19 workflows.",
+    "GitHub observations use the existing in-process fixture API; serializer observation uses a selected current review result.",
+    "Large JUnit scenario uses the normal default output budget, not a small forced page limit.",
+    "Observations show output/retrieval gaps; they do not measure work-token savings."
+  ]
+}

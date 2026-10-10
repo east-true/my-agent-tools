@@ -104,6 +104,8 @@ fork head는 JSON `head`의 `owner:branch` 형식으로 지정합니다.
 미리보기는 `status: planned`와 `plan`을 반환합니다.
 `plan.payload`에서 최종 제목·본문·base·head·draft를 확인할 수 있습니다.
 생성 성공은 `status: created`, `kind: pr`, `number`, `url`, `selection`을 반환합니다.
+`creation_context.requested_head`·`requested_base`는 검증한 생성 요청이며 `head_ref`·`base_ref`·`head_sha`는 서버가 반환했을 때만 포함합니다. 현재 로컬 브랜치로 생성한 경우 마지막에 실제 브랜치를 다시 읽어 `local_branch`·`local_branch_verified: true`를 반환합니다. 같은 완료 작업에서는 이 근거를 사용해 별도 브랜치 조회를 줄일 수 있습니다. 명시한 remote/fork head에는 로컬 검증을 주장하지 않습니다.
+생성 뒤 로컬 브랜치가 바뀌거나 확인에 실패하면 기존 PR URL과 서버 응답을 유지하고 부분 실패로 반환합니다. 다른 작업 뒤의 상태까지 보장하지 않습니다.
 라벨 적용 실패 등은 `status: partial`과 기존 PR URL을 유지합니다.
 
 부분 실패 시 그 PR을 수정하며 다시 생성하지 않습니다.

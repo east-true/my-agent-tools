@@ -1,0 +1,84 @@
+// 명령 결과의 작업 가능성을 관찰하며 프로덕션 구현을 수정하지 않는다.
+func TestAuditCompactBundledSource(t *testing.T) {
+	root := t.TempDir()
+	source := []byte(strings.Repeat("source-preserve0123456789\r\n", 100))
+	os.WriteFile(filepath.Join(root, "settings.py"), source, 0640)
+	api := &conversationCLIAPI{base: workflowCLIAPI{body: "exact request"}}
+	factory := func(context.Context, command.Runner) (github.API, error) {
+		return api, nil
+	}
+	var out, stderr bytes.Buffer
+	args := []string{"github", "pr", "reviews", "--repo", "owner/repo", "--number", "7", "--source-root", root, "--source-path", "settings.py", "--compact", "--artifact-dir", filepath.Join(root, "evidence"), "--json"}
+	code := run(context.Background(), args, nil, &out, &stderr, fakeRunner{}, factory)
+	var value struct {
+		reviewOutput
+		Evidence string `json:"evidence_file"`
+	}
+	if err := json.Unmarshal(out.Bytes(), &value); err != nil || code != 0 || value.Sources == nil {
+		t.Fatal(code, out.String(), stderr.String(), err)
+	}
+	got := []byte(*value.Sources.Files[0].Ranges[0].Text)
+	auditObservation(t, map[string]any{"case": "compact_bundled_source", "original_bytes": len(source), "returned_bytes": len(got), "exact": bytes.Equal(source, got), "source_complete": value.Sources.Complete, "artifact_saved": value.Evidence != ""})
+	if bytes.Equal(source, got) {
+		t.Log("no reproduction")
+	}
+}
+
+func TestAuditUnchangedSubmittedReviewBody(t *testing.T) {
+	head := strings.Repeat("b", 40)
+	body := "Only submitted review: validate retry_budget and preserve timeout"
+	result := github.InspectResult{Status: "blocked", Repo: "owner/repo", Number: 7, Complete: true, Sections: "reviews", Reasons: []github.MergeReason{{Code: "changes_requested", Summary: "Changes requested", NextAction: "Address requested changes"}}, PR: github.PRState{HeadSHA: head, ReviewDecision: "CHANGES_REQUESTED"}, Reviews: &github.ReviewResult{Complete: true, HeadSHA: head, Reviews: []github.PRReview{{ID: 1, State: "CHANGES_REQUESTED", Body: body, CommitID: head}}}}
+	before := inspectionItems(result)
+	output, _ := inspectionDelta(result, &before, false, "state.json")
+	data, err := json.Marshal(output)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var status map[string]any
+	json.Unmarshal(data, &status)
+	auditObservation(t, map[string]any{"case": "unchanged_submitted_review", "status": status["status"], "body_present": bytes.Contains(data, []byte(body)), "requested_review_count": len(result.Reviews.Reviews), "attention_required": status["attention_required"]})
+}
+func TestAuditLargeJUnitAtDefaultBudget(t *testing.T) {
+	root := t.TempDir()
+	detail := strings.Repeat("original diagnostic\n", 5000)
+	xml := "<testsuite name=\"unit\" tests=\"1\" failures=\"1\"><testcase name=\"failed\"><failure>" + detail + "</failure></testcase></testsuite>"
+	os.WriteFile(filepath.Join(root, "TEST-large.xml"), []byte(xml), 0600)
+	var out, stderr bytes.Buffer
+	code := runFilesystem(context.Background(), []string{"test-results", "--root", root, "--json"}, nil, &out, &stderr)
+	var value map[string]any
+	if err := json.Unmarshal(out.Bytes(), &value); err != nil {
+		t.Fatal(out.String(), err)
+	}
+	reports := value["reports"].([]any)
+	first := reports[0].(map[string]any)
+	auditObservation(t, map[string]any{"case": "large_junit_default_budget", "exit_code": code, "complete": value["complete"], "tests": value["tests"], "returned_bytes": len(out.Bytes()), "diagnostics_unavailable": first["diagnostics_unavailable"], "cursor_present": value["next_cursor"] != nil, "saved_report_present": value["saved_report"] != nil})
+}
+
+func TestAuditAllCommandHelp(t *testing.T) {
+	commands := [][]string{
+		{"github", "context"}, {"github", "setup"}, {"github", "issue", "create"}, {"github", "issue", "branch"},
+		{"github", "pr", "create"}, {"github", "pr", "submit"}, {"github", "pr", "reviews"}, {"github", "pr", "inspect"}, {"github", "pr", "delta"}, {"github", "pr", "merge"},
+		{"github", "ci", "failures"}, {"github", "ci", "rerun"}, {"github", "dependabot", "list"}, {"github", "dependabot", "view"}, {"github", "branch", "cleanup"},
+		{"fs", "inspect"}, {"fs", "delta"}, {"fs", "apply"}, {"fs", "test-results"},
+	}
+	for _, args := range commands {
+		var out, stderr bytes.Buffer
+		code := run(context.Background(), append(args, "--help"), nil, &out, &stderr, fakeRunner{}, func(context.Context, command.Runner) (github.API, error) {
+			t.Fatal("help authenticated", args)
+			return nil, nil
+		})
+		if code != 0 || out.Len()+stderr.Len() == 0 {
+			t.Fatal(args, code, out.String(), stderr.String())
+		}
+	}
+	auditObservation(t, map[string]any{"case": "command_help", "commands": len(commands), "help_success": len(commands), "authentication_calls": 0})
+}
+
+func auditObservation(t *testing.T, value map[string]any) {
+	t.Helper()
+	data, err := json.Marshal(value)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log("AUDIT_OBSERVATION " + string(data))
+}

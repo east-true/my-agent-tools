@@ -69,13 +69,15 @@ func compactProjection(value any) any {
 	case map[string]any:
 		result := map[string]any{}
 		for key, field := range item {
+			// 편집용 원문과 좌표는 조회한 바이트 그대로 반환한다.
+			if key == "source_files" {
+				result[key] = field
+				continue
+			}
 			if key == "log_variants" {
 				if variants, ok := field.([]any); ok && len(variants) > 0 {
 					result["log_variants_omitted"] = len(variants)
 				}
-				continue
-			}
-			if key == "diff_hunk" {
 				continue
 			}
 			if key == "lines" {
@@ -124,7 +126,9 @@ func compactProjection(value any) any {
 					continue
 				}
 			}
-			if text, ok := field.(string); ok && (key == "body" || key == "raw_details" || key == "message" || key == "summary" || key == "text") && len([]rune(text)) > 1200 {
+			// Review requests, code hunks and diagnostic messages remain exact so
+			// fixing code never requires reopening an artifact for these fields.
+			if text, ok := field.(string); ok && (key == "raw_details" || key == "summary" || key == "text") && len([]rune(text)) > 1200 {
 				result[key], result[key+"_truncated"] = string([]rune(text)[:1200]), true
 				continue
 			}

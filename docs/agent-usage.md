@@ -1,18 +1,24 @@
 # 에이전트용 빠른 사용법
 
-GitHub 조회·등록은 `tools github`를 사용한다. 아래 명령으로 바로 실행하고, 필요한 옵션을 모를 때만 해당 명령의 `--help`를 읽는다.
+GitHub에서 여러 조회·검증·반영을 이어야 하면 `tools github`를 사용한다. 필요한 옵션을 모를 때만 해당 명령의 `--help`를 읽는다. 이미 알고 있는 ID의 단일 필드 조회처럼 직접 `gh api`로 작업과 검증을 짧게 끝낼 수 있으면 직접 처리도 선택한다. 명령 사용 자체를 필수 절차로 추가하지 않는다.
 
 세부 옵션·입력·복구 방법은 [명령어별 문서](github/README.md)를 참고한다.
 
 완료된 CI 실패 자료는 명령 간 공통 캐시를 사용한다. 다른 명령으로 같은 실행을 확인할 때도 메타데이터를 재검증하며, 자료가 이미 포함돼 있으면 별도로 다시 조회하지 않는다. `ci rerun`이 시간 초과·대기 생략으로 끝났다면 `tools github ci rerun --run RUN_ID --resume --json`으로 저장된 회차의 관찰만 재개한다. 해결되지 않은 저장 요청에 새 재실행을 보내지 않는다. [조회 재사용](github/README.md#조회-재사용과-호출-제한) · [재개 옵션](github/ci/rerun.md).
 
-PR의 전체 현재 상태가 필요하면 `tools github pr inspect --number NUMBER --json`을 먼저 사용한다. 리뷰·검사·Actions 실행 ID·해당 회차의 실패 자료를 함께 반환하므로 각각 재조회하지 않는다. 필요한 범위만 조회할 때는 `--sections checks,reviews,failures`에서 선택한다. 진행 중인 검사를 기다리려면 `--wait`, 반복 조회에는 `--state-file .tools/state/pr-NUMBER.json`을 사용한다. `unchanged`는 새 관찰이 없다는 뜻이며 작업 완료가 아니다. `attention_required`와 `pr_status`를 확인하고 이전 자료가 없는 새 세션은 `--full`로 조회한다. 부분 조회는 기준을 갱신하지 않는다. [통합 조회](github/pr/inspect.md).
+PR의 전체 현재 상태가 필요하면 `tools github pr inspect --number NUMBER --json`을 먼저 사용한다. 리뷰·검사·Actions 실행 ID·해당 회차의 실패 자료를 함께 반환하므로 각각 재조회하지 않는다. 필요한 범위만 조회할 때는 `--sections checks,reviews,failures`에서 선택한다. 진행 중인 검사를 기다리려면 `--wait`, 반복 조회에는 `--state-file .tools/state/pr-NUMBER.json`을 사용한다. `unchanged`는 새 관찰이 없다는 뜻이며 작업 완료가 아니다. `attention_required`·`pr_status`·현재 `outstanding`을 확인한다. 부분 조회는 기준을 갱신하지 않는다. [통합 조회](github/pr/inspect.md).
 
 이미 커밋한 변경의 푸시와 PR 제출이 함께 요청되면 `tools github pr submit --prefix fix --title "handle duplicate requests" --body-file pr.md --json`을 사용한다. 푸시 전 base·정책을 검증하고 같은 브랜치의 열린 PR은 재사용하며 기본으로 검사 결과까지 기다린다. 별도 푸시·PR 생성·검사 조회를 반복하지 않는다. `tools github pr merge --number NUMBER --json`은 머지 확인 후 해당 브랜치 정리까지 기본으로 이어진다. 정리를 생략할 때만 `--cleanup=false`를 사용한다. 다른 종료 브랜치는 정리하지 않는다. [제출](github/pr/submit.md) · [머지와 정리](github/pr/merge.md).
 
-긴 리뷰·CI 결과는 `--compact`로 필요한 문맥만 읽고, 세부 자료가 필요할 때 `evidence_file`의 원문을 확인한다. 지정한 인코딩에서 파일 참조까지 포함한 출력 토큰 수가 줄어들 때만 축소한다. 원문은 기본 30일·최근 200개를 보관하므로 장기 참조는 별도로 저장한다. PR 파일 변경 목록만 필요하면 `tools github pr delta --number NUMBER --since BASELINE_SHA --json`을 사용하고 patch가 필요할 때만 `--include-patch`를 추가한다. [최신 측정](benchmarks/github/pr/delta.md)은 기준 SHA 검증을 포함한 기본 조회 시나리오에 한정되므로 모든 단순 조회의 절감률로 해석하지 않는다. [간결한 출력](github/README.md#간결한-출력) · [증분 조회](github/pr/delta.md).
+리뷰·CI 결과에 `--compact`를 사용할 수 있다. 리뷰 본문·diff·진단 메시지는 그대로 유지하지만 CI 로그 등의 상세 원문이 필요하면 처음부터 `--compact=false --json`을 사용해 원문 파일 재조회를 피한다. 필요가 뒤늦게 생기면 `evidence_file`의 원문과 SHA를 확인한다. 지정한 인코딩에서 파일 참조까지 포함한 출력 토큰 수가 줄어들 때만 축소하지만, 원문 재조회까지 포함한 작업 전체 절감은 별도 판단한다. 원문은 기본 30일·최근 200개를 보관하므로 장기 참조는 별도로 저장한다. PR 파일 변경 목록만 필요하면 `tools github pr delta --number NUMBER --since BASELINE_SHA --json`을 사용하고 patch가 필요할 때는 처음부터 `--include-patch`를 추가한다. [최신 측정](benchmarks/github/pr/delta.md)은 기준 SHA 검증을 포함한 기본 조회 시나리오에 한정되므로 모든 단순 조회의 절감률로 해석하지 않는다. [간결한 출력](github/README.md#간결한-출력) · [증분 조회](github/pr/delta.md).
+
+다른 작업 후 복귀하면 PR 증분 결과의 `outstanding`에 있는 현재 미해결 사유·검사·실패 자료·스레드 원문과 위치를 사용한다. `unchanged`만 보고 완료로 판정하지 않는다. 전체 리뷰 이력·성공 검사·실행 목록도 필요할 때는 처음부터 `--full`을 사용한다. 리뷰 본문·diff·진단 메시지는 compact에서도 그대로 유지하며 긴 CI 로그 등은 여전히 생략될 수 있으므로 표시를 확인한다. CI 자료 캐시는 최신 실행 ID·회차·SHA 등을 확인한 뒤 자료 수집을 재사용하는 로컬 기능이며 모델 입력 캐시와 별개다. 독립 1회 사용과 복귀 시 사용에서 작업 효율과 전체 토큰이 함께 개선되는지는 [전체 명령 점검](command-audit.md)을 참고한다.
 
 PR 수정 요청을 확인할 때는 `tools github pr reviews --number NUMBER --json`을 사용한다. 제출된 리뷰 이력과 미해결 스레드의 원문·답글·현재/원래 위치를 수집한다. 오래된 미해결 스레드도 포함되므로 `is_outdated`를 확인한다. 해결된 스레드까지 필요하면 `--all`을 추가한다. `review_decision`은 현재 집계이며 과거 `CHANGES_REQUESTED`나 `DISMISSED` 이력을 현재 차단 사유로 단정하지 않는다. `partial`은 `notes`를 확인하고 새 head가 생겼으면 다시 수집한다. [리뷰 수집](github/pr/reviews.md).
+
+`tools`는 셸 실행 파일이며 `github`·`fs`는 그 하위 명령이다. 일반 PR 대화도 필요하면 `--conversation`을 추가한다. `head_sha`와 `head_verified: true`는 수집 끝에서 확인한 head 근거이므로 같은 조회의 head를 얻으려고 전체 PR 조회를 추가하지 않는다. 수정 후 새 head 확인이 지시됐다면 그 시점에 다시 읽는다.
+
+같은 작업에서 리뷰 원문을 다시 처리해야 하면 `--save-result FILE`로 작업 폴더의 새 파일에 저장한다. 저장된 일반 JSON은 Python `json.load`로 읽고 repo·number·head_sha·complete와 반환된 파일 SHA를 확인한다. 매번 전체 리뷰 수집이나 filesystem inspect로 JSON을 다시 포장할 필요가 없다. 이후 원격 리뷰 변경까지 필요한 작업에는 현재 상태 조회를 사용한다.
 
 CI 재실행이 요청된 작업은 `tools github ci rerun --run RUN_ID --json`으로 실패 job과 의존 job을 다시 실행하고 새 회차의 결과까지 확인한다. 전체 실행은 `--all`, 요청만 보내려면 `--wait=false`, 계획은 `--dry-run`을 사용한다. 새 실패는 `failure`의 자료를 사용한다. `request_attempted`·`rerun_requested`가 있거나 `unknown`이면 원격 실행·회차를 확인한 뒤 다음 조치를 결정한다. 재실행은 원래 커밋을 사용하므로 수정 커밋을 푸시했다면 그 커밋의 새 실행을 확인한다. [재실행과 복구](github/ci/rerun.md).
 

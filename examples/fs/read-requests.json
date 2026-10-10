@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "files": [
+    {"path": "internal/cli/fs.go", "ranges": [{"start": 10, "end": 30}], "hash": true},
+    {"path": "internal/filesystem/delta.go", "patterns": ["StateUpdated"], "context": 2}
+  ]
+}

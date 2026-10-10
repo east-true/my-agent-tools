@@ -1,0 +1,154 @@
+{
+  "fs-file": [
+    {
+      "response": {
+        "path": "settings.py",
+        "before_sha256": "38e12842c8bd1dd6bc657ccf6424e68f7076fb4277859b7b511177b8c047a0b9",
+        "after_sha256": "fff1e95b76f287b48a22bfea8511d87d34f33bb8441fc5e11296cdc8254c0110",
+        "key": "retry_budget",
+        "value": 11,
+        "preserved_integers": {
+          "timeout": 30
+        },
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "actual": {
+        "path": "settings.py",
+        "before_sha256": "38e12842c8bd1dd6bc657ccf6424e68f7076fb4277859b7b511177b8c047a0b9",
+        "after_sha256": "fff1e95b76f287b48a22bfea8511d87d34f33bb8441fc5e11296cdc8254c0110",
+        "retry_budget": 11,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "actual_final_bytes_and_mode": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "fff1e95b76f287b48a22bfea8511d87d34f33bb8441fc5e11296cdc8254c0110",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "path": "settings.py",
+        "before_sha256": "e6606ff8b396c82457da425a25f727aab12d18a430cc4802ce89d9131fb5639f",
+        "after_sha256": "1002226085d0736fb5c3a5a5b2a1c61a03def579365d1746fa673c9aa52cd30e",
+        "key": "retry_budget",
+        "value": 12,
+        "preserved_integers": {
+          "timeout": 30
+        },
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "actual": {
+        "path": "settings.py",
+        "before_sha256": "e6606ff8b396c82457da425a25f727aab12d18a430cc4802ce89d9131fb5639f",
+        "after_sha256": "1002226085d0736fb5c3a5a5b2a1c61a03def579365d1746fa673c9aa52cd30e",
+        "retry_budget": 12,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "actual_final_bytes_and_mode": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1002226085d0736fb5c3a5a5b2a1c61a03def579365d1746fa673c9aa52cd30e",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    },
+    {
+      "response": {
+        "path": "settings.py",
+        "before_sha256": "2ac6f907defbcb053b6b72e2aad6611d6d91b36532d1a498e89f666218568fdb",
+        "after_sha256": "528f66a6231a28745545815b3e1aa1cfb44a050522ddda8a6a57378481bc9564",
+        "key": "retry_budget",
+        "value": 13,
+        "preserved_integers": {
+          "timeout": 30
+        },
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "actual": {
+        "path": "settings.py",
+        "before_sha256": "2ac6f907defbcb053b6b72e2aad6611d6d91b36532d1a498e89f666218568fdb",
+        "after_sha256": "528f66a6231a28745545815b3e1aa1cfb44a050522ddda8a6a57378481bc9564",
+        "retry_budget": 13,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "state": {
+        "correct": true,
+        "checks": {
+          "original_files_preserved": true,
+          "no_api_mutations": true,
+          "actual_final_bytes_and_mode": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "528f66a6231a28745545815b3e1aa1cfb44a050522ddda8a6a57378481bc9564",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        },
+        "authored_paths": []
+      }
+    }
+  ]
+}

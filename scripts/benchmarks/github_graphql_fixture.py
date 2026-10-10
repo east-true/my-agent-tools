@@ -8,6 +8,7 @@ import run_all_github_benchmark as suite
 
 SDL = '''
 scalar GitObjectID
+scalar BigInt
 enum IssueState { OPEN CLOSED }
 interface Node { id: ID! }
 type Query { repository(owner:String!,name:String!):Repository node(id:ID!):Node nodes(ids:[ID!]!):[Node] }
@@ -35,6 +36,12 @@ type PullRequest {
  mergeable:String! mergeStateStatus:String! reviewDecision:String
  mergeCommit:Commit potentialMergeCommit:Commit mergeQueueEntry:MergeQueueEntry
  reviewThreads(first:Int,after:String):ReviewThreadConnection!
+ reviews(first:Int,after:String):PullRequestReviewConnection!
+}
+type PullRequestReviewConnection { nodes:[PullRequestReview!]! pageInfo:PageInfo! }
+type PullRequestReview implements Node {
+ id:ID! fullDatabaseId:BigInt body:String! author:Actor state:String!
+ commit:Commit submittedAt:String url:String
 }
 type ReviewThreadConnection { nodes:[PullRequestReviewThread!]! pageInfo:PageInfo! }
 type PullRequestReviewThread implements Node {
@@ -72,6 +79,7 @@ class FixtureGraphQL:
         bind('Repository','issues',lambda _,info,states=None,first=None,after=None:connection(self.issues(),first,after))
         bind('Issue','linkedBranches',lambda issue,info,first=None,after=None:connection(self.links(issue),first,after))
         bind('PullRequest','reviewThreads',lambda _,info,first=None,after=None:connection(self.threads(),first,after))
+        bind('PullRequest','reviews',lambda _,info,first=None,after=None:connection(self.reviews(),first,after))
         bind('PullRequestReviewThread','comments',lambda thread,info,first=None,after=None:connection(thread['comment_nodes'],first,after))
         bind('Mutation','createLinkedBranch',self.create_branch)
 
@@ -94,6 +102,9 @@ class FixtureGraphQL:
         return [{'__typename':'PullRequestReviewThread','id':f'T{i}','path':f'file{i}.go','line':10,
                  'startLine':None,'originalLine':10,'originalStartLine':None,'diffSide':'RIGHT','startDiffSide':None,
                  'isResolved':False,'isOutdated':False,'comment_nodes':[self.comment(i)]} for i in range(1,21)]
+
+    def reviews(self):
+        return [dict(c, id='R' + str(c['id']), fullDatabaseId=str(c['id']), author=c['user'], url=c['html_url'], commit={'oid': c['commit_id']}, submittedAt=c['submitted_at']) for c in getattr(self.server, 'history', [])]
 
     def comment(self,index):
         return {'__typename':'PullRequestReviewComment','id':f'C{index}','author':{'login':'fixture-reviewer'},

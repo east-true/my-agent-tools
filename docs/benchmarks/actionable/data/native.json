@@ -1,0 +1,2123 @@
+{
+  "apply-errors": [
+    {
+      "response": {
+        "diagnostic": {
+          "path": "src/config_00.txt",
+          "code": "replacement_count",
+          "replacement_index": 1,
+          "expected_count": 1,
+          "actual_count": 0,
+          "message": "replacement count differs from plan"
+        },
+        "diagnostics": [
+          {
+            "path": "src/config_00.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_02.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_03.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_05.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_06.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_08.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_09.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_11.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          }
+        ],
+        "error": "src/config_00.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_02.txt replacement 1: replacement count differs from plan (expected 1, actual 2); src/config_03.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_05.txt replacement 1: replacement count differs from plan (expected 1, actual 2); src/config_06.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_08.txt replacement 1: replacement count differs from plan (expected 1, actual 2); src/config_09.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_11.txt replacement 1: replacement count differs from plan (expected 1, actual 2)",
+        "status": "error",
+        "before_cli_calls": 9,
+        "after_cli_calls": 1
+      },
+      "actual": {
+        "diagnostics": [
+          {
+            "path": "src/config_00.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_02.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          },
+          {
+            "path": "src/config_03.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_05.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          },
+          {
+            "path": "src/config_06.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_08.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          },
+          {
+            "path": "src/config_09.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_11.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          }
+        ],
+        "writes": 0
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "no_source_writes": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "invalid-spec.json": {
+            "sha256": "4db0e5d7054edf16c0c0d5927911ef2c3d2676e7d9d5917bfa694e5792f9fe83",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "src/config_00.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 416
+          },
+          "src/config_01.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 384
+          },
+          "src/config_02.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 416
+          },
+          "src/config_03.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 384
+          },
+          "src/config_04.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 416
+          },
+          "src/config_05.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 384
+          },
+          "src/config_06.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 416
+          },
+          "src/config_07.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 384
+          },
+          "src/config_08.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 416
+          },
+          "src/config_09.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 384
+          },
+          "src/config_10.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 416
+          },
+          "src/config_11.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 384
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    },
+    {
+      "response": {
+        "diagnostic": {
+          "path": "src/config_00.txt",
+          "code": "replacement_count",
+          "replacement_index": 1,
+          "expected_count": 1,
+          "actual_count": 0,
+          "message": "replacement count differs from plan"
+        },
+        "diagnostics": [
+          {
+            "path": "src/config_00.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_02.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_03.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_05.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_06.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_08.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_09.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_11.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          }
+        ],
+        "error": "src/config_00.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_02.txt replacement 1: replacement count differs from plan (expected 1, actual 2); src/config_03.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_05.txt replacement 1: replacement count differs from plan (expected 1, actual 2); src/config_06.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_08.txt replacement 1: replacement count differs from plan (expected 1, actual 2); src/config_09.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_11.txt replacement 1: replacement count differs from plan (expected 1, actual 2)",
+        "status": "error",
+        "before_cli_calls": 9,
+        "after_cli_calls": 1
+      },
+      "actual": {
+        "diagnostics": [
+          {
+            "path": "src/config_00.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_02.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          },
+          {
+            "path": "src/config_03.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_05.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          },
+          {
+            "path": "src/config_06.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_08.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          },
+          {
+            "path": "src/config_09.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_11.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          }
+        ],
+        "writes": 0
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "no_source_writes": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "invalid-spec.json": {
+            "sha256": "4db0e5d7054edf16c0c0d5927911ef2c3d2676e7d9d5917bfa694e5792f9fe83",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "src/config_00.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 416
+          },
+          "src/config_01.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 384
+          },
+          "src/config_02.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 416
+          },
+          "src/config_03.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 384
+          },
+          "src/config_04.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 416
+          },
+          "src/config_05.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 384
+          },
+          "src/config_06.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 416
+          },
+          "src/config_07.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 384
+          },
+          "src/config_08.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 416
+          },
+          "src/config_09.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 384
+          },
+          "src/config_10.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 416
+          },
+          "src/config_11.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 384
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    },
+    {
+      "response": {
+        "diagnostic": {
+          "path": "src/config_00.txt",
+          "code": "replacement_count",
+          "replacement_index": 1,
+          "expected_count": 1,
+          "actual_count": 0,
+          "message": "replacement count differs from plan"
+        },
+        "diagnostics": [
+          {
+            "path": "src/config_00.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_02.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_03.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_05.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_06.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_08.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_09.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0,
+            "message": "replacement count differs from plan"
+          },
+          {
+            "path": "src/config_11.txt",
+            "code": "replacement_count",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2,
+            "message": "replacement count differs from plan"
+          }
+        ],
+        "error": "src/config_00.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_02.txt replacement 1: replacement count differs from plan (expected 1, actual 2); src/config_03.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_05.txt replacement 1: replacement count differs from plan (expected 1, actual 2); src/config_06.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_08.txt replacement 1: replacement count differs from plan (expected 1, actual 2); src/config_09.txt replacement 1: replacement count differs from plan (expected 1, actual 0); src/config_11.txt replacement 1: replacement count differs from plan (expected 1, actual 2)",
+        "status": "error",
+        "before_cli_calls": 9,
+        "after_cli_calls": 1
+      },
+      "actual": {
+        "diagnostics": [
+          {
+            "path": "src/config_00.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_02.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          },
+          {
+            "path": "src/config_03.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_05.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          },
+          {
+            "path": "src/config_06.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_08.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          },
+          {
+            "path": "src/config_09.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 0
+          },
+          {
+            "path": "src/config_11.txt",
+            "replacement_index": 1,
+            "expected_count": 1,
+            "actual_count": 2
+          }
+        ],
+        "writes": 0
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "no_source_writes": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "invalid-spec.json": {
+            "sha256": "4db0e5d7054edf16c0c0d5927911ef2c3d2676e7d9d5917bfa694e5792f9fe83",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "src/config_00.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 416
+          },
+          "src/config_01.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 384
+          },
+          "src/config_02.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 416
+          },
+          "src/config_03.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 384
+          },
+          "src/config_04.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 416
+          },
+          "src/config_05.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 384
+          },
+          "src/config_06.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 416
+          },
+          "src/config_07.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 384
+          },
+          "src/config_08.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 416
+          },
+          "src/config_09.txt": {
+            "sha256": "614aab04fb4c5604972ea5cdb3082ee992fe7d55cee14b348873a565bcc728a3",
+            "mode": 384
+          },
+          "src/config_10.txt": {
+            "sha256": "868daebbe081cfbc6974b77838e2ff7d2e56ad6c95af02435b753b35d26e33a4",
+            "mode": 416
+          },
+          "src/config_11.txt": {
+            "sha256": "0163aa2fda00bacba3523a2eebf9a3b0a6694bc097ed71e27586e554c10f04cf",
+            "mode": 384
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    }
+  ],
+  "apply-groups": [
+    {
+      "response": {
+        "status": "applied",
+        "files": [
+          {
+            "path": "src/config_00.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_01.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_02.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_03.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_04.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_05.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_06.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_07.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_08.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_09.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_10.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_11.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          }
+        ],
+        "applied": 12,
+        "complete": true,
+        "report_complete": true,
+        "plan_file": "plan.json",
+        "saved_plan": {
+          "sha256": "416e2336b9e198b5a40632f92163d71cea0f2c138f421e94f8788741c7344cd3",
+          "version": 1,
+          "files": 12,
+          "verified": true
+        },
+        "grouped_input_bytes": 408,
+        "expanded_input_bytes": 1955
+      },
+      "actual": {
+        "applied": [
+          "src/config_00.txt",
+          "src/config_01.txt",
+          "src/config_02.txt",
+          "src/config_03.txt",
+          "src/config_04.txt",
+          "src/config_05.txt",
+          "src/config_06.txt",
+          "src/config_07.txt",
+          "src/config_08.txt",
+          "src/config_09.txt",
+          "src/config_10.txt",
+          "src/config_11.txt"
+        ],
+        "verified": [
+          "src/config_00.txt",
+          "src/config_01.txt",
+          "src/config_02.txt",
+          "src/config_03.txt",
+          "src/config_04.txt",
+          "src/config_05.txt",
+          "src/config_06.txt",
+          "src/config_07.txt",
+          "src/config_08.txt",
+          "src/config_09.txt",
+          "src/config_10.txt",
+          "src/config_11.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "saved_plan_verified": true,
+        "unrelated_preserved": true
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "exact_files_permissions_and_saved_preimages": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "plan.json": {
+            "sha256": "416e2336b9e198b5a40632f92163d71cea0f2c138f421e94f8788741c7344cd3",
+            "mode": 384
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "src/config_00.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_01.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_02.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_03.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_04.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_05.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_06.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_07.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_08.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_09.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_10.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_11.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    },
+    {
+      "response": {
+        "status": "applied",
+        "files": [
+          {
+            "path": "src/config_00.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_01.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_02.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_03.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_04.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_05.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_06.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_07.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_08.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_09.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_10.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_11.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          }
+        ],
+        "applied": 12,
+        "complete": true,
+        "report_complete": true,
+        "plan_file": "plan.json",
+        "saved_plan": {
+          "sha256": "416e2336b9e198b5a40632f92163d71cea0f2c138f421e94f8788741c7344cd3",
+          "version": 1,
+          "files": 12,
+          "verified": true
+        },
+        "grouped_input_bytes": 408,
+        "expanded_input_bytes": 1955
+      },
+      "actual": {
+        "applied": [
+          "src/config_00.txt",
+          "src/config_01.txt",
+          "src/config_02.txt",
+          "src/config_03.txt",
+          "src/config_04.txt",
+          "src/config_05.txt",
+          "src/config_06.txt",
+          "src/config_07.txt",
+          "src/config_08.txt",
+          "src/config_09.txt",
+          "src/config_10.txt",
+          "src/config_11.txt"
+        ],
+        "verified": [
+          "src/config_00.txt",
+          "src/config_01.txt",
+          "src/config_02.txt",
+          "src/config_03.txt",
+          "src/config_04.txt",
+          "src/config_05.txt",
+          "src/config_06.txt",
+          "src/config_07.txt",
+          "src/config_08.txt",
+          "src/config_09.txt",
+          "src/config_10.txt",
+          "src/config_11.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "saved_plan_verified": true,
+        "unrelated_preserved": true
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "exact_files_permissions_and_saved_preimages": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "plan.json": {
+            "sha256": "416e2336b9e198b5a40632f92163d71cea0f2c138f421e94f8788741c7344cd3",
+            "mode": 384
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "src/config_00.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_01.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_02.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_03.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_04.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_05.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_06.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_07.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_08.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_09.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_10.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_11.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    },
+    {
+      "response": {
+        "status": "applied",
+        "files": [
+          {
+            "path": "src/config_00.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_01.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_02.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_03.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_04.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_05.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_06.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_07.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_08.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_09.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_10.txt",
+            "status": "applied",
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          },
+          {
+            "path": "src/config_11.txt",
+            "status": "applied",
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "verified": true,
+            "ranges": [
+              {
+                "start": 1,
+                "lines": [
+                  "cache_limit=64",
+                  "retry_budget=5"
+                ]
+              }
+            ]
+          }
+        ],
+        "applied": 12,
+        "complete": true,
+        "report_complete": true,
+        "plan_file": "plan.json",
+        "saved_plan": {
+          "sha256": "416e2336b9e198b5a40632f92163d71cea0f2c138f421e94f8788741c7344cd3",
+          "version": 1,
+          "files": 12,
+          "verified": true
+        },
+        "grouped_input_bytes": 408,
+        "expanded_input_bytes": 1955
+      },
+      "actual": {
+        "applied": [
+          "src/config_00.txt",
+          "src/config_01.txt",
+          "src/config_02.txt",
+          "src/config_03.txt",
+          "src/config_04.txt",
+          "src/config_05.txt",
+          "src/config_06.txt",
+          "src/config_07.txt",
+          "src/config_08.txt",
+          "src/config_09.txt",
+          "src/config_10.txt",
+          "src/config_11.txt"
+        ],
+        "verified": [
+          "src/config_00.txt",
+          "src/config_01.txt",
+          "src/config_02.txt",
+          "src/config_03.txt",
+          "src/config_04.txt",
+          "src/config_05.txt",
+          "src/config_06.txt",
+          "src/config_07.txt",
+          "src/config_08.txt",
+          "src/config_09.txt",
+          "src/config_10.txt",
+          "src/config_11.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "saved_plan_verified": true,
+        "unrelated_preserved": true
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "exact_files_permissions_and_saved_preimages": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "plan.json": {
+            "sha256": "416e2336b9e198b5a40632f92163d71cea0f2c138f421e94f8788741c7344cd3",
+            "mode": 384
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "src/config_00.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_01.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_02.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_03.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_04.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_05.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_06.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_07.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_08.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_09.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "src/config_10.txt": {
+            "sha256": "8de666c85277173d3c8031a2bb8dbae07a0d3a54b36d62e148c8ec69679d338a",
+            "mode": 416
+          },
+          "src/config_11.txt": {
+            "sha256": "8821deaff79e70f43951062de75c185c876c426593ffa028930beb156758d9fd",
+            "mode": 384
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    }
+  ],
+  "pr-reviews": [
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "before_needed_artifact": true
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "exact_requested_edit_and_readback": true,
+          "current_review_metadata_observed": true,
+          "review_body_and_diff_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "before_needed_artifact": true
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "exact_requested_edit_and_readback": true,
+          "current_review_metadata_observed": true,
+          "review_body_and_diff_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    },
+    {
+      "response": {
+        "status": "ok",
+        "repo": "fixture/command-benchmark",
+        "number": 7,
+        "url": "https://github.com/fixture/command-benchmark/pull/7",
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "review_decision": "APPROVED",
+        "complete": true,
+        "all": false,
+        "reviews": [],
+        "threads": [
+          {
+            "id": "T1",
+            "path": "settings.py",
+            "line": 1,
+            "start_line": null,
+            "original_line": 1,
+            "original_start_line": null,
+            "diff_side": "RIGHT",
+            "start_diff_side": "",
+            "is_resolved": false,
+            "is_outdated": false,
+            "comments": [
+              {
+                "id": "C1",
+                "author": {
+                  "login": "fixture-reviewer"
+                },
+                "body": "Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                "created_at": "2026-10-07T00:00:00Z",
+                "updated_at": "2026-10-07T00:00:00Z",
+                "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+              }
+            ]
+          }
+        ],
+        "before_needed_artifact": true
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "exact_requested_edit_and_readback": true,
+          "current_review_metadata_observed": true,
+          "review_body_and_diff_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    }
+  ],
+  "pr-inspect": [
+    {
+      "response": {
+        "attention_required": true,
+        "complete": true,
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "number": 7,
+        "outstanding": {
+          "pr": {
+            "url": "https://github.com/fixture/command-benchmark/pull/7",
+            "state": "OPEN",
+            "draft": false,
+            "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "base_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "check_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "merge_state": "CLEAN",
+            "review_decision": "APPROVED"
+          },
+          "reasons": [
+            {
+              "code": "unresolved_reviews",
+              "summary": "Unresolved review threads are present",
+              "next_action": "Read the included threads and address the requests"
+            }
+          ],
+          "threads": [
+            {
+              "id": "T1",
+              "path": "settings.py",
+              "line": 1,
+              "start_line": null,
+              "original_line": 1,
+              "original_start_line": null,
+              "diff_side": "RIGHT",
+              "start_diff_side": "",
+              "is_resolved": false,
+              "is_outdated": false,
+              "comments": [
+                {
+                  "id": "C1",
+                  "author": {
+                    "login": "fixture-reviewer"
+                  },
+                  "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                  "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                  "created_at": "2026-10-07T00:00:00Z",
+                  "updated_at": "2026-10-07T00:00:00Z",
+                  "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+                }
+              ]
+            }
+          ]
+        },
+        "pr_status": "blocked",
+        "repo": "fixture/command-benchmark",
+        "state_file": "/tmp/my-agent-tools-actionable-study-v3-20261010/workspace/.tools/pr-state.json",
+        "status": "unchanged",
+        "before_missing_current_thread": true
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 9,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "exact_requested_edit_and_readback": true,
+          "current_review_metadata_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "efe4a22275cb63ba83fc1271a43c2bd616e19301f7f2415d682c991de43685e1",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    },
+    {
+      "response": {
+        "added": {
+          "comment:C2": {
+            "comment": {
+              "id": "C2",
+              "author": {
+                "login": "fixture-reviewer"
+              },
+              "body": "Correction: set retry_budget=11 instead; preserve timeout=30.",
+              "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+              "created_at": "2026-10-07T00:00:00Z",
+              "updated_at": "2026-10-08T00:00:00Z",
+              "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+            },
+            "path": "settings.py",
+            "thread_id": "T1"
+          }
+        },
+        "attention_required": true,
+        "changed": {},
+        "complete": true,
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "number": 7,
+        "outstanding": {
+          "pr": {
+            "url": "https://github.com/fixture/command-benchmark/pull/7",
+            "state": "OPEN",
+            "draft": false,
+            "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "base_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "check_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "merge_state": "CLEAN",
+            "review_decision": "APPROVED"
+          },
+          "reasons": [
+            {
+              "code": "unresolved_reviews",
+              "summary": "Unresolved review threads are present",
+              "next_action": "Read the included threads and address the requests"
+            }
+          ],
+          "threads": [
+            {
+              "id": "T1",
+              "path": "settings.py",
+              "line": 1,
+              "start_line": null,
+              "original_line": 1,
+              "original_start_line": null,
+              "diff_side": "RIGHT",
+              "start_diff_side": "",
+              "is_resolved": false,
+              "is_outdated": false,
+              "comments": [
+                {
+                  "id": "C1",
+                  "author": {
+                    "login": "fixture-reviewer"
+                  },
+                  "body": "Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Please review this carefully. Set retry_budget=9 in settings.py; preserve timeout=30 and original line endings.",
+                  "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                  "created_at": "2026-10-07T00:00:00Z",
+                  "updated_at": "2026-10-07T00:00:00Z",
+                  "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+                },
+                {
+                  "id": "C2",
+                  "author": {
+                    "login": "fixture-reviewer"
+                  },
+                  "body": "Correction: set retry_budget=11 instead; preserve timeout=30.",
+                  "url": "https://github.com/fixture/command-benchmark/pull/7#discussion_r1",
+                  "created_at": "2026-10-07T00:00:00Z",
+                  "updated_at": "2026-10-08T00:00:00Z",
+                  "diff_hunk": "@@ -1,2 +1,2 @@\n retry_budget=2\n timeout=30\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n+ context\n"
+                }
+              ]
+            }
+          ]
+        },
+        "pr_status": "blocked",
+        "removed": [],
+        "repo": "fixture/command-benchmark",
+        "state_file": "/tmp/my-agent-tools-actionable-study-v3-20261010/workspace/.tools/pr-state.json",
+        "status": "changed",
+        "before_missing_current_thread": true
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 1,
+        "retry_budget": 11,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "exact_requested_edit_and_readback": true,
+          "current_review_metadata_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "67287ed708d1cae418dee413aa636da20b332503f4e2a8aef905023e76195fc2",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    },
+    {
+      "response": {
+        "added": {},
+        "attention_required": false,
+        "changed": {
+          "pr": {
+            "pr": {
+              "url": "https://github.com/fixture/command-benchmark/pull/7",
+              "state": "OPEN",
+              "draft": false,
+              "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "base_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "check_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "merge_state": "CLEAN",
+              "review_decision": "APPROVED"
+            },
+            "reasons": null,
+            "status": "ready"
+          }
+        },
+        "complete": true,
+        "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "number": 7,
+        "pr_status": "ready",
+        "removed": [
+          "comment:C1",
+          "thread:T1"
+        ],
+        "repo": "fixture/command-benchmark",
+        "state_file": "/tmp/my-agent-tools-actionable-study-v3-20261010/workspace/.tools/pr-state.json",
+        "status": "changed"
+      },
+      "actual": {
+        "head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unresolved_threads": 0,
+        "retry_budget": 2,
+        "timeout": 30,
+        "verified": true,
+        "unrelated_preserved": true
+      },
+      "verification": {
+        "correct": true,
+        "checks": {
+          "unrelated_bytes_and_modes": true,
+          "no_unexpected_files": true,
+          "no_api_mutations": true,
+          "no_apply_temporaries": true,
+          "exact_requested_edit_and_readback": true,
+          "current_review_metadata_observed": true
+        },
+        "after": {
+          "body.md": {
+            "sha256": "b96d13b17d7d18c438cdd6a33d5f6b40b0cc428da896e5c92deb2b2c7b292ddb",
+            "mode": 436
+          },
+          "other-work.txt": {
+            "sha256": "6a042ff30431c1eb758f5d2a1f1d4414bc4ed32518b1e96e4786dc14e271104f",
+            "mode": 436
+          },
+          "settings.py": {
+            "sha256": "1b5c94045f150c68ef516026b4fa9cefbffdd43bf428a3d37e046cc905d3d00c",
+            "mode": 436
+          },
+          "user-work.txt": {
+            "sha256": "e7258bbbaa95a70f217e86cda8b76b7ed84f4ca72c7b39662d048055052a8826",
+            "mode": 436
+          }
+        }
+      }
+    }
+  ]
+}

@@ -29,7 +29,7 @@ func TestCompactRejectsByteSavingsThatIncreaseTokens(t *testing.T) {
 		t.Fatal("token-cheap whitespace was replaced by a more expensive evidence reference")
 	}
 	for _, encoding := range []tokenizer.Encoding{tokenizer.O200kBase, tokenizer.Cl100kBase} {
-		long := map[string]any{"status": "failed", "body": strings.Repeat("구체적인 수정 요청을 확인하고 반영하세요. ", 500)}
+		long := map[string]any{"status": "failed", "raw_details": strings.Repeat("구체적인 수정 요청을 확인하고 반영하세요. ", 500)}
 		before, _ := compactJSON(long)
 		projected, err := compactValue(long, compactFlags{Enabled: true, Dir: t.TempDir(), Encoding: string(encoding)})
 		if err != nil {

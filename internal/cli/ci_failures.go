@@ -25,6 +25,8 @@ func runCIFailures(ctx context.Context, args []string, out, stderr io.Writer, ru
 	}
 	flags := flag.NewFlagSet("tools github ci failures", flag.ContinueOnError)
 	flags.SetOutput(stderr)
+	evidenceReader := evidenceReadFlags{}
+	evidenceReader.register(flags)
 	compact := compactFlags{}
 	compact.register(flags, false)
 	repo := flags.String("repo", "", "GitHub OWNER/REPO (default: current repository)")
@@ -50,6 +52,9 @@ func runCIFailures(ctx context.Context, args []string, out, stderr io.Writer, ru
 			fmt.Fprintln(stderr, "error:", err)
 		}
 		return code
+	}
+	if evidenceReader.selected() {
+		return evidenceReader.run(flags, out, stderr)
 	}
 	if flags.NArg() != 0 {
 		return fail(errors.New("unexpected positional arguments"), 2)

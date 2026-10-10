@@ -19,6 +19,7 @@ type InspectOptions struct {
 	Annotations    bool
 	MaxLogBytes    int64
 	Sections       string
+	Conversation   bool
 	CachedFailures []CIFailureResult
 	CachedHead     string
 	CachedBase     string
@@ -51,6 +52,9 @@ func (options *InspectOptions) Normalize() error {
 	}
 	sort.Strings(ordered)
 	options.Sections = strings.Join(ordered, ",")
+	if options.Conversation && !options.includes("reviews") {
+		return errors.New("--conversation requires the reviews section")
+	}
 	if options.Wait && !options.includes("checks") && !options.includes("failures") {
 		return errors.New("--wait requires the checks or failures section")
 	}
@@ -298,7 +302,7 @@ func (client Client) InspectPR(ctx context.Context, repo string, options Inspect
 		if options.CachedBase != pr.BaseSHA {
 			known = nil
 		}
-		reviews, err := client.PullRequestReviews(ctx, repo, ReviewOptions{Number: options.Number, CachedHead: options.CachedHead, CachedComments: known})
+		reviews, err := client.PullRequestReviews(ctx, repo, ReviewOptions{Number: options.Number, Conversation: options.Conversation, CachedHead: options.CachedHead, CachedComments: known})
 		if err != nil {
 			partial(err)
 		} else {

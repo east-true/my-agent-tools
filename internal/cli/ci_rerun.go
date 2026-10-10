@@ -22,6 +22,8 @@ func runCIRerun(ctx context.Context, args []string, out, stderr io.Writer, runne
 	options := github.CIRerunOptions{}
 	resume := flags.Bool("resume", false, "resume observing a saved expected attempt without requesting another rerun")
 	statePath := flags.String("state-file", "", "rerun checkpoint path (default: shared repository state)")
+	evidenceReader := evidenceReadFlags{}
+	evidenceReader.register(flags)
 	compact := compactFlags{}
 	compact.register(flags, false)
 	flags.Int64Var(&options.RunID, "run", 0, "workflow run ID (required; not a PR number)")
@@ -50,6 +52,9 @@ func runCIRerun(ctx context.Context, args []string, out, stderr io.Writer, runne
 			fmt.Fprintln(stderr, "error:", err)
 		}
 		return code
+	}
+	if evidenceReader.selected() {
+		return evidenceReader.run(flags, out, stderr)
 	}
 	if flags.NArg() != 0 {
 		return fail(errors.New("unexpected positional arguments"), 2)

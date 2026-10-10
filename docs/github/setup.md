@@ -78,3 +78,7 @@ tools github setup --refresh --dry-run --json
 설정은 현재 이름의 매핑입니다. GitHub 이름이 변경되면 미리보기 후 `--refresh`나 명시적 옵션으로 갱신하세요.
 
 [공통 안내](README.md) · [목록 조회](context.md) · [이슈 생성](issue/create.md)
+
+## 저장 후 확인
+
+실제 저장 파일을 read-back하고 JSON·바이트·기존 권한을 검증한다. `saved_config`의 `saved`, `changed`, `verified`, `sha256`, `mode`, `mode_preserved`가 결과이다. dry-run에는 저장 검증을 붙이지 않는다. 저장 뒤 검증 실패는 경로와 이미 저장된 사실·오류를 유지한 `partial`과 종료 코드 1로 반환한다. 확인 뒤의 타 프로세스 변경까지 보장하지 않는다.

@@ -1,0 +1,2583 @@
+{
+  "protocol": {
+    "version": 1,
+    "measured_at_utc": "2026-10-10T09:29:18.189935+00:00",
+    "configured_defaults": {
+      "model": "gpt-6.1-sol",
+      "model_reasoning_effort": "low",
+      "profile": null
+    },
+    "tasks": [
+      "inspect",
+      "delta",
+      "apply"
+    ],
+    "repetitions_per_method": 3,
+    "max_model_calls": 18,
+    "schedule": [
+      {
+        "task": "apply",
+        "method": "direct",
+        "repetition": 1
+      },
+      {
+        "task": "apply",
+        "method": "tools",
+        "repetition": 1
+      },
+      {
+        "task": "inspect",
+        "method": "direct",
+        "repetition": 1
+      },
+      {
+        "task": "inspect",
+        "method": "tools",
+        "repetition": 1
+      },
+      {
+        "task": "delta",
+        "method": "tools",
+        "repetition": 1
+      },
+      {
+        "task": "delta",
+        "method": "direct",
+        "repetition": 1
+      },
+      {
+        "task": "delta",
+        "method": "direct",
+        "repetition": 2
+      },
+      {
+        "task": "delta",
+        "method": "tools",
+        "repetition": 2
+      },
+      {
+        "task": "inspect",
+        "method": "tools",
+        "repetition": 2
+      },
+      {
+        "task": "inspect",
+        "method": "direct",
+        "repetition": 2
+      },
+      {
+        "task": "apply",
+        "method": "tools",
+        "repetition": 2
+      },
+      {
+        "task": "apply",
+        "method": "direct",
+        "repetition": 2
+      },
+      {
+        "task": "inspect",
+        "method": "direct",
+        "repetition": 3
+      },
+      {
+        "task": "inspect",
+        "method": "tools",
+        "repetition": 3
+      },
+      {
+        "task": "delta",
+        "method": "tools",
+        "repetition": 3
+      },
+      {
+        "task": "delta",
+        "method": "direct",
+        "repetition": 3
+      },
+      {
+        "task": "apply",
+        "method": "direct",
+        "repetition": 3
+      },
+      {
+        "task": "apply",
+        "method": "tools",
+        "repetition": 3
+      }
+    ],
+    "efficient_usage": false,
+    "guidance_revision": 4,
+    "write_scope": "workspace and fixture-control directory only",
+    "seed": 20261010,
+    "source_manifest": [
+      {
+        "path": "cmd/tools/main.go",
+        "sha256": "7b1080531b6994117dea7a28e8a0bf9fcfcf52831d56c6051b7647371088dfb1"
+      },
+      {
+        "path": "go.mod",
+        "sha256": "9cdfe21c9804fe3ba95648b65e158f7bd88eb0753cf36906bfe253a1655a44c5"
+      },
+      {
+        "path": "go.sum",
+        "sha256": "5635d406c9086d72751fb8e7a9bd9735f41ffd57e5c509210ebeef64f7885a3d"
+      },
+      {
+        "path": "internal/cli/ci_failures.go",
+        "sha256": "d6d5dccbbe629d43a8c9a12c9596ce6c27f5f2446b431edbd6c35e79c38153b5"
+      },
+      {
+        "path": "internal/cli/ci_failures_test.go",
+        "sha256": "4b09ce68832d5666ceb6c8b33496c461ba9e3978c34bc7ef659ce9f5f805fced"
+      },
+      {
+        "path": "internal/cli/ci_rerun.go",
+        "sha256": "cbdbbbcee26d9115e2843cd50a371ee2556dabc6217d6b9e68d54d7224ac036e"
+      },
+      {
+        "path": "internal/cli/ci_rerun_state.go",
+        "sha256": "bd731a91c46f9aad7def64b2f14bdfb4cdca063a2a24b57b1e8b6a87cdd2ef64"
+      },
+      {
+        "path": "internal/cli/ci_rerun_state_test.go",
+        "sha256": "c4b8476e15b4b1efdbf13bd86cd8d033e4c627c3ef52edc181703b5cc32a0a8b"
+      },
+      {
+        "path": "internal/cli/cleanup.go",
+        "sha256": "b453d82dd23c770dcf50722b4d3fb55a6ffded565088489bdb90844e0e7d4d5f"
+      },
+      {
+        "path": "internal/cli/cleanup_test.go",
+        "sha256": "7517c8dd1c00d68fa3fb1120ab2c27b8600f26fcbbfe6a5d42b28e224d4c16eb"
+      },
+      {
+        "path": "internal/cli/cli.go",
+        "sha256": "6505eb8e56b49154613532de4cd3ca5131e833cc582b628646a0716d445da34c"
+      },
+      {
+        "path": "internal/cli/cli_test.go",
+        "sha256": "834e76acdc9ceb1844515452bc03c8afaef065847c588d5e1b78fe5ad2ba4eeb"
+      },
+      {
+        "path": "internal/cli/compact.go",
+        "sha256": "43f07a6b97c278694c5c791a33bc0031f2665f031090b80410b065523cc681f3"
+      },
+      {
+        "path": "internal/cli/compact_measurement_test.go",
+        "sha256": "3fa58c9a11776caeb7e58ebdb191e6092e50a57e7266a551a177c6d5d593f145"
+      },
+      {
+        "path": "internal/cli/compact_reviews_test.go",
+        "sha256": "8e409bbcf27340d00b184a012db6299551384c339355e7f47e084a9e8a3a0e6b"
+      },
+      {
+        "path": "internal/cli/compact_state_test.go",
+        "sha256": "088ff163187dc72d2067c6807391f705ee8d3d44e72620a94d6e0e0b518a8336"
+      },
+      {
+        "path": "internal/cli/dependabot.go",
+        "sha256": "0a0d5344de67659f0fdcc32bbaea18122825d9e24b6353bc71b3a160c93d2e24"
+      },
+      {
+        "path": "internal/cli/dependabot_test.go",
+        "sha256": "b2ae72a3a48636838df075bfebc5923b01e0e528fe23bbfe4ad6d5535dd11105"
+      },
+      {
+        "path": "internal/cli/fs.go",
+        "sha256": "5bff97d970fd8b32cc9228248466ad406888410ffc1a0a24a5a372d35ea82c09"
+      },
+      {
+        "path": "internal/cli/fs_test.go",
+        "sha256": "94fea818f6c7b5c291aa65a33b4c16d538a87a1af0c9fcf1773f8241acbba25d"
+      },
+      {
+        "path": "internal/cli/improvements_test.go",
+        "sha256": "7ed98caf0cc907c673a7f0aa64987d5c7f6c31c41fdc672329e04cf5188467e9"
+      },
+      {
+        "path": "internal/cli/pr_merge.go",
+        "sha256": "7674123e24169d138bac076fbef4e5c232baa405ba31cd515fa90a75f4b38a81"
+      },
+      {
+        "path": "internal/cli/pr_merge_evidence_test.go",
+        "sha256": "a751c6684f1805dcb0b3020e126eb426e9bbd58417a98150f8abc115286f1b24"
+      },
+      {
+        "path": "internal/cli/pr_merge_test.go",
+        "sha256": "1b2829b4c1039ae815b35d234d1634e994a9bc39b500a08c8f24f506f89c41f9"
+      },
+      {
+        "path": "internal/cli/pr_reviews.go",
+        "sha256": "680ef0aafa0411754d6e25e14d3705ecc9b3329d6d43bf71e69ac6cccf3cac34"
+      },
+      {
+        "path": "internal/cli/pr_state.go",
+        "sha256": "151d34627ad40e140ed8c31dc9a6333f1220547f3fd575829ee8da38cf1316d5"
+      },
+      {
+        "path": "internal/cli/pr_workflows.go",
+        "sha256": "9dbd79bed3c6a0280d75792cdb1a0c5d3cde3f5426cece778162ef8f722e83ce"
+      },
+      {
+        "path": "internal/cli/pr_workflows_test.go",
+        "sha256": "3bec262ce27a7c6fdc3021f6a3573704a7cb4fbae5e641034b7aca269c47fa16"
+      },
+      {
+        "path": "internal/cli/review_rerun_test.go",
+        "sha256": "c712c8780a1c31306fd91aab907b076445b32ec8560dfb8d07cfdf500655204d"
+      },
+      {
+        "path": "internal/cli/setup.go",
+        "sha256": "dff280ec195bc0ef064145ef6bf3bf7a2a36a5840645d71353f2bb9fdf6f66dd"
+      },
+      {
+        "path": "internal/cli/setup_test.go",
+        "sha256": "8f90d7794febca9e66e508dec550993f3137a32d5d4a03586c3d07c942c1e6bb"
+      },
+      {
+        "path": "internal/cli/worktree_test.go",
+        "sha256": "46111d2411678600c2d4d34131f82d1be53e21afdacb8670f3a8821256186e9e"
+      },
+      {
+        "path": "internal/command/runner.go",
+        "sha256": "97ce6656fb463543187167358cd7cc1ff6b96132406adde3b41c5f74744cbf40"
+      },
+      {
+        "path": "internal/filesystem/apply.go",
+        "sha256": "9645d6a05663bfc29e7cd1c87fcb8ad46a7a7b43be8745b547b6c9e794d4e3a8"
+      },
+      {
+        "path": "internal/filesystem/delta.go",
+        "sha256": "4849f6fb44ed3b8739a82fa50f97799efd1e3d51ceecc2aee04dfa1e7fced321"
+      },
+      {
+        "path": "internal/filesystem/diff.go",
+        "sha256": "30cfe3693eb8d309b31bd277aca96db51b6254fdc37466295641d99edaa57eff"
+      },
+      {
+        "path": "internal/filesystem/filesystem_test.go",
+        "sha256": "c2c62ac5af1707a79e695e696b23cb31ba95bf57b53fc3aaa339bad79c5add99"
+      },
+      {
+        "path": "internal/filesystem/inspect.go",
+        "sha256": "387cf7bac9dc91d83af2086a5cb7fef7fa7185f8b6fd28e027f63ab1aa47f418"
+      },
+      {
+        "path": "internal/filesystem/inspect_batch.go",
+        "sha256": "0f63ffce9bdfb4656f2c46ffacaabeaff4be6e93e4ef2117963fdfba3f155ddb"
+      },
+      {
+        "path": "internal/filesystem/plan.go",
+        "sha256": "5705800e9534122235d0c07b8ecd9fa322b1a6a8987405e105f9f7b8b8d3e09e"
+      },
+      {
+        "path": "internal/filesystem/scope.go",
+        "sha256": "5854dd06cefddbf0ca675b12378bd04d16c3ff169e33adb8b6e51bb4a6a81a68"
+      },
+      {
+        "path": "internal/filesystem/workflows_test.go",
+        "sha256": "07616e987d0aeafdd44e573eeda377f1ba5409d89fbf41474c9b627bd8d04aa2"
+      },
+      {
+        "path": "internal/github/api.go",
+        "sha256": "0f5b112667bcef310f7c81d6c33d094953aaa4739f5d04e3eeda72f7d6e3bf6f"
+      },
+      {
+        "path": "internal/github/branch.go",
+        "sha256": "33c98731edf5b432470b1035c033824302e6f95ada7a356b910ef090ab998a6c"
+      },
+      {
+        "path": "internal/github/branch_test.go",
+        "sha256": "e06ace10f5d64a817bd6dea66c6f795920fefad4eb2cb3006029edbf7aa31a1e"
+      },
+      {
+        "path": "internal/github/cache.go",
+        "sha256": "386234d6318a7d3afd68a8e199818bfd1a564da6b9885db56222e7042edce681"
+      },
+      {
+        "path": "internal/github/ci_cache.go",
+        "sha256": "36dd3f5689011c31ed879ba6b06dd355cf3da2cc367fac76a1d5a215dca405ff"
+      },
+      {
+        "path": "internal/github/ci_checkpoint.go",
+        "sha256": "d38184eee3d4a53f410337f3f3f6226c976aa57beadc04177449b5a83bac2d62"
+      },
+      {
+        "path": "internal/github/ci_evidence.go",
+        "sha256": "beed6e32960e148c9afd1951553214487d44c959b1f29a1f0a11ff911d16432b"
+      },
+      {
+        "path": "internal/github/ci_evidence_test.go",
+        "sha256": "656d77853d66cd1bc6baee84d90ef0f896c30b2b6420e26995ca552c00648ea0"
+      },
+      {
+        "path": "internal/github/ci_failures.go",
+        "sha256": "7ea71d949fb07c16828f52a1fa7b3a1fa77d9533308b5e3798e6a92093eae7a8"
+      },
+      {
+        "path": "internal/github/ci_failures_test.go",
+        "sha256": "0df8ad0111c00f97597d05079373982556ea6ef0038a02fbe934071d78d89461"
+      },
+      {
+        "path": "internal/github/ci_log_download.go",
+        "sha256": "a33db02e869597f5b9cdca192eb02cb90725c77c6e575016349c407f95ddcd2b"
+      },
+      {
+        "path": "internal/github/ci_rerun.go",
+        "sha256": "6ff8a0a11450facc53d9eda09da17ea8137bd7335214ae01f4f3bcc77f40f0bc"
+      },
+      {
+        "path": "internal/github/ci_rerun_test.go",
+        "sha256": "003c472430acdb0f99b03ee6d4588a969098bba85e208776150566fe50586035"
+      },
+      {
+        "path": "internal/github/ci_resume_test.go",
+        "sha256": "04226f918a48279af3d9d7b8dfd28f421001c622d2c8c6494d9bfd959dea6794"
+      },
+      {
+        "path": "internal/github/cleanup.go",
+        "sha256": "a2cc228f557153c13a8f30e4a445d40430eabae673f3ad027338a20b3e1dce01"
+      },
+      {
+        "path": "internal/github/cleanup_test.go",
+        "sha256": "34fd74e50a6fea571e447f567e37237fba74ee5d93d1ca45ac135657532631ae"
+      },
+      {
+        "path": "internal/github/cleanup_worktree.go",
+        "sha256": "c6e40e2d2758644e38000e5ecd33f90089486c0264b8b6ca0a0328c4716a4911"
+      },
+      {
+        "path": "internal/github/cleanup_worktree_test.go",
+        "sha256": "ac6d567751e0cd7a6d8ddf609b3abbe6fe34d3386a0bb7b997faa9c5215b1fa3"
+      },
+      {
+        "path": "internal/github/client.go",
+        "sha256": "8c1c1d34e7229c040987ab1394e29e00d25b2bc7b2fc3f22688d5fcd1da4610a"
+      },
+      {
+        "path": "internal/github/client_test.go",
+        "sha256": "ce9ae83165da1b5e4f8486659148a6aca365404625ba2fa1b38134cbaccbff16"
+      },
+      {
+        "path": "internal/github/dependabot.go",
+        "sha256": "2f0abae52f0fefc42b39a50f382b9dbacd4908736437f47dfbd2e3d3b48f5f98"
+      },
+      {
+        "path": "internal/github/dependabot_test.go",
+        "sha256": "6661649404a91f9fca82770bb2f03b90c57be58a843f6abc5efb000f48407247"
+      },
+      {
+        "path": "internal/github/further_improvements_test.go",
+        "sha256": "a7885134bbf4e08c8a07b28dd12d161f31736fd269e5933651666755dee8409f"
+      },
+      {
+        "path": "internal/github/improvements_test.go",
+        "sha256": "7705727d484e235f780e59178eefae247af091137f07b4e155a7f2f1995246b6"
+      },
+      {
+        "path": "internal/github/policy.go",
+        "sha256": "e67f470c18292eb10dea17bf10a61b232985f2a9a63341a449768a7580f26317"
+      },
+      {
+        "path": "internal/github/pr_delta.go",
+        "sha256": "d528a5157da02a0c8b483bba88e9a544f42db78d37157382e35c088d25d2bcd3"
+      },
+      {
+        "path": "internal/github/pr_inspect.go",
+        "sha256": "932b0ead8929be88b6c414b73ee53013a9125435aa738014a876dbe6b74c517d"
+      },
+      {
+        "path": "internal/github/pr_inspect_delta_test.go",
+        "sha256": "f3ee76d3e01d6e752de26e79280cfc54c1a444b97a710d17be9643abecc46c64"
+      },
+      {
+        "path": "internal/github/pr_merge.go",
+        "sha256": "af8d57eb5e3c96cc02b39b59a7ea285f0b93096ba9e7be28cf036c81fde3aabf"
+      },
+      {
+        "path": "internal/github/pr_merge_cleanup.go",
+        "sha256": "aeec664eacc2c8ac243475e4c03f733313f4db0379593d251f3fea88c276dfbe"
+      },
+      {
+        "path": "internal/github/pr_merge_diagnostics.go",
+        "sha256": "1a816065b17566673a288fc63288c57d3eb3112783b5c7347be4a3257a65b8a9"
+      },
+      {
+        "path": "internal/github/pr_merge_diagnostics_test.go",
+        "sha256": "82719bb9becb6ae1ef3e5a4eb7cc28c8a61aba147def5533d425688e59d584ce"
+      },
+      {
+        "path": "internal/github/pr_merge_test.go",
+        "sha256": "86f0bc876d4cc95b92ab3d26acb839617cd436c8106b46862d8ddbe7582bfbe3"
+      },
+      {
+        "path": "internal/github/pr_reviews.go",
+        "sha256": "8614121599533e7f616317464d236106de2f80a91f26c0dead48a42444e33a8d"
+      },
+      {
+        "path": "internal/github/pr_reviews_test.go",
+        "sha256": "f77f932dabf65f7565b6fa3159d55add007acbd05622de129d5e27b3d58421de"
+      },
+      {
+        "path": "internal/github/pr_workflows.go",
+        "sha256": "1de318671fc75234907806acd89f62300a318e036fc191ed8a31110dfb35d720"
+      },
+      {
+        "path": "internal/github/pr_workflows_test.go",
+        "sha256": "824aa27ccb9c42738ae6a43651929e9271e149dfcd44d9a78c1a0ec0fe88de8c"
+      },
+      {
+        "path": "internal/github/read_transport.go",
+        "sha256": "eb155c4ffc505b12f2f1ed5ddec3c07818ff5cb1933299358dfc47b9f4ec9456"
+      },
+      {
+        "path": "internal/github/read_transport_test.go",
+        "sha256": "1d7890daf483f2fa5816b312ea3b8588675630ff94fd5f9d944c0d70b63c90e2"
+      },
+      {
+        "path": "internal/github/setup.go",
+        "sha256": "3392921117f62a2e943785b90730e4691412b5ed8e913787b7f7912f5acad2e0"
+      },
+      {
+        "path": "internal/github/setup_test.go",
+        "sha256": "4e0499afb746c576a7aadbc606dd0bb4ef38b2747d866324b9891545d7a120b8"
+      },
+      {
+        "path": "internal/github/spec.go",
+        "sha256": "6844f3223f55edb6fed239ac5bac024ae5837e899491f5651a4f941cc04edae3"
+      },
+      {
+        "path": "internal/github/spec_test.go",
+        "sha256": "99f4805c6b62ff94691e1d37d2268b02cb0e4c9ffcd19c1c07e2e9f3d059babb"
+      },
+      {
+        "path": "internal/github/state_directory.go",
+        "sha256": "9d3ab40d9f9bda38f26ed0579319f28c0e0dd4702be229547e62f6f75924691a"
+      },
+      {
+        "path": "internal/github/state_directory_test.go",
+        "sha256": "81ab8b0c506279ec304f891fde9d39e1e5a9537f4d5ca166884895a987fbb251"
+      },
+      {
+        "path": "internal/github/template.go",
+        "sha256": "3942ac9b36dfe628b4830a48177d36e933beff5ac9d648ed7574d82ffc664522"
+      },
+      {
+        "path": "internal/github/template_test.go",
+        "sha256": "82b730de6be73113b9185d1432a721dacec834076116efe055347c48ebb91b9a"
+      },
+      {
+        "path": "internal/github/worktree.go",
+        "sha256": "af8b1a6731ee3fb20eac57ac4082863fd67d03da239464653bd7bf7694a826dc"
+      },
+      {
+        "path": "internal/github/worktree_test.go",
+        "sha256": "1dc7562067fd21a91fadc2f6f28fe639f8eef146a0cc817ed9bc310f22f9e3f5"
+      }
+    ],
+    "runner_sha256": "8a13d1965f0789132682153b98552e5def91ce59f3dcec845d535533feadde2c",
+    "cli_sha256": "23f06459af86952b5da7386f274a2cc5fc2e3b86efe5ffc753d300e9dc1b1e52",
+    "prompts": {
+      "inspect": {
+        "direct": "Perform only the specified filesystem workflow in this synthetic workspace. Preserve unrelated files, bytes, native existing permissions and input JSON. Paths use / and lines start at 1. Ignore dist, .git, .tools, node_modules and binary.dat. Installed Python is python3. No network, delegation, model calls, installs, or reading benchmark source/protocol/control/results/other sessions. Batch naturally; no minimum command count. Return only the answer schema. Work is authorized including requested edits. Use bounded ranges/concise outputs; do not dump whole source files.\nRead queries.json, version 1 files. Each file has its own inclusive start/end ranges, literal patterns, optional context. Patterns select matching lines plus context; ranges without patterns select every requested line. Collect ALL selected lines, deduplicate overlapping context and return sorted path,line,exact text. Preserve all source bytes. Tools has a 512-byte page budget: follow next_cursor using identical arguments until complete. Direct scripts may batch all reads without a page limit; the final answer has no page limit.\nMethod: direct rg/shell/Python standard library; never invoke tools or import its implementation. Optimize batching naturally; script authoring/verification costs included.\n",
+        "tools": "Perform only the specified filesystem workflow in this synthetic workspace. Preserve unrelated files, bytes, native existing permissions and input JSON. Paths use / and lines start at 1. Ignore dist, .git, .tools, node_modules and binary.dat. Installed Python is python3. No network, delegation, model calls, installs, or reading benchmark source/protocol/control/results/other sessions. Batch naturally; no minimum command count. Return only the answer schema. Work is authorized including requested edits. Use bounded ranges/concise outputs; do not dump whole source files.\nRead queries.json, version 1 files. Each file has its own inclusive start/end ranges, literal patterns, optional context. Patterns select matching lines plus context; ranges without patterns select every requested line. Collect ALL selected lines, deduplicate overlapping context and return sorted path,line,exact text. Preserve all source bytes. Tools has a 512-byte page budget: follow next_cursor using identical arguments until complete. Direct scripts may batch all reads without a page limit; the final answer has no page limit.\nMethod: production tools fs workflow; shell/Python may orchestrate/map/verify results but must not reimplement the workflow.\nUse tools fs inspect --request queries.json --max-output-bytes 512 --json; repeat with --cursor NEXT and identical request/budget. Status page, complete:false, next_cursor is successful continuation. Include ALL file ranges with start and lines, not only matches. Python may orchestrate CLI pagination and merge results without reimplementing selection.\n"
+      },
+      "delta": {
+        "direct": "Perform only the specified filesystem workflow in this synthetic workspace. Preserve unrelated files, bytes, native existing permissions and input JSON. Paths use / and lines start at 1. Ignore dist, .git, .tools, node_modules and binary.dat. Installed Python is python3. No network, delegation, model calls, installs, or reading benchmark source/protocol/control/results/other sessions. Batch naturally; no minimum command count. Return only the answer schema. Work is authorized including requested edits. Use bounded ranges/concise outputs; do not dump whole source files.\nCreate baseline.json with original-byte SHA-256 and original text for EVERY src/**/*.txt file. Invoke fs-fixture-advance for exactly one successful mutation; rejected pre-mutation calls may be retried. Compare against the saved baseline TWICE without consuming or changing it. Hash content even if size/mtime match. Return sorted added,modified,deleted paths, unchanged count, every differing current line in the modified file, whether comparisons agree and baseline bytes are preserved. Renames are deletion+addition. Omit unchanged spans and added/deleted contents from the answer.\nMethod: direct rg/shell/Python standard library; never invoke tools or import its implementation. Optimize batching naturally; script authoring/verification costs included.\n",
+        "tools": "Perform only the specified filesystem workflow in this synthetic workspace. Preserve unrelated files, bytes, native existing permissions and input JSON. Paths use / and lines start at 1. Ignore dist, .git, .tools, node_modules and binary.dat. Installed Python is python3. No network, delegation, model calls, installs, or reading benchmark source/protocol/control/results/other sessions. Batch naturally; no minimum command count. Return only the answer schema. Work is authorized including requested edits. Use bounded ranges/concise outputs; do not dump whole source files.\nCreate baseline.json with original-byte SHA-256 and original text for EVERY src/**/*.txt file. Invoke fs-fixture-advance for exactly one successful mutation; rejected pre-mutation calls may be retried. Compare against the saved baseline TWICE without consuming or changing it. Hash content even if size/mtime match. Return sorted added,modified,deleted paths, unchanged count, every differing current line in the modified file, whether comparisons agree and baseline bytes are preserved. Renames are deletion+addition. Omit unchanged spans and added/deleted contents from the answer.\nMethod: production tools fs workflow; shell/Python may orchestrate/map/verify results but must not reimplement the workflow.\nInitialize using tools fs delta --include 'src/**/*.txt' --state-file baseline.json --include-content --json, then fs-fixture-advance, then the same delta command with --peek TWICE. Peek keeps baseline bytes. Modified ranges have start and lines; filter added/deleted full contents. Python/jq may map/verify outputs.\n"
+      },
+      "apply": {
+        "direct": "Perform only the specified filesystem workflow in this synthetic workspace. Preserve unrelated files, bytes, native existing permissions and input JSON. Paths use / and lines start at 1. Ignore dist, .git, .tools, node_modules and binary.dat. Installed Python is python3. No network, delegation, model calls, installs, or reading benchmark source/protocol/control/results/other sessions. Batch naturally; no minimum command count. Return only the answer schema. Work is authorized including requested edits. Use bounded ranges/concise outputs; do not dump whole source files.\nRead spec.json: version 1 files, existing-file hashes omitted, creation explicitly sha256 absent. Capture actual original-byte hashes and save complete validated version 1 plan.json without overwriting. Validate ALL paths/no symlinks/traversal/UTF-8/exact counts/absence before source edits. Apply the authorized plan, preserve bytes outside replacements and existing permissions, and never overwrite creation destinations. Read back applied files and verify exact intended bytes/permissions. Return sorted applied and verified paths, resulting numeric cache_limit/retry_budget from BOTH edited files and new JSON, user-file preservation and whether plan.json was saved. No separate preview is needed when validation is internal.\nMethod: direct rg/shell/Python standard library; never invoke tools or import its implementation. Optimize batching naturally; script authoring/verification costs included.\n",
+        "tools": "Perform only the specified filesystem workflow in this synthetic workspace. Preserve unrelated files, bytes, native existing permissions and input JSON. Paths use / and lines start at 1. Ignore dist, .git, .tools, node_modules and binary.dat. Installed Python is python3. No network, delegation, model calls, installs, or reading benchmark source/protocol/control/results/other sessions. Batch naturally; no minimum command count. Return only the answer schema. Work is authorized including requested edits. Use bounded ranges/concise outputs; do not dump whole source files.\nRead spec.json: version 1 files, existing-file hashes omitted, creation explicitly sha256 absent. Capture actual original-byte hashes and save complete validated version 1 plan.json without overwriting. Validate ALL paths/no symlinks/traversal/UTF-8/exact counts/absence before source edits. Apply the authorized plan, preserve bytes outside replacements and existing permissions, and never overwrite creation destinations. Read back applied files and verify exact intended bytes/permissions. Return sorted applied and verified paths, resulting numeric cache_limit/retry_budget from BOTH edited files and new JSON, user-file preservation and whether plan.json was saved. No separate preview is needed when validation is internal.\nMethod: production tools fs workflow; shell/Python may orchestrate/map/verify results but must not reimplement the workflow.\nUse tools fs apply --spec spec.json --save-plan plan.json --apply --report-changes --json. It captures hashes, validates the whole plan, writes, reads back bytes/permissions, and returns path,status,verified,sha256 and changed current ranges. Read resulting values from ranges; separate inspect/whole-file reads are unnecessary. report_complete must be true.\n"
+      }
+    },
+    "cache_controlled": false,
+    "settings": "inherited defaults; no model/effort override or --ignore-user-config",
+    "limitations": [
+      "Fixed synthetic workload, three trials per method.",
+      "Backend cache cannot be reset; total and uncached token metrics differ.",
+      "CLI installation/build excluded; direct script authoring included.",
+      "Runtime model/effort not exposed in exec events; configuration snapshot and absent overrides recorded."
+    ],
+    "inclusion_policy": "Retain every scheduled trial including failures, no replacement runs; abort on missing usage/quota or fixture defects.",
+    "workflows": true,
+    "runner_manifest": {
+      "fs_workflow_benchmark.py": "c97d1444eba7b500b98c555174d86464f73f25efc1be4d642f71b3ed18bf573a"
+    },
+    "legacy_cli_sha256": "8bbff9e0d393dc40ac2e0c4b9c692ed4a5ffd03de999a178bf847f55b625d651",
+    "scenario_revision": "batched-workflows"
+  },
+  "trials": [
+    {
+      "task": "apply",
+      "method": "direct",
+      "repetition": 1,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 72101,
+        "cached_input_tokens": 51968,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1925,
+        "reasoning_output_tokens": 228
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "applied": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "user_files_preserved": true,
+        "verified": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "plan_saved": true
+      },
+      "state_checks": {
+        "unrelated_bytes_preserved": true,
+        "all_requested_bytes_match": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "saved_plan_has_exact_original_hashes": true
+      },
+      "commands": [
+        "/bin/bash -lc \"pwd; rg --files -g '\"'!dist/**'\"' -g '\"'!.git/**'\"' -g '\"'!.tools/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!binary.dat'\"' -g 'spec.json' -g 'AGENTS.md'\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nfrom pathlib import Path\np=Path('spec.json')\nprint(p.read_text(encoding='utf-8'))\nPY\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport os, json, hashlib, stat, re\nfrom pathlib import Path\nroot=Path.cwd()\nexcluded={'dist','.git','.tools','node_modules','binary.dat'}\ndef digest(b): return hashlib.sha256(b).hexdigest()\ndef checked(name):\n    if not isinstance(name,str) or not name or '\\\\\\\\' in name or '\\\\x00' in name:\n        raise ValueError('Invalid path')\n    parts=name.split('/')\n    if any(p in ('','.','..') or p in excluded for p in parts) or name.startswith('/'):\n        raise ValueError('Unsafe path: '+name)\n    p=root\n    for part in parts:\n        p=p/part\n        if p.is_symlink(): raise ValueError('Symlink: '+name)\n        if p\"'!=root.joinpath(*parts) and p.exists() and not p.is_dir(): raise ValueError('\"'Invalid parent: '+name)\n    return p\nspecpath=checked('spec.json')\nspecbytes=specpath.read_bytes()\nspec=json.loads(specbytes.decode('utf-8'))\nassert spec.get('version')==1 and type(spec['version']) is int\nassert set(spec)=={'version','files'} and isinstance(spec['files'],list) and spec['files']\nplanpath=checked('plan.json')\nassert not os.path.lexists(planpath), 'plan.json already exists'\nplan={'version':1,'files':[]}\nprepared=[]\nseen={'spec.json','plan.json'}\nfor entry in spec['files']:\n    assert isinstance(entry,dict)\n    name=entry['path']; p=checked(name)\n    assert name not in seen, 'Duplicate/reserved path'\n    seen.add(name)\n    item=dict(entry)\n    if 'content' in entry:\n        assert set(entry)=={'path','sha256','content'} and entry['sha256']=='absent'\n        assert isinstance(entry['content'],str) and not os.path.lexists(p), 'Creation destination exists'\n        intended=entry['content'].encode('utf-8'); intended.decode('utf-8')\n        prepared.append((name,p,None,intended,None))\n    else:\n        assert set(entry) in ({'path','replacements'},{'path','sha256','replacements'})\n        assert p.is_file() and stat.S_ISREG(p.stat().st_mode)\n        original=p.read_bytes(); text=original.decode('utf-8')\n        h=digest(original)\n        if 'sha256' in entry: assert entry['sha256']==h\n        item['sha256']=h\n        assert isinstance(entry['replacements'],list) and entry['replacements']\n        for replacement in entry['replacements']:\n            assert set(replacement)=={'old','new','count'}\n            old,new,count=replacement['old'],replacement['new'],replacement['count']\n            assert isinstance(old,str) and old and isinstance(new,str)\n            assert type(count) is int and count>0 and text.count(old)==count, 'Replacement count mismatch'\n            old.encode('utf-8'); new.encode('utf-8')\n            text=text.replace(old,new)\n        intended=text.encode('utf-8')\n        prepared.append((name,p,original,intended,stat.S_IMODE(p.stat().st_mode)))\n    plan['files'].append(item)\n# Validate resulting values from every requested output before any writes.\nvalues=[]\nfor name,p,original,intended,mode in prepared:\n    text=intended.decode('utf-8')\n    if name.endswith('.json'):\n        obj=json.loads(text); pair=(obj['cache_limit'],obj['retry_budget'])\n        assert all(type(v) is int for v in pair)\n    else:\n        caches=re.findall(r'(?m)\"'^cache_limit=('\"\\\\d+)\\\\s*\"'$'\"',text)\n        retries=re.findall(r'(?m)\"'^retry_budget=('\"\\\\d+)\\\\s*\"'$'\"',text)\n        assert len(caches)==len(retries)==1\n        pair=(int(caches[0]),int(retries[0]))\n    values.append(pair)\nassert len(set(values))==1\n# Snapshot user files without traversing ignored directories or symlinks.\nsnapshot={}\nfor base,dirs,files in os.walk(root,followlinks=False):\n    dirs[:]=[d for d in dirs if d not in excluded and not (Path(base)/d).is_symlink()]\n    for f in files:\n        if f in excluded: continue\n        p=Path(base)/f\n        if p.is_symlink(): continue\n        if not stat.S_ISREG(p.stat().st_mode): continue\n        name=p.relative_to(root).as_posix()\n        snapshot[name]=(digest(p.read_bytes()),stat.S_IMODE(p.stat().st_mode))\nplanbytes=(json.dumps(plan,ensure_ascii=False,indent=2)+'\\\\n').encode('utf-8')\nassert json.loads(planbytes)==plan\nwith planpath.open('xb') as stream: stream.write(planbytes)\nassert planpath.read_bytes()==planbytes\nfor name,p,original,intended,mode in prepared:\n    checked(name)\n    if original is None:\n        assert not os.path.lexists(p)\n        p.parent.mkdir(parents=True,exist_ok=True)\n        with p.open('xb') as stream: stream.write(intended)\n    else:\n        assert p.read_bytes()==original and stat.S_IMODE(p.stat().st_mode)==mode\n        with p.open('r+b') as stream:\n            stream.write(intended); stream.truncate()\nverified=[]\nfor name,p,original,intended,mode in prepared:\n    assert p.read_bytes()==intended\n    if mode is not None: assert stat.S_IMODE(p.stat().st_mode)==mode\n    verified.append(name)\ntargets={x[0] for x in prepared}\nfor name,(h,mode) in snapshot.items():\n    if name in targets: continue\n    p=root/name\n    assert digest(p.read_bytes())==h and stat.S_IMODE(p.stat().st_mode)==mode, 'Unrelated file changed'\nassert specpath.read_bytes()==specbytes and planpath.read_bytes()==planbytes\nprint(json.dumps({'applied':sorted(targets),'cache_limit':values[0][0],'retry_budget':values[0][1],'user_files_preserved':True,'verified':sorted(verified),'plan_saved':True}))\nPY\""
+      ],
+      "command_calls": 3,
+      "shell_output_bytes": 1088,
+      "seconds": 57.504,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/1-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/1-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1479,
+      "events_sha256": "60c902af7bc9d5f8ca6ce06519ebf9a9059bff95f7080dc1aa1495d74ae68f4f",
+      "correct": true,
+      "input_plus_output": 74026,
+      "uncached_plus_output": 22058
+    },
+    {
+      "task": "apply",
+      "method": "tools",
+      "repetition": 1,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 35040,
+        "cached_input_tokens": 17152,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 145,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "applied": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "user_files_preserved": true,
+        "verified": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "plan_saved": true
+      },
+      "state_checks": {
+        "unrelated_bytes_preserved": true,
+        "all_requested_bytes_match": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "saved_plan_has_exact_original_hashes": true
+      },
+      "commands": [
+        "/bin/bash -lc 'tools fs apply --spec spec.json --save-plan plan.json --apply --report-changes --json'"
+      ],
+      "command_calls": 1,
+      "shell_output_bytes": 784,
+      "seconds": 10.26,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/1-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/1-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1790,
+      "events_sha256": "0a1935016812fa114521a79542a64d44de19a6c005ce22082610ac9e6cd90cee",
+      "correct": true,
+      "input_plus_output": 35185,
+      "uncached_plus_output": 18033
+    },
+    {
+      "task": "inspect",
+      "method": "direct",
+      "repetition": 1,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 45523,
+        "cached_input_tokens": 14848,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 702,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "lines": [
+          {
+            "path": "src/module_00.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_00.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 58,
+            "text": "module 05 neutral line 058"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 59,
+            "text": "module 05 neutral line 059"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 60,
+            "text": "module 05 neutral line 060"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 61,
+            "text": "limit=08"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 62,
+            "text": "module 05 neutral line 062"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 63,
+            "text": "module 05 neutral line 063"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 39,
+            "text": "module 20 neutral line 039"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 41,
+            "text": "module 20 neutral line 041"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 89,
+            "text": "module 20 neutral line 089"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 91,
+            "text": "module 20 neutral line 091"
+          }
+        ]
+      },
+      "state_checks": {
+        "all_original_bytes_preserved": true,
+        "no_workflow_mutations": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true
+      },
+      "commands": [
+        "/bin/bash -lc \"python3 - <<'PY'\nimport json\nfrom pathlib import Path\nq=json.loads(Path('queries.json').read_text())\nprint(json.dumps(q,ensure_ascii=False))\nPY\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport json\nfrom pathlib import Path\nq=json.loads(Path('queries.json').read_text())\nout=[]\nfor f in q['files']:\n p=f['path']\n if any(x in {'dist','.git','.tools','node_modules'} for x in p.split('/')) or p.split('/')[-1]=='binary.dat': continue\n lines=Path(p).read_bytes().decode('utf-8').splitlines()\n ranges=f.get('ranges')\n eligible={i for i in range(1,len(lines)+1) if ranges is None or any(r['start']<=i<=r['end'] for r in ranges)}\n if 'patterns' in f:\n  selected=set()\n  for i in sorted(eligible):\n   if any(pattern in lines[i-1] for pattern in f['patterns']):\n    selected.update(range(max(1,i-f.get('context',0)),min(len(lines),i+f.get('context',0))+1))\n else: selected=eligible\n out.extend({'path':p,'line':i,'text':lines[i-1]} for i in sorted(selected))\nout=sorted({(x['path'],x['line']):x for x in out}.values(),key=lambda x:(x['path'],x['line']))\nprint(json.dumps({'lines':out},ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 1360,
+      "seconds": 21.031,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/1-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/1-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1284,
+      "events_sha256": "7a10e6f19a2170077ec5925ef05e0f88f3f67cd2bd6b435cd1e8594c814dd26a",
+      "correct": true,
+      "input_plus_output": 46225,
+      "uncached_plus_output": 31377
+    },
+    {
+      "task": "inspect",
+      "method": "tools",
+      "repetition": 1,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 53022,
+        "cached_input_tokens": 34432,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 585,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "lines": [
+          {
+            "path": "src/module_00.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_00.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 58,
+            "text": "module 05 neutral line 058"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 59,
+            "text": "module 05 neutral line 059"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 60,
+            "text": "module 05 neutral line 060"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 61,
+            "text": "limit=08"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 62,
+            "text": "module 05 neutral line 062"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 63,
+            "text": "module 05 neutral line 063"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 39,
+            "text": "module 20 neutral line 039"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 41,
+            "text": "module 20 neutral line 041"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 89,
+            "text": "module 20 neutral line 089"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 91,
+            "text": "module 20 neutral line 091"
+          }
+        ]
+      },
+      "state_checks": {
+        "all_original_bytes_preserved": true,
+        "no_workflow_mutations": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true
+      },
+      "commands": [
+        "/bin/bash -lc 'tools fs inspect --request queries.json --max-output-bytes 512 --json'",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport json, subprocess\nselected={}\ncursor=None\nwhile True:\n    args=['tools','fs','inspect','--request','queries.json','--max-output-bytes','512','--json']\n    if cursor is not None:\n        args.extend(['--cursor',cursor])\n    p=subprocess.run(args,check=True,capture_output=True,text=True)\n    page=json.loads(p.stdout)\n    for f in page.get('files',[]):\n        for r in f.get('ranges',[]):\n            for offset, text in enumerate(r['lines']):\n                selected[(f['path'],r['start']+offset)]=text\n    if page.get('complete'):\n        break\n    cursor=page['next_cursor']\nprint(json.dumps({'lines':[{'path':path,'line':line,'text':text} for (path,line),text in sorted(selected.items())]},ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 1590,
+      "seconds": 21.175,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/1-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/1-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1590,
+      "events_sha256": "5c106d5cafca37b0bb4805380a1ed6e785a552d0001cdeeed2229fae88812987",
+      "correct": true,
+      "input_plus_output": 53607,
+      "uncached_plus_output": 19175
+    },
+    {
+      "task": "delta",
+      "method": "tools",
+      "repetition": 1,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 83119,
+        "cached_input_tokens": 62976,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 782,
+        "reasoning_output_tokens": 61
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"tools fs delta --include 'src/**/*.txt' --state-file baseline.json --include-content --json\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport hashlib\nfrom pathlib import Path\np=Path('baseline.json')\nPath('/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace/.baseline-check.sha256').write_text(hashlib.sha256(p.read_bytes()).hexdigest())\nPY\nfs-fixture-advance\"",
+        "/bin/bash -lc \"tools fs delta --include 'src/**/*.txt' --state-file baseline.json --include-content --json --peek\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport subprocess,json,hashlib\nfrom pathlib import Path\nr=json.loads(subprocess.check_output(['tools','fs','delta','--include','src/**/*.txt','--state-file','baseline.json','--include-content','--json','--peek']))\nout={k:sorted(c['path'] for c in r['changes'] if c['kind']==k[:-1] if False) for k in []}\nfor key,kind in [('added','added'),('modified','modified'),('deleted','deleted')]:\n out[key]=sorted(c['path'] for c in r['changes'] if c['kind']==kind)\nout['unchanged']=r['unchanged']\nout['changed_lines']=[{'path':c['path'],'line':a['start']+i,'text':s} for c in r['changes'] if c['kind']=='modified' for a in c['ranges'] for i,s in enumerate(a['lines'])]\nexpected={'added':['src/moved.txt','src/new.txt'],'modified':['src/module_10.txt'],'deleted':['src/module_11.txt','src/module_15.txt'],'unchanged':37,'changed_lines':[{'path':'src/module_10.txt','line':10,'text':'limit=64'},{'path':'src/module_10.txt','line':990,'text':'budget=05'}]}\nout['repeat_consistent']=out==expected and r['state_updated']==False and r['complete']==True\np=Path('.baseline-check.sha256')\nout['baseline_preserved']=hashlib.sha256(Path('baseline.json').read_bytes()).hexdigest()==p.read_text()\np.unlink()\nprint(json.dumps(out))\nPY\""
+      ],
+      "command_calls": 4,
+      "shell_output_bytes": 11888,
+      "seconds": 35.174,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/1-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/1-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1602,
+      "events_sha256": "bfb0a9285541f16a80f1856ceb24395c7531f20a70b171c20a433cedb86a37de",
+      "correct": true,
+      "input_plus_output": 83901,
+      "uncached_plus_output": 20925
+    },
+    {
+      "task": "delta",
+      "method": "direct",
+      "repetition": 1,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 61683,
+        "cached_input_tokens": 45056,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 840,
+        "reasoning_output_tokens": 96
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"pwd; rg --files -g 'AGENTS.md' -g '*.txt' -g '\"'!dist/**'\"' -g '\"'!.git/**'\"' -g '\"'!.tools/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!binary.dat'\"'\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib,json,hashlib\nroot=pathlib.Path('src')\nignored={'dist','.git','.tools','node_modules'}\ndata={}\nfor p in sorted(root.rglob('*.txt')):\n    if p.is_file() and not ignored.intersection(p.parts):\n        b=p.read_bytes()\n        data[p.as_posix()]={'sha256':hashlib.sha256(b).hexdigest(),'text':b.decode('utf-8')}\npathlib.Path('baseline.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\\\\n',encoding='utf-8')\nprint('Baseline files:',len(data))\nPY\nfs-fixture-advance\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib,json,hashlib,difflib\np=pathlib.Path('baseline.json')\nsaved=p.read_bytes()\nignored={'dist','.git','.tools','node_modules'}\ndef compare():\n    base=json.loads(p.read_bytes())\n    current={q.as_posix():q.read_bytes() for q in pathlib.Path('src').rglob('*.txt') if q.is_file() and not ignored.intersection(q.parts)}\n    added=sorted(current.keys()-base.keys())\n    deleted=sorted(base.keys()-current.keys())\n    modified=sorted(k for k in current.keys() & base.keys() if hashlib.sha256(current[k]).hexdigest()\"'!=base[k]['\"'sha256'])\n    lines=[]\n    for k in modified:\n        old=base[k]['text'].splitlines()\n        new=current[k].decode('utf-8').splitlines()\n        for tag,a,b,c,d in difflib.SequenceMatcher(None,old,new,autojunk=False).get_opcodes():\n            if tag in ('replace','insert'):\n                lines.extend({'path':k,'line':i+1,'text':new[i]} for i in range(c,d))\n    return {'added':added,'modified':modified,'deleted':deleted,'unchanged':len(current.keys() & base.keys())-len(modified),'changed_lines':lines}\nfirst=compare()\nsecond=compare()\nfirst['repeat_consistent']=first==second\nfirst['baseline_preserved']=saved==p.read_bytes()\nprint(json.dumps(first,ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 3,
+      "shell_output_bytes": 1161,
+      "seconds": 31.265,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/1-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/1-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1333,
+      "events_sha256": "29f222930e31e37f5b35f6e00f4fcb89d7520c1df88db5459b5113d1432d7f21",
+      "correct": true,
+      "input_plus_output": 62523,
+      "uncached_plus_output": 17467
+    },
+    {
+      "task": "delta",
+      "method": "direct",
+      "repetition": 2,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 71373,
+        "cached_input_tokens": 52224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 839,
+        "reasoning_output_tokens": 92
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"pwd && rg --files -g 'AGENTS.md' -g '*.txt' -g '\"'!dist/**'\"' -g '\"'!.git/**'\"' -g '\"'!.tools/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!binary.dat'\"'\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib,json,hashlib\nroot=pathlib.Path('src')\nexcluded={'dist','.git','.tools','node_modules'}\nfiles=sorted(p for p in root.rglob('*.txt') if p.is_file() and not excluded.intersection(p.parts))\nbaseline={}\nfor p in files:\n    data=p.read_bytes()\n    baseline[p.as_posix()]={'sha256':hashlib.sha256(data).hexdigest(),'text':data.decode('utf-8')}\nwith open('baseline.json','x',encoding='utf-8') as f:\n    json.dump(baseline,f,ensure_ascii=False,indent=2)\nprint('Baseline saved:',len(baseline),'files')\nPY\nfs-fixture-advance\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib,json,hashlib,difflib\nbp=pathlib.Path('baseline.json')\nsaved=bp.read_bytes()\ndef compare():\n    baseline=json.loads(bp.read_bytes())\n    excluded={'dist','.git','.tools','node_modules'}\n    current={p.as_posix():p.read_bytes() for p in sorted(pathlib.Path('src').rglob('*.txt')) if p.is_file() and not excluded.intersection(p.parts)}\n    old=set(baseline); new=set(current)\n    modified=sorted(p for p in old&new if hashlib.sha256(current[p]).hexdigest()\"'!=baseline[p]['\"'sha256'])\n    lines=[]\n    for p in modified:\n        before=baseline[p]['text'].splitlines()\n        after=current[p].decode('utf-8').splitlines()\n        for tag,i,j,a,b in difflib.SequenceMatcher(None,before,after,autojunk=False).get_opcodes():\n            if tag in ('replace','insert'):\n                lines.extend({'path':p,'line':n+1,'text':after[n]} for n in range(a,b))\n    return {'added':sorted(new-old),'modified':modified,'deleted':sorted(old-new),'unchanged':len(old&new)-len(modified),'changed_lines':lines}\nfirst=compare()\nsecond=compare()\nfirst['repeat_consistent']=first==second\nfirst['baseline_preserved']=bp.read_bytes()==saved\nprint(json.dumps(first,ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 3,
+      "shell_output_bytes": 1167,
+      "seconds": 34.013,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/2-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/2-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1333,
+      "events_sha256": "7b4f1341d6d416ddc15b5fb7ee8a88b4669926eb600ed878639408d3b358f709",
+      "correct": true,
+      "input_plus_output": 72212,
+      "uncached_plus_output": 19988
+    },
+    {
+      "task": "delta",
+      "method": "tools",
+      "repetition": 2,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 67270,
+        "cached_input_tokens": 46592,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 466,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"tools fs delta --include 'src/**/*.txt' --state-file baseline.json --include-content --json\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport subprocess, hashlib, json\nfrom pathlib import Path\nbefore=Path('baseline.json').read_bytes()\nr=subprocess.run(['fs-fixture-advance'],capture_output=True,text=True)\nprint('advance',r.returncode,r.stdout.strip(),r.stderr.strip())\nif r.returncode: raise SystemExit(r.returncode)\ncmd=['tools','fs','delta','--include','src/**/*.txt','--state-file','baseline.json','--include-content','--json','--peek']\nresults=[]\nfor _ in range(2):\n p=subprocess.run(cmd,capture_output=True,text=True)\n if p.returncode: print(p.stderr); raise SystemExit(p.returncode)\n results.append(json.loads(p.stdout))\nprint(json.dumps({'comparison':results[0],'repeat_consistent':results[0]==results[1],'baseline_preserved':before==Path('baseline.json').read_bytes()},ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 12055,
+      "seconds": 19.529,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/2-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/2-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1602,
+      "events_sha256": "729fe39a9485ce89ed012dadd483469f16b03620ed0fe8990cfb7bdc05d447af",
+      "correct": true,
+      "input_plus_output": 67736,
+      "uncached_plus_output": 21144
+    },
+    {
+      "task": "inspect",
+      "method": "tools",
+      "repetition": 2,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 45831,
+        "cached_input_tokens": 29568,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 652,
+        "reasoning_output_tokens": 33
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "lines": [
+          {
+            "path": "src/module_00.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_00.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 58,
+            "text": "module 05 neutral line 058"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 59,
+            "text": "module 05 neutral line 059"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 60,
+            "text": "module 05 neutral line 060"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 61,
+            "text": "limit=08"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 62,
+            "text": "module 05 neutral line 062"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 63,
+            "text": "module 05 neutral line 063"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 39,
+            "text": "module 20 neutral line 039"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 41,
+            "text": "module 20 neutral line 041"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 89,
+            "text": "module 20 neutral line 089"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 91,
+            "text": "module 20 neutral line 091"
+          }
+        ]
+      },
+      "state_checks": {
+        "all_original_bytes_preserved": true,
+        "no_workflow_mutations": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true
+      },
+      "commands": [
+        "/bin/bash -lc 'tools fs inspect --request queries.json --max-output-bytes 512 --json'",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport json, subprocess\nfrom pathlib import Path\nrequest = json.loads(Path('queries.json').read_text())\nargs = ['tools', 'fs', 'inspect', '--request', 'queries.json', '--max-output-bytes', '512', '--json']\nselected = {}\ncursor = None\nwhile True:\n    command = args + (['--cursor', cursor] if cursor else [])\n    result = subprocess.run(command, capture_output=True, text=True, check=True)\n    page = json.loads(result.stdout)\n    for file in page.get('files', []):\n        for span in file.get('ranges', []):\n            for offset, line in enumerate(span['lines']):\n                selected[(file['path'], span['start'] + offset)] = line\n    if page.get('complete'):\n        break\n    cursor = page['next_cursor']\nprint(json.dumps({'lines': [{'path': path, 'line': line, 'text': value} for (path, line), value in sorted(selected.items())]}, ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 1590,
+      "seconds": 23.519,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/2-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/2-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1590,
+      "events_sha256": "9c40724d8890c8f64fade9ae27394ccce5126665f696a818e2a44e298bb307bf",
+      "correct": true,
+      "input_plus_output": 46483,
+      "uncached_plus_output": 16915
+    },
+    {
+      "task": "inspect",
+      "method": "direct",
+      "repetition": 2,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 45469,
+        "cached_input_tokens": 29440,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 646,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "lines": [
+          {
+            "path": "src/module_00.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_00.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 58,
+            "text": "module 05 neutral line 058"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 59,
+            "text": "module 05 neutral line 059"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 60,
+            "text": "module 05 neutral line 060"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 61,
+            "text": "limit=08"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 62,
+            "text": "module 05 neutral line 062"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 63,
+            "text": "module 05 neutral line 063"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 39,
+            "text": "module 20 neutral line 039"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 41,
+            "text": "module 20 neutral line 041"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 89,
+            "text": "module 20 neutral line 089"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 91,
+            "text": "module 20 neutral line 091"
+          }
+        ]
+      },
+      "state_checks": {
+        "all_original_bytes_preserved": true,
+        "no_workflow_mutations": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true
+      },
+      "commands": [
+        "/bin/bash -lc \"python3 - <<'PY'\nimport json\nfrom pathlib import Path\nq=json.loads(Path('queries.json').read_text())\nprint(json.dumps(q,ensure_ascii=False))\nPY\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport json\nfrom pathlib import Path\nq=json.loads(Path('queries.json').read_text())\nout=[]\nfor f in q['files']:\n p=f['path']; lines=Path(p).read_bytes().decode('utf-8').splitlines(); selected=set()\n ranges=f.get('ranges',[{'start':1,'end':len(lines)}])\n for r in ranges:\n  a=max(1,r['start']); b=min(len(lines),r['end'])\n  for n in range(a,b+1):\n   if 'patterns' not in f: selected.add(n)\n   elif any(s in lines[n-1] for s in f['patterns']):\n    c=f.get('context',0)\n    selected.update(range(max(1,n-c),min(len(lines),n+c)+1))\n for n in sorted(selected):out.append({'path':p,'line':n,'text':lines[n-1]})\nout.sort(key=lambda x:(x['path'],x['line']))\nprint(json.dumps({'lines':out},ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 1360,
+      "seconds": 22.839,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/2-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/2-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1284,
+      "events_sha256": "fb2f7c487a34940ca6ae8d2f62c429c08651fce12d97b4d593d66b28d84eac22",
+      "correct": true,
+      "input_plus_output": 46115,
+      "uncached_plus_output": 16675
+    },
+    {
+      "task": "apply",
+      "method": "tools",
+      "repetition": 2,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 30200,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 146,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "applied": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "user_files_preserved": true,
+        "verified": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "plan_saved": true
+      },
+      "state_checks": {
+        "unrelated_bytes_preserved": true,
+        "all_requested_bytes_match": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "saved_plan_has_exact_original_hashes": true
+      },
+      "commands": [
+        "/bin/bash -lc 'tools fs apply --spec spec.json --save-plan plan.json --apply --report-changes --json'"
+      ],
+      "command_calls": 1,
+      "shell_output_bytes": 784,
+      "seconds": 11.407,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/2-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/2-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1790,
+      "events_sha256": "e8efd0a8d83b46b2ce0d8335e78d6424cb03691d5bbf61d786a6eebfe51ee9ab",
+      "correct": true,
+      "input_plus_output": 30346,
+      "uncached_plus_output": 15626
+    },
+    {
+      "task": "apply",
+      "method": "direct",
+      "repetition": 2,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 62239,
+        "cached_input_tokens": 44672,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1743,
+        "reasoning_output_tokens": 68
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "applied": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "user_files_preserved": true,
+        "verified": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "plan_saved": true
+      },
+      "state_checks": {
+        "unrelated_bytes_preserved": true,
+        "all_requested_bytes_match": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "saved_plan_has_exact_original_hashes": true
+      },
+      "commands": [
+        "/bin/bash -lc \"pwd; rg --files -g '\"'!dist/**'\"' -g '\"'!.git/**'\"' -g '\"'!.tools/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!binary.dat'\"' -g 'AGENTS.md' -g 'spec.json'\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nfrom pathlib import Path\np=Path('spec.json')\nprint(p.read_text())\nPY\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport os, stat, json, hashlib, re\nfrom pathlib import Path\nroot=Path.cwd()\nignored={'dist','.git','.tools','node_modules','binary.dat'}\ndef digest(b): return hashlib.sha256(b).hexdigest()\ndef checked(name):\n    assert isinstance(name,str) and name and '\\\\\\\\' not in name\n    parts=name.split('/')\n    assert all(p and p not in {'.','..'} and p not in ignored for p in parts), name\n    assert not name.startswith('/'), name\n    p=root\n    for part in parts:\n        p=p/part\n        assert not p.is_symlink(), name\n        if p\"'!=root.joinpath(*parts) and p.exists(): assert p.is_dir(), name\n    return p\ndef snapshot():\n    out={}\n    for base,dirs,files in os.walk(root,followlinks=False):\n        dirs[:]=[d for d in dirs if d not in ignored and not (Path(base)/d).is_symlink()]\n        for n in files:\n            if n in ignored: continue\n            p=Path(base)/n\n            s=p.lstat()\n            rel=p.relative_to(root).as_posix()\n            if stat.S_ISREG(s.st_mode): out[rel]=(digest(p.read_bytes()),stat.S_IMODE(s.st_mode))\n            elif stat.S_ISLNK(s.st_mode): out[rel]=('\"'link:'+os.readlink(p),stat.S_IMODE(s.st_mode))\n    return out\nspecpath=checked('spec.json'); planpath=checked('plan.json')\nassert specpath.is_file() and not planpath.exists()\nspecbytes=specpath.read_bytes()\nspec=json.loads(specbytes.decode('utf-8'))\nassert set(spec)=={'version','files'} and type(spec['version']) is int and spec['version']==1\nassert isinstance(spec['files'],list) and spec['files']\nplan={'version':1,'files':[]}; work=[]; names=set()\nbefore=snapshot()\nfor entry in spec['files']:\n    assert isinstance(entry,dict)\n    name=entry['path']; p=checked(name)\n    assert name not in names and name not in {'spec.json','plan.json'}\n    names.add(name)\n    if 'content' in entry:\n        assert set(entry)=={'path','sha256','content'} and entry['sha256']=='absent'\n        assert not p.exists() and isinstance(entry['content'],str)\n        new=entry['content'].encode('utf-8'); new.decode('utf-8')\n        assert p.parent.is_dir()\n        plan['files'].append(dict(entry)); work.append((name,p,None,new,None))\n    else:\n        assert set(entry) in ({'path','replacements'},{'path','sha256','replacements'})\n        assert p.is_file() and stat.S_ISREG(p.stat().st_mode)\n        old=p.read_bytes(); old.decode('utf-8'); mode=stat.S_IMODE(p.stat().st_mode)\n        h=digest(old)\n        if 'sha256' in entry: assert entry['sha256']==h\n        assert isinstance(entry['replacements'],list) and entry['replacements']\n        new=old\n        for r in entry['replacements']:\n            assert set(r)=={'old','new','count'}\n            assert isinstance(r['old'],str) and r['old'] and isinstance(r['new'],str)\n            assert type(r['count']) is int and r['count']>0\n            a=r['old'].encode('utf-8'); b=r['new'].encode('utf-8')\n            assert old.count(a)==r['count'] and new.count(a)==r['count'], name\n            new=new.replace(a,b)\n        new.decode('utf-8')\n        pe=dict(entry); pe['sha256']=h; plan['files'].append(pe)\n        work.append((name,p,old,new,mode))\n# Validate numeric results in every intended output before any writes.\nvalues=[]\nfor name,p,old,new,mode in work:\n    if name.endswith('.json'):\n        obj=json.loads(new.decode('utf-8')); v=(obj['cache_limit'],obj['retry_budget'])\n        assert all(type(x) is int for x in v)\n    else:\n        vals=[]\n        for key in ('cache_limit','retry_budget'):\n            matches=re.findall(r'(?m)\"'^'\"'+key+r'=(\\\\d+)\\\\r?\"'$'\"',new.decode('utf-8'))\n            assert len(matches)==1, (name,key)\n            vals.append(int(matches[0]))\n        v=tuple(vals)\n    values.append(v)\nassert len(set(values))==1\nplanbytes=(json.dumps(plan,ensure_ascii=False,indent=2)+'\\\\n').encode('utf-8')\nassert json.loads(planbytes)==plan\n# Recheck preconditions, then save the complete plan with exclusive creation.\nfor name,p,old,new,mode in work:\n    checked(name)\n    if old is None: assert not p.exists()\n    else: assert p.read_bytes()==old and stat.S_IMODE(p.stat().st_mode)==mode\nwith planpath.open('xb') as f: f.write(planbytes)\nfor name,p,old,new,mode in work:\n    if old is None:\n        with p.open('xb') as f: f.write(new)\n    else:\n        with p.open('r+b') as f: f.write(new); f.truncate()\nverified=[]\nfor name,p,old,new,mode in work:\n    assert p.read_bytes()==new\n    if mode is not None: assert stat.S_IMODE(p.stat().st_mode)==mode\n    else: assert stat.S_ISREG(p.stat().st_mode)\n    verified.append(name)\nassert planpath.read_bytes()==planbytes and specpath.read_bytes()==specbytes\nafter=snapshot()\nassert all(after.get(k)==v for k,v in before.items() if k not in names)\nassert set(after)==set(before)|names|{'plan.json'}\nprint(json.dumps({'applied':sorted(names),'cache_limit':values[0][0],'retry_budget':values[0][1],'user_files_preserved':True,'verified':sorted(verified),'plan_saved':True}))\nPY\""
+      ],
+      "command_calls": 3,
+      "shell_output_bytes": 1088,
+      "seconds": 49.143,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/2-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/2-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1479,
+      "events_sha256": "54c020a6318567a59234057423ee20f35ad4b63fe1fe82c510eafa5a2f20f4f9",
+      "correct": true,
+      "input_plus_output": 63982,
+      "uncached_plus_output": 19310
+    },
+    {
+      "task": "inspect",
+      "method": "direct",
+      "repetition": 3,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 45393,
+        "cached_input_tokens": 29312,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 711,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "lines": [
+          {
+            "path": "src/module_00.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_00.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 58,
+            "text": "module 05 neutral line 058"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 59,
+            "text": "module 05 neutral line 059"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 60,
+            "text": "module 05 neutral line 060"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 61,
+            "text": "limit=08"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 62,
+            "text": "module 05 neutral line 062"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 63,
+            "text": "module 05 neutral line 063"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 39,
+            "text": "module 20 neutral line 039"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 41,
+            "text": "module 20 neutral line 041"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 89,
+            "text": "module 20 neutral line 089"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 91,
+            "text": "module 20 neutral line 091"
+          }
+        ]
+      },
+      "state_checks": {
+        "all_original_bytes_preserved": true,
+        "no_workflow_mutations": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true
+      },
+      "commands": [
+        "/bin/bash -lc \"python3 - <<'PY'\nimport json\nfrom pathlib import Path\nq=json.loads(Path('queries.json').read_text())\nprint(json.dumps(q,ensure_ascii=False))\nPY\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport json\nfrom pathlib import Path\nq=json.loads(Path('queries.json').read_text())\nout=[]\nfor f in q['files']:\n p=f['path']\n if any(s in {'dist','.git','.tools','node_modules'} for s in p.split('/')) or p.split('/')[-1]=='binary.dat': continue\n lines=Path(p).read_bytes().decode('utf-8').splitlines()\n ranges=f.get('ranges')\n eligible={i for i in range(1,len(lines)+1) if ranges is None or any(r['start']<=i<=r['end'] for r in ranges)}\n if 'patterns' in f:\n  selected=set()\n  for i in eligible:\n   if any(pattern in lines[i-1] for pattern in f['patterns']):\n    selected.update(range(max(1,i-f.get('context',0)),min(len(lines),i+f.get('context',0))+1))\n else: selected=eligible\n out.extend({'path':p,'line':i,'text':lines[i-1]} for i in sorted(selected))\nout=list({(x['path'],x['line']):x for x in out}.values())\nout.sort(key=lambda x:(x['path'],x['line']))\nprint(json.dumps({'lines':out},ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 1360,
+      "seconds": 23.742,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/3-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/3-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1284,
+      "events_sha256": "7228630bf729bcbc5245d85ffde8e8cafdc13b632a854fbb39e850f78ed7d4a6",
+      "correct": true,
+      "input_plus_output": 46104,
+      "uncached_plus_output": 16792
+    },
+    {
+      "task": "inspect",
+      "method": "tools",
+      "repetition": 3,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 45498,
+        "cached_input_tokens": 29440,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 611,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "lines": [
+          {
+            "path": "src/module_00.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_00.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 58,
+            "text": "module 05 neutral line 058"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 59,
+            "text": "module 05 neutral line 059"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 60,
+            "text": "module 05 neutral line 060"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 61,
+            "text": "limit=08"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 62,
+            "text": "module 05 neutral line 062"
+          },
+          {
+            "path": "src/module_05.txt",
+            "line": 63,
+            "text": "module 05 neutral line 063"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 39,
+            "text": "module 20 neutral line 039"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 40,
+            "text": "cache_limit=16"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 41,
+            "text": "module 20 neutral line 041"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 89,
+            "text": "module 20 neutral line 089"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 90,
+            "text": "retry_budget=3"
+          },
+          {
+            "path": "src/module_20.txt",
+            "line": 91,
+            "text": "module 20 neutral line 091"
+          }
+        ]
+      },
+      "state_checks": {
+        "all_original_bytes_preserved": true,
+        "no_workflow_mutations": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true
+      },
+      "commands": [
+        "/bin/bash -lc 'tools fs inspect --request queries.json --max-output-bytes 512 --json'",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport subprocess,json\ncursor='eyJ2IjoxLCJzIjoiYTQxZDMxOGZiN2E1NTlmZmQ3NjMyMDkyZWMzZTBkNDcwMzRiOWFhZjYyY2Q5MDBkMjUzMmRlN2JjZDYzZGM2OCIsInAiOjd9'\nlines=[]\nwhile cursor:\n p=subprocess.run(['tools','fs','inspect','--request','queries.json','--max-output-bytes','512','--json','--cursor',cursor],capture_output=True,text=True,check=True)\n d=json.loads(p.stdout)\n for f in d.get('files',[]):\n  for r in f.get('ranges',[]):\n   for i,t in enumerate(r['lines']): lines.append({'path':f['path'],'line':r['start']+i,'text':t})\n cursor=d.get('next_cursor') if not d.get('complete') else None\nprint(json.dumps(lines))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 1054,
+      "seconds": 20.044,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/3-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/inspect/3-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1590,
+      "events_sha256": "afe4fe28250a80ff9170a05e806b2b57c09d12716198619629258778d654947a",
+      "correct": true,
+      "input_plus_output": 46109,
+      "uncached_plus_output": 16669
+    },
+    {
+      "task": "delta",
+      "method": "tools",
+      "repetition": 3,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 92805,
+        "cached_input_tokens": 63488,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 442,
+        "reasoning_output_tokens": 6
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"tools fs delta --include 'src/**/*.txt' --state-file baseline.json --include-content --json\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport subprocess,json,hashlib\nfrom pathlib import Path\nb=Path('baseline.json').read_bytes()\nr=subprocess.run(['fs-fixture-advance'],capture_output=True,text=True)\nprint('advance',r.returncode,r.stdout.strip(),r.stderr.strip())\nif r.returncode: raise SystemExit(r.returncode)\ncmd=['tools','fs','delta','--include','src/**/*.txt','--state-file','baseline.json','--include-content','--json','--peek']\na=[]\nfor _ in range(2):\n p=subprocess.run(cmd,capture_output=True,text=True,check=True)\n a.append(json.loads(p.stdout))\nprint(json.dumps({'first':a[0],'repeat_consistent':a[0]==a[1],'baseline_preserved':b==Path('baseline.json').read_bytes()},ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 2,
+      "shell_output_bytes": 12050,
+      "seconds": 20.29,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/3-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/3-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1602,
+      "events_sha256": "fad4058242b4f74aec71f1bb1f9d78726e73426e7ed65135ad38bb37f005ecb9",
+      "correct": true,
+      "input_plus_output": 93247,
+      "uncached_plus_output": 29759
+    },
+    {
+      "task": "delta",
+      "method": "direct",
+      "repetition": 3,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 61777,
+        "cached_input_tokens": 45056,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 875,
+        "reasoning_output_tokens": 78
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "added": [
+          "src/moved.txt",
+          "src/new.txt"
+        ],
+        "modified": [
+          "src/module_10.txt"
+        ],
+        "deleted": [
+          "src/module_11.txt",
+          "src/module_15.txt"
+        ],
+        "unchanged": 37,
+        "changed_lines": [
+          {
+            "path": "src/module_10.txt",
+            "line": 10,
+            "text": "limit=64"
+          },
+          {
+            "path": "src/module_10.txt",
+            "line": 990,
+            "text": "budget=05"
+          }
+        ],
+        "repeat_consistent": true,
+        "baseline_preserved": true
+      },
+      "state_checks": {
+        "exactly_one_controlled_advance": true,
+        "unrelated_bytes_preserved": true,
+        "expected_add_delete": true,
+        "modified_exactly": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "baseline_not_consumed": true
+      },
+      "commands": [
+        "/bin/bash -lc \"pwd; rg --files -g 'AGENTS.md' -g '*.txt' -g '\"'!dist/**'\"' -g '\"'!.git/**'\"' -g '\"'!.tools/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!binary.dat'\"'\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib, hashlib, json\nroot=pathlib.Path('src')\nignored={'dist','.git','.tools','node_modules'}\nfiles=sorted(p for p in root.rglob('*.txt') if p.is_file() and not ignored.intersection(p.parts))\ndata={}\nfor p in files:\n    b=p.read_bytes()\n    data[p.as_posix()]={'sha256':hashlib.sha256(b).hexdigest(),'text':b.decode('utf-8')}\npathlib.Path('baseline.json').write_bytes((json.dumps(data,ensure_ascii=False,indent=2)+'\\\\n').encode('utf-8'))\nprint(json.dumps({'baseline_files':len(data)}))\nPY\nfs-fixture-advance\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport pathlib,hashlib,json,difflib\np=pathlib.Path('baseline.json')\nbefore=p.read_bytes()\nbaseline=json.loads(before)\noriginal_bytes=(json.dumps(baseline,ensure_ascii=False,indent=2)+'\\\\n').encode('utf-8')\nignored={'dist','.git','.tools','node_modules'}\ndef compare():\n    saved=json.loads(p.read_bytes())\n    current={f.as_posix():f.read_bytes() for f in pathlib.Path('src').rglob('*.txt') if f.is_file() and not ignored.intersection(f.parts)}\n    old=set(saved); new=set(current)\n    modified=sorted(k for k in old&new if hashlib.sha256(current[k]).hexdigest()\"'!=saved[k]['\"'sha256'])\n    lines=[]\n    for k in modified:\n        a=saved[k]['text'].splitlines(); b=current[k].decode('utf-8').splitlines()\n        for tag,i,j,x,y in difflib.SequenceMatcher(None,a,b,autojunk=False).get_opcodes():\n            if tag in ('replace','insert'):\n                lines.extend({'path':k,'line':n+1,'text':b[n]} for n in range(x,y))\n    return {'added':sorted(new-old),'modified':modified,'deleted':sorted(old-new),'unchanged':len(old&new)-len(modified),'changed_lines':lines}\na=compare(); b=compare()\na['repeat_consistent']=a==b\na['baseline_preserved']=p.read_bytes()==before==original_bytes\nprint(json.dumps(a,ensure_ascii=False))\nPY\""
+      ],
+      "command_calls": 3,
+      "shell_output_bytes": 1165,
+      "seconds": 33.675,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/3-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/delta/3-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1333,
+      "events_sha256": "e1c6738976e6cfd332220212eb0769ac356486c91eabc6c6c5f896fb95e9d954",
+      "correct": true,
+      "input_plus_output": 62652,
+      "uncached_plus_output": 17596
+    },
+    {
+      "task": "apply",
+      "method": "direct",
+      "repetition": 3,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 62352,
+        "cached_input_tokens": 44672,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1866,
+        "reasoning_output_tokens": 81
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "applied": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "user_files_preserved": true,
+        "verified": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "plan_saved": true
+      },
+      "state_checks": {
+        "unrelated_bytes_preserved": true,
+        "all_requested_bytes_match": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "saved_plan_has_exact_original_hashes": true
+      },
+      "commands": [
+        "/bin/bash -lc \"pwd; rg --files -g '\"'!dist/**'\"' -g '\"'!.git/**'\"' -g '\"'!.tools/**'\"' -g '\"'!node_modules/**'\"' -g '\"'!binary.dat'\"' -g 'spec.json' -g 'AGENTS.md'\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nfrom pathlib import Path\np=Path('spec.json')\nprint(p.read_text())\nPY\"",
+        "/bin/bash -lc \"python3 - <<'PY'\nimport os, stat, json, hashlib, re\nfrom pathlib import Path, PurePosixPath\nroot=Path.cwd()\nignored={'dist','.git','.tools','node_modules','binary.dat'}\ndef digest(b): return hashlib.sha256(b).hexdigest()\ndef checked(s):\n    assert isinstance(s,str) and s and '\\\\\\\\' not in s and '\\\\x00' not in s\n    q=PurePosixPath(s)\n    assert not q.is_absolute() and all(x not in ('','.','..') for x in s.split('/')) and not any(x in ignored for x in q.parts)\n    p=root\n    for part in q.parts:\n        p=p/part\n        assert not p.is_symlink(), 'symlink: '+s\n        if p\"'!=root/q and p.exists(): assert p.is_dir()\n    return root/q\ndef snapshot():\n    out={}\n    for base,dirs,names in os.walk(root,followlinks=False):\n        dirs[:]=[d for d in dirs if d not in ignored and not (Path(base)/d).is_symlink()]\n        for name in names:\n            if name in ignored: continue\n            p=Path(base)/name\n            st=p.lstat()\n            rel=p.relative_to(root).as_posix()\n            if stat.S_ISREG(st.st_mode): out[rel]=(digest(p.read_bytes()),stat.S_IMODE(st.st_mode))\n            elif stat.S_ISLNK(st.st_mode): out[rel]=('\"'symlink:'+os.readlink(p),stat.S_IMODE(st.st_mode))\n    return out\nspecpath=checked('spec.json')\nraw=specpath.read_bytes()\nspec=json.loads(raw.decode('utf-8'))\nassert set(spec)=={'version','files'} and type(spec['version']) is int and spec['version']==1\nassert isinstance(spec['files'],list) and spec['files']\nplanpath=checked('plan.json')\nassert not os.path.lexists(planpath), 'plan.json already exists'\nbefore=snapshot()\nplanned=[]; edits=[]; seen={'spec.json','plan.json'}\nfor entry in spec['files']:\n    assert isinstance(entry,dict)\n    s=entry['path']; p=checked(s)\n    assert s not in seen; seen.add(s)\n    e=dict(entry)\n    if entry.get('sha256')=='absent':\n        assert set(entry)=={'path','sha256','content'} and isinstance(entry['content'],str)\n        assert not os.path.lexists(p), 'creation exists: '+s\n        assert p.parent.is_dir(), 'missing parent: '+s\n        b=entry['content'].encode('utf-8'); b.decode('utf-8')\n        edits.append((s,p,None,b,None))\n    else:\n        assert set(entry)<= {'path','sha256','replacements'} and {'path','replacements'}<=set(entry)\n        st=p.lstat(); assert stat.S_ISREG(st.st_mode)\n        original=p.read_bytes(); original.decode('utf-8')\n        h=digest(original)\n        if 'sha256' in entry: assert entry['sha256']==h\n        e['sha256']=h\n        assert isinstance(entry['replacements'],list) and entry['replacements']\n        spans=[]\n        for r in entry['replacements']:\n            assert set(r)=={'old','new','count'}\n            assert isinstance(r['old'],str) and r['old'] and isinstance(r['new'],str)\n            assert type(r['count']) is int and r['count']>0\n            old=r['old'].encode('utf-8'); new=r['new'].encode('utf-8')\n            assert original.count(old)==r['count'], 'count mismatch: '+s\n            pos=0\n            for _ in range(r['count']):\n                i=original.index(old,pos); spans.append((i,i+len(old),new)); pos=i+len(old)\n        spans.sort(); end=0; chunks=[]\n        for start,stop,new in spans:\n            assert start>=end, 'overlapping replacements'\n            chunks.extend((original[end:start],new)); end=stop\n        chunks.append(original[end:]); b=b''.join(chunks); b.decode('utf-8')\n        edits.append((s,p,original,b,stat.S_IMODE(st.st_mode)))\n    planned.append(e)\n# Validate resulting settings consistently before any writes.\nvalues=[]\nfor s,p,original,b,mode in edits:\n    if s.endswith('.json'):\n        obj=json.loads(b.decode('utf-8')); pair=(obj['cache_limit'],obj['retry_budget'])\n    else:\n        pairs=[]\n        for key in ('cache_limit','retry_budget'):\n            matches=re.findall(r'(?m)\"'^'\"'+key+r'=(\\\\d+)\\\\r?\"'$'\"',b.decode('utf-8'))\n            assert len(matches)==1; pairs.append(int(matches[0]))\n        pair=tuple(pairs)\n    assert all(type(x) is int for x in pair); values.append(pair)\nassert len(set(values))==1\nplan={'version':1,'files':planned}\nplanbytes=(json.dumps(plan,ensure_ascii=False,indent=2)+'\\\\n').encode('utf-8')\nassert json.loads(planbytes)==plan\n# Recheck all originals and destinations before saving the validated plan.\nfor s,p,original,b,mode in edits:\n    checked(s)\n    if original is None: assert not os.path.lexists(p)\n    else: assert p.read_bytes()==original and stat.S_IMODE(p.stat().st_mode)==mode\nwith planpath.open('xb') as f: f.write(planbytes)\nassert planpath.read_bytes()==planbytes\nfor s,p,original,b,mode in edits:\n    if original is None:\n        with p.open('xb') as f: f.write(b)\n    else:\n        with p.open('r+b') as f: f.write(b); f.truncate()\nverified=[]\nfor s,p,original,b,mode in edits:\n    assert p.read_bytes()==b\n    if mode is not None: assert stat.S_IMODE(p.stat().st_mode)==mode\n    verified.append(s)\nafter=snapshot(); targets={e[0] for e in edits}\nassert all(after.get(s)==v for s,v in before.items() if s not in targets)\nassert set(after)-set(before)=={s for s,p,orig,b,mode in edits if orig is None}|{'plan.json'}\nassert specpath.read_bytes()==raw\nprint(json.dumps({'applied':sorted(targets),'cache_limit':values[0][0],'retry_budget':values[0][1],'user_files_preserved':True,'verified':sorted(verified),'plan_saved':True}))\nPY\""
+      ],
+      "command_calls": 3,
+      "shell_output_bytes": 1088,
+      "seconds": 53.325,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/3-direct/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/3-direct/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1479,
+      "events_sha256": "274c5f8fbbb4da3285794274ddd50639991c7ec1fb10525653a47370cf0280dc",
+      "correct": true,
+      "input_plus_output": 64218,
+      "uncached_plus_output": 19546
+    },
+    {
+      "task": "apply",
+      "method": "tools",
+      "repetition": 3,
+      "exit_code": 0,
+      "timed_out": false,
+      "usage": {
+        "input_tokens": 30199,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 146,
+        "reasoning_output_tokens": 0
+      },
+      "answer_correct": true,
+      "state_correct": true,
+      "actual": {
+        "applied": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "cache_limit": 64,
+        "retry_budget": 5,
+        "user_files_preserved": true,
+        "verified": [
+          "config/limits.json",
+          "src/module_00.txt",
+          "src/module_05.txt"
+        ],
+        "plan_saved": true
+      },
+      "state_checks": {
+        "unrelated_bytes_preserved": true,
+        "all_requested_bytes_match": true,
+        "existing_permissions_preserved": true,
+        "no_internal_apply_temporaries": true,
+        "saved_plan_has_exact_original_hashes": true
+      },
+      "commands": [
+        "/bin/bash -lc 'tools fs apply --spec spec.json --save-plan plan.json --apply --report-changes --json'"
+      ],
+      "command_calls": 1,
+      "shell_output_bytes": 784,
+      "seconds": 11.557,
+      "execution_args": [
+        "codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "-c",
+        "approval_policy=\"never\"",
+        "-c",
+        "default_permissions=\"filesystem_benchmark\"",
+        "-c",
+        "permissions.filesystem_benchmark.filesystem={\":root\"=\"read\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace\"=\"write\",\"/tmp/my-agent-tools-fs-workflows-v2-20261010/fixture-control\"=\"write\"}",
+        "-c",
+        "permissions.filesystem_benchmark.network.enabled=false",
+        "-c",
+        "features.multi_agent=false",
+        "--color",
+        "never",
+        "--cd",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/workspace",
+        "--output-schema",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/3-tools/schema.json",
+        "--output-last-message",
+        "/tmp/my-agent-tools-fs-workflows-v2-20261010/runs/apply/3-tools/answer.json",
+        "-"
+      ],
+      "prompt_bytes": 1790,
+      "events_sha256": "4e640536f9bdbf270d15e737744706e1d3c2924ff9553eabaf4aeaa47833215a",
+      "correct": true,
+      "input_plus_output": 30345,
+      "uncached_plus_output": 15625
+    }
+  ],
+  "summary": {
+    "inspect": {
+      "direct": {
+        "n": 3,
+        "correct": 3,
+        "metrics": {
+          "uncached_plus_output": {
+            "mean": 21614.666667,
+            "min": 16675,
+            "max": 31377,
+            "stdev": 8454.631058
+          },
+          "input_plus_output": {
+            "mean": 46148,
+            "min": 46104,
+            "max": 46225,
+            "stdev": 66.910388
+          },
+          "command_calls": {
+            "mean": 2,
+            "min": 2,
+            "max": 2,
+            "stdev": 0.0
+          },
+          "shell_output_bytes": {
+            "mean": 1360,
+            "min": 1360,
+            "max": 1360,
+            "stdev": 0.0
+          },
+          "seconds": {
+            "mean": 22.537333,
+            "min": 21.031,
+            "max": 23.742,
+            "stdev": 1.380446
+          }
+        }
+      },
+      "tools": {
+        "n": 3,
+        "correct": 3,
+        "metrics": {
+          "uncached_plus_output": {
+            "mean": 17586.333333,
+            "min": 16669,
+            "max": 19175,
+            "stdev": 1381.312902
+          },
+          "input_plus_output": {
+            "mean": 48733,
+            "min": 46109,
+            "max": 53607,
+            "stdev": 4225.148045
+          },
+          "command_calls": {
+            "mean": 2,
+            "min": 2,
+            "max": 2,
+            "stdev": 0.0
+          },
+          "shell_output_bytes": {
+            "mean": 1411.333333,
+            "min": 1054,
+            "max": 1590,
+            "stdev": 309.459744
+          },
+          "seconds": {
+            "mean": 21.579333,
+            "min": 20.044,
+            "max": 23.519,
+            "stdev": 1.772433
+          }
+        }
+      },
+      "comparison_eligible": true,
+      "change_percent": {
+        "uncached_plus_output": -18.637037,
+        "input_plus_output": 5.601543
+      }
+    },
+    "delta": {
+      "direct": {
+        "n": 3,
+        "correct": 3,
+        "metrics": {
+          "uncached_plus_output": {
+            "mean": 18350.333333,
+            "min": 17467,
+            "max": 19988,
+            "stdev": 1419.726852
+          },
+          "input_plus_output": {
+            "mean": 65795.666667,
+            "min": 62523,
+            "max": 72212,
+            "stdev": 5557.081998
+          },
+          "command_calls": {
+            "mean": 3,
+            "min": 3,
+            "max": 3,
+            "stdev": 0.0
+          },
+          "shell_output_bytes": {
+            "mean": 1164.333333,
+            "min": 1161,
+            "max": 1167,
+            "stdev": 3.05505
+          },
+          "seconds": {
+            "mean": 32.984333,
+            "min": 31.265,
+            "max": 34.013,
+            "stdev": 1.498546
+          }
+        }
+      },
+      "tools": {
+        "n": 3,
+        "correct": 3,
+        "metrics": {
+          "uncached_plus_output": {
+            "mean": 23942.666667,
+            "min": 20925,
+            "max": 29759,
+            "stdev": 5038.282479
+          },
+          "input_plus_output": {
+            "mean": 81628,
+            "min": 67736,
+            "max": 93247,
+            "stdev": 12906.497472
+          },
+          "command_calls": {
+            "mean": 2.666667,
+            "min": 2,
+            "max": 4,
+            "stdev": 1.154701
+          },
+          "shell_output_bytes": {
+            "mean": 11997.666667,
+            "min": 11888,
+            "max": 12055,
+            "stdev": 95.007017
+          },
+          "seconds": {
+            "mean": 24.997667,
+            "min": 19.529,
+            "max": 35.174,
+            "stdev": 8.821173
+          }
+        }
+      },
+      "comparison_eligible": true,
+      "change_percent": {
+        "uncached_plus_output": 30.475377,
+        "input_plus_output": 24.062882
+      }
+    },
+    "apply": {
+      "direct": {
+        "n": 3,
+        "correct": 3,
+        "metrics": {
+          "uncached_plus_output": {
+            "mean": 20304.666667,
+            "min": 19310,
+            "max": 22058,
+            "stdev": 1523.009302
+          },
+          "input_plus_output": {
+            "mean": 67408.666667,
+            "min": 63982,
+            "max": 74026,
+            "stdev": 5731.993487
+          },
+          "command_calls": {
+            "mean": 3,
+            "min": 3,
+            "max": 3,
+            "stdev": 0.0
+          },
+          "shell_output_bytes": {
+            "mean": 1088,
+            "min": 1088,
+            "max": 1088,
+            "stdev": 0.0
+          },
+          "seconds": {
+            "mean": 53.324,
+            "min": 49.143,
+            "max": 57.504,
+            "stdev": 4.1805
+          }
+        }
+      },
+      "tools": {
+        "n": 3,
+        "correct": 3,
+        "metrics": {
+          "uncached_plus_output": {
+            "mean": 16428,
+            "min": 15625,
+            "max": 18033,
+            "stdev": 1389.970863
+          },
+          "input_plus_output": {
+            "mean": 31958.666667,
+            "min": 30345,
+            "max": 35185,
+            "stdev": 2794.086672
+          },
+          "command_calls": {
+            "mean": 1,
+            "min": 1,
+            "max": 1,
+            "stdev": 0.0
+          },
+          "shell_output_bytes": {
+            "mean": 784,
+            "min": 784,
+            "max": 784,
+            "stdev": 0.0
+          },
+          "seconds": {
+            "mean": 11.074667,
+            "min": 10.26,
+            "max": 11.557,
+            "stdev": 0.709497
+          }
+        }
+      },
+      "comparison_eligible": true,
+      "change_percent": {
+        "uncached_plus_output": -19.092491,
+        "input_plus_output": -52.589677
+      }
+    }
+  },
+  "evidence": {
+    "sha256": {
+      "study-workflows-source.tar.gz": "32cd34456af278ef6933765ee430fea78a21642f3bace9656cc357eeca3eff5f",
+      "study-workflows-events.tar.gz": "6eb6c0d32bb552d45a2acfaac78ebd18c8fa94a706d29782be24a217180dd0f5"
+    },
+    "total_input_plus_output": 1025016,
+    "total_uncached_plus_output": 354680,
+    "delta_output_comparison": {
+      "before_bytes": 74040,
+      "after_bytes": 11433,
+      "before_modified_lines": 981,
+      "after_modified_lines": 2
+    }
+  }
+}

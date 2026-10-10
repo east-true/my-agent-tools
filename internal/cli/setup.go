@@ -3,6 +3,7 @@ package cli
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
 	"encoding/json"
 	"errors"
 	"flag"
@@ -102,25 +103,73 @@ func runSetup(ctx context.Context, args []string, out, stderr io.Writer, runner 
 	}
 	data = append(data, '\n')
 	status := "planned"
+	var saved *setupEvidence
+	var verifyErr error
 	if !*dryRun {
 		if err := writeSetupConfig(path, data, original, exists, mode); err != nil {
 			return fail(err, 1)
 		}
 		status = "saved"
+		saved, verifyErr = verifySetupConfig(path, data, original, exists, mode)
+		if verifyErr != nil {
+			status = "partial"
+		}
 	}
 	if *jsonOutput {
-		return encode(out, stderr, map[string]any{"status": status, "path": path, "plan": plan})
-	}
-	fmt.Fprintf(out, "%s: %s (repo: %s)\n", status, path, resolved)
-	if *dryRun {
-		fmt.Fprintln(out, string(data))
+		value := map[string]any{"status": status, "path": path, "plan": plan}
+		if saved != nil {
+			value["saved_config"] = saved
+		}
+		if code := encode(out, stderr, value); code != 0 {
+			return code
+		}
 	} else {
-		fmt.Fprintln(out, "Use --dry-run --json to inspect settings and available names.")
+		fmt.Fprintf(out, "%s: %s (repo: %s)\n", status, path, resolved)
+		if *dryRun {
+			fmt.Fprintln(out, string(data))
+		} else {
+			fmt.Fprintf(out, "saved=true changed=%t verified=%t sha256=%s mode=%s\n", saved.Changed, saved.Verified, saved.SHA256, saved.Mode)
+		}
+		for _, note := range plan.Notes {
+			fmt.Fprintln(out, "note:", note)
+		}
 	}
-	for _, note := range plan.Notes {
-		fmt.Fprintln(out, "note:", note)
+	if verifyErr != nil {
+		fmt.Fprintln(stderr, "saved config verification:", verifyErr)
+		return 1
 	}
 	return 0
+}
+
+type setupEvidence struct {
+	Saved         bool   `json:"saved"`
+	Changed       bool   `json:"changed"`
+	Verified      bool   `json:"verified"`
+	SHA256        string `json:"sha256,omitempty"`
+	Mode          string `json:"mode,omitempty"`
+	ModePreserved bool   `json:"mode_preserved"`
+	Error         string `json:"error,omitempty"`
+}
+
+func verifySetupConfig(path string, expected, original []byte, existed bool, mode os.FileMode) (*setupEvidence, error) {
+	proof := &setupEvidence{Saved: true, Changed: !existed || !bytes.Equal(original, expected)}
+	_, actual, exists, actualMode, err := readSetupConfig(path)
+	if err == nil && !exists {
+		err = errors.New("saved config disappeared")
+	}
+	if err == nil {
+		proof.SHA256 = fmt.Sprintf("%x", sha256.Sum256(actual))
+		proof.Mode = fmt.Sprintf("%04o", actualMode.Perm())
+		proof.ModePreserved = !existed || actualMode.Perm() == mode.Perm()
+		if !bytes.Equal(actual, expected) || !proof.ModePreserved {
+			err = errors.New("saved config bytes or original permissions differ after read-back")
+		}
+	}
+	proof.Verified = err == nil
+	if err != nil {
+		proof.Error = err.Error()
+	}
+	return proof, err
 }
 
 func readSetupConfig(path string) (github.Config, []byte, bool, os.FileMode, error) {
@@ -148,11 +197,11 @@ func readSetupConfig(path string) (github.Config, []byte, bool, os.FileMode, err
 func writeSetupConfig(path string, data, original []byte, existed bool, mode os.FileMode) error {
 	// Existing user edits are checked before replacing the complete file.
 	check := func() error {
-		_, current, exists, _, err := readSetupConfig(path)
+		_, current, exists, currentMode, err := readSetupConfig(path)
 		if err != nil {
 			return err
 		}
-		if exists != existed || !bytes.Equal(current, original) {
+		if exists != existed || !bytes.Equal(current, original) || existed && currentMode.Perm() != mode.Perm() {
 			return errors.New("config changed during setup; rerun to preserve the new settings")
 		}
 		return nil

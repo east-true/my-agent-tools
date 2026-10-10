@@ -1,0 +1,21 @@
+{
+  "cohorts": {
+    "recovery-v1": {
+      "trials": 42,
+      "correct": 36
+    },
+    "selected-v2": {
+      "trials": 18,
+      "correct": 18
+    }
+  },
+  "latest": {
+    "review-source": "recovery-v1",
+    "review-return": "recovery-v1",
+    "junit-recovery": "selected-v2",
+    "delta-recovery": "selected-v2",
+    "apply-report": "selected-v2",
+    "setup-proof": "recovery-v1",
+    "ci-evidence": "recovery-v1"
+  }
+}
